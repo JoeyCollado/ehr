@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Electronic Health Records",
+  title: "Tamaraw Services",
   description: "LearnTo",
 };
 

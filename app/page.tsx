@@ -18,7 +18,7 @@ export default function HomePage() {
   return (
     <>
       <div className="mt-20 h-screen bg-white text-gray-500">
-        <h1 className="text-7xl text-center font-bold">Electronic Health Records</h1>
+        <h1 className="text-7xl text-center font-bold">Tamaraw Services</h1>
         <p className="text-center">Sign in to get started</p>
       </div>
  
