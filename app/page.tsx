@@ -11,13 +11,13 @@ export default function HomePage() {
 
   useEffect(() => {
     if (isSignedIn) {
-      router.push("/pages/dashboard"); // Redirect to your custom folder
+      router.push("/pages/home"); // Redirect to your custom folder
     }
   }, [isSignedIn, router]);
 
   return (
     <>
-      <div className="mt-20 h-screen">
+      <div className="mt-20 h-screen bg-white text-gray-500">
         <h1 className="text-7xl text-center font-bold">Electronic Health Records</h1>
         <p className="text-center">Sign in to get started</p>
       </div>
