@@ -15,7 +15,6 @@ const defaultData = [
 ];
 
 type DataType = typeof defaultData;
-//type RowType = DataType[number];
 
 const VitalSheetTable = () => {
   const [data, setData] = useState<DataType | null>(null);
@@ -54,56 +53,69 @@ const VitalSheetTable = () => {
   if (!data) return <p className="text-center p-4">Loading...</p>;
 
   return (
-    <div className="overflow-x-auto p-4 w-full max-w-6xl">
+    <div className="w-full overflow-x-auto p-4">
       <div className="flex justify-end items-center mb-2">
-        <button onClick={toggleEdit} className="cursor-pointer flex items-center bg-blue-500 text-white px-3 py-1 rounded-md">
+        <button
+          onClick={toggleEdit}
+          className="cursor-pointer flex items-center bg-blue-500 text-white px-3 py-1 rounded-md"
+        >
           <PencilSquareIcon className="h-5 w-5 mr-1" /> {isEditing ? "Cancel" : "Edit"}
         </button>
       </div>
-      <table className="w-full border-collapse border border-gray-300">
-        <thead>
-          <tr className="bg-green-700 text-white text-lg">
-            <th colSpan={14} className="p-3 text-center text-5xl">VITAL SIGNS SHEET</th>
-          </tr>
-          <tr className="bg-yellow-200 text-gray-900">
-            <th className="border border-gray-300 p-2">Date:</th>
-            {["2/14/2024", "2/15/2024", "2/16/2024"].map((date, index) => (
-              <th key={index} colSpan={4} className="border border-gray-300 p-2">{date}</th>
-            ))}
-          </tr>
-          <tr className="bg-gray-100 text-gray-900">
-            <th className="border border-gray-300 p-2">Shift</th>
-            {[...Array(3)].map((_, i) => (
-              ["AM", "PM", "NIGHT", "PRN"].map((shift, j) => (
-                <th key={`${i}-${j}`} className="border border-gray-300 p-2">{shift}</th>
-              ))
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, rowIndex) => (
-            <tr key={rowIndex} className="odd:bg-white even:bg-gray-50">
-              <td className="border border-gray-300 p-2 font-medium">{row.label}</td>
-              {row.values.map((value, colIndex) => (
-                <td key={colIndex} className="border border-gray-300 p-2 text-center">
-                  {isEditing ? (
-                    <input
-                      alt="input"
-                      placeholder="null"
-                      type="text"
-                      value={value}
-                      onChange={(e) => handleChange(rowIndex, colIndex, e.target.value)}
-                      className="w-full text-center bg-transparent border border-gray-300 focus:ring-0 outline-none"
-                    />
-                  ) : (
-                    <span>{value}</span>
-                  )}
-                </td>
+
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-max border-collapse border border-gray-300">
+          <thead>
+            <tr className="bg-green-700 text-white text-lg">
+              <th colSpan={14} className="p-3 text-center text-5xl">
+                VITAL SIGNS SHEET
+              </th>
+            </tr>
+            <tr className="bg-yellow-200 text-gray-900">
+              <th className="border border-gray-300 p-2">Date:</th>
+              {["2/14/2024", "2/15/2024", "2/16/2024"].map((date, index) => (
+                <th key={index} colSpan={4} className="border border-gray-300 p-2">
+                  {date}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+            <tr className="bg-gray-100 text-gray-900">
+              <th className="border border-gray-300 p-2">Shift</th>
+              {[...Array(3)].map((_, i) =>
+                ["AM", "PM", "NIGHT", "PRN"].map((shift, j) => (
+                  <th key={`${i}-${j}`} className="border border-gray-300 p-2">
+                    {shift}
+                  </th>
+                ))
+              )}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, rowIndex) => (
+              <tr key={rowIndex} className="odd:bg-white even:bg-gray-50">
+                <td className="border border-gray-300 p-2 font-medium">{row.label}</td>
+                {row.values.map((value, colIndex) => (
+                  <td key={colIndex} className="border border-gray-300 p-2 text-center">
+                    {isEditing ? (
+                      <input
+                        alt="input"
+                        placeholder="null"
+                        type="text"
+                        value={value}
+                        onChange={(e) => handleChange(rowIndex, colIndex, e.target.value)}
+                        className="w-full text-center bg-transparent border border-gray-300 focus:ring-0 outline-none"
+                      />
+                    ) : (
+                      <span>{value}</span>
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       {isEditing && (
         <div className="mt-4 flex justify-end">
           <button
