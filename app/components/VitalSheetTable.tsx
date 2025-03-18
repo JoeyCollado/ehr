@@ -14,28 +14,34 @@ const defaultData = [
   { label: "Pain Scale", values: ["", "", "", "", "", "", "", "", "", "", "", ""] },
 ];
 
+type DataType = typeof defaultData;
+//type RowType = DataType[number];
+
 const VitalSheetTable = () => {
-  const [data, setData] = useState(null); // Initially null to avoid SSR mismatch
+  const [data, setData] = useState<DataType | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Load from localStorage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedData = localStorage.getItem(STORAGE_KEY);
-      setData(savedData ? JSON.parse(savedData) : defaultData);
+      setData(savedData ? (JSON.parse(savedData) as DataType) : defaultData);
     }
   }, []);
 
-  // Save data when it changes
   useEffect(() => {
     if (data) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     }
   }, [data]);
 
-  const handleChange = (rowIndex, colIndex, value) => {
+  const handleChange = (rowIndex: number, colIndex: number, value: string | number) => {
     setData((prevData) => {
+      if (!prevData) return prevData;
       const newData = [...prevData];
+      newData[rowIndex] = {
+        ...newData[rowIndex],
+        values: [...newData[rowIndex].values],
+      };
       newData[rowIndex].values[colIndex] = value;
       return newData;
     });
@@ -50,7 +56,7 @@ const VitalSheetTable = () => {
   return (
     <div className="overflow-x-auto p-4 w-full max-w-6xl">
       <div className="flex justify-end items-center mb-2">
-        <button onClick={toggleEdit} className="flex items-center bg-blue-500 text-white px-3 py-1 rounded-md">
+        <button onClick={toggleEdit} className="cursor-pointer flex items-center bg-blue-500 text-white px-3 py-1 rounded-md">
           <PencilSquareIcon className="h-5 w-5 mr-1" /> {isEditing ? "Cancel" : "Edit"}
         </button>
       </div>
@@ -82,6 +88,8 @@ const VitalSheetTable = () => {
                 <td key={colIndex} className="border border-gray-300 p-2 text-center">
                   {isEditing ? (
                     <input
+                      alt="input"
+                      placeholder="null"
                       type="text"
                       value={value}
                       onChange={(e) => handleChange(rowIndex, colIndex, e.target.value)}
