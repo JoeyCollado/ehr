@@ -17,7 +17,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`bg-gray-800 text-white h-screen fixed p-4 flex flex-col justify-between transition-all duration-300 ${
+      className={`bg-[#685442] text-[#EAE0D5] h-screen fixed p-4 flex flex-col justify-between transition-all duration-300 ${
         isOpen ? "w-60" : "w-20"
       }`}
     >
@@ -39,8 +39,8 @@ const Navbar = () => {
         <ul className={`${!isOpen ? "space-y-8" : "space-y-6"} w-full flex flex-col text-center`}>
           <li>
             <Link
-              href="/"
-              className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md"
+              href="#"
+              className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
             >
               {!isOpen && <FaHome />}
               {isOpen && "Home"}
@@ -49,7 +49,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/"
-              className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md"
+              className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
             >
               {!isOpen && <FaFileMedical />}
               {isOpen && "Medical History"}
@@ -58,7 +58,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/"
-              className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md"
+              className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
             >
               {!isOpen && <FaHeartbeat />}
               {isOpen && "Health Assessment"}
@@ -67,7 +67,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/"
-              className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md"
+              className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
             >
               {!isOpen && <FaVials />}
               {isOpen && "Vital Sheet"}
@@ -76,7 +76,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/"
-              className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md"
+              className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
             >
               {!isOpen && <FaCapsules />}
               {isOpen && "Laboratory Results"}
@@ -85,7 +85,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/"
-              className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md"
+              className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
             >
               {!isOpen && <FaNotesMedical />}
               {isOpen && "Medical Administration Record"}
@@ -93,9 +93,8 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      {/* Collapse Button with Full-Width Hover Effect */}
       <button
-        className="text-xl p-2 hover:bg-gray-700 w-full rounded-md flex justify-center"
+        className="text-xl p-2 hover:bg-[#ab886a] w-full rounded-md flex justify-center"
         onClick={() => setIsOpen(!isOpen)}
       >
         <FaBars />
