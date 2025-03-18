@@ -36,35 +36,66 @@ const Navbar = () => {
         >
           L
         </span>
-        <ul className={` ${!isOpen ? "space-y-8" : "space-y-6"} w-full flex flex-col items-center text-center`}>
-          <li className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md">
-            {!isOpen && <FaHome />}
-            {isOpen && <Link href="/">Home</Link>}
+        <ul className={`${!isOpen ? "space-y-8" : "space-y-6"} w-full flex flex-col text-center`}>
+          <li>
+            <Link
+              href="/"
+              className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md"
+            >
+              {!isOpen && <FaHome />}
+              {isOpen && "Home"}
+            </Link>
           </li>
-          <li className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md">
-            {!isOpen && <FaFileMedical />}
-            {isOpen && <Link href="/">Medical History</Link>}
+          <li>
+            <Link
+              href="/"
+              className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md"
+            >
+              {!isOpen && <FaFileMedical />}
+              {isOpen && "Medical History"}
+            </Link>
           </li>
-          <li className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md">
-            {!isOpen && <FaHeartbeat />}
-            {isOpen && <Link href="/">Health Assessment</Link>}
+          <li>
+            <Link
+              href="/"
+              className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md"
+            >
+              {!isOpen && <FaHeartbeat />}
+              {isOpen && "Health Assessment"}
+            </Link>
           </li>
-          <li className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md">
-            {!isOpen && <FaVials />}
-            {isOpen && <Link href="/">Vital Sheet</Link>}
+          <li>
+            <Link
+              href="/"
+              className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md"
+            >
+              {!isOpen && <FaVials />}
+              {isOpen && "Vital Sheet"}
+            </Link>
           </li>
-          <li className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md">
-            {!isOpen && <FaCapsules />}
-            {isOpen && <Link href="/">Laboratory Results</Link>}
+          <li>
+            <Link
+              href="/"
+              className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md"
+            >
+              {!isOpen && <FaCapsules />}
+              {isOpen && "Laboratory Results"}
+            </Link>
           </li>
-          <li className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md">
-            {!isOpen && <FaNotesMedical />}
-            {isOpen && <Link href="/">Medical Administration Record</Link>}
+          <li>
+            <Link
+              href="/"
+              className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md"
+            >
+              {!isOpen && <FaNotesMedical />}
+              {isOpen && "Medical Administration Record"}
+            </Link>
           </li>
         </ul>
       </div>
+      {/* Collapse Button with Full-Width Hover Effect */}
       <button
-        className="text-xl p-2 hover:bg-gray-700 rounded-md flex mx-auto"
+        className="text-xl p-2 hover:bg-gray-700 w-full rounded-md flex justify-center"
         onClick={() => setIsOpen(!isOpen)}
       >
         <FaBars />
