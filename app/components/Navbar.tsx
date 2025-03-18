@@ -36,7 +36,7 @@ const Navbar = () => {
         >
           L
         </span>
-        <ul className="space-y-6 w-full flex flex-col items-center text-center">
+        <ul className={` ${!isOpen ? "space-y-8" : "space-y-6"} w-full flex flex-col items-center text-center`}>
           <li className="flex items-center justify-center w-full hover:bg-gray-700 p-3 rounded-md">
             {!isOpen && <FaHome />}
             {isOpen && <Link href="/">Home</Link>}
