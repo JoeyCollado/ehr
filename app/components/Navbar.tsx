@@ -10,9 +10,9 @@ const Navbar = () => {
   return (
     <div className={`bg-gray-800 text-white h-screen fixed p-4 flex flex-col justify-between transition-all duration-300 ${isOpen ? 'w-60' : 'w-20'}`}>
       <div>
-        <span className={`font-bold text-5xl ml-2 transition-all duration-300 ${isOpen ? 'block' : 'hidden'}`}>Logo</span>
-        <span className={`font-bold text-5xl ml-2 transition-all duration-300 ${isOpen ? 'hidden' : 'block'}`}>L</span>
-        <ul className="space-y-10 mt-[30%]">
+        <span className={`font-bold text-5xl ml-2 transition-all duration-300 mb-16 ${isOpen ? 'block' : 'hidden'}`}>Logo</span>
+        <span className={`font-bold text-5xl ml-2 transition-all duration-300 mb-16  ${isOpen ? 'hidden' : 'block'}`}>L</span>
+        <ul className="space-y-10">
           <li className="flex items-center gap-2 hover:bg-gray-700 p-2 rounded-md">
             <FaHome />
             {isOpen && <Link href="/">Home</Link>}
