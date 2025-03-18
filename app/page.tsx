@@ -17,7 +17,7 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="h-screen  text-gray-500">
+      <div className="h-screen text-[#685442] ">
         <h1 className="text-[4rem] text-center font-bold mt-[10%]">Tamaraw Services</h1>
         <p className="text-center">Sign in to get started</p>
       </div>
