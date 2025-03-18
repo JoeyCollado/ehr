@@ -1,19 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
-const VitalSheetTable = () => {
-  const [data, setData] = useState([
-    { label: "Time Taken", values: [10, "", 2, 6, 10, "", 2, 6, 10, "", 2, 6] },
-    { label: "BP", values: ["95/56", "90/60", "90/50", "", "", "", "", "", "", "", "", ""] },
-    { label: "Temp", values: [40.7, 38, 37.5, "", "", "", "", "", "", "", "", ""] },
-    { label: "Temp route", values: ["Axillary", "Axillary", "Axillary", "", "", "", "", "", "", "", "", ""] },
-    { label: "PR", values: [185, 180, 175, "", "", "", "", "", "", "", "", ""] },
-    { label: "RR", values: [24, 25, 24, "", "", "", "", "", "", "", "", ""] },
-    { label: "SPO2", values: ["99%", "99%", "99%", "", "", "", "", "", "", "", "", ""] },
-    { label: "Pain Scale", values: ["", "", "", "", "", "", "", "", "", "", "", ""] },
-  ]);
+const STORAGE_KEY = "vitalSignsData";
 
+const defaultData = [
+  { label: "Time Taken", values: [10, "", 2, 6, 10, "", 2, 6, 10, "", 2, 6] },
+  { label: "BP", values: ["95/56", "90/60", "90/50", "", "", "", "", "", "", "", "", ""] },
+  { label: "Temp", values: [40.7, 38, 37.5, "", "", "", "", "", "", "", "", ""] },
+  { label: "Temp route", values: ["Axillary", "Axillary", "Axillary", "", "", "", "", "", "", "", "", ""] },
+  { label: "PR", values: [185, 180, 175, "", "", "", "", "", "", "", "", ""] },
+  { label: "RR", values: [24, 25, 24, "", "", "", "", "", "", "", "", ""] },
+  { label: "SPO2", values: ["99%", "99%", "99%", "", "", "", "", "", "", "", "", ""] },
+  { label: "Pain Scale", values: ["", "", "", "", "", "", "", "", "", "", "", ""] },
+];
+
+const VitalSheetTable = () => {
+  const [data, setData] = useState(null); // Initially null to avoid SSR mismatch
   const [isEditing, setIsEditing] = useState(false);
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedData = localStorage.getItem(STORAGE_KEY);
+      setData(savedData ? JSON.parse(savedData) : defaultData);
+    }
+  }, []);
+
+  // Save data when it changes
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+  }, [data]);
 
   const handleChange = (rowIndex, colIndex, value) => {
     setData((prevData) => {
@@ -27,17 +45,19 @@ const VitalSheetTable = () => {
     setIsEditing(!isEditing);
   };
 
+  if (!data) return <p className="text-center p-4">Loading...</p>;
+
   return (
     <div className="overflow-x-auto p-4 w-full max-w-6xl">
-      <div className="flex justify-end items-center mb-2 ">
-        <button onClick={toggleEdit} className="cursor-pointer flex items-center bg-blue-500 text-white px-3 py-1 rounded-md">
+      <div className="flex justify-end items-center mb-2">
+        <button onClick={toggleEdit} className="flex items-center bg-blue-500 text-white px-3 py-1 rounded-md">
           <PencilSquareIcon className="h-5 w-5 mr-1" /> {isEditing ? "Cancel" : "Edit"}
         </button>
       </div>
       <table className="w-full border-collapse border border-gray-300">
         <thead>
           <tr className="bg-green-700 text-white text-lg">
-            <th colSpan={14} className="p-3 text-center">VITAL SIGNS SHEET</th>
+            <th colSpan={14} className="p-3 text-center text-5xl">VITAL SIGNS SHEET</th>
           </tr>
           <tr className="bg-yellow-200 text-gray-900">
             <th className="border border-gray-300 p-2">Date:</th>
