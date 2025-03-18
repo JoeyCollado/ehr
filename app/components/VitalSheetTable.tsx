@@ -17,25 +17,22 @@ const defaultData = [
 type DataType = typeof defaultData;
 
 const VitalSheetTable = () => {
-  const [data, setData] = useState<DataType | null>(null);
+  const [data, setData] = useState<DataType>(defaultData);
+  const [editedData, setEditedData] = useState<DataType>(defaultData);
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedData = localStorage.getItem(STORAGE_KEY);
-      setData(savedData ? (JSON.parse(savedData) as DataType) : defaultData);
+      if (savedData) {
+        setData(JSON.parse(savedData) as DataType);
+        setEditedData(JSON.parse(savedData) as DataType);
+      }
     }
   }, []);
 
-  useEffect(() => {
-    if (data) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    }
-  }, [data]);
-
   const handleChange = (rowIndex: number, colIndex: number, value: string | number) => {
-    setData((prevData) => {
-      if (!prevData) return prevData;
+    setEditedData((prevData) => {
       const newData = [...prevData];
       newData[rowIndex] = {
         ...newData[rowIndex],
@@ -47,6 +44,12 @@ const VitalSheetTable = () => {
   };
 
   const toggleEdit = () => {
+    if (isEditing) {
+      setData(editedData);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(editedData));
+    } else {
+      setEditedData(data);
+    }
     setIsEditing(!isEditing);
   };
 
@@ -72,7 +75,7 @@ const VitalSheetTable = () => {
               </th>
             </tr>
             <tr className="bg-yellow-200 text-gray-900">
-              <th className="border border-gray-300 p-2">Date:</th>
+              <th className="border border-gray-300 p-2 text-start">Date:</th>
               {["2/14/2024", "2/15/2024", "2/16/2024"].map((date, index) => (
                 <th key={index} colSpan={4} className="border border-gray-300 p-2">
                   {date}
@@ -80,7 +83,7 @@ const VitalSheetTable = () => {
               ))}
             </tr>
             <tr className="bg-gray-100 text-gray-900">
-              <th className="border border-gray-300 p-2">Shift</th>
+              <th className="border border-gray-300 p-2 text-start">Shift</th>
               {[...Array(3)].map((_, i) =>
                 ["AM", "PM", "NIGHT", "PRN"].map((shift, j) => (
                   <th key={`${i}-${j}`} className="border border-gray-300 p-2">
@@ -91,9 +94,9 @@ const VitalSheetTable = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((row, rowIndex) => (
+            {editedData.map((row, rowIndex) => (
               <tr key={rowIndex} className="odd:bg-white even:bg-gray-50">
-                <td className="border border-gray-300 p-2 font-medium">{row.label}</td>
+                <td className="border border-gray-300 p-2 font-bold">{row.label}</td>
                 {row.values.map((value, colIndex) => (
                   <td key={colIndex} className="border border-gray-300 p-2 text-center">
                     {isEditing ? (
