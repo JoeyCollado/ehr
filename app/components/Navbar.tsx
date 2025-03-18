@@ -97,7 +97,7 @@
           className="text-xl p-2 hover:bg-[#ab886a] w-full rounded-md flex justify-center cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <FaBars />
+          <FaBars /> 
         </button>
       </div>
     );

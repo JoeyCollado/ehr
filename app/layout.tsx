@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import './globals.css';
+import "./globals.css";
 import {
   ClerkProvider,
-  SignInButton,
   SignedIn,
-  SignedOut,
   UserButton,
   SignOutButton,
 } from "@clerk/nextjs";
@@ -36,23 +34,21 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-        <header className="fixed top-0 left-0 w-full h-12 flex justify-end items-center px-4 z-50">
-  <SignedOut>
-    <SignInButton>
-      <div className="cursor-pointer bg-[#685442] px-2 py-1 rounded-md hover:bg-[#ab886a] text-[#EAE0D5]">Sign In</div>
-    </SignInButton>
-  </SignedOut>
-  <SignedIn>
-    <div className="flex items-center gap-4">
-      <UserButton />
-      <SignOutButton>
-        <div className="cursor-pointer bg-[#685442] px-2 py-1 rounded-md hover:bg-[#ab886a] text-[#EAE0D5]">Sign Out</div>
-      </SignOutButton>
-    </div>
-  </SignedIn>
-</header>
+          {/* ✅ Moved authentication UI to header only */}
+          <header className="fixed top-0 left-0 w-full h-12 flex justify-end items-center px-4 z-50">
+            <SignedIn>
+              <div className="flex items-center gap-4">
+                <UserButton />
+                <SignOutButton>
+                  <div className="cursor-pointer bg-[#685442] px-2 py-1 rounded-md hover:bg-[#ab886a] text-[#EAE0D5]">
+                    Sign Out
+                  </div>
+                </SignOutButton>
+              </div>
+            </SignedIn>
+          </header>
 
-          
+          {/* ✅ Only renders children, so page.tsx decides what to show */}
           {children}
         </body>
       </html>
