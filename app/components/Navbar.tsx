@@ -48,7 +48,7 @@ const Navbar = () => {
           </li>
           <li>
             <Link
-              href="/"
+              href="/pages/medicalHistory"
               className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
             >
               {!isOpen && <FaFileMedical />}
@@ -57,7 +57,7 @@ const Navbar = () => {
           </li>
           <li>
             <Link
-              href="/"
+              href="/pages/healthAssessment"
               className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
             >
               {!isOpen && <FaHeartbeat />}
@@ -66,7 +66,7 @@ const Navbar = () => {
           </li>
           <li>
             <Link
-              href="/"
+              href="/pages/vitalSheet"
               className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
             >
               {!isOpen && <FaVials />}
@@ -75,7 +75,7 @@ const Navbar = () => {
           </li>
           <li>
             <Link
-              href="/"
+              href="/pages/laboratoryResults"
               className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
             >
               {!isOpen && <FaCapsules />}
@@ -84,7 +84,7 @@ const Navbar = () => {
           </li>
           <li>
             <Link
-              href="/"
+              href="/pages/medicalAdministrationRecord"
               className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
             >
               {!isOpen && <FaNotesMedical />}
