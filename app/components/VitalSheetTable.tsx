@@ -25,13 +25,20 @@ const VitalSheetTable = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedData = localStorage.getItem(STORAGE_KEY);
+      const savedDates = localStorage.getItem("vitalSignsDates");
+  
       if (savedData) {
-        const parsedData = JSON.parse(savedData);
-        setData(parsedData);
-        setEditedData(parsedData);
+        setData(JSON.parse(savedData));
+        setEditedData(JSON.parse(savedData));
+      }
+  
+      if (savedDates) {
+        setDates(JSON.parse(savedDates)); // ✅ Load saved dates
       }
     }
   }, []);
+  
+  
 
   const handleChange = (rowIndex: number, colIndex: number, value: string | number) => {
     setEditedData((prevData) => {
@@ -47,28 +54,33 @@ const VitalSheetTable = () => {
 
   const toggleEdit = () => {
     if (isEditing) {
-      setData([...editedData]); // Save changes
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(editedData));
+      setData([...editedData]);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(editedData)); // ✅ Save data
+      localStorage.setItem("vitalSignsDates", JSON.stringify(dates)); // ✅ Save dates
     } else {
-      setEditedData([...data]); // Ensure data is copied properly
+      setEditedData([...data]); 
     }
     setIsEditing(!isEditing);
   };
   
-
+  
+  
   const addDate = () => {
     const newDate = prompt("Enter new date (MM/DD/YYYY):");
     if (newDate) {
-      setDates([...dates, newDate]);
+      const updatedDates = [...dates, newDate];
+      setDates(updatedDates);
+      localStorage.setItem("vitalSignsDates", JSON.stringify(updatedDates)); // ✅ Save dates
   
       setEditedData((prevData) =>
         prevData.map((row) => ({
           ...row,
-          values: [...row.values, "", "", "", ""], // Ensure 4 new empty shifts
+          values: [...row.values, "", "", "", ""], // Ensure new empty shift values
         }))
       );
     }
   };
+  
   
 
   if (!data) return <p className="text-center p-4">Loading...</p>;
