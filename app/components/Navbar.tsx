@@ -4,11 +4,11 @@ import Link from "next/link";
 import { useState } from "react";
 import {
   FaHome,
-  FaHeartbeat,
-  FaFileMedical,
-  FaVials,
-  FaCapsules,
-  FaNotesMedical,
+  FaUserPlus,
+  FaChartBar,
+  FaClipboardList,
+  FaFileInvoiceDollar,
+  FaFolderOpen,
   FaBars,
 } from "react-icons/fa";
 
@@ -19,7 +19,7 @@ const Navbar = () => {
   const menuItems = [
     {
       name: "Registration",
-      icon: <FaFileMedical />,
+      icon: <FaUserPlus />,
       link: "/pages/registration",
       subItems: [
         { name: "Personal Information", link: "/pages/registration/personal-info" },
@@ -28,7 +28,7 @@ const Navbar = () => {
     },
     {
       name: "Results",
-      icon: <FaHeartbeat />,
+      icon: <FaChartBar />,
       link: "/pages/results",
       subItems: [
         { name: "Lab Values", link: "/pages/results/lab-values" },
@@ -37,7 +37,7 @@ const Navbar = () => {
     },
     {
       name: "Clinical Notes",
-      icon: <FaVials />,
+      icon: <FaClipboardList />,
       link: "/pages/clinicalNotes",
       subItems: [
         { name: "MAR", link: "/pages/clinicalNotes/mar" },
@@ -46,8 +46,8 @@ const Navbar = () => {
         { name: "Order Management", link: "/pages/clinicalNotes/order-management" },
       ],
     },
-    { name: "Billing Information", icon: <FaCapsules />, link: "/pages/billingInformation" },
-    { name: "Document Management", icon: <FaNotesMedical />, link: "/pages/documentManagement" },
+    { name: "Billing Information", icon: <FaFileInvoiceDollar />, link: "/pages/billingInformation" },
+    { name: "Document Management", icon: <FaFolderOpen />, link: "/pages/documentManagement" },
   ];
 
   return (
@@ -79,36 +79,48 @@ const Navbar = () => {
           </li>
 
           {menuItems.map((item) => (
-            <li
-              key={item.name}
-              className="relative group"
-              onMouseEnter={() => setHoveredItem(item.name)}
-              onMouseLeave={() => setHoveredItem(null)}
+          <li
+          key={item.name}
+          className="relative group hover:bg-[#8E6C50] rounded-lg"
+          onMouseEnter={() => setHoveredItem(item.name)}
+          onMouseLeave={() => setHoveredItem(null)}
+        >
+          <div className="relative flex items-center px-4 py-3">
+            <Link
+              href={item.link}
+              className="flex items-center gap-3 w-full"
             >
-              <Link
-                href={item.link}
-                className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#8E6C50] transition-all"
-              >
-                {item.icon}
-                {isOpen && <span>{item.name}</span>}
-              </Link>
-
-              {/* Dropdown */}
-              {item.subItems && hoveredItem === item.name && (
-                <ul className="absolute left-full top-0 mt-1 bg-[#3A2B1F] text-white shadow-lg rounded-lg w-52 z-50">
+              {item.icon}
+              {isOpen && <span>{item.name}</span>}
+            </Link>
+        
+            {/* Invisible hover area to prevent accidental exit */}
+            {item.subItems && hoveredItem === item.name && (
+              <div className="absolute left-full top-0 flex items-center">
+                {/* Extended hover zone */}
+                <div className="absolute left-[-250px] w-[300px] h-full bg-transparent"></div>
+        
+                {/* Dropdown */}
+                <div
+                  className="ml-5 flex flex-col bg-[#3A2B1F] text-white shadow-lg rounded-lg w-52 px-2 py-2"
+                  onMouseEnter={() => setHoveredItem(item.name)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
                   {item.subItems.map((subItem) => (
-                    <li key={subItem.name}>
-                      <Link
-                        href={subItem.link}
-                        className="block px-5 py-3 text-sm font-medium hover:bg-[#8E6C50] transition-all rounded-lg"
-                      >
-                        {subItem.name}
-                      </Link>
-                    </li>
+                    <Link
+                      key={subItem.name}
+                      href={subItem.link}
+                      className="block px-5 py-3 text-sm font-medium hover:bg-[#8E6C50] transition-all rounded-lg"
+                    >
+                      {subItem.name}
+                    </Link>
                   ))}
-                </ul>
-              )}
-            </li>
+                </div>
+              </div>
+            )}
+          </div>
+        </li>
+        
           ))}
         </ul>
       </div>
