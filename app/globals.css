@@ -25,3 +25,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* For WebKit-based browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #d65a4a;
+  border-radius: 10px;
+}

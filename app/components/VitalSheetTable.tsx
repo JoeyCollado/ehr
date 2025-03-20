@@ -139,7 +139,7 @@ const VitalSheetTable = () => {
       <div className="flex justify-between items-center mb-2">
         <button
           onClick={toggleEdit}
-          className="cursor-pointer flex items-center duration-300 ease-in-out bg-[#3388ff] hover:bg-blue-600 hover:scale-105 hover:shadow-lg transition-transform text-white px-3 py-1 rounded-md"
+          className="cursor-pointer flex items-center duration-300 ease-in-out bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform text-white px-3 py-1 rounded-md"
         >
           <PencilSquareIcon className="h-5 w-5 mr-1" />{" "}
           {isEditing ? "Cancel" : "Edit"}
@@ -147,14 +147,14 @@ const VitalSheetTable = () => {
 
         <button
           onClick={addDate}
-          className="cursor-pointer flex items-center duration-300 ease-in-out bg-[#28a745] hover:bg-green-700 hover:scale-105 hover:Shadow-lg text-white px-3 py-1 rounded-md"
+          className="cursor-pointer flex items-center duration-300 ease-in-out bg-[#ff8c42] hover:bg-orange-700 hover:scale-105 hover:Shadow-lg text-white px-3 py-1 rounded-md"
         >
           <PlusCircleIcon className="h-5 w-5 mr-1" /> Add Date
         </button>
       </div>
 
       {/* Title - Fixed Above Table */}
-      <div className="w-full bg-[#E38C7D] text-white text-4xl font-bold text-center p-4">
+      <div className="w-full bg-gradient-to-b from-[#E67E6B] via-[#D65A4A] to-[#A8443B] text-white text-4xl font-bold text-center p-4">
         VITAL SIGNS SHEET
       </div>
 
@@ -163,7 +163,7 @@ const VitalSheetTable = () => {
         <table className="w-full min-w-max border-collapse border border-gray-300">
           <thead className="sticky top-0 bg-white shadow-md z-10">
             {/* Date Row */}
-            <tr className="bg-[#D8E2DC] text-gray-900 z-0">
+            <tr className="bg-[#D8E2DC] text-[#333333] z-0">
               <th className="border border-gray-300 p-2 text-start">Date:</th>
               {dates.map((date, index) => (
                 <th
@@ -222,7 +222,7 @@ const VitalSheetTable = () => {
         <div className="mt-4 flex justify-end">
           <button
             onClick={toggleEdit}
-            className="bg-green-500 text-white px-4 py-2 rounded-md cursor-pointer"
+            className="bg-green-500 hover:bg-green-700 hover:scale-105 duration-300 ease-in-out text-white px-4 py-2 rounded-md cursor-pointer"
           >
             Save Changes
           </button>
