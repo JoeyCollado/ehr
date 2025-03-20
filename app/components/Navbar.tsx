@@ -52,7 +52,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`bg-[#4B382A] text-[#F5E8DD] h-screen fixed p-4 flex flex-col justify-between transition-all duration-300 ${
+      className={`bg-[#4B382A] text-[#F5E8DD] z-50 h-screen fixed p-4 flex flex-col justify-between transition-all duration-300 ${
         isOpen ? "w-64" : "w-20"
       }`}
     >
