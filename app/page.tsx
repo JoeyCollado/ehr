@@ -1,11 +1,13 @@
 "use client";
 import { useUser, SignInButton, SignedOut } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export default function HomePage() {
   const { isSignedIn } = useUser();
   const router = useRouter();
+  const [backgroundImage, setBackgroundImage] = useState("/photo1.png");
 
   useEffect(() => {
     if (isSignedIn) {
@@ -13,21 +15,73 @@ export default function HomePage() {
     }
   }, [isSignedIn, router]);
 
-  return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#ffe4c4] to-[#ffd8b1] text-gray-800">
-      <h1 className="text-5xl md:text-6xl font-bold">Tamaraw Services</h1>
-      <h2 className="text-2xl md:text-3xl font-semibold mt-2">
-        Electronic Health Records
-      </h2>
-      <p className="text-lg mt-4">Sign in to get started</p>
+  // Image slideshow effect
+  useEffect(() => {
+    const images = ["/photo1.png", "/photo2.png", "/photo3.png"];
+    let index = 0;
 
-      <SignedOut>
-        <SignInButton>
-          <div className="cursor-pointer bg-[#685442] px-4 py-2 rounded-md hover:bg-[#ab886a] text-[#EAE0D5] mt-4">
-            Sign In
-          </div>
-        </SignInButton>
-      </SignedOut>
+    const interval = setInterval(() => {
+      index = (index + 1) % images.length;
+      setBackgroundImage(images[index]);
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100">
+      {/* Left Side - Image Section */}
+      <div className="hidden md:flex md:w-1/2 h-full relative">
+        <motion.div
+          key={backgroundImage}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2 }}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${backgroundImage})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/10"></div>
+      </div>
+
+      {/* Right Side - Content Section */}
+      <div className="w-full md:w-1/2 flex flex-col items-center text-center p-8">
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-4xl md:text-5xl font-extrabold text-gray-800"
+        >
+          Tamaraw Services
+        </motion.h1>
+        <motion.h2
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-xl md:text-2xl font-semibold text-gray-600 mt-2"
+        >
+          Electronic Health Records
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-md mt-4 text-gray-500"
+        >
+          Sign in to get started
+        </motion.p>
+
+        <SignedOut>
+          <SignInButton>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="cursor-pointer bg-gradient-to-r from-[#E67E6B] via-[#D65A4A] to-[#A8443B] px-6 py-3 rounded-lg mt-6 text-lg font-semibold text-white shadow-md hover:shadow-lg transition-all"
+            >
+              Sign In
+            </motion.div>
+          </SignInButton>
+        </SignedOut>
+      </div>
     </div>
   );
 }

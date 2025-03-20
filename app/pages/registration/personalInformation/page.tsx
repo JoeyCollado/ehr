@@ -3,7 +3,7 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div className="md:text-7xl h-screen  h-scren text-5xl text-center flex-grow bg-gradient-to-b from-[#ffe4c4] to-[#ffd8b1] text-gray-800 flex items-center justify-center">
+    <div className="md:text-7xl h-screen  h-scren text-5xl text-center flex-grow bg-gradient-to-b from-[#FEC5BB] via-[#FAE1DD] text-[#3A2B22] flex items-center justify-center">
       Personal Information
     </div>
   );
