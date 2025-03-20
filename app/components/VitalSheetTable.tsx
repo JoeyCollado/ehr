@@ -37,8 +37,27 @@ const VitalSheetTable = () => {
       }
     }
   }, []);
+
+
+  const deleteDate = (index: number) => {
+    if (!window.confirm(`Are you sure you want to delete ${dates[index]}?`)) return;
   
+    const updatedDates = [...dates];
+    updatedDates.splice(index, 1);
   
+    const updatedData = editedData.map((row) => {
+      const newValues = [...row.values];
+      newValues.splice(index * 4, 4); // Remove 4 shift values (AM, PM, NIGHT, PRN)
+      return { ...row, values: newValues };
+    });
+  
+    setDates(updatedDates);
+    setEditedData(updatedData);
+  
+    localStorage.setItem("vitalSignsDates", JSON.stringify(updatedDates));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedData));
+  };
+    
 
   const handleChange = (rowIndex: number, colIndex: number, value: string | number) => {
     setEditedData((prevData) => {
@@ -62,9 +81,6 @@ const VitalSheetTable = () => {
     }
     setIsEditing(!isEditing);
   };
-  
-  
-  
   const addDate = () => {
     const newDate = prompt("Enter new date (MM/DD/YYYY):");
     if (newDate) {
@@ -72,17 +88,20 @@ const VitalSheetTable = () => {
       setDates(updatedDates);
       localStorage.setItem("vitalSignsDates", JSON.stringify(updatedDates)); // ✅ Save dates
   
-      setEditedData((prevData) =>
-        prevData.map((row) => ({
-          ...row,
-          values: [...row.values, "", "", "", ""], // Ensure new empty shift values
-        }))
-      );
+      // Update both data and editedData
+      const updatedData = editedData.map((row) => ({
+        ...row,
+        values: [...row.values, "", "", "", ""] // 4 new empty values per shift (AM, PM, NIGHT, PRN)
+      }));
+  
+      setData(updatedData); // ✅ Ensure `data` state is updated
+      setEditedData(updatedData); // ✅ Ensure `editedData` reflects new columns
+  
+      // Save updated data in local storage
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedData));
     }
   };
   
-  
-
   if (!data) return <p className="text-center p-4">Loading...</p>;
 
   return (
@@ -99,31 +118,24 @@ const VitalSheetTable = () => {
 
       <div className="overflow-x-auto">
         <table className="w-full min-w-max border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-green-700 text-white text-lg">
-              <th colSpan={dates.length * 4 + 1} className="p-3 text-center text-5xl">
-                VITAL SIGNS SHEET
-              </th>
-            </tr>
-            <tr className="bg-yellow-200 text-gray-900">
-              <th className="border border-gray-300 p-2 text-start">Date:</th>
-              {dates.map((date, index) => (
-                <th key={index} colSpan={4} className="border border-gray-300 p-2">
-                  {date}
-                </th>
-              ))}
-            </tr>
-            <tr className="bg-gray-100 text-gray-900">
-              <th className="border border-gray-300 p-2 text-start">Shift</th>
-              {dates.map((_, i) =>
-                ["AM", "PM", "NIGHT", "PRN"].map((shift, j) => (
-                  <th key={`${i}-${j}`} className="border border-gray-300 p-2">
-                    {shift}
-                  </th>
-                ))
-              )}
-            </tr>
-          </thead>
+        <thead>
+  <tr className="bg-yellow-200 text-gray-900">
+    <th className="border border-gray-300 p-2 text-start">Date:</th>
+    {dates.map((date, index) => (
+      <th key={index} colSpan={4} className="border border-gray-300 p-2 relative">
+        {date}
+        {isEditing && (
+          <button
+            onClick={() => deleteDate(index)}
+            className="text-red-600 text-xs ml-2"
+          >
+            ❌
+          </button>
+        )}
+      </th>
+    ))}
+  </tr>
+</thead>
           <tbody>
             {editedData.map((row, rowIndex) => (
               <tr key={rowIndex} className="odd:bg-white even:bg-gray-50">
