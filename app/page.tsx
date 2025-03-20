@@ -15,7 +15,7 @@ export default function HomePage() {
     }
   }, [isSignedIn, router]);
 
-  // Image slideshow effect
+  // Image slideshow effect with smooth transitions
   useEffect(() => {
     const images = ["/photo1.png", "/photo2.png", "/photo3.png"];
     let index = 0;
@@ -29,18 +29,18 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100">
+    <div className="h-screen flex flex-col md:flex-row items-center justify-center bg-gray-50">
       {/* Left Side - Image Section */}
-      <div className="hidden md:flex md:w-1/2 h-full relative">
+      <div className="hidden md:flex md:w-1/2 h-full relative overflow-hidden">
         <motion.div
           key={backgroundImage}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.2 }}
-          className="absolute inset-0 bg-cover bg-center"
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          className="absolute inset-0 bg-cover bg-center transition-all"
           style={{ backgroundImage: `url(${backgroundImage})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/20"></div>
       </div>
 
       {/* Right Side - Content Section */}
@@ -49,7 +49,7 @@ export default function HomePage() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-4xl md:text-5xl font-extrabold text-gray-800"
+          className="text-4xl md:text-5xl font-extrabold text-gray-900"
         >
           Tamaraw Services
         </motion.h1>
@@ -57,7 +57,7 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xl md:text-2xl font-semibold text-gray-600 mt-2"
+          className="text-xl md:text-2xl font-semibold text-gray-700 mt-2"
         >
           Electronic Health Records
         </motion.h2>
@@ -65,9 +65,9 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-md mt-4 text-gray-500"
+          className="text-md mt-4 text-gray-600 max-w-md"
         >
-          Sign in to get started
+          Securely manage and access health records with ease. <br></br>Sign in to get started.
         </motion.p>
 
         <SignedOut>
@@ -75,7 +75,7 @@ export default function HomePage() {
             <motion.div
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="cursor-pointer bg-gradient-to-r from-[#E67E6B] via-[#D65A4A] to-[#A8443B] px-6 py-3 rounded-lg mt-6 text-lg font-semibold text-white shadow-md hover:shadow-lg transition-all"
+              className="cursor-pointer bg-gradient-to-r from-[#E67E6B] via-[#D65A4A] to-[#A8443B] px-6 py-3 rounded-lg mt-6 text-lg font-semibold text-white shadow-lg hover:shadow-xl transition-all"
             >
               Sign In
             </motion.div>
