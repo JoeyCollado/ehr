@@ -46,49 +46,49 @@
                 {isOpen && "Home"}
               </Link>
             </li>
-            <li>
+            <li>  
               <Link
-                href="/pages/medicalHistory"
+                href="/pages/registration"
                 className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
               >
                 {!isOpen && <FaFileMedical />}
-                {isOpen && "Medical History"}
+                {isOpen && "Registration"}
               </Link>
             </li>
             <li>
               <Link
-                href="/pages/healthAssessment"
+                href="/pages/results"
                 className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
               >
                 {!isOpen && <FaHeartbeat />}
-                {isOpen && "Health Assessment"}
+                {isOpen && "Results"}
               </Link>
             </li>
             <li>
               <Link
-                href="/pages/vitalSheet"
+                href="/pages/clinicalNotes"
                 className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
               >
                 {!isOpen && <FaVials />}
-                {isOpen && "Vital Sheet"}
+                {isOpen && "Clinical Notes"}
               </Link>
             </li>
             <li>
               <Link
-                href="/pages/laboratoryResults"
+                href="/pages/billingInformation"
                 className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
               >
                 {!isOpen && <FaCapsules />}
-                {isOpen && "Laboratory Results"}
+                {isOpen && "Billing Information"}
               </Link>
             </li>
             <li>
               <Link
-                href="/pages/medicalAdministrationRecord"
+                href="/pages/documentManagement"
                 className="flex items-center justify-center w-full hover:bg-[#ab886a] p-3 rounded-md"
               >
                 {!isOpen && <FaNotesMedical />}
-                {isOpen && "Medical Administration Record"}
+                {isOpen && "Document Management"}
               </Link>
             </li>
           </ul>
