@@ -8,6 +8,7 @@ import {
   SignOutButton,
 } from "@clerk/nextjs";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

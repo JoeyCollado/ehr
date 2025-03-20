@@ -29,6 +29,7 @@ export default function HomePage() {
   }, []);
 
   return (
+    <>
     <div className="h-screen flex flex-col md:flex-row items-center justify-center bg-gray-50">
       {/* Left Side - Image Section */}
       <div className="hidden md:flex md:w-1/2 h-full relative overflow-hidden">
@@ -75,7 +76,7 @@ export default function HomePage() {
             <motion.div
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="cursor-pointer bg-gradient-to-r from-[#E67E6B] via-[#D65A4A] to-[#A8443B] px-6 py-3 rounded-lg mt-6 text-lg font-semibold text-white shadow-lg hover:shadow-xl transition-all"
+              className=" cursor-pointer bg-gradient-to-r from-[#E67E6B] via-[#D65A4A] to-[#A8443B] px-6 py-3 rounded-lg mt-6 text-lg font-semibold text-white shadow-lg hover:shadow-xl transition-all"
             >
               Sign In
             </motion.div>
@@ -83,5 +84,7 @@ export default function HomePage() {
         </SignedOut>
       </div>
     </div>
+   
+     </>
   );
 }

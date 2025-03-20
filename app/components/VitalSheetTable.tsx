@@ -136,10 +136,10 @@ const VitalSheetTable = () => {
   return (
     <div className="w-full overflow-x-auto p-4">
       {/* Edit/Add Buttons */}
-      <div className="flex justify-between items-center mb-2">
+      <div className="flex justify-between items-center mb-2 ">
         <button
           onClick={toggleEdit}
-          className="cursor-pointer flex items-center duration-300 ease-in-out bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform text-white px-3 py-1 rounded-md"
+          className="cursor-pointer flex items-center duration-300 ease-in-out bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform text-white px-3 py-1 rounded-md "
         >
           <PencilSquareIcon className="h-5 w-5 mr-1" />{" "}
           {isEditing ? "Cancel" : "Edit"}
@@ -154,12 +154,12 @@ const VitalSheetTable = () => {
       </div>
 
       {/* Title - Fixed Above Table */}
-      <div className="w-full bg-gradient-to-b from-[#E67E6B] via-[#D65A4A] to-[#A8443B] text-white text-4xl font-bold text-center p-4">
+      <div className="w-full border-1 border-black bg-gradient-to-b from-[#E67E6B] via-[#D65A4A] to-[#A8443B] text-white text-4xl font-bold text-center p-4 ">
         VITAL SIGNS SHEET
       </div>
 
       {/* Scrollable Table */}
-      <div className="overflow-x-auto border border-gray-300">
+      <div className="overflow-x-auto border-1 border-black">
         <table className="w-full min-w-max border-collapse border border-gray-300">
           <thead className="sticky top-0 bg-white shadow-md z-10">
             {/* Date Row */}

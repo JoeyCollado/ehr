@@ -1,11 +1,20 @@
 "use client";
 import React from "react";
 
+
 const Page = () => {
+
+
   return (
-    <div className="md:text-7xl h-screen font-sans bg-gradient-to-b from-[#FEC5BB] via-[#FAE1DD] text-[#3A2B22] h-scren text-5xl text-center flex-grow  flex items-center justify-center">
-      Home
+    <>
+    <div className="h-screen font-sans bg-white text-[#3A2B22] flex flex-col items-center text-center p-6">
+      {/* Welcome Message */}
+      <h1 className="text-6xl md:text-7xl font-bold mt-[15%]">Welcome Back!</h1>
+      <p className="text-xl mt-4">Manage your health records with ease</p>
+
+  
     </div>
+       </>
   );
 };
 
