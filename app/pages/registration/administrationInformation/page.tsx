@@ -5,7 +5,7 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div className="h-screen w-screen bg-gradient-to-b from-[#ffe4c4] to-[#ffd8b1] text-gray-800 flex items-center justify-center p-4 overflow-auto">
+    <div className="h-screen w-screen bg-[#FCD5CE] text-[#3A2B22] flex items-center justify-center p-4 overflow-auto">
       <div className="w-full max-w-6xl flex items-center justify-center">
         <VitalSheetTable />
       </div>

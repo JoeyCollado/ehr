@@ -8,8 +8,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "var(--background)", 
+        foreground: "var(--foreground)", 
+        primary: "#FEC5BB", 
+        secondary: "#FCD5CE", 
+        accent: "#FAE1DD", 
+        muted: "#F8EDEB", 
+        soft: "#E8E8E4", 
+        contrast: "#D8E2DC", 
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"], // Default UI font
+        heading: ["Poppins", "sans-serif"], // Custom font for headings
       },
     },
   },

@@ -40,7 +40,7 @@ export default function RootLayout({
               <div className="flex items-center gap-4">
                 <UserButton />
                 <SignOutButton>
-                  <div className="cursor-pointer bg-[#685442] px-2 py-1 rounded-md hover:bg-[#ab886a] text-[#EAE0D5]">
+                  <div className="cursor-pointer bg-[#B85C50] px-6 mx-2 py-1 rounded-md hover:bg-[#C76A5A] hover:scale-105 duration-300 ease-in-out text-white">
                     Sign Out
                   </div>
                 </SignOutButton>

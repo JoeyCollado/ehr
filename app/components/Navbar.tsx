@@ -52,7 +52,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`bg-[#4B382A] text-[#F5E8DD] z-50 h-screen fixed p-4 flex flex-col justify-between transition-all duration-300 ${
+      className={`bg-[#B85C50] font-sans	text-white z-50 h-screen fixed p-4 flex flex-col justify-between transition-all duration-300 ${
         isOpen ? "w-64" : "w-20"
       }`}
     >
@@ -71,7 +71,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/pages/home"
-              className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#8E6C50] transition-all"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#C76A5A] transition-all"
             >
               <FaHome className="text-lg" />
               {isOpen && <span>Home</span>}
@@ -81,7 +81,7 @@ const Navbar = () => {
           {menuItems.map((item) => (
   <li
     key={item.name}
-    className="relative group hover:bg-[#8E6C50] rounded-lg cursor-pointer "
+    className="relative group hover:bg-[#C76A5A] rounded-lg cursor-pointer "
     onMouseEnter={() => setHoveredItem(item.name)}
     onMouseLeave={() => setHoveredItem(null)}
   >
@@ -102,7 +102,7 @@ const Navbar = () => {
 
         {/* Dropdown Menu */}
         <div
-          className="ml-5 flex flex-col bg-[#3A2B1F] text-white shadow-lg rounded-lg w-52 px-2 py-2"
+          className="ml-5 flex flex-col bg-[#B85C50] #3A2B22 shadow-lg rounded-lg w-52 px-2 py-2"
           onMouseEnter={() => setHoveredItem(item.name)}
           onMouseLeave={() => setHoveredItem(null)}
         >
@@ -110,7 +110,7 @@ const Navbar = () => {
             <Link
               key={subItem.name}
               href={subItem.link}
-              className="block px-5 py-3 text-sm font-medium hover:bg-[#8E6C50] transition-all rounded-lg"
+              className="block px-5 py-3 text-sm font-medium hover:bg-[#C76A5A] transition-all rounded-lg"
             >
               {subItem.name}
             </Link>
@@ -127,7 +127,7 @@ const Navbar = () => {
 
       {/* Sidebar Toggle Button */}
       <button
-        className="text-xl p-2 hover:bg-[#8E6C50] w-full rounded-lg flex justify-center cursor-pointer transition-all"
+        className="text-xl p-2 hover:bg-[#C76A5A] w-full rounded-lg flex justify-center cursor-pointer transition-all"
         onClick={() => setIsOpen(!isOpen)}
       >
         <FaBars />
