@@ -23,7 +23,7 @@ const Navbar = () => {
       link: "/pages/registration",
       subItems: [
         { name: "Personal Information", link: "/pages/registration/personal-info" },
-        { name: "Administration Information", link: "/pages/registration/admin-info" },
+        { name: "Administration Information", link: "/pages/registration/administrationInformation" },
       ],
     },
     {
@@ -79,49 +79,47 @@ const Navbar = () => {
           </li>
 
           {menuItems.map((item) => (
-          <li
-          key={item.name}
-          className="relative group hover:bg-[#8E6C50] rounded-lg"
+  <li
+    key={item.name}
+    className="relative group hover:bg-[#8E6C50] rounded-lg cursor-pointer "
+    onMouseEnter={() => setHoveredItem(item.name)}
+    onMouseLeave={() => setHoveredItem(null)}
+  >
+    {/* Main Link (Separated from Dropdown) */}
+    <Link
+      href={item.link}
+      className="flex items-center gap-3 px-4 py-3 w-full"
+    >
+      {item.icon}
+      {isOpen && <span>{item.name}</span>}
+    </Link>
+
+    {/* Dropdown (Separate Clickable Area) */}
+    {item.subItems && hoveredItem === item.name && (
+      <div className="absolute left-full top-0 flex items-center ml-2">
+        {/* Invisible hover area to prevent accidental exit */}
+        <div className="absolute left-[-250px] w-[300px] h-full bg-transparent"></div>
+
+        {/* Dropdown Menu */}
+        <div
+          className="ml-5 flex flex-col bg-[#3A2B1F] text-white shadow-lg rounded-lg w-52 px-2 py-2"
           onMouseEnter={() => setHoveredItem(item.name)}
           onMouseLeave={() => setHoveredItem(null)}
         >
-          <div className="relative flex items-center px-4 py-3">
+          {item.subItems.map((subItem) => (
             <Link
-              href={item.link}
-              className="flex items-center gap-3 w-full"
+              key={subItem.name}
+              href={subItem.link}
+              className="block px-5 py-3 text-sm font-medium hover:bg-[#8E6C50] transition-all rounded-lg"
             >
-              {item.icon}
-              {isOpen && <span>{item.name}</span>}
+              {subItem.name}
             </Link>
-        
-            {/* Invisible hover area to prevent accidental exit */}
-            {item.subItems && hoveredItem === item.name && (
-              <div className="absolute left-full top-0 flex items-center">
-                {/* Extended hover zone */}
-                <div className="absolute left-[-250px] w-[300px] h-full bg-transparent"></div>
-        
-                {/* Dropdown */}
-                <div
-                  className="ml-5 flex flex-col bg-[#3A2B1F] text-white shadow-lg rounded-lg w-52 px-2 py-2"
-                  onMouseEnter={() => setHoveredItem(item.name)}
-                  onMouseLeave={() => setHoveredItem(null)}
-                >
-                  {item.subItems.map((subItem) => (
-                    <Link
-                      key={subItem.name}
-                      href={subItem.link}
-                      className="block px-5 py-3 text-sm font-medium hover:bg-[#8E6C50] transition-all rounded-lg"
-                    >
-                      {subItem.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </li>
-        
           ))}
+        </div>
+      </div>
+    )}
+  </li>
+))}
         </ul>
       </div>
 
