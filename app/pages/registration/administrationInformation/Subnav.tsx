@@ -3,10 +3,10 @@ import Link from 'next/link';
 
 const Subnav = () => {
   return (
-    <div className="absolute top-7 w-full h-[5vh]  text-white flex justify-center items-center">
-      <ul className="flex gap-6 ">
+    <div className="absolute top-5 w-full h-[10vh]  text-white flex justify-center items-center">
+      <ul className="flex gap-6">
         {[
-          { href: "/pages/registration/administrationInformation/vitalSigns", label: "Vital Signs Sheet" },
+          { href: "/pages/registration/administrationInformation/vitalSigns", label: "Vital Signs Sheet"},
           { href: "/pages/registration/administrationInformation/chiefComplaint", label: "Chief Complaint" },
           { href: "/pages/registration/administrationInformation/healthAssessment", label: "Health Assessment" },
           { href: "/pages/registration/administrationInformation/immunization", label: "Immunization" },
