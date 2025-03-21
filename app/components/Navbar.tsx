@@ -52,7 +52,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`bg-gradient-to-b from-[#E67E6B] via-[#D65A4A] to-[#A8443B]
+      className={`bg-[#2C3E50]
  font-sans	text-white z-50 h-screen fixed p-4 flex flex-col justify-between transition-all duration-300 ${
         isOpen ? "w-64" : "w-20"
       }`}

@@ -154,7 +154,7 @@ const VitalSheetTable = () => {
       </div>
 
       {/* Title - Fixed Above Table */}
-      <div className="w-full border-1 border-black bg-gradient-to-b from-[#E67E6B] via-[#D65A4A] to-[#A8443B] text-white text-4xl font-bold text-center p-4 ">
+      <div className="w-full border-1 border-black bg-[#2C3E50] text-white text-4xl font-bold text-center p-4 ">
         VITAL SIGNS SHEET
       </div>
 
