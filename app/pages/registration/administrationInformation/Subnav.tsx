@@ -14,7 +14,7 @@ const Subnav = () => {
         ].map((item, index) => (
           <li key={index}>
             <Link href={item.href}>
-              <button className="px-4 py-2 cursor-pointer bg-white text-[#A8443B] font-semibold rounded-lg shadow-md hover:bg-[#FEECE2] transition">
+              <button className="px-4 py-2 cursor-pointer bg-white text-[#3A2B22] font-semibold rounded-lg shadow-md hover:bg-[#FEECE2] transition">
                 {item.label}
               </button>
             </Link>
