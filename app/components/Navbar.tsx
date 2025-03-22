@@ -22,7 +22,7 @@ const Navbar = () => {
       icon: <FaUserPlus />,
       link: "/pages/registration",
       subItems: [
-        { name: "Personal Information", link: "/pages/registration/personal-info" },
+        { name: "Personal Information", link: "/pages/registration/personalInformation" },
         { name: "Administration Information", link: "/pages/registration/administrationInformation" },
       ],
     },
