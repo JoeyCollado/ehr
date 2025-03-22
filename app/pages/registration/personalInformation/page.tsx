@@ -70,7 +70,7 @@ const Page = () => {
         </div>
         
         {/* Second part */}
-        <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4">PHYSICIAN REFERRAL INFORMATION</h2>
+        <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4 text-center ">PHYSICIAN REFERRAL INFORMATION</h2>
         <div className="grid grid-cols-2 gap-4 border-b p-2">
           <input className="border p-1" placeholder="Primary Care Physician" />
           <input className="border p-1" placeholder="Referring Physician" />
@@ -84,7 +84,7 @@ const Page = () => {
         </div>
 
        {/* Third part */}       
-       <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4">RESPONSIBLE PARTY (GUARANTOR) INFORMATION</h2>
+       <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4 text-center">RESPONSIBLE PARTY (GUARANTOR) INFORMATION</h2>
         <div className="grid grid-cols-3 gap-4 border-b p-2">
           <input className="border p-1" placeholder="Last Name" />
           <input className="border p-1" placeholder="First Name" />
@@ -110,7 +110,7 @@ const Page = () => {
         </div>
         
         {/* Fourth part */}
-        <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4">EMERGENCY / NEXT OF KIN CONTACT INFORMATION</h2>
+        <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4 text-center">EMERGENCY / NEXT OF KIN CONTACT INFORMATION</h2>
         <div className="grid grid-cols-3 gap-4 border-b p-2">
           <input className="border p-1" placeholder="Last Name" />
           <input className="border p-1" placeholder="First Name" />
@@ -130,7 +130,7 @@ const Page = () => {
         </div>
         
         {/* Fifth part */}
-        <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4">OTHER CONTACT INFORMATION - NOT LIVING WITH PATIENT</h2>
+        <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4 text-center">OTHER CONTACT INFORMATION - NOT LIVING WITH PATIENT</h2>
         <div className="grid grid-cols-3 gap-4 border-b p-2">
           <input className="border p-1" placeholder="Last Name" />
           <input className="border p-1" placeholder="First Name" />
