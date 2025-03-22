@@ -4,7 +4,7 @@ import React from "react";
 const Page = () => {
   return  (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-4xl bg-slate-500 text-black shadow-lg rounded-lg p-6">
+      <div className="w-full max-w-4xl bg-white text-black shadow-lg rounded-lg p-6">
         <h2 className="text-lg font-bold bg-blue-900 text-white p-2 text-center">PATIENT INFORMATION</h2>
 
         {/* First part */}
@@ -14,7 +14,7 @@ const Page = () => {
           <input className="border p-1" placeholder="Middle Initial" />
         </div>
         <div className="grid grid-cols-2 gap-4 border-b p-2">
-          <input className="border p-1" placeholder="Date of Birth" />
+          <input className="border p-1" placeholder="Date of Birth (mm/dd/yr)" />
           <input className="border p-1" placeholder="Social Security #" />
         </div>
         <div className="grid grid-cols-3 gap-4 border-b p-1">
@@ -38,7 +38,7 @@ const Page = () => {
         </div>
 
         <div className="grid grid-cols-5 gap-4 border-b p-2">
-          <input className="border p-1" placeholder="Home Address" />
+          <h2 className=" p-1">Home Address</h2>
           <input className="border p-1" placeholder="Apt. #" />
           <input className="border p-1" placeholder="City" />
           <input className="border p-1" placeholder="State" />
@@ -95,7 +95,7 @@ const Page = () => {
           <input className="border p-1" placeholder="Social Security #" />
         </div>
         <div className="grid grid-cols-5 gap-4 border-b p-2">
-        <input className="border p-1" placeholder="Home Address" />
+        <h2 className=" p-1">Home Address</h2>
         <input className="border p-1" placeholder="Apt. #" />
           <input className="border p-1" placeholder="City" />
           <input className="border p-1" placeholder="State" />
@@ -117,7 +117,7 @@ const Page = () => {
           <input className="border p-1" placeholder="Relationship to Patient" />
         </div>
         <div className="grid grid-cols-5 gap-4 border-b p-2">
-        <input className="border p-1" placeholder="Home Address" />
+        <h2 className=" p-1">Home Address</h2>
         <input className="border p-1" placeholder="Apt. #" />
           <input className="border p-1" placeholder="City" />
           <input className="border p-1" placeholder="State" />
@@ -137,7 +137,7 @@ const Page = () => {
           <input className="border p-1" placeholder="Relationship to Patient" />
         </div>
         <div className="grid grid-cols-5 gap-4 border-b p-2">
-        <input className="border p-1" placeholder="Home Address" />
+        <h2 className=" p-1">Home Address</h2>
           <input className="border p-1" placeholder="Apt. #" />
           <input className="border p-1" placeholder="City" />
           <input className="border p-1" placeholder="State" />
