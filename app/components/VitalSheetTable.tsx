@@ -185,35 +185,34 @@ const VitalSheetTable = () => {
             </tr>
           </thead>
           <tbody>
-            {editedData.map((row, rowIndex) => (
-              <tr key={rowIndex} className="odd:bg-white even:bg-gray-50">
-                <td className="border border-gray-300 p-2 font-bold">
-                  {row.label}
-                </td>
-                {row.values.map((value, colIndex) => (
-                  <td
-                    key={colIndex}
-                    className="border border-gray-300 p-2 text-center"
-                  >
-                    {isEditing ? (
-                      <input
-                        alt="input"
-                        placeholder="null"
-                        type="text"
-                        value={value}
-                        onChange={(e) =>
-                          handleChange(rowIndex, colIndex, e.target.value)
-                        }
-                        className="w-full text-center bg-transparent border border-gray-300 focus:ring-0 outline-none"
-                      />
-                    ) : (
-                      <span>{value}</span>
-                    )}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
+  {editedData.map((row, rowIndex) => (
+    <tr
+      key={rowIndex}
+      className={rowIndex % 2 === 0 ? "bg-gray-100" : "bg-gray-200"}
+    >
+      <td className="border border-gray-300 p-2 font-bold">{row.label}</td>
+      {row.values.map((value, colIndex) => (
+        <td key={colIndex} className="border border-gray-300 p-2 text-center">
+          {isEditing ? (
+            <input
+              alt="input"
+              placeholder="null"
+              type="text"
+              value={value}
+              onChange={(e) =>
+                handleChange(rowIndex, colIndex, e.target.value)
+              }
+              className="w-full text-center bg-transparent border border-gray-300 focus:ring-0 outline-none"
+            />
+          ) : (
+            <span>{value}</span>
+          )}
+        </td>
+      ))}
+    </tr>
+  ))}
+</tbody>
+
         </table>
       </div>
 
