@@ -14,7 +14,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffd8b1;
+    --background: #ffffff;
     --foreground: #ededed;
   }
 }
@@ -27,7 +27,8 @@ body {
 
 /* For WebKit-based browsers (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
-  height: 6px;
+  height: 3px;
+  width: 10px;
 }
 ::-webkit-scrollbar-thumb {
   background-color: #00695C;

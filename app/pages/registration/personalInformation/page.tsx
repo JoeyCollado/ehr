@@ -5,7 +5,7 @@ const Page = () => {
   return  (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="w-full max-w-4xl bg-white text-black shadow-lg rounded-lg p-6">
-        <h2 className="text-lg font-bold bg-blue-900 text-white p-2 text-center">PATIENT INFORMATION</h2>
+        <h2 className="text-lg font-bold bg-[#00695C] text-white p-2 text-center">PATIENT INFORMATION</h2>
 
         {/* First part */}
         <div className="grid grid-cols-3 gap-4 border-b p-2">
@@ -70,7 +70,7 @@ const Page = () => {
         </div>
         
         {/* Second part */}
-        <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4 text-center ">PHYSICIAN REFERRAL INFORMATION</h2>
+        <h2 className="text-lg font-bold bg-[#00695C] text-white p-2 mt-4 text-center ">PHYSICIAN REFERRAL INFORMATION</h2>
         <div className="grid grid-cols-2 gap-4 border-b p-2">
           <input className="border p-1" placeholder="Primary Care Physician" />
           <input className="border p-1" placeholder="Referring Physician" />
@@ -84,7 +84,7 @@ const Page = () => {
         </div>
 
        {/* Third part */}       
-       <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4 text-center">RESPONSIBLE PARTY (GUARANTOR) INFORMATION</h2>
+       <h2 className="text-lg font-bold bg-[#00695C] text-white p-2 mt-4 text-center">RESPONSIBLE PARTY (GUARANTOR) INFORMATION</h2>
         <div className="grid grid-cols-3 gap-4 border-b p-2">
           <input className="border p-1" placeholder="Last Name" />
           <input className="border p-1" placeholder="First Name" />
@@ -110,7 +110,7 @@ const Page = () => {
         </div>
         
         {/* Fourth part */}
-        <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4 text-center">EMERGENCY / NEXT OF KIN CONTACT INFORMATION</h2>
+        <h2 className="text-lg font-bold bg-[#00695C] text-white p-2 mt-4 text-center">EMERGENCY / NEXT OF KIN CONTACT INFORMATION</h2>
         <div className="grid grid-cols-3 gap-4 border-b p-2">
           <input className="border p-1" placeholder="Last Name" />
           <input className="border p-1" placeholder="First Name" />
@@ -130,7 +130,7 @@ const Page = () => {
         </div>
         
         {/* Fifth part */}
-        <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4 text-center">OTHER CONTACT INFORMATION - NOT LIVING WITH PATIENT</h2>
+        <h2 className="text-lg font-bold bg-[#00695C] text-white p-2 mt-4 text-center">OTHER CONTACT INFORMATION - NOT LIVING WITH PATIENT</h2>
         <div className="grid grid-cols-3 gap-4 border-b p-2">
           <input className="border p-1" placeholder="Last Name" />
           <input className="border p-1" placeholder="First Name" />
