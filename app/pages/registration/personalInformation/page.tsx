@@ -6,6 +6,7 @@ const Page = () => {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="w-full max-w-4xl bg-slate-500 text-black shadow-lg rounded-lg p-6">
         <h2 className="text-lg font-bold bg-blue-900 text-white p-2 text-center">PATIENT INFORMATION</h2>
+      {/* First part */}
         <div className="grid grid-cols-3 gap-4 border-b p-2">
           <input className="border p-1" placeholder="Last Name" />
           <input className="border p-1" placeholder="First Name" />
@@ -32,7 +33,20 @@ const Page = () => {
           <input className="border p-1" placeholder="Work Phone" />
           <input className="border p-1" placeholder="other Phone" />
         </div>
-
+        <div className="grid grid-cols-1 gap-4 border-b p-2 ">
+          <h2>Email Address :</h2>
+          <input className="border p-1" placeholder="Email Address" />
+          <h2>Employment Status</h2>
+          <label><input type="radio" name="status" /> Married</label>
+          <label><input type="radio" name="status" /> Single</label>
+          <label><input type="radio" name="status" /> Widowed</label>
+          <label><input type="radio" name="status" /> Other</label>
+        </div>
+        <div className="grid grid-cols-3 gap-4 border-b p-2 ">
+          <h2>Employer :</h2>
+          <input className="border p-1" placeholder="Employer Phone" />
+        </div>
+{/* second part */}
         <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4">PHYSICIAN REFERRAL INFORMATION</h2>
         <div className="grid grid-cols-2 gap-4 border-b p-2">
           <input className="border p-1" placeholder="Primary Care Physician" />
