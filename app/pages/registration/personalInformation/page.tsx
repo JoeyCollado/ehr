@@ -52,6 +52,14 @@ const Page = () => {
           <input className="border p-1" placeholder="Primary Care Physician" />
           <input className="border p-1" placeholder="Referring Physician" />
         </div>
+        <div className="grid grid-cols-5 gap-4 border-b border p-1">
+          <h2>How did you hear about us? :</h2>
+          <label><input type="radio" name="status" /> Family Member</label>
+          <label><input type="radio" name="status" /> Friend</label>
+          <label><input type="radio" name="status" /> News</label>
+          <label><input type="radio" name="status" /> Other</label>
+        </div>
+ {/* Third part */}       
         <h2 className="text-lg font-bold bg-blue-900 text-white p-2 mt-4">RESPONSIBLE PARTY (GUARANTOR) INFORMATION</h2>
         <div className="grid grid-cols-3 gap-4 border-b p-2">
           <input className="border p-1" placeholder="Last Name" />
