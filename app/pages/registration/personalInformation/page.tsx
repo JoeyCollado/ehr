@@ -1,8 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
+//form control = readOnly = text inputs
+//             = disable  = radio buttons
+
 const Page = () => {
+
+  //Initialization:
+
+  //Single boolean state controls edit mode
   const [isEditing, setIsEditing] = useState(false);
+
+  //Checks for existing data in localStorage on initial load
+  //Returns parsed data or empty object if none exists
   const [formData, setFormData] = useState(() => {
     if (typeof window !== 'undefined') {
       const savedData = localStorage.getItem("patientFormData");
@@ -11,10 +21,15 @@ const Page = () => {
     return {};
   });
 
+  //Automatically saves to localStorage whenever formData changes
+  //Uses useEffect with formData as dependency
   useEffect(() => {
     localStorage.setItem("patientFormData", JSON.stringify(formData));
   }, [formData]);
 
+  {/* Handles all input types (text, radio)
+      Uses name attributes to target form fields
+      Special handling for radio buttons */}
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -23,13 +38,14 @@ const Page = () => {
     }));
   };
 
+  //disable the editing mode
   const handleSave = () => {
     setIsEditing(false);
   };
 
   return (
     <>
-     <div className="flex justify-center  mt-[5%] ">
+     <div className="flex justify-center mt-[5%] ">
           {isEditing ? (
             <button 
               onClick={handleSave}
@@ -47,23 +63,25 @@ const Page = () => {
           )}
         </div>
     <div className="min-h-screen bg-white flex items-center justify-center pb-4">
-      
       <div className="w-full max-w-4xl bg-white text-black shadow-lg rounded-lg p-6">
-     
         <h2 className="text-lg font-bold bg-[#00695C] text-white p-2 text-center">PATIENT INFORMATION</h2>
-
         {/* First part */}
-        <div className="grid grid-cols-3 gap-4 border-b p-2">
+        <div className="grid grid-cols-6 gap-4 border-b p-2">
+          <h2>Last Name:</h2>
           <input className="border p-1" placeholder="Last Name" name="lastName" 
                  value={formData.lastName || ''} onChange={handleInputChange} readOnly={!isEditing} />
+          <h2>First Name:</h2>
           <input className="border p-1" placeholder="First Name" name="firstName" 
                  value={formData.firstName || ''} onChange={handleInputChange} readOnly={!isEditing} />
+          <h2>Middle Initial:</h2>
           <input className="border p-1" placeholder="Middle Initial" name="middleInitial" 
                  value={formData.middleInitial || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
-        <div className="grid grid-cols-2 gap-4 border-b p-2">
+        <div className="grid grid-cols-4 gap-4 border-b p-2">
+        <h2>Date of Birth:</h2>
           <input className="border p-1" placeholder="Date of Birth (mm/dd/yr)" name="dob" 
                  value={formData.dob || ''} onChange={handleInputChange} readOnly={!isEditing} />
+         <h2>Social Security #:</h2>        
           <input className="border p-1" placeholder="Social Security #" name="ssn" 
                  value={formData.ssn || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
@@ -111,14 +129,18 @@ const Page = () => {
           </label>
         </div>
 
-        <div className="grid grid-cols-5 gap-4 border-b p-2">
+        <div className="grid grid-cols-9 gap-4 border-b p-2">
           <h2 className="p-1">Home Address</h2>
+          <h2>Apt #:</h2>
           <input className="border p-1" placeholder="Apt. #" name="apt" 
                  value={formData.apt || ''} onChange={handleInputChange} readOnly={!isEditing} />
+          <h2>City:</h2>
           <input className="border p-1" placeholder="City" name="city" 
                  value={formData.city || ''} onChange={handleInputChange} readOnly={!isEditing} />
+           <h2>State:</h2>
           <input className="border p-1" placeholder="State" name="state" 
                  value={formData.state || ''} onChange={handleInputChange} readOnly={!isEditing} />
+           <h2>Zip Code:</h2>
           <input className="border p-1" placeholder="Zip Code" name="zip" 
                  value={formData.zip || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
@@ -158,9 +180,12 @@ const Page = () => {
           </label>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 border-b p-2">
+        <div className="grid grid-cols-4 gap-4 border-b p-2">
+        <h2>Employer:</h2>
+
           <input className="border p-1" placeholder="Employer" name="employer" 
                  value={formData.employer || ''} onChange={handleInputChange} readOnly={!isEditing} />
+                            <h2>Employer Phone:</h2>
           <input className="border p-1" placeholder="Employer Phone" name="employerPhone" 
                  value={formData.employerPhone || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
