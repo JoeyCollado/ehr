@@ -52,7 +52,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`bg-[#2C3E50]
+      className={`bg-[#00695C]
  font-sans	text-white z-50 h-screen fixed p-4 flex flex-col justify-between transition-all duration-300 ${
         isOpen ? "w-64" : "w-20"
       }`}
@@ -103,7 +103,7 @@ const Navbar = () => {
 
         {/* Dropdown Menu */}
         <div
-          className="ml-5 flex flex-col bg-[#2C3E50] shadow-lg rounded-lg w-52 px-2 py-2"
+          className="ml-5 flex flex-col bg-[#00695C] shadow-lg rounded-lg w-52 px-2 py-2"
           onMouseEnter={() => setHoveredItem(item.name)}
           onMouseLeave={() => setHoveredItem(null)}
         >
@@ -111,7 +111,7 @@ const Navbar = () => {
             <Link
               key={subItem.name}
               href={subItem.link}
-              className="block px-5 py-3 text-sm font-medium hover:bg-[#435f7a] transition-all rounded-lg"
+              className="block px-5 py-3 text-sm font-medium hover:bg-white/20 transition-all rounded-lg"
             >
               {subItem.name}
             </Link>

@@ -76,7 +76,7 @@ export default function HomePage() {
             <motion.div
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className=" cursor-pointer bg-gradient-to-r from-[#E67E6B] via-[#D65A4A] to-[#A8443B] px-6 py-3 rounded-lg mt-6 text-lg font-semibold text-white shadow-lg hover:shadow-xl transition-all"
+              className=" cursor-pointer bg-[#00695C] hover:bg-[#43A047] duration-300 ease-in-out hover:scale-105 px-6 py-3 rounded-lg mt-6 text-lg font-semibold text-white shadow-lg hover:shadow-xl transition-all"
             >
               Sign In
             </motion.div>
