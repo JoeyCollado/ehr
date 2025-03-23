@@ -129,21 +129,26 @@ const Page = () => {
           </label>
         </div>
 
-        <div className="grid grid-cols-9 gap-4 border-b p-2">
-          <h2 className="p-1">Home Address</h2>
-          <h2>Apt #:</h2>
-          <input className="border p-1" placeholder="Apt. #" name="apt" 
-                 value={formData.apt || ''} onChange={handleInputChange} readOnly={!isEditing} />
-          <h2>City:</h2>
-          <input className="border p-1" placeholder="City" name="city" 
-                 value={formData.city || ''} onChange={handleInputChange} readOnly={!isEditing} />
-           <h2>State:</h2>
-          <input className="border p-1" placeholder="State" name="state" 
-                 value={formData.state || ''} onChange={handleInputChange} readOnly={!isEditing} />
-           <h2>Zip Code:</h2>
-          <input className="border p-1" placeholder="Zip Code" name="zip" 
-                 value={formData.zip || ''} onChange={handleInputChange} readOnly={!isEditing} />
-        </div>
+        <div className="grid grid-cols-2 gap-2 border-b p-3">
+  <h2 className="col-span-2 p-1 font-semibold">Home Address</h2>
+
+  <label className="flex items-center p-1">Apt #:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="Apt. #" name="apt"
+         value={formData.apt || ''} onChange={handleInputChange} readOnly={!isEditing} />
+
+  <label className="flex items-center p-1">City:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="City" name="city"
+         value={formData.city || ''} onChange={handleInputChange} readOnly={!isEditing} />
+
+  <label className="flex items-center p-1">State:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="State" name="state"
+         value={formData.state || ''} onChange={handleInputChange} readOnly={!isEditing} />
+
+  <label className="flex items-center p-1">Zip Code:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="Zip Code" name="zip"
+         value={formData.zip || ''} onChange={handleInputChange} readOnly={!isEditing} />
+</div>
+
 
         <div className="grid grid-cols-3 gap-4 border-b p-2">
           <input className="border p-1" placeholder="Home Phone" name="homePhone" 
@@ -255,17 +260,27 @@ const Page = () => {
           <input className="border p-1" placeholder="Social Security #" name="guarantorSsn" 
                  value={formData.guarantorSsn || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
-        <div className="grid grid-cols-5 gap-4 border-b p-2">
-          <h2 className="p-1">Home Address</h2>
-          <input className="border p-1" placeholder="Apt. #" name="guarantorApt" 
-                 value={formData.guarantorApt || ''} onChange={handleInputChange} readOnly={!isEditing} />
-          <input className="border p-1" placeholder="City" name="guarantorCity" 
-                 value={formData.guarantorCity || ''} onChange={handleInputChange} readOnly={!isEditing} />
-          <input className="border p-1" placeholder="State" name="guarantorState" 
-                 value={formData.guarantorState || ''} onChange={handleInputChange} readOnly={!isEditing} />
-          <input className="border p-1" placeholder="Zip Code" name="guarantorZip" 
-                 value={formData.guarantorZip || ''} onChange={handleInputChange} readOnly={!isEditing} />
-        </div>
+
+        <div className="grid grid-cols-2 gap-2 border-b p-3">
+  <h2 className="col-span-2 p-1 font-semibold">Home Address</h2>
+
+  <label className="flex items-center p-1">Apt #:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="Apt. #" name="guarantorApt"
+         value={formData.apt || ''} onChange={handleInputChange} readOnly={!isEditing} />
+
+  <label className="flex items-center p-1">City:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="City" name="guarantorCity"
+         value={formData.city || ''} onChange={handleInputChange} readOnly={!isEditing} />
+
+  <label className="flex items-center p-1">State:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="State" name="guarantorState"
+         value={formData.state || ''} onChange={handleInputChange} readOnly={!isEditing} />
+
+  <label className="flex items-center p-1">Zip Code:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="Zip Code" name="guarantorZip"
+         value={formData.zip || ''} onChange={handleInputChange} readOnly={!isEditing} />
+</div>
+
         <div className="grid grid-cols-2 gap-4 border-b p-2">
           <h2>Email Address :</h2>
           <input className="border p-1" placeholder="@akosijoeyaibertcollado@gmail.com" name="guarantorEmail" 
@@ -288,17 +303,25 @@ const Page = () => {
           <input className="border p-1" placeholder="Relationship to Patient" name="emergencyRelationship" 
                  value={formData.emergencyRelationship || ''} onChange={handleInputChange} disabled={!isEditing} />
         </div>
-        <div className="grid grid-cols-5 gap-4 border-b p-2">
-          <h2 className="p-1">Address</h2>
-          <input className="border p-1" placeholder="Apt. #" name="emergencyApt" 
-                 value={formData.emergencyApt || ''} onChange={handleInputChange} readOnly={!isEditing} />
-          <input className="border p-1" placeholder="City" name="emergencyCity" 
-                 value={formData.emergencyCity || ''} onChange={handleInputChange} readOnly={!isEditing} />
-          <input className="border p-1" placeholder="State" name="emergencyState" 
-                 value={formData.emergencyState || ''} onChange={handleInputChange} readOnly={!isEditing} />
-          <input className="border p-1" placeholder="Zip Code" name="emergencyZip" 
-                 value={formData.emergencyZip || ''} onChange={handleInputChange} readOnly={!isEditing} />
-        </div>
+        <div className="grid grid-cols-2 gap-2 border-b p-3">
+  <h2 className="col-span-2 p-1 font-semibold">Address</h2>
+
+  <label className="flex items-center p-1">Apt #:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="Apt. #" name="emergencyApt"
+         value={formData.emergencyApt || ''} onChange={handleInputChange} readOnly={!isEditing} />
+
+  <label className="flex items-center p-1">City:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="City" name="emergencyCity"
+         value={formData.emergencyCity || ''} onChange={handleInputChange} readOnly={!isEditing} />
+
+  <label className="flex items-center p-1">State:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="State" name="emergencyState"
+         value={formData.emergencyState || ''} onChange={handleInputChange} readOnly={!isEditing} />
+
+  <label className="flex items-center p-1">Zip Code:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="Zip Code" name="emergencyZip"
+         value={formData.emergencyZip || ''} onChange={handleInputChange} readOnly={!isEditing} />
+</div>
         <div className="grid grid-cols-3 gap-4 border-b p-2">
           <input className="border p-1" placeholder="Home Phone" name="emergencyHomePhone" 
                  value={formData.emergencyHomePhone || ''} onChange={handleInputChange} readOnly={!isEditing} />
@@ -318,17 +341,25 @@ const Page = () => {
           <input className="border p-1" placeholder="Relationship to Patient" name="otherRelationship" 
                  value={formData.otherRelationship || ''} onChange={handleInputChange} disabled={!isEditing} />
         </div>
-        <div className="grid grid-cols-5 gap-4 border-b p-2">
-          <h2 className="p-1">Address</h2>
-          <input className="border p-1" placeholder="Apt. #" name="otherApt" 
-                 value={formData.otherApt || ''} onChange={handleInputChange} readOnly={!isEditing} />
-          <input className="border p-1" placeholder="City" name="otherCity" 
-                 value={formData.otherCity || ''} onChange={handleInputChange} readOnly={!isEditing}/>
-          <input className="border p-1" placeholder="State" name="otherState" 
-                 value={formData.otherState || ''} onChange={handleInputChange} readOnly={!isEditing}/>
-          <input className="border p-1" placeholder="Zip Code" name="otherZip" 
-                 value={formData.otherZip || ''} onChange={handleInputChange} readOnly={!isEditing}/>
-        </div>
+        <div className="grid grid-cols-2 gap-2 border-b p-3">
+  <h2 className="col-span-2 p-1 font-semibold">Home Address</h2>
+
+  <label className="flex items-center p-1">Apt #:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="Apt. #" name="otherApt"
+         value={formData.otherApt || ''} onChange={handleInputChange} readOnly={!isEditing} />
+
+  <label className="flex items-center p-1">City:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="City" name="otherCity"
+         value={formData.otherCity || ''} onChange={handleInputChange} readOnly={!isEditing} />
+
+  <label className="flex items-center p-1">State:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="State" name="otherState"
+         value={formData.otherState || ''} onChange={handleInputChange} readOnly={!isEditing} />
+
+  <label className="flex items-center p-1">Zip Code:</label>
+  <input className="border p-2 w-full rounded-md" placeholder="Zip Code" name="otherZip"
+         value={formData.otherZip || ''} onChange={handleInputChange} readOnly={!isEditing} />
+</div>
         <div className="grid grid-cols-3 gap-4  p-2">
           <input className="border p-1" placeholder="Home Phone" name="otherHomePhone" 
                  value={formData.otherHomePhone || ''} onChange={handleInputChange} readOnly={!isEditing}/>
