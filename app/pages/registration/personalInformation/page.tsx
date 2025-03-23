@@ -302,11 +302,14 @@ const Page = () => {
         
         {/* Fourth part */}
         <h2 className="text-lg font-bold bg-[#00695C] text-white p-2 mt-4 text-center">EMERGENCY / NEXT OF KIN CONTACT INFORMATION</h2>
-        <div className="grid grid-cols-3 gap-4 border-b p-2">
+        <div className="grid grid-cols-6 gap-4 border-b p-2">
+              <h2>Last Name :</h2>
           <input className="border p-1" placeholder="Last Name" name="emergencyLastName" 
                  value={formData.emergencyLastName || ''} onChange={handleInputChange}  disabled={!isEditing} />
+              <h2>First Name :</h2>
           <input className="border p-1" placeholder="First Name" name="emergencyFirstName" 
                  value={formData.emergencyFirstName || ''} onChange={handleInputChange} disabled={!isEditing} />
+              <h2>Middle Initial :</h2>
           <input className="border p-1" placeholder="Relationship to Patient" name="emergencyRelationship" 
                  value={formData.emergencyRelationship || ''} onChange={handleInputChange} disabled={!isEditing} />
         </div>
@@ -329,11 +332,14 @@ const Page = () => {
   <input className="border p-2 w-full rounded-md" placeholder="Zip Code" name="emergencyZip"
          value={formData.emergencyZip || ''} onChange={handleInputChange} readOnly={!isEditing} />
 </div>
-        <div className="grid grid-cols-3 gap-4 border-b p-2">
+        <div className="grid grid-cols-6 gap-4 border-b p-2">
+         <h2>Home Phone :</h2>
           <input className="border p-1" placeholder="Home Phone" name="emergencyHomePhone" 
                  value={formData.emergencyHomePhone || ''} onChange={handleInputChange} readOnly={!isEditing} />
+         <h2>Work Phone :</h2>
           <input className="border p-1" placeholder="Work Phone" name="emergencyWorkPhone" 
                  value={formData.emergencyWorkPhone || ''} onChange={handleInputChange} readOnly={!isEditing} />
+         <h2>Other Phone :</h2>
           <input className="border p-1" placeholder="Other Phone" name="emergencyOtherPhone" 
                  value={formData.emergencyOtherPhone || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
