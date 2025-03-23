@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
+// Interface defining the structure of a patient document
 interface PatientDocument {
   id: number;
   category: string;
@@ -11,16 +12,25 @@ interface PatientDocument {
 }
 
 const Page = () => {
+  // State to store the list of patient documents
   const [data, setData] = useState<PatientDocument[]>([]);
+  
+  // State to toggle edit mode
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  
+  // State to track if the component has mounted
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
   useEffect(() => {
+    // Mark component as mounted
     setIsMounted(true);
+    
+    // Load saved data from localStorage if available
     const savedData = localStorage.getItem("patientDocuments");
     if (savedData) {
       setData(JSON.parse(savedData));
     } else {
+      // Default data if no saved records exist
       setData([
         { id: 1, category: "Medical Administration Record", dateEntered: "3/10/2025", dateVisited: "", description: "Medication Record", status: "" },
         { id: 2, category: "Visit Note", dateEntered: "3/10/2025", dateVisited: "", description: "", status: "" },
@@ -33,15 +43,18 @@ const Page = () => {
   }, []);
 
   useEffect(() => {
+    // Save data to localStorage whenever it changes (after mounting)
     if (isMounted) {
       localStorage.setItem("patientDocuments", JSON.stringify(data));
     }
   }, [data, isMounted]);
 
+  // Toggle edit mode
   const handleEdit = () => {
     setIsEditing(!isEditing);
   };
 
+  // Handle changes in table inputs
   const handleChange = (id: number, field: keyof PatientDocument, value: string) => {
     setData((prevData) =>
       prevData.map((row) =>
@@ -50,6 +63,7 @@ const Page = () => {
     );
   };
 
+  // Add a new empty document entry
   const addDateEntry = () => {
     const newEntry: PatientDocument = {
       id: data.length + 1,
@@ -62,26 +76,35 @@ const Page = () => {
     setData([...data, newEntry]);
   };
 
+  // Delete an entry from the list
   const deleteEntry = (id: number) => {
     setData(data.filter((row) => row.id !== id));
   };
 
+  // Avoid rendering until component has mounted (to prevent hydration issues)
   if (!isMounted) return null;
 
   return (
     <div className="min-h-screen bg-white text-[#3A2B22] flex flex-col items-center p-6">
+      {/* Action Buttons */}
       <div className="flex gap-10 text-white mt-[5%]">
         <button onClick={addDateEntry} className="bg-orange-400 px-4 py-1 rounded-md cursor-pointer">Add Date</button>
         <button onClick={handleEdit} className="bg-blue-400 px-4 py-1 rounded-md cursor-pointer">{isEditing ? "Save" : "Edit"}</button>
       </div>
+
+      {/* Table Container */}
       <div className="border border-gray-400 rounded-lg overflow-hidden w-full max-w-6xl mt-[1%]">
         <h2 className="text-xl font-bold text-center p-4 border-b bg-gray-100">PATIENT DOCUMENT MANAGEMENT</h2>
+        
+        {/* Patient Information Header */}
         <div className="border border-gray-400 flex">
           <div className="flex-1 flex items-center justify-center border-r p-4 font-semibold">PATIENT NAME:</div>
           <div className="flex-1 flex items-center justify-center border-r p-4 font-semibold">DOCTOR:</div>
           <div className="flex-1 flex items-center justify-center p-4 font-semibold">DATE:</div>
         </div>
         <p className="p-3 font-semibold">ALL</p>
+
+        {/* Table of Patient Documents */}
         <div className="overflow-y-auto max-h-96">
           <table className="w-full border-collapse border border-gray-400 text-sm">
             <thead className="bg-gray-200">
@@ -92,7 +115,7 @@ const Page = () => {
                 <th className="border border-gray-400 px-3 py-2">DATE VISITED</th>
                 <th className="border border-gray-400 px-3 py-2">DESCRIPTION</th>
                 <th className="border border-gray-400 px-3 py-2">STATUS</th>
-                {isEditing && <th className="border  px-3 py-2"></th>}
+                {isEditing && <th className="border px-3 py-2"></th>}
               </tr>
             </thead>
             <tbody>
