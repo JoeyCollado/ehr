@@ -62,6 +62,10 @@ const Page = () => {
     setData([...data, newEntry]);
   };
 
+  const deleteEntry = (id: number) => {
+    setData(data.filter((row) => row.id !== id));
+  };
+
   if (!isMounted) return null;
 
   return (
@@ -88,6 +92,7 @@ const Page = () => {
                 <th className="border border-gray-400 px-3 py-2">DATE VISITED</th>
                 <th className="border border-gray-400 px-3 py-2">DESCRIPTION</th>
                 <th className="border border-gray-400 px-3 py-2">STATUS</th>
+                {isEditing && <th className="border  px-3 py-2"></th>}
               </tr>
             </thead>
             <tbody>
@@ -108,6 +113,16 @@ const Page = () => {
                       )}
                     </td>
                   ))}
+                  {isEditing && (
+                    <td className="border border-gray-400 px-3 py-2">
+                      <button
+                        onClick={() => deleteEntry(row.id)}
+                        className="bg-red-500 text-white px-2 py-1 rounded-md cursor-pointer"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
