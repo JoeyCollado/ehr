@@ -202,8 +202,28 @@ const Page = () => {
                       result
                     )}
                   </td>
-                  <td className="border border-black px-4 py-2">{unit}</td>
-                  <td className="border border-black px-4 py-2">{range}</td>
+                  <td className="border border-black px-4 py-2">{isEditing ? (
+                      <input
+                        type="text"
+                        value={unit}
+                        onChange={(e) => handleChange(e, rowIndex, 1)}
+                        className="w-full border p-1"
+                      />
+                    ) : (
+                      unit
+                    )}</td>
+                  <td className="border border-black px-4 py-2">
+                  {isEditing ? (
+                      <input
+                        type="text"
+                        value={range}
+                        onChange={(e) => handleChange(e, rowIndex, 1)}
+                        className="w-full border p-1"
+                      />
+                    ) : (
+                      range
+                    )}
+                  </td>
                   <td className={`border border-black px-4 py-2 text-white ${color}`}>{flag}</td>
                 </tr>
               ))}
