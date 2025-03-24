@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -8,26 +8,50 @@ const Page = () => {
   const [description, setDescription] = useState("");
   const [type, setType] = useState("Option 1");
   const [imageSrc, setImageSrc] = useState("/skeleton.png");
-  const [tempImage, setTempImage] = useState("/skeleton.png");
+  const [tempData, setTempData] = useState({ name: "", description: "", type: "", imageSrc: "" });
 
-  // Handles editing mode
-  const handleEdit = () => setIsEditing(true);
+  // Load saved data from localStorage on mount
+  useEffect(() => {
+    const savedName = localStorage.getItem("name") || "";
+    const savedDescription = localStorage.getItem("description") || "";
+    const savedType = localStorage.getItem("type") || "Option 1";
+    const savedImage = localStorage.getItem("imageSrc") || "/skeleton.png";
+
+    setName(savedName);
+    setDescription(savedDescription);
+    setType(savedType);
+    setImageSrc(savedImage);
+    setTempData({ name: savedName, description: savedDescription, type: savedType, imageSrc: savedImage });
+  }, []);
+
+  // Handles entering edit mode
+  const handleEdit = () => {
+    setIsEditing(true);
+    setTempData({ name, description, type, imageSrc });
+  };
 
   // Handles canceling edits
   const handleCancel = () => {
     setIsEditing(false);
-    setImageSrc(tempImage);
+    setName(tempData.name);
+    setDescription(tempData.description);
+    setType(tempData.type);
+    setImageSrc(tempData.imageSrc);
   };
 
   // Handles saving changes
   const handleSave = () => {
-    setTempImage(imageSrc);
+    localStorage.setItem("name", name);
+    localStorage.setItem("description", description);
+    localStorage.setItem("type", type);
+    localStorage.setItem("imageSrc", imageSrc);
     setIsEditing(false);
   };
 
   // Handles deleting the image
   const handleDelete = () => {
     setImageSrc("");
+    localStorage.setItem("imageSrc", "");
   };
 
   // Handles image upload
