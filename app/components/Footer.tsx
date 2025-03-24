@@ -4,7 +4,7 @@ import { FiHeart, FiShield, FiHelpCircle } from "react-icons/fi";
 
 const Footer = () => {
   return (
-    <footer className="w-full h-[30vh] bg-white text-black py-4  shadow-lg absolute">
+    <footer className="w-full h-[30vh] bg-gray-100 text-black py-4 border-t border-gray-300 shadow-lg">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 text-sm text-black">
         
         {/* Left Section - Copyright */}
@@ -17,15 +17,15 @@ const Footer = () => {
 
         {/* Right Section - Navigation Links */}
         <div className="flex gap-4 mt-3 md:mt-0">
-          <a href="/privacy" className="flex items-center gap-1 text-black  transition">
+          <a href="/privacy" className="flex items-center gap-1 text-black transition">
             <FiShield className="text-red-400 text-md" />
             <span>Privacy Policy</span>
           </a>
-          <a href="/terms" className="flex items-center gap-1 text-black  transition">
+          <a href="/terms" className="flex items-center gap-1 text-black transition">
             <FiShield className="text-red-400 text-md" />
             <span>Terms of Service</span>
           </a>
-          <a href="/help" className="flex items-center gap-1 text-black  transition">
+          <a href="/help" className="flex items-center gap-1 text-black transition">
             <FiHelpCircle className="text-red-400 text-md" />
             <span>Help Center</span>
           </a>
