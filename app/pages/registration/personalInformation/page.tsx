@@ -67,26 +67,26 @@ const Page = () => {
         <h2 className="text-lg font-bold bg-[#00695C] text-white p-2 text-center">PATIENT INFORMATION</h2>
         {/* First part */}
         <div className="grid grid-cols-6 gap-4 border-b p-2">
-          <h2>Last Name:</h2>
+          <h2 className="p-2">Last Name:</h2>
           <input className="border p-1" placeholder="Last Name" name="lastName" 
                  value={formData.lastName || ''} onChange={handleInputChange} readOnly={!isEditing} />
-          <h2>First Name:</h2>
+          <h2 className="p-2">First Name:</h2>
           <input className="border p-1" placeholder="First Name" name="firstName" 
                  value={formData.firstName || ''} onChange={handleInputChange} readOnly={!isEditing} />
-          <h2>Middle Initial:</h2>
+          <h2 className="p-2">Middle Initial:</h2>
           <input className="border p-1" placeholder="Middle Initial" name="middleInitial" 
                  value={formData.middleInitial || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
         <div className="grid grid-cols-4 gap-4 border-b p-2">
-        <h2>Date of Birth:</h2>
-          <input className="border p-1" placeholder="Date of Birth (mm/dd/yr)" name="dob" 
+        <h2 className="p-2">Date of Birth:</h2>
+          <input className="border p-1" placeholder="(mm/dd/yr)" name="dob" 
                  value={formData.dob || ''} onChange={handleInputChange} readOnly={!isEditing} />
-         <h2>Social Security #:</h2>        
+         <h2 className="p-2">Social Security #:</h2>        
           <input className="border p-1" placeholder="Social Security #" name="ssn" 
                  value={formData.ssn || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
         <div className="grid grid-cols-3 gap-4 border-b p-1">
-          <h2>Gender :</h2>
+          <h2 className="pl-3">Gender :</h2>
           <label>
             <input type="radio" name="gender" value="male" 
                    checked={formData.gender === 'male'} onChange={handleInputChange} disabled={!isEditing} /> Male
@@ -97,7 +97,7 @@ const Page = () => {
           </label>
         </div>
         <div className="grid grid-cols-5 gap-4 border-b p-1">
-          <h2>Marital Status :</h2>
+          <h2 className="pl-3">Marital Status :</h2>
           <label>
             <input type="radio" name="maritalStatus" value="married" 
                    checked={formData.maritalStatus === 'married'} onChange={handleInputChange} disabled={!isEditing} /> Married
@@ -118,12 +118,12 @@ const Page = () => {
 
         {/* Race Section */}
         <div className="grid grid-cols-3 gap-4 border-b p-2">
-          <h2>Race (Optional) :</h2>
-          <label>
+          <h2 className="p-2">Race (Optional) :</h2>
+          <label className="pt-2">
             <input type="radio" name="race" value="asian" 
                    checked={formData.race === 'asian'} onChange={handleInputChange} disabled={!isEditing} /> Asian
           </label>
-          <label>
+          <label className="pt-2">
             <input type="radio" name="race" value="others" 
                    checked={formData.race === 'others'} onChange={handleInputChange} disabled={!isEditing} /> Others
           </label>
