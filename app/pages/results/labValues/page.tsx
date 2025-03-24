@@ -1,21 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
 
-  // Patient details state
-  const [patientDetails, setPatientDetails] = useState({
+  // Default patient details
+  const defaultPatientDetails = {
     name: "Joey Aibert U. Collado",
     roomNo: "42",
     specimenDate: "01/31/2005",
     specimenSource: "blank",
     physician: "blank",
     admissionDate: "blank",
-  });
+  };
 
-  // Table data state
-  const [data, setData] = useState([
+  // Default table data
+  const defaultData = [
     ["White Blood Cells", "15.2", "x10^9/L", "4.0 - 12.0", "High", "bg-red-500"],
     ["Red Blood Cells", "4.5", "x10^12/L", "4.1 - 5.2", "Normal", "bg-green-500"],
     ["Hemoglobin", "11.8", "g/dL", "12.0 - 16.0", "Low", "bg-yellow-500"],
@@ -29,10 +29,34 @@ const Page = () => {
     ["Monocytes", "0.9", "x10^9/L", "0.1 - 1.0", "Normal", "bg-green-500"],
     ["Eosinophils", "0.3", "x10^9/L", "0.0 - 0.5", "Normal", "bg-green-500"],
     ["Basophils", "0.1", "x10^9/L", "0.0 - 0.2", "Normal", "bg-green-500"],
-  ]);
+  ];
 
-  // Toggle edit mode
-  const handleEdit = () => setIsEditing(!isEditing);
+  // Patient details state with localStorage initialization
+  const [patientDetails, setPatientDetails] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('patientDetails');
+      return saved ? JSON.parse(saved) : defaultPatientDetails;
+    }
+    return defaultPatientDetails;
+  });
+
+  // Table data state with localStorage initialization
+  const [data, setData] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('data');
+      return saved ? JSON.parse(saved) : defaultData;
+    }
+    return defaultData;
+  });
+
+  // Toggle edit mode and save to localStorage when exiting edit mode
+  const handleEdit = () => {
+    if (isEditing) {
+      localStorage.setItem('patientDetails', JSON.stringify(patientDetails));
+      localStorage.setItem('data', JSON.stringify(data));
+    }
+    setIsEditing(!isEditing);
+  };
 
   // Handle table changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, rowIndex: number, colIndex: number) => {
@@ -46,6 +70,7 @@ const Page = () => {
     setPatientDetails({ ...patientDetails, [key]: e.target.value });
   };
 
+  // The rest of the component remains the same...
   return (
     <>
       <button
