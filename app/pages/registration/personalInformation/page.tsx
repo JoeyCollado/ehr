@@ -85,7 +85,7 @@ const Page = () => {
           <input className="border p-1" placeholder="Social Security #" name="ssn" 
                  value={formData.ssn || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
-        <div className="grid grid-cols-3 gap-4 border-b p-1">
+        <div className="grid grid-cols-3 gap-4 border-b p-1 my-2 pb-1">
           <h2 className="pl-3">Gender :</h2>
           <label>
             <input type="radio" name="gender" value="male" 
@@ -150,24 +150,27 @@ const Page = () => {
 </div>
 
 
-        <div className="grid grid-cols-3 gap-4 border-b p-2">
+        <div className="grid grid-cols-6 gap-4 border-b p-2">
+              <h2 className="p-1">Home Phone : </h2>
           <input className="border p-1" placeholder="Home Phone" name="homePhone" 
                  value={formData.homePhone || ''} onChange={handleInputChange} readOnly={!isEditing} />
+              <h2 className="p-1">Work Phone : </h2>
           <input className="border p-1" placeholder="Work Phone" name="workPhone" 
                  value={formData.workPhone || ''} onChange={handleInputChange} readOnly={!isEditing} />
+              <h2 className="p-1">Other Phone : </h2>
           <input className="border p-1" placeholder="Other Phone" name="otherPhone" 
                  value={formData.otherPhone || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
         <div className="grid grid-cols-2 gap-4 border-b p-2">
-          <h2>Email Address :</h2>
+          <h2 className="p-1">Email Address :</h2>
           <input className="border p-1" placeholder="@akosijoeyaibertcollado@gmail.com" name="email" 
                  value={formData.email || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
 
         {/* Employment Status */}
         <div className="grid grid-cols-5 gap-4 border-b p-2">
-          <h2>Employment Status :</h2>
-          <label>
+          <h2 className="pl-1">Employment Status :</h2>
+          <label className="">
             <input type="radio" name="employment" value="employed" 
                    checked={formData.employment === 'employed'} onChange={handleInputChange} disabled={!isEditing} /> Employed
           </label>
@@ -186,11 +189,11 @@ const Page = () => {
         </div>
 
         <div className="grid grid-cols-4 gap-4 border-b p-2">
-        <h2>Employer:</h2>
+        <h2 className="p-1">Employer:</h2>
 
           <input className="border p-1" placeholder="Employer" name="employer" 
                  value={formData.employer || ''} onChange={handleInputChange} readOnly={!isEditing} />
-                            <h2>Employer Phone:</h2>
+        <h2 className="p-1">Employer Phone:</h2>
           <input className="border p-1" placeholder="Employer Phone" name="employerPhone" 
                  value={formData.employerPhone || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
