@@ -31,7 +31,7 @@ const Navbar = () => {
       icon: <FaChartBar />,
       link: "/pages/results",
       subItems: [
-        { name: "Lab Values", link: "/pages/results/lab-values" },
+        { name: "Lab Values", link: "/pages/results/labValues" },
         { name: "Radiology", link: "/pages/results/radiology" },
       ],
     },
