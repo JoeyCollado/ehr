@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   // Default patient details
   const defaultPatientDetails = {
@@ -14,42 +15,54 @@ const Page = () => {
     admissionDate: "blank",
   };
 
-  // Default table data
+  // Default table data (now without color in array)
   const defaultData = [
-    ["White Blood Cells", "15.2", "x10^9/L", "4.0 - 12.0", "High", "bg-red-500"],
-    ["Red Blood Cells", "4.5", "x10^12/L", "4.1 - 5.2", "Normal", "bg-green-500"],
-    ["Hemoglobin", "11.8", "g/dL", "12.0 - 16.0", "Low", "bg-yellow-500"],
-    ["Hematocrit", "35.5", "%", "36 - 46", "Low", "bg-yellow-500"],
-    ["Platelet Count", "310", "x10^9/L", "150 - 450", "Normal", "bg-green-500"],
-    ["Mean Corpuscular Volume", "78", "fL", "80 - 100", "Low", "bg-yellow-500"],
-    ["Mean Corpuscular Hemoglobin", "26.2", "pg", "27 - 33", "Low", "bg-yellow-500"],
-    ["Mean Corpuscular Hemoglobin Concentration", "34.0", "g/dL", "32 - 36", "Normal", "bg-green-500"],
-    ["Neutrophils", "12.1", "x10^9/L", "1.5 - 8.0", "High", "bg-red-500"],
-    ["Lymphocytes", "2.8", "x10^9/L", "1.0 - 4.0", "Normal", "bg-green-500"],
-    ["Monocytes", "0.9", "x10^9/L", "0.1 - 1.0", "Normal", "bg-green-500"],
-    ["Eosinophils", "0.3", "x10^9/L", "0.0 - 0.5", "Normal", "bg-green-500"],
-    ["Basophils", "0.1", "x10^9/L", "0.0 - 0.2", "Normal", "bg-green-500"],
+    ["White Blood Cells", "15.2", "x10^9/L", "4.0 - 12.0", "High"],
+    ["Red Blood Cells", "4.5", "x10^12/L", "4.1 - 5.2", "Normal"],
+    ["Hemoglobin", "11.8", "g/dL", "12.0 - 16.0", "Low"],
+    ["Hematocrit", "35.5", "%", "36 - 46", "Low"],
+    ["Platelet Count", "310", "x10^9/L", "150 - 450", "Normal"],
+    ["Mean Corpuscular Volume", "78", "fL", "80 - 100", "Low"],
+    ["Mean Corpuscular Hemoglobin", "26.2", "pg", "27 - 33", "Low"],
+    ["Mean Corpuscular Hemoglobin Concentration", "34.0", "g/dL", "32 - 36", "Normal"],
+    ["Neutrophils", "12.1", "x10^9/L", "1.5 - 8.0", "High"],
+    ["Lymphocytes", "2.8", "x10^9/L", "1.0 - 4.0", "Normal"],
+    ["Monocytes", "0.9", "x10^9/L", "0.1 - 1.0", "Normal"],
+    ["Eosinophils", "0.3", "x10^9/L", "0.0 - 0.5", "Normal"],
+    ["Basophils", "0.1", "x10^9/L", "0.0 - 0.2", "Normal"],
   ];
 
-  // Patient details state with localStorage initialization
-  const [patientDetails, setPatientDetails] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('patientDetails');
-      return saved ? JSON.parse(saved) : defaultPatientDetails;
-    }
-    return defaultPatientDetails;
-  });
+  // State initialization
+  const [patientDetails, setPatientDetails] = useState(defaultPatientDetails);
+  const [data, setData] = useState(defaultData);
 
-  // Table data state with localStorage initialization
-  const [data, setData] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('data');
-      return saved ? JSON.parse(saved) : defaultData;
-    }
-    return defaultData;
-  });
+  // Hydration fix
+  useEffect(() => {
+    setHasMounted(true);
+    const savedPatient = localStorage.getItem('patientDetails');
+    const savedData = localStorage.getItem('data');
+    
+    if (savedPatient) setPatientDetails(JSON.parse(savedPatient));
+    if (savedData) setData(JSON.parse(savedData));
+  }, []);
 
-  // Toggle edit mode and save to localStorage when exiting edit mode
+  // Get color based on flag value
+  const getFlagColor = (flag: string) => {
+    switch (flag.toLowerCase()) {
+      case 'high': return 'bg-red-500';
+      case 'low': return 'bg-yellow-500';
+      default: return 'bg-green-500';
+    }
+  };
+
+  // Handle flag changes
+  const handleFlagChange = (e: React.ChangeEvent<HTMLSelectElement>, rowIndex: number) => {
+    const newData = [...data];
+    newData[rowIndex][4] = e.target.value;
+    setData(newData);
+  };
+
+  // Toggle edit mode
   const handleEdit = () => {
     if (isEditing) {
       localStorage.setItem('patientDetails', JSON.stringify(patientDetails));
@@ -70,7 +83,8 @@ const Page = () => {
     setPatientDetails({ ...patientDetails, [key]: e.target.value });
   };
 
-  // The rest of the component remains the same...
+  if (!hasMounted) return null;
+
   return (
     <>
       <button
@@ -187,7 +201,7 @@ const Page = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map(([test, result, unit, range, flag, color], rowIndex) => (
+              {data.map(([test, result, unit, range, flag], rowIndex) => (
                 <tr key={rowIndex} className="border border-black">
                   <td className="border border-black px-4 py-2">{test}</td>
                   <td className="border border-black px-4 py-2">
@@ -202,7 +216,8 @@ const Page = () => {
                       result
                     )}
                   </td>
-                  <td className="border border-black px-4 py-2">{isEditing ? (
+                  <td className="border border-black px-4 py-2">
+                    {isEditing ? (
                       <input
                         type="text"
                         value={unit}
@@ -211,9 +226,10 @@ const Page = () => {
                       />
                     ) : (
                       unit
-                    )}</td>
+                    )}
+                  </td>
                   <td className="border border-black px-4 py-2">
-                  {isEditing ? (
+                    {isEditing ? (
                       <input
                         type="text"
                         value={range}
@@ -224,17 +240,21 @@ const Page = () => {
                       range
                     )}
                   </td>
-                  <td className={`border border-black px-4 py-2 text-white ${color}`}>      
+                  <td className={`border border-black px-4 py-2 text-white ${getFlagColor(flag)}`}>
                     {isEditing ? (
-                      <input
-                        type="text"
+                      <select
                         value={flag}
-                        onChange={(e) => handleChange(e, rowIndex, 4)}
-                        className="w-full border p-1"
-                      />
+                        onChange={(e) => handleFlagChange(e, rowIndex)}
+                        className="w-full border p-1 text-black"
+                      >
+                        <option value="High" className="bg-red-500">High</option>
+                        <option value="Normal" className="bg-green-500">Normal</option>
+                        <option value="Low" className="bg-yellow-500">Low</option>
+                      </select>
                     ) : (
                       flag
-                    )}</td>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
