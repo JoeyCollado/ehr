@@ -206,7 +206,7 @@ const Page = () => {
                       <input
                         type="text"
                         value={unit}
-                        onChange={(e) => handleChange(e, rowIndex, 1)}
+                        onChange={(e) => handleChange(e, rowIndex, 2)}
                         className="w-full border p-1"
                       />
                     ) : (
@@ -217,14 +217,24 @@ const Page = () => {
                       <input
                         type="text"
                         value={range}
-                        onChange={(e) => handleChange(e, rowIndex, 1)}
+                        onChange={(e) => handleChange(e, rowIndex, 3)}
                         className="w-full border p-1"
                       />
                     ) : (
                       range
                     )}
                   </td>
-                  <td className={`border border-black px-4 py-2 text-white ${color}`}>{flag}</td>
+                  <td className={`border border-black px-4 py-2 text-white ${color}`}>      
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={flag}
+                        onChange={(e) => handleChange(e, rowIndex, 4)}
+                        className="w-full border p-1"
+                      />
+                    ) : (
+                      flag
+                    )}</td>
                 </tr>
               ))}
             </tbody>
