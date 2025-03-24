@@ -231,7 +231,7 @@ const Page = () => {
        {/* Third part */}       
        <h2 className="text-lg font-bold bg-[#00695C] text-white p-2 mt-4 text-center">RESPONSIBLE PARTY (GUARANTOR) INFORMATION</h2>
        <div className="grid grid-cols-5 gap-4 border-b p-1">
-          <h2>Relationship to patient :</h2>
+          <h2 className="pl-2">Relationship to patient :</h2>
           <label>
             <input type="radio" name="relationship" value="self" 
                    checked={formData.relationship === 'self'} onChange={handleInputChange} disabled={!isEditing} /> Self
@@ -250,27 +250,27 @@ const Page = () => {
           </label>
         </div>
         <div className="grid grid-cols-6 gap-4 border-b p-2">
-        <h2>Last Name :</h2>
+        <h2 className="pl-1 pt-1">Last Name :</h2>
           <input className="border p-1" placeholder="Last Name" name="guarantorLastName" 
                  value={formData.guarantorLastName || ''} onChange={handleInputChange} readOnly={!isEditing} />
-         <h2>First Name :</h2>
+         <h2 className="pl-1 pt-1">First Name :</h2>
           <input className="border p-1" placeholder="First Name" name="guarantorFirstName" 
                  value={formData.guarantorFirstName || ''} onChange={handleInputChange} readOnly={!isEditing} />
-        <h2>Middle Initial :</h2>
+        <h2 className="pl-1 pt-1">Middle Initial :</h2>
           <input className="border p-1" placeholder="Middle Initial" name="guarantorMiddleInitial" 
                  value={formData.guarantorMiddleInitial || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
         <div className="grid grid-cols-4 gap-4 border-b p-2">
-        <h2>Date of Birth :</h2>
+        <h2 className="pl-1 pt-1">Date of Birth :</h2>
           <input className="border p-1" placeholder="Date of Birth" name="guarantorDob" 
                  value={formData.guarantorDob || ''} onChange={handleInputChange} readOnly={!isEditing} />
-        <h2>Social Security # :</h2>
+        <h2 className="pl-1 pt-1">Social Security # :</h2>
           <input className="border p-1" placeholder="Social Security #" name="guarantorSsn" 
                  value={formData.guarantorSsn || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
 
         <div className="grid grid-cols-2 gap-2 border-b p-3">
-  <h2 className="col-span-2 p-1 font-semibold">Home Address</h2>
+  <h2 className="col-span-2 p-1 font-semibold ">Home Address</h2>
 
   <label className="flex items-center p-1">Apt #:</label>
   <input className="border p-2 w-full rounded-md" placeholder="Apt. #" name="guarantorApt"
@@ -290,15 +290,15 @@ const Page = () => {
 </div>
 
         <div className="grid grid-cols-2 gap-4 border-b p-2">
-          <h2>Email Address :</h2>
+          <h2 className="pl-1 pt-1">Email Address :</h2>
           <input className="border p-1" placeholder="@akosijoeyaibertcollado@gmail.com" name="guarantorEmail" 
                  value={formData.guarantorEmail || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
         <div className="grid grid-cols-4 gap-4 border-b p-2">
-        <h2>Employer :</h2>
+        <h2 className="pl-1 pt-1">Employer :</h2>
           <input className="border p-1" placeholder="Employer" name="guarantorEmployer" 
                  value={formData.guarantorEmployer || ''} onChange={handleInputChange} readOnly={!isEditing} />
-        <h2>Employer Phone :</h2>
+        <h2 className="pl-1 pt-1">Employer Phone :</h2>
           <input className="border p-1" placeholder="Employer Phone" name="guarantorEmployerPhone" 
                  value={formData.guarantorEmployerPhone || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
