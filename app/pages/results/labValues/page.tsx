@@ -4,9 +4,9 @@ import React from "react";
 const Page = () => {
   return (
     <div className="min-h-screen bg-white text-[#685442] flex justify-center">
-      <div className="w-[80%] h-[90%] mt-[5%] bg-white shadow-2xl p-4">
-        <h1 className="text-3xl font-bold text-center">LABORATORY RESULTS</h1>
-        <table className="w-full border border-black mt-4">
+      <div className="w-[80%] h-[90%] mt-[5%] bg-white shadow-2xl p-4 mb-[5%]">
+        <h1 className="text-3xl font-bold text-center bg-[#00695C] text-white py-4">LABORATORY RESULTS</h1>
+        <table className="w-full border border-black ">
           <thead>
             <tr className="text-sm">
               <th className="border border-black px-4 py-2 text-left">Patient Name:<br></br>Joey Aibert U. Collado</th>
@@ -21,7 +21,7 @@ const Page = () => {
 
         <table className="w-full border border-black mt-4 text-xs">
           <thead>
-            <tr className="bg-[#E3B58A]">
+            <tr className="bg-[#00695C] text-white py-2">
               <th className="border border-black px-4 py-2 text-left">Test Name</th>
               <th className="border border-black px-4 py-2 text-left">Result</th>
               <th className="border border-black px-4 py-2 text-left">Units</th>
