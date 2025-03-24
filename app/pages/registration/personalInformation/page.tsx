@@ -306,14 +306,14 @@ const Page = () => {
         {/* Fourth part */}
         <h2 className="text-lg font-bold bg-[#00695C] text-white p-2 mt-4 text-center">EMERGENCY / NEXT OF KIN CONTACT INFORMATION</h2>
         <div className="grid grid-cols-6 gap-4 border-b p-2">
-              <h2>Last Name :</h2>
+              <h2 className="pl-1 pt-1">Last Name :</h2>
           <input className="border p-1" placeholder="Last Name" name="emergencyLastName" 
                  value={formData.emergencyLastName || ''} onChange={handleInputChange}  disabled={!isEditing} />
-              <h2>First Name :</h2>
+              <h2 className="pl-1 pt-1">First Name :</h2>
           <input className="border p-1" placeholder="First Name" name="emergencyFirstName" 
                  value={formData.emergencyFirstName || ''} onChange={handleInputChange} disabled={!isEditing} />
-              <h2>Middle Initial :</h2>
-          <input className="border p-1" placeholder="Relationship to Patient" name="emergencyRelationship" 
+              <h2 className="pl-1 pt-1">Relationship to Patient :</h2>
+          <input className="border p-1" placeholder="Ex: Parent" name="emergencyRelationship" 
                  value={formData.emergencyRelationship || ''} onChange={handleInputChange} disabled={!isEditing} />
         </div>
         <div className="grid grid-cols-2 gap-2 border-b p-3">
@@ -336,13 +336,13 @@ const Page = () => {
          value={formData.emergencyZip || ''} onChange={handleInputChange} readOnly={!isEditing} />
 </div>
         <div className="grid grid-cols-6 gap-4 border-b p-2">
-         <h2>Home Phone :</h2>
+         <h2 className="pl-1 pt-1">Home Phone :</h2>
           <input className="border p-1" placeholder="Home Phone" name="emergencyHomePhone" 
                  value={formData.emergencyHomePhone || ''} onChange={handleInputChange} readOnly={!isEditing} />
-         <h2>Work Phone :</h2>
+         <h2 className="pl-1 pt-1">Work Phone :</h2>
           <input className="border p-1" placeholder="Work Phone" name="emergencyWorkPhone" 
                  value={formData.emergencyWorkPhone || ''} onChange={handleInputChange} readOnly={!isEditing} />
-         <h2>Other Phone :</h2>
+         <h2 className="pl-1 pt-1">Other Phone :</h2>
           <input className="border p-1" placeholder="Other Phone" name="emergencyOtherPhone" 
                  value={formData.emergencyOtherPhone || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
@@ -350,14 +350,14 @@ const Page = () => {
         {/* Fifth part */}
         <h2 className="text-lg font-bold bg-[#00695C] text-white p-2 mt-4 text-center">OTHER CONTACT INFORMATION - NOT LIVING WITH PATIENT</h2>
         <div className="grid grid-cols-6 gap-4 border-b p-2">
-              <h2>Last Name :</h2>
+              <h2 className="pl-1 pt-1">Last Name :</h2>
               <input className="border p-1" placeholder="Last Name" name="otherLastName" 
                  value={formData.otherLastName || ''} onChange={handleInputChange} disabled={!isEditing} />
-              <h2>First Name :</h2>
+              <h2 className="pl-1 pt-1">First Name :</h2>
           <input className="border p-1" placeholder="First Name" name="otherFirstName" 
                  value={formData.otherFirstName || ''} onChange={handleInputChange} disabled={!isEditing} />
-              <h2>Relationship to Patient :</h2>
-          <input className="border p-1" placeholder="" name="otherRelationship" 
+              <h2 className="pl-1 pt-1">Relationship to Patient :</h2>
+          <input className="border p-1" placeholder="Ex: Parent" name="otherRelationship" 
                  value={formData.otherRelationship || ''} onChange={handleInputChange} disabled={!isEditing} />
         </div>
         <div className="grid grid-cols-2 gap-2 border-b p-3">
@@ -380,13 +380,13 @@ const Page = () => {
          value={formData.otherZip || ''} onChange={handleInputChange} readOnly={!isEditing} />
 </div>
         <div className="grid grid-cols-6 gap-4  p-2">
-        <h2>Home Phone :</h2>
+        <h2 className="pl-1 pt-1">Home Phone :</h2>
           <input className="border p-1" placeholder="Home Phone" name="otherHomePhone" 
                  value={formData.otherHomePhone || ''} onChange={handleInputChange} readOnly={!isEditing}/>
-        <h2>Work Phone :</h2>
+        <h2 className="pl-1 pt-1">Work Phone :</h2>
           <input className="border p-1" placeholder="Work Phone" name="otherWorkPhone" 
                  value={formData.otherWorkPhone || ''} onChange={handleInputChange} readOnly={!isEditing}/>
-        <h2>Other Phone :</h2>
+        <h2 className="pl-1 pt-1">Other Phone :</h2>
           <input className="border p-1" placeholder="Other Phone" name="otherOtherPhone" 
                  value={formData.otherOtherPhone || ''} onChange={handleInputChange} readOnly={!isEditing}/>
         </div>
