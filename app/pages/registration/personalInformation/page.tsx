@@ -201,15 +201,15 @@ const Page = () => {
         {/* Second part */}
         <h2 className="text-lg font-bold bg-[#00695C] text-white p-2 mt-4 text-center ">PHYSICIAN REFERRAL INFORMATION</h2>
         <div className="grid grid-cols-4 gap-4 border-b p-2">
-              <h2>Primary Care Physician</h2>
-          <input className="border p-1" placeholder="Primary Care Physician" name="primaryPhysician" 
+              <h2 className="pl-1 pt-1">Primary Care Physician</h2>
+          <input className="border p-1 " placeholder="Primary Care Physician" name="primaryPhysician" 
                  value={formData.primaryPhysician || ''} onChange={handleInputChange} readOnly={!isEditing} />
-              <h2>Reffering Physician</h2>
+              <h2 className="pl-1 pt-1">Reffering Physician</h2>
           <input className="border p-1" placeholder="Referring Physician" name="referringPhysician" 
                  value={formData.referringPhysician || ''} onChange={handleInputChange} readOnly={!isEditing} />
         </div>
         <div className="grid grid-cols-5 gap-4 border-b p-1">
-          <h2>How did you hear about us? :</h2>
+          <h2 className="pl-2">How did you hear about us? :</h2>
           <label>
             <input type="radio" name="referral" value="family" 
                    checked={formData.referral === 'family'} onChange={handleInputChange} disabled={!isEditing} /> Family Member
