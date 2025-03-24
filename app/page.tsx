@@ -3,6 +3,7 @@ import { useUser, SignInButton, SignedOut } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Footer from "./components/Footer";
 
 export default function HomePage() {
   const { isSignedIn } = useUser();
@@ -83,8 +84,9 @@ export default function HomePage() {
           </SignInButton>
         </SignedOut>
       </div>
+    
     </div>
-   
+    <Footer/>
      </>
   );
 }

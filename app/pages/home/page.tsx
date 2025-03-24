@@ -1,4 +1,5 @@
 "use client";
+import Footer from "@/app/components/Footer";
 import React from "react";
 
 
@@ -14,6 +15,7 @@ const Page = () => {
 
   
     </div>
+    <Footer/>
        </>
   );
 };

@@ -94,7 +94,7 @@ const Page = () => {
 
       {/* Table Container */}
       <div className="border border-gray-400 rounded-lg overflow-hidden w-full max-w-6xl mt-[1%]">
-        <h2 className="text-xl font-bold text-center p-4 border-b bg-gray-100">PATIENT DOCUMENT MANAGEMENT</h2>
+        <h2 className="text-xl font-bold text-center p-4 border-b bg-[#00695C] text-white">PATIENT DOCUMENT MANAGEMENT</h2>
         
         {/* Patient Information Header */}
         <div className="border border-gray-400 flex">
