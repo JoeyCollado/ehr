@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Subnav = () => {
   return (
-    <div className="absolute top-3 w-full h-[10vh]   text-white flex justify-center items-center">
+    <div className="absolute top-10 w-full h-[10vh] text-white flex justify-center items-center">
       <ul className="flex gap-6 ">
         {[
           { href: "/pages/registration/administrationInformation/vitalSigns", label: "Vital Signs "},
@@ -14,7 +14,7 @@ const Subnav = () => {
         ].map((item, index) => (
           <li key={index} className=''>
             <Link href={item.href}>
-              <button className="px-4 py-2 cursor-pointer  bg-[#00695C]  text-[#ffffff] hover:bg-[#43A047] hover:scale-105 duration-300 ease-in-out font-semibold rounded-lg shadow-lg  transition">
+              <button className="px-4 py-2 cursor-pointer text-[20px] bg-[white] text-black  hover:bg-[#e4e4e4] hover:scale-105 duration-300 ease-in-out font-semibold rounded-lg shadow-lg  transition">
                 {item.label}
               </button>
             </Link>
