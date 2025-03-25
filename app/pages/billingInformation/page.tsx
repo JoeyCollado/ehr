@@ -73,97 +73,101 @@ const Page = () => {
   if (!hasMounted) return null; //localstorage(5)
 
   return (
-    <div className="h-screen flex items-center justify-center bg-[#ffffff] text-[#3A2B22] mb-[10%] ">
+<div className="h-screen flex items-center justify-center bg-[#ffffff] text-[#3A2B22] mb-[10%] ">
       <button
         className="bg-blue-500 rounded-md text-white px-2 py-1 absolute top-15 cursor-pointer"
         onClick={() => setIsEditing(!isEditing)}
       >
         {isEditing ? "Save" : "Edit"}
       </button>
-      <div className="border-2 border-[#3A2B22] p-6 w-[80%] max-w-4xl bg-[#ffffff] mt-[10%]">
+      <div className="border-2 border-[#3A2B22] p-6 w-[80%] max-w-[60rem] bg-[#ffffff] mt-[10%]">
         <h1 className="text-2xl font-bold text-center mb-6">Medical Billing Invoice</h1>
+        <div className="grid grid-cols-2 gap-6 border-b-2 border-[#3A2B22] pb-4 relative">
+        <div className="absolute h-[90%] border-l-2 border-[#3A2B22] "></div>        
+  <div className="ml-[5%]">
+    <h2 className="font-semibold">Patient Information</h2>
+    <p className="italic font-bold">A.J.S</p>
+    {isEditing ? (    
+      <input
+        className="border w-full p-1" 
+        name="patientName"
+        value={formData.patientName}
+        onChange={handleChange}
+        aria-label="Patient Name"
+      />
+    ) : (
+      <p className="italic">{formData.patientName}</p>
+    )}
+    <p className="italic font-bold">Contact Number</p>
+    {isEditing ? (
+      <input
+        className="border w-full p-1"
+        name="patientContact"
+        value={formData.patientContact}
+        onChange={handleChange}
+        aria-label="Patient Contact"
+      />
+    ) : (
+      <p className="italic">{formData.patientContact}</p>
+    )}
+    <p className="italic font-bold">Address</p>
+    {isEditing ? (
+      <input
+        className="border w-full p-1"
+        name="patientAddress"
+        value={formData.patientAddress}
+        onChange={handleChange}
+        aria-label="Patient Address"
+      />
+    ) : (
+      <p className="italic">{formData.patientAddress}</p>
+    )}
+  </div>
 
-        <div className="grid grid-cols-2 gap-6 border-b-2 border-[#3A2B22] pb-4 ">
-          <div>
-            <h2 className="font-semibold">Patient Information</h2>
-            <p className="italic font-bold">A.J.S</p>
-            {isEditing ? (
-              <input
-                className="border w-full p-1"
-                name="patientName"
-                value={formData.patientName}
-                onChange={handleChange}
-                aria-label="Patient Name"
-              />
-            ) : (
-              <p className="italic">{formData.patientName}</p>
-            )}
-            <p className="italic font-bold">Contact Number</p>
-            {isEditing ? (
-              <input
-                className="border w-full p-1"
-                name="patientContact"
-                value={formData.patientContact}
-                onChange={handleChange}
-                aria-label="Patient Contact"
-              />
-            ) : (
-              <p className="italic">{formData.patientContact}</p>
-            )}
-            <p className="italic font-bold">Address</p>
-            {isEditing ? (
-              <input
-                className="border w-full p-1"
-                name="patientAddress"
-                value={formData.patientAddress}
-                onChange={handleChange}
-                aria-label="Patient Address"
-              />
-            ) : (
-              <p className="italic">{formData.patientAddress}</p>
-            )}
-          </div>
+  {/* Vertical Divider */}
+  <div className="absolute left-1/2 top-0 h-[90%] border-l-2 border-[#3A2B22] transform -translate-x-1/2"></div>
 
-          <div>
-            <h2 className="font-semibold">Prescribing Physician Information</h2>
-            <p className="italic font-bold">Name</p>
-            {isEditing ? (
-              <input
-                className="border w-full p-1"
-                name="physicianName"
-                value={formData.physicianName}
-                onChange={handleChange}
-                aria-label="Physician Name"
-              />
-            ) : (
-              <p className="italic">{formData.physicianName}</p>
-            )}
-            <p className="italic font-bold">Contact Number</p>
-            {isEditing ? (
-              <input
-                className="border w-full p-1"
-                name="physicianContact"
-                value={formData.physicianContact}
-                onChange={handleChange}
-                aria-label="Physician Contact"
-              />
-            ) : (
-              <p className="italic">{formData.physicianContact}</p>
-            )}
-            <p className="italic font-bold">Address</p>
-            {isEditing ? (
-              <input
-                className="border w-full p-1"
-                name="physicianAddress"
-                value={formData.physicianAddress}
-                onChange={handleChange}
-                aria-label="Physician Address"
-              />
-            ) : (
-              <p className="italic">{formData.physicianAddress}</p>
-            )}
-          </div>
-        </div>
+  <div className="ml-[5%]">
+    <h2 className="font-semibold">Prescribing Physician Information</h2>
+    <p className="italic font-bold">Name</p>
+    {isEditing ? (
+      <input
+        className="border w-full p-1"
+        name="physicianName"
+        value={formData.physicianName}
+        onChange={handleChange}
+        aria-label="Physician Name"
+      />
+    ) : (
+      <p className="italic">{formData.physicianName}</p>
+    )}
+    <p className="italic font-bold">Contact Number</p>
+    {isEditing ? (
+      <input
+        className="border w-full p-1"
+        name="physicianContact"
+        value={formData.physicianContact}
+        onChange={handleChange}
+        aria-label="Physician Contact"
+      />
+    ) : (
+      <p className="italic">{formData.physicianContact}</p>
+    )}
+    <p className="italic font-bold">Address</p>
+    {isEditing ? (
+      <input
+        className="border w-full p-1"
+        name="physicianAddress"
+        value={formData.physicianAddress}
+        onChange={handleChange}
+        aria-label="Physician Address"
+      />
+    ) : (
+      <p className="italic">{formData.physicianAddress}</p>
+    )}
+  </div>
+</div>
+
 
         <div className="grid grid-cols-4 text-center font-semibold border-b-2 border-[#3A2B22] pb-2 mb-4">
           <div>INVOICE NUMBER</div>
