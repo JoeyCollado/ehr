@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-interface FormData {
+interface FormData { //safety measure
   patientName: string;
   patientContact: string;
   patientAddress: string;
@@ -23,7 +23,7 @@ interface FormData {
 }
 
 const Page = () => {
-  const initialData: FormData = {
+  const initialData: FormData = { //localstorage (1)
     patientName: "",
     patientContact: "",
     patientAddress: "",
@@ -45,10 +45,10 @@ const Page = () => {
   };
 
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState<FormData>(initialData);
+  const [formData, setFormData] = useState<FormData>(initialData); //localstorage(2)
   const [hasMounted, setHasMounted] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => { //localstorage(3)
     const savedData = localStorage.getItem("invoiceData");
     if (savedData) {
       setFormData(JSON.parse(savedData));
@@ -56,7 +56,7 @@ const Page = () => {
     setHasMounted(true);
   }, []);
 
-  useEffect(() => {
+  useEffect(() => { //localstorage(4)
     if (hasMounted && !isEditing) {
       localStorage.setItem("invoiceData", JSON.stringify(formData));
     }
@@ -70,8 +70,8 @@ const Page = () => {
     }));
   };
 
-  if (!hasMounted) return null;
-
+  if (!hasMounted) return null; //localstorage(5)
+  
   return (
     <div className="h-screen flex items-center justify-center bg-[#ffffff] text-[#3A2B22]">
       <button
