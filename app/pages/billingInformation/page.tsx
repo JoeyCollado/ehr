@@ -71,19 +71,19 @@ const Page = () => {
   };
 
   if (!hasMounted) return null; //localstorage(5)
-  
+
   return (
-    <div className="h-screen flex items-center justify-center bg-[#ffffff] text-[#3A2B22]">
+    <div className="h-screen flex items-center justify-center bg-[#ffffff] text-[#3A2B22] mb-[10%] ">
       <button
-        className="bg-blue-500 rounded-md text-white px-2 py-1 absolute top-10 cursor-pointer"
+        className="bg-blue-500 rounded-md text-white px-2 py-1 absolute top-15 cursor-pointer"
         onClick={() => setIsEditing(!isEditing)}
       >
         {isEditing ? "Save" : "Edit"}
       </button>
-      <div className="border-2 border-[#3A2B22] p-6 w-[80%] max-w-4xl bg-[#ffffff]">
+      <div className="border-2 border-[#3A2B22] p-6 w-[80%] max-w-4xl bg-[#ffffff] mt-[10%]">
         <h1 className="text-2xl font-bold text-center mb-6">Medical Billing Invoice</h1>
 
-        <div className="grid grid-cols-2 gap-6 border-b-2 border-[#3A2B22] pb-4 mb-4">
+        <div className="grid grid-cols-2 gap-6 border-b-2 border-[#3A2B22] pb-4 ">
           <div>
             <h2 className="font-semibold">Patient Information</h2>
             <p className="italic font-bold">A.J.S</p>
