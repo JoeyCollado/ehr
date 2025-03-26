@@ -45,26 +45,26 @@ const Page = () => {
 
   return (
     <>
-     <div className="flex justify-center mt-[5%] ">
+     <div className="flex justify-center mt-[10%] ">
           {isEditing ? (
             <button 
               onClick={handleSave}
-              className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 cursor-pointer"
+              className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 cursor-pointer mb-4"
             >
               Save 
             </button>
           ) : (
             <button 
               onClick={() => setIsEditing(true)}
-              className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 cursor-pointer"
+              className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 cursor-pointer mb-4"
             >
               Edit
             </button>
           )}
         </div>
-    <div className="min-h-screen bg-white flex items-center justify-center pb-4">
-      <div className="w-full max-w-4xl bg-white text-black shadow-lg rounded-lg p-6">
-        <h2 className="text-lg font-bold bg-[#00695C] text-white p-2 text-center">PATIENT INFORMATION</h2>
+    <div className="min-h-screen bg-white flex items-center justify-center pb-4 mb-[10%]">
+      <div className="w-full max-w-4xl bg-white text-black shadow-lg rounded-lg p-6 border-1">
+        <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5 mb-4">PATIENT INFORMATION</h2>
         {/* First part */}
         <div className="grid grid-cols-6 gap-4 border-b p-2">
           <h2 className="p-2">Last Name:</h2>

@@ -85,7 +85,7 @@ const Page = () => {
   if (!isMounted) return null;
 
   return (
-    <div className="min-h-screen bg-white text-[#3A2B22] flex flex-col items-center p-6">
+    <div className="min-h-screen bg-white text-[#3A2B22] flex flex-col items-center p-6 shadow-lg">
       {/* Action Buttons */}
       <div className="flex gap-10 text-white mt-[5%]">
         <button onClick={addDateEntry} className="bg-orange-400 px-4 py-1 rounded-md cursor-pointer">Add Date</button>
@@ -93,7 +93,7 @@ const Page = () => {
       </div>
 
       {/* Table Container */}
-      <div className="border border-gray-400 rounded-lg overflow-hidden w-full max-w-6xl mt-[1%]">
+      <div className="border border-gray-400 rounded-lg overflow-hidden w-full max-w-6xl mt-[1%] shadow-lg">
         <h2 className="text-xl font-bold text-center p-4 border-b bg-[#00695C] text-white">PATIENT DOCUMENT MANAGEMENT</h2>
         
         {/* Patient Information Header */}

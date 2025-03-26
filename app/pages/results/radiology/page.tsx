@@ -65,7 +65,7 @@ const Page = () => {
   return (
     <div className="h-screen flex items-center justify-center bg-white text-[#685442]">
       {/* Main Container */}
-      <div className="bg-[#FAD2A5] shadow-2xl w-[900px] h-[500px] flex border border-gray-500">
+      <div className="bg-[#FAD2A5] shadow-lg w-[900px] h-[500px] flex border border-gray-500">
         
         {/* Left Side - Image */}
         <div className="w-[60%] flex flex-col items-center justify-center bg-white">

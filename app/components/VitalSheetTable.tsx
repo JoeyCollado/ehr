@@ -134,7 +134,7 @@ const VitalSheetTable = () => {
   if (!data) return <p className="text-center p-4">Loading...</p>;
 
   return (
-    <div className="w-full overflow-x-auto p-4">
+    <div className="w-full overflow-x-auto p-4 shadow-lg">
       {/* Edit/Add Buttons */}
       <div className="flex justify-between items-center mb-2 ">
         <button
@@ -154,7 +154,7 @@ const VitalSheetTable = () => {
       </div>
 
       {/* Title - Fixed Above Table */}
-      <div className="w-full border-1 border-black bg-[#00695C] text-white text-4xl font-bold text-center p-4 ">
+      <div className="w-full border-1 border-black bg-[#00695C] text-white text-4xl  font-bold text-center p-4 ">
         VITAL SIGNS SHEET
       </div>
 
