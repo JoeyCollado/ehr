@@ -4,7 +4,7 @@ import { FiTwitter, FiFacebook, FiInstagram, FiLinkedin, FiYoutube } from "react
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gray-100 text-gray-700 py-10 border-t border-gray-300">
+    <footer className="w-full bg-gray-100 text-gray-700 py-10 border-t border-gray-300 mt-[20%]">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Footer Content */}
