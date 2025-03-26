@@ -86,7 +86,7 @@ const Page = () => {
         <div className="absolute h-[90%] border-l-2 border-[#3A2B22] "></div>        
   <div className="ml-[5%]">
     <h2 className="font-semibold">Patient Information</h2>
-    <p className="italic font-bold">A.J.S</p>
+    <p className="italic font-bold">Name</p>
     {isEditing ? (    
       <input
         className="border w-full p-1" 
