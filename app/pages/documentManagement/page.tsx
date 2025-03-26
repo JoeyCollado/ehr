@@ -88,12 +88,12 @@ const Page = () => {
     <div className="min-h-screen bg-white text-[#3A2B22] flex flex-col items-center p-6 shadow-lg">
       {/* Action Buttons */}
       <div className="flex gap-10 text-white mt-[5%]">
-        <button onClick={addDateEntry} className="bg-orange-400 px-4 py-1 rounded-md cursor-pointer">Add Date</button>
-        <button onClick={handleEdit} className="bg-blue-400 px-4 py-1 rounded-md cursor-pointer">{isEditing ? "Save" : "Edit"}</button>
+        <button onClick={addDateEntry} className="bg-orange-500 px-4 py-1 rounded-md cursor-pointer">Add Date</button>
+        <button onClick={handleEdit} className="bg-blue-500 px-4 py-1 rounded-md cursor-pointer">{isEditing ? "Save" : "Edit"}</button>
       </div>
 
       {/* Table Container */}
-      <div className="border border-gray-400 rounded-lg overflow-hidden w-full max-w-6xl mt-[1%] shadow-lg">
+      <div className="border border-gray-400 rounded-lg overflow-hidden w-full max-w-6xl mt-[1%] shadow-lg mb-[5%]">
         <h2 className="text-xl font-bold text-center p-4 border-b bg-[#00695C] text-white">PATIENT DOCUMENT MANAGEMENT</h2>
         
         {/* Patient Information Header */}
