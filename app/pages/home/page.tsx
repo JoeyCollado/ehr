@@ -54,13 +54,13 @@ const Page = () => {
     <>
       <div className="min-h-screen font-sans bg-white text-[#3A2B22] flex flex-col items-center text-center p-6">
         {/* Welcome Message */}
-        <div ref={welcomeRef}>
-          <h1 className="text-6xl md:text-7xl font-bold mt-[10%]">Welcome Back!</h1>
+        <div ref={welcomeRef} className="mt-25 shadow-md px-[12%] py-5 pb-15 rounded-lg">
+          <h1 className="text-6xl md:text-7xl font-bold mt-[5%] ">Welcome Back!</h1>
           <p className="text-xl mt-4">Manage your health records with ease</p>
         </div>
 
         {/* Quick Access Tiles */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-20 ">
           {[
             { label: "New Patient", icon: "➕" },
             { label: "Lab Results", icon: "🧪" },
@@ -73,7 +73,7 @@ const Page = () => {
               key={index}
               ref={(el) => (tilesRef.current[index] = el)}
               className="flex flex-col items-center justify-center p-6 bg-[#E0F2F1] rounded-lg shadow-md w-40 
-                transition transform hover:scale-105 hover:shadow-lg hover:bg-[#43A047] hover:text-white cursor-pointer"
+                transition transform hover:scale-105 hover:shadow-lg hover:bg-[#d8eceb]  cursor-pointer "
             >
               <span className="text-3xl">{item.icon}</span>
               <p className="mt-2 font-medium">{item.label}</p>
@@ -82,7 +82,7 @@ const Page = () => {
         </div>
 
         {/* Recent Activity */}
-        <div className="mt-12 w-full max-w-3xl">
+        <div className="mt-32 w-full max-w-3xl">
           <h2 className="text-2xl font-semibold mb-4">Recent Activity</h2>
           <div ref={activityRef} className="bg-gray-100 p-6 rounded-lg shadow-md space-y-5 text-start">
             {[
@@ -103,10 +103,15 @@ const Page = () => {
               </div>
             ))}
           </div>
+          
         </div>
       </div>
 
+    
+    <div className="mt-[5%]">
+
       <Footer />
+      </div>
     </>
   );
 };

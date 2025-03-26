@@ -4,8 +4,8 @@ import { FiTwitter, FiFacebook, FiInstagram, FiLinkedin, FiYoutube } from "react
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gray-100 text-gray-700 py-10 border-t border-gray-300 mt-[20%]">
-      <div className="max-w-7xl mx-auto px-6">
+    <footer className="w-full bg-white text-gray-700 py-10 border-t border-gray-300 shadow-lg">
+      <div className="max-w-7xl mx-auto px-22">
         
         {/* Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
