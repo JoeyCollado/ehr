@@ -57,9 +57,12 @@ const Page = () => {
           <tbody>
             <tr>
               <td className="border border-black p-2 font-bold">
-                <span>Name: </span>
+              <label htmlFor="Name" className="mr-2">
+                  Name:
+                </label>
                 {isEditing ? (
                   <input
+                  id="Name"
                     type="text"
                     value={details.name}
                     onChange={(e) => handleChange(e, "name")}
@@ -70,9 +73,12 @@ const Page = () => {
                 )}
               </td>
               <td className="border border-black p-2 font-bold">
-                <span>Start Date: </span>
+                <label htmlFor="startDate" className="mr-2">
+                  Start Date:
+                </label>
                 {isEditing ? (
                   <input
+                    id="startDate"
                     type="date"
                     value={details.startDate}
                     onChange={(e) => handleChange(e, "startDate")}
@@ -83,9 +89,12 @@ const Page = () => {
                 )}
               </td>
               <td className="border border-black p-2 font-bold">
-                <span>End Date: </span>
+              <label htmlFor="endDate" className="mr-2">
+                  End Date:
+                </label>
                 {isEditing ? (
                   <input
+                    id="endDate"
                     type="date"
                     value={details.endDate}
                     onChange={(e) => handleChange(e, "endDate")}
@@ -98,9 +107,12 @@ const Page = () => {
             </tr>
             <tr>
               <td className="border border-black p-2 font-bold">
-                <span>Date of Birth: </span>
+              <label htmlFor="dateBirth" className="mr-2">
+                  Date of Birth:
+                </label>
                 {isEditing ? (
                   <input
+                  id="dateBirth"
                     type="date"
                     value={details.birthDate}
                     onChange={(e) => handleChange(e, "birthDate")}
@@ -111,9 +123,12 @@ const Page = () => {
                 )}
               </td>
               <td className="border border-black p-2 font-bold" colSpan={2}>
-                <span>Doctor: </span>
+              <label htmlFor="doctor" className="mr-2">
+                  Doctor:
+                </label>
                 {isEditing ? (
                   <input
+                  id="doctor"
                     type="text"
                     value={details.doctor}
                     onChange={(e) => handleChange(e, "doctor")}
@@ -126,9 +141,12 @@ const Page = () => {
             </tr>
             <tr>
               <td className="border border-black p-2 font-bold" colSpan={3}>
-                <span>Known Allergies: </span>
+              <label htmlFor="allergies" className="mr-2">
+                  Start Date:
+                </label>
                 {isEditing ? (
                   <input
+                  id="allergies"
                     type="text"
                     value={details.knownAllergies}
                     onChange={(e) => handleChange(e, "knownAllergies")}
