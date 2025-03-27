@@ -114,22 +114,63 @@ const VitalSheetTable = () => {
   };
 
   const addDate = () => {
-    const newDate = prompt("Enter new date (MM/DD/YYYY):");
-    if (newDate) {
-      const updatedDates = [...dates, newDate];
-      setDates(updatedDates);
-      localStorage.setItem("vitalSignsDates", JSON.stringify(updatedDates));
-
-      const updatedData = editedData.map((row) => ({
-        ...row,
-        values: [...row.values, "", "", "", ""], // 4 new empty values per shift (AM, PM, NIGHT, PRN)
-      }));
-
-      setData(updatedData);
-      setEditedData(updatedData);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedData));
-    }
+    const dialog = document.createElement("dialog");
+    dialog.classList.add(
+      "fixed", "top-1/2", "left-1/2", "transform", "-translate-x-1/2", "-translate-y-1/2",
+      "p-5", "bg-white", "shadow-xl", "rounded-lg", "w-80", "z-50"
+    );
+  
+    dialog.innerHTML = `
+      <form method="dialog">
+        <p class="mb-2 text-lg font-bold text-gray-800">Select a Date</p>
+        <input type="date" id="datePicker" class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-400" required>
+        <div class="flex justify-end gap-2 mt-4">
+          <button type="button" id="cancelBtn" class="px-3 py-1 bg-gray-400 text-white rounded-md hover:bg-gray-500">Cancel</button>
+          <button type="submit" id="confirmBtn" class="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600">Add</button>
+        </div>
+      </form>
+    `;
+  
+    document.body.appendChild(dialog);
+    dialog.showModal();
+  
+    dialog.querySelector("#cancelBtn")?.addEventListener("click", () => {
+      dialog.close();
+      document.body.removeChild(dialog);
+    });
+  
+    dialog.querySelector("form")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const newDate = (document.getElementById("datePicker") as HTMLInputElement).value;
+  
+      if (newDate) {
+        // Format to MM/DD/YYYY
+        const formattedDate = new Intl.DateTimeFormat("en-US", {
+          month: "2-digit",
+          day: "2-digit",
+          year: "numeric",
+        }).format(new Date(newDate));
+  
+        const updatedDates = [...dates, formattedDate];
+        setDates(updatedDates);
+        localStorage.setItem("vitalSignsDates", JSON.stringify(updatedDates));
+  
+        const updatedData = editedData.map((row) => ({
+          ...row,
+          values: [...row.values, "", "", "", ""], // 4 new empty values per shift
+        }));
+  
+        setData(updatedData);
+        setEditedData(updatedData);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedData));
+      }
+  
+      dialog.close();
+      document.body.removeChild(dialog);
+    });
   };
+  
+  
 
   if (!data) return <p className="text-center p-4">Loading...</p>;
 
