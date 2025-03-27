@@ -79,7 +79,7 @@ const Page = () => {
         </div>
         <div className="grid grid-cols-4 gap-4 border-b p-2">
         <h2 className="p-2">Date of Birth:</h2>
-          <input className="border p-1" placeholder="(mm/dd/yr)" name="dob" 
+          <input className="border p-1" placeholder="(mm/dd/yr)" type="date" name="dob" 
                  value={formData.dob || ''} onChange={handleInputChange} readOnly={!isEditing} />
          <h2 className="p-2">Social Security #:</h2>        
           <input className="border p-1" placeholder="Social Security #" name="ssn" 
@@ -262,7 +262,7 @@ const Page = () => {
         </div>
         <div className="grid grid-cols-4 gap-4 border-b p-2">
         <h2 className="pl-1 pt-1">Date of Birth :</h2>
-          <input className="border p-1" placeholder="Date of Birth" name="guarantorDob" 
+          <input className="border p-1" placeholder="Date of Birth" type="date" name="guarantorDob" 
                  value={formData.guarantorDob || ''} onChange={handleInputChange} readOnly={!isEditing} />
         <h2 className="pl-1 pt-1">Social Security # :</h2>
           <input className="border p-1" placeholder="Social Security #" name="guarantorSsn" 

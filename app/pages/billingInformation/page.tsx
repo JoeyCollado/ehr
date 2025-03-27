@@ -73,14 +73,14 @@ const Page = () => {
   if (!hasMounted) return null; //localstorage(5)
 
   return (
-<div className="h-screen flex items-center justify-center bg-[#ffffff] text-[#3A2B22] mb-[5%] ">
+<div className="h-screen flex items-center justify-center bg-[#ffffff] text-[#3A2B22]  mb-[10%]">
       <button
-        className="bg-blue-500 rounded-md text-white px-2 py-1 absolute top-20 cursor-pointer"
+        className="bg-blue-500 rounded-md text-white px-2 py-1 absolute top-10 cursor-pointer mt-[5%] "
         onClick={() => setIsEditing(!isEditing)}
       >
         {isEditing ? "Save" : "Edit"}
       </button>
-      <div className="border-2 border-[#3A2B22] p-6 w-[80%] max-w-[60rem] bg-[#ffffff] mt-[5%] shadow-lg">
+      <div className="border-2 border-[#3A2B22] p-6 w-[80%] max-w-[60rem] bg-[#ffffff] mt-[15%] shadow-lg">
         <h1 className="text-2xl font-bold text-center mb-6">Medical Billing Invoice</h1>
         <div className="grid grid-cols-2 gap-6 border-b-2 border-[#3A2B22] pb-4 relative">
         <div className="absolute h-[90%] border-l-2 border-[#3A2B22] "></div>        
@@ -184,6 +184,7 @@ const Page = () => {
                 onChange={handleChange}
                 className="italic col-span-1 border p-1 w-full text-center"
                 aria-label={field.replace(/([A-Z])/g, ' $1').trim()}
+                
               />
             ) : (
               <div key={index} className="italic col-span-1">{formData[field as keyof FormData]}</div>
