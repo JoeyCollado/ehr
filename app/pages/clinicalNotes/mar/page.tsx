@@ -142,7 +142,7 @@ const Page = () => {
             <tr>
               <td className="border border-black p-2 font-bold" colSpan={3}>
               <label htmlFor="allergies" className="mr-2">
-                  Start Date:
+                  Known Allergies:
                 </label>
                 {isEditing ? (
                   <input
