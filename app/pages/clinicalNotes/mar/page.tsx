@@ -174,6 +174,55 @@ const Page = () => {
             </tr>
           </tbody>
         </table>
+
+        {/* second part */}
+        <table className="border-collapse border border-black w-full text-sm">
+  <thead>
+    <tr>
+      <td className="border border-black px-4 py-2 font-bold text-left" rowSpan={3}>
+        Medication Details
+      </td>
+      <td className="border border-black px-4 py-2 font-bold text-center" colSpan={2}>
+        Week commencing
+      </td>
+      <td className="border border-black px-4 py-2 font-bold text-center" colSpan={9}>
+       
+      </td>
+    </tr>
+    <tr>
+      <th className="border border-black px-4 py-2 font-bold text-center" colSpan={2}>
+        DATE
+      </th>
+      <th className="border border-black px-4 py-2 font-bold text-center" colSpan={2}>
+    
+      </th>
+      <th className="border border-black px-4 py-2 font-bold text-center" colSpan={2}>
+    
+      </th>
+      <th className="border border-black px-4 py-2 font-bold text-center" colSpan={2}>
+      
+      </th>
+      <th className="border border-black px-4 py-2 font-bold text-center" colSpan={2}>
+     
+      </th>
+    </tr>
+    <tr>
+      <th className="border border-black px-4 py-2 font-bold">TIME</th>
+      <th className="border border-black px-4 py-2 font-bold">DOSE</th>
+      <th className="border border-black px-4 py-2 font-bold">Adm</th>
+      <th className="border border-black px-4 py-2 font-bold">WT</th>
+      <th className="border border-black px-4 py-2 font-bold">Adm</th>
+      <th className="border border-black px-4 py-2 font-bold">WT</th>
+      <th className="border border-black px-4 py-2 font-bold">Adm</th>
+      <th className="border border-black px-4 py-2 font-bold">WT</th>
+      <th className="border border-black px-4 py-2 font-bold">Adm</th>
+      <th className="border border-black px-4 py-2 font-bold">WT</th>
+    </tr>
+  </thead>
+</table>
+
+      {/** */}
+      
       </div>
     </>
   );
