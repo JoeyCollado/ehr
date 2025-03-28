@@ -80,7 +80,7 @@ const Page = () => {
       >
         {isEditing ? "Save" : "Edit"}
       </button>
-      <div className="border-2 border-[#3A2B22] p-6 max-w-5xl bg-[#ffffff] mt-[15%] shadow-lg">
+      <div className="border-2 border-[#3A2B22] p-6 w-[80%] max-w-[60rem] bg-[#ffffff] mt-[15%] shadow-lg">
         <h1 className="text-2xl font-bold text-center mb-6">Medical Billing Invoice</h1>
         <div className="grid grid-cols-2 gap-6 border-b-2 border-[#3A2B22] pb-4 relative">
         <div className="absolute h-[90%] border-l-2 border-[#3A2B22] "></div>        
