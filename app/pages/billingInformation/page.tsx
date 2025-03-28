@@ -75,7 +75,7 @@ const Page = () => {
   return (
 <div className="h-screen flex items-center justify-center bg-[#e3e3e3] text-[#3A2B22]  mb-[10%]">
       <button
-        className="bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform rounded-md text-white px-2 py-1 absolute top-10 cursor-pointer mt-[5%] "
+        className="bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform  rounded-md text-white px-4 py-1 absolute top-10 cursor-pointer mt-[5%] "
         onClick={() => setIsEditing(!isEditing)}
       >
         {isEditing ? "Save" : "Edit"}
