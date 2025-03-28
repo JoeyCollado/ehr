@@ -475,19 +475,19 @@ const Page = () => {
       <div className="overflow-x-auto ">
       <table className="border-collapse border border-gray-800 text-[14px] text-center ">
         <thead>
-          <tr className="bg-gray-200 ">
-            <th className="border border-gray-800 p-2">Codes to be used:</th>
-            <th className="border border-gray-800 p-2">(R) <br></br> Refused</th>
-            <th className="border border-gray-800 p-2">(E)<br></br> Refused and destroyed</th>
-            <th className="border border-gray-800 p-2">(T)<br></br> Taken</th>
-            <th className="border border-gray-800 p-2">(P)<br></br>Prompt</th>
-            <th className="border border-gray-800 p-2">(NT)<br></br> Not taken</th>
-            <th className="border border-gray-800 p-2">(NR)<br></br>Not required</th>
-            <th className="border border-gray-800 p-2">(Adm)<br></br> Administered by</th>
-            <th className="border border-gray-800 p-2">(M)<br></br>Made available</th>
-            <th className="border border-gray-800 p-2">(WT)<br></br>Witnessed by</th>
-            <th className="border border-gray-800 p-2">(C)<br></br> Hospitalised</th>
-            <th className="border border-gray-800 p-2">(D)<br></br> Social leave</th>
+          <tr className="bg-gray-200">
+            <th className="border border-gray-800 p-2 pb-10">Codes to be used:</th>
+            <th className="border border-gray-800 p-2 pb-10">(R) <br></br> Refused</th>
+            <th className="border border-gray-800 p-2 pb-5">(E)<br></br> Refused and destroyed</th>
+            <th className="border border-gray-800 p-2 pb-10">(T)<br></br> Taken</th>
+            <th className="border border-gray-800 p-2 pb-10">(P)<br></br>Prompt</th>
+            <th className="border border-gray-800 p-2 pb-5">(NT)<br></br> Not taken</th>
+            <th className="border border-gray-800 p-2 pb-5">(NR)<br></br>Not required</th>
+            <th className="border border-gray-800 p-2 pb-5">(Adm)<br></br> Administered by</th>
+            <th className="border border-gray-800 p-2 pb-5">(M)<br></br>Made available</th>
+            <th className="border border-gray-800 p-2 pb-5">(WT)<br></br>Witnessed by</th>
+            <th className="border border-gray-800 p-2 pb-10">(C)<br></br> Hospitalised</th>
+            <th className="border border-gray-800 p-2 pb-5">(D)<br></br> Social leave</th>
           </tr>
         </thead>
       </table>
