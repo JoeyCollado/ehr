@@ -470,6 +470,41 @@ const Page = () => {
           )}
         </div>
       </div>
+
+<div className="max-w-5xl mx-auto p-4 text-black bg-white rounded-t-lg mb-[5%] rounded-lg ">
+      <div className="overflow-x-auto ">
+      <table className="border-collapse border border-gray-800 text-[14px] text-center ">
+        <thead>
+          <tr className="bg-gray-200 ">
+            <th className="border border-gray-800 p-2">Codes to be used:</th>
+            <th className="border border-gray-800 p-2">(R) <br></br> Refused</th>
+            <th className="border border-gray-800 p-2">(E)<br></br> Refused and destroyed</th>
+            <th className="border border-gray-800 p-2">(T)<br></br> Taken</th>
+            <th className="border border-gray-800 p-2">(P)<br></br>Prompt</th>
+            <th className="border border-gray-800 p-2">(NT)<br></br> Not taken</th>
+            <th className="border border-gray-800 p-2">(NR)<br></br>Not required</th>
+            <th className="border border-gray-800 p-2">(Adm)<br></br> Administered by</th>
+            <th className="border border-gray-800 p-2">(M)<br></br>Made available</th>
+            <th className="border border-gray-800 p-2">(WT)<br></br>Witnessed by</th>
+            <th className="border border-gray-800 p-2">(C)<br></br> Hospitalised</th>
+            <th className="border border-gray-800 p-2">(D)<br></br> Social leave</th>
+          </tr>
+        </thead>
+      </table>
+      <table className="w-full">
+        <tbody>
+          <tr className="flex flex-row text-center w-full">
+            <td className="border border-gray-800 p-2 font-bold w-[20%]">Legend:</td>
+            <td className="border border-gray-800 p-2 bg-green-500 text-white w-[20%]">Given</td>
+            <td className="border border-gray-800 p-2 bg-red-500 text-white w-[20%]">Not given</td>
+            <td className="border border-gray-800 p-2 bg-orange-500 text-white w-[20%]">Delayed</td>
+            <td className="border border-gray-800 p-2 bg-blue-700 text-white w-[20%]">Discontinued</td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+  
+    </div>
     </>
   );
 };
