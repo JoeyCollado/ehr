@@ -67,7 +67,7 @@ const Navbar = () => {
         </span>
 
         {/* Menu Items */}
-        <ul className={`${!isOpen ? "space-y-9" : "space-y-7"} w-full flex flex-col justify-center `}>
+        <ul className={`${!isOpen ? "space-y-5" : "space-y-5"} w-full flex flex-col justify-center `}>
           <hr />
           <li>
             <Link
