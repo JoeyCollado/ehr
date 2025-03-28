@@ -48,7 +48,7 @@ const Page = () => {
       >
         {isEditing ? "Save" : "Edit"}
       </button>
-      <div className="max-w-5xl mx-auto p-4 text-black bg-white rounded-t-lg">
+      <div className="max-w-5xl mx-auto p-4 text-black bg-white rounded-t-lg mb-[5%] rounded-lg">
         <h2 className="text-2xl font-bold text-center bg-[#f8e6db] p-2 border border-black">
           Medication Administration Record (MAR)
         </h2>
@@ -176,51 +176,125 @@ const Page = () => {
           </tbody>
         </table>
 
-        {/* second part */}
-        <table className="border-collapse border border-black w-full text-sm">
+       {/* second part */}
+<table className="w-full border-collapse border border-black mt-2">
   <thead>
     <tr>
-      <td className="border border-black px-4 py-2 font-bold text-left" rowSpan={3}>
-        Medication Details
-      </td>
-      <td className="border border-black px-4 py-2 font-bold text-center" colSpan={2}>
-        Week commencing
-      </td>
-      <td className="border border-black px-4 py-2 font-bold text-center" colSpan={9}>
-       
-      </td>
-    </tr>
-    <tr>
-      <th className="border border-black px-4 py-2 font-bold text-center" colSpan={2}>
-        DATE
-      </th>
-      <th className="border border-black px-4 py-2 font-bold text-center" colSpan={2}>
-    
-      </th>
-      <th className="border border-black px-4 py-2 font-bold text-center" colSpan={2}>
-    
-      </th>
-      <th className="border border-black px-4 py-2 font-bold text-center" colSpan={2}>
+      <th className="border border-black p-2">Medication</th>
+      <th className="border border-black p-2">Time</th>
+      <th className="border border-black p-2">Dose</th>
+      <th className="border border-black p-2">Route</th>
+      <th className="border border-black p-2">Frequency</th>
+      <th className="border border-black p-2">Adm</th>
+      <th className="border border-black p-2">Signature</th>
+      <th className="border border-black p-2">Comments</th>
+      <th className="border border-black p-2">Status</th>
       
-      </th>
-      <th className="border border-black px-4 py-2 font-bold text-center" colSpan={2}>
-     
-      </th>
-    </tr>
-    <tr>
-      <th className="border border-black px-4 py-2 font-bold">TIME</th>
-      <th className="border border-black px-4 py-2 font-bold">DOSE</th>
-      <th className="border border-black px-4 py-2 font-bold">Adm</th>
-      <th className="border border-black px-4 py-2 font-bold">WT</th>
-      <th className="border border-black px-4 py-2 font-bold">Adm</th>
-      <th className="border border-black px-4 py-2 font-bold">WT</th>
-      <th className="border border-black px-4 py-2 font-bold">Adm</th>
-      <th className="border border-black px-4 py-2 font-bold">WT</th>
-      <th className="border border-black px-4 py-2 font-bold">Adm</th>
-      <th className="border border-black px-4 py-2 font-bold">WT</th>
+
     </tr>
   </thead>
+  <tbody>
+    {/* Amoxicillin */}
+    <tr>
+      <td className="border border-black p-2" rowSpan={4}>Amoxicillin</td>
+      <td className="border border-black p-2">8:00 AM</td>
+      <td className="border border-black p-2">250 mg</td>
+      <td className="border border-black p-2">Oral (PO)</td>
+      <td className="border border-black p-2">Every 8 hours</td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2">First dose</td>
+      <td className="border border-black p-2"></td>
+      <th className="border border-black p-2" rowSpan={4}>Additional Notes: - Monitor temperature every 4 hours.</th>
+    </tr>
+    <tr>
+      <td className="border border-black p-2">4:00 PM</td>
+      <td className="border border-black p-2">250 mg</td>
+      <td className="border border-black p-2">Oral (PO)</td>
+      <td className="border border-black p-2">Every 8 hours</td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+    </tr>
+    <tr>
+      <td className="border border-black p-2">12:00 NN</td>
+      <td className="border border-black p-2">250 mg</td>
+      <td className="border border-black p-2">Oral (PO)</td>
+      <td className="border border-black p-2">Every 8 hours</td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+    </tr>
+    <tr>
+      <td className="border border-black p-2">8:00 AM</td>
+      <td className="border border-black p-2">250 mg</td>
+      <td className="border border-black p-2">Oral (PO)</td>
+      <td className="border border-black p-2">Every 8 hours</td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+    </tr>
+
+    {/* Acetaminophen */}
+    <tr>
+      <td className="border border-black p-2" rowSpan={4}>Acetaminophen</td>
+      <td className="border border-black p-2">8:00 AM</td>
+      <td className="border border-black p-2">10 mg/kg</td>
+      <td className="border border-black p-2">Oral (PO)</td>
+      <td className="border border-black p-2">Every 4 hours</td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2">For fever (if needed)</td>
+      <td className="border border-black p-2"></td>
+      <th className="border border-black p-2" rowSpan={4}>Additional Notes: - Monitor temperature every 4 hours.</th>
+    </tr>
+    <tr>
+      <td className="border border-black p-2">12:00 PM</td>
+      <td className="border border-black p-2">10 mg/kg</td>
+      <td className="border border-black p-2">Oral (PO)</td>
+      <td className="border border-black p-2">Every 4 hours</td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+    </tr>
+    <tr>
+      <td className="border border-black p-2">4:00 PM</td>
+      <td className="border border-black p-2">10 mg/kg</td>
+      <td className="border border-black p-2">Oral (PO)</td>
+      <td className="border border-black p-2">Every 4 hours</td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+    </tr>
+    <tr>
+      <td className="border border-black p-2">8:00 PM</td>
+      <td className="border border-black p-2">10 mg/kg</td>
+      <td className="border border-black p-2">Oral (PO)</td>
+      <td className="border border-black p-2">Every 4 hours</td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+      <td className="border border-black p-2"></td>
+    </tr>
+  </tbody>
 </table>
+
+<div className="mt-4 ">
+  <table className="border w-full text-start">
+  <h3 className="font-bold pl-[5%] mt-[2.5%]">Physician’s Orders:</h3>
+  <ul className="list-disc pl-[5%] mb-[2.5%]">
+    <li>Monitor vital every 4 hours</li>
+    <li>Nebulizer treatment as ordered</li>
+  </ul>
+  </table>
+</div>
+  
+
 
 
       </div>
