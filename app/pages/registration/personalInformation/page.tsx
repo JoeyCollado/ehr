@@ -1,47 +1,48 @@
-"use client";
-import React, { useEffect, useState } from "react";
+       "use client";
+       import React, { useEffect, useState } from "react";
 
-//form control = readOnly = text inputs
-//             = disable  = radio buttons
+       //form control = readOnly = text inputs
+       //             = disable  = radio buttons
 
-const Page = () => {
+       const Page = () => {
 
-  //Initialization:
+       //Initialization:
 
-  //Single boolean state controls edit mode
-  const [isEditing, setIsEditing] = useState(false);
+       //Single boolean state controls edit mode
+       const [isEditing, setIsEditing] = useState(false);
 
-  //Checks for existing data in localStorage on initial load
-  //Returns parsed data or empty object if none exists
-  const [formData, setFormData] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const savedData = localStorage.getItem("patientFormData");
-      return savedData ? JSON.parse(savedData) : {};
-    }
-    return {};
-  });
+       //Checks for existing data in localStorage on initial load
+       //Returns parsed data or empty object if none exists
+       const [formData, setFormData] = useState(() => {
+       if (typeof window !== 'undefined') {
+       const savedData = localStorage.getItem("patientFormData");
+       return savedData ? JSON.parse(savedData) : {};
+       }
+       return {};
+       });
 
-  //Automatically saves to localStorage whenever formData changes
-  //Uses useEffect with formData as dependency
-  useEffect(() => {
-    localStorage.setItem("patientFormData", JSON.stringify(formData));
-  }, [formData]);
+       //Automatically saves to localStorage whenever formData changes
+       //Uses useEffect with formData as dependency
+       useEffect(() => {
+       localStorage.setItem("patientFormData", JSON.stringify(formData));
+       }, [formData]);
 
-  {/* Handles all input types (text, radio)
-      Uses name attributes to target form fields
-      Special handling for radio buttons */}
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'radio' ? (checked ? value : prev[name]) : value
-    }));
-  };
+       {/* Handles all input types (text, radio)
+       Uses name attributes to target form fields
+       Special handling for radio buttons */}
+       const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+              const { name, value, type, checked } = e.target;
+              setFormData((prev: Record<string, number>) => ({
+                  ...prev,
+                  [name]: type === "radio" ? (checked ? value : prev[name]) : value
+              }));
+          };
+          
 
-  //disable the editing mode
-  const handleSave = () => {
-    setIsEditing(false);
-  };
+       //disable the editing mode
+       const handleSave = () => {
+       setIsEditing(false);
+       };
 
   return (
     <>

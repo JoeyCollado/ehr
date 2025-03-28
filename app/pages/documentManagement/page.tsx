@@ -130,6 +130,7 @@ const Page = () => {
                           value={row[field as keyof PatientDocument]}
                           onChange={(e) => handleChange(row.id, field as keyof PatientDocument, e.target.value)}
                           className="w-full border-none focus:outline-none"
+                          placeholder="null"
                         />
                       ) : (
                         row[field as keyof PatientDocument]

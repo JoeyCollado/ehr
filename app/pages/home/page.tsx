@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Page = () => {
   const welcomeRef = useRef(null);
-  const tilesRef = useRef([]);
+  const tilesRef = useRef<(HTMLDivElement | null)[]>([]);
   const activityRef = useRef(null);
 
   useEffect(() => {
@@ -71,7 +71,9 @@ const Page = () => {
           ].map((item, index) => (
             <div
               key={index}
-              ref={(el) => (tilesRef.current[index] = el)}
+              ref={(el) => {
+                if (el) tilesRef.current[index] = el;
+            }}            
               className="flex flex-col items-center justify-center p-6 bg-[#E0F2F1] rounded-lg shadow-md w-40 
                 transition transform hover:scale-105 hover:shadow-lg hover:bg-[#d8eceb]  cursor-pointer "
             >

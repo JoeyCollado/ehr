@@ -159,9 +159,10 @@ const Page = () => {
             </tr>
             <tr>
               <td className="border border-black p-2 font-bold" colSpan={3}>
-                <span>Address: </span>
+                <label htmlFor="address" className="mr-2">Address: </label>
                 {isEditing ? (
                   <input
+                    id="address"
                     type="text"
                     value={details.Address}
                     onChange={(e) => handleChange(e, "Address")}

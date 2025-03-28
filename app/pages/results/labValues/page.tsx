@@ -120,6 +120,7 @@ const Page = () => {
                       value={patientDetails.name}
                       onChange={(e) => handlePatientChange(e, "name")}
                       className="w-full border p-1"
+                      title="Name"
                     />
                   ) : (
                     <strong>{patientDetails.name}</strong>
@@ -132,6 +133,7 @@ const Page = () => {
                       value={patientDetails.roomNo}
                       onChange={(e) => handlePatientChange(e, "roomNo")}
                       className="w-full border p-1"
+                      title="Room Number"
                     />
                   ) : (
                     patientDetails.roomNo
@@ -144,6 +146,7 @@ const Page = () => {
                       value={patientDetails.specimenDate}
                       onChange={(e) => handlePatientChange(e, "specimenDate")}
                       className="w-full border p-1"
+                      title="Specimen Date"
                     />
                   ) : (
                     patientDetails.specimenDate
@@ -156,6 +159,7 @@ const Page = () => {
                       value={patientDetails.specimenSource}
                       onChange={(e) => handlePatientChange(e, "specimenSource")}
                       className="w-full border p-1"
+                      title="Specimen Source"
                     />
                   ) : (
                     patientDetails.specimenSource
@@ -168,6 +172,7 @@ const Page = () => {
                       value={patientDetails.physician}
                       onChange={(e) => handlePatientChange(e, "physician")}
                       className="w-full border p-1"
+                      title="Physician"
                     />
                   ) : (
                     patientDetails.physician
@@ -180,6 +185,7 @@ const Page = () => {
                       value={patientDetails.admissionDate}
                       onChange={(e) => handlePatientChange(e, "admissionDate")}
                       className="w-full border p-1"
+                      title="Admission Date"
                     />
                   ) : (
                     patientDetails.admissionDate
@@ -211,6 +217,7 @@ const Page = () => {
                         value={result}
                         onChange={(e) => handleChange(e, rowIndex, 1)}
                         className="w-full border p-1"
+                        title="Row"
                       />
                     ) : (
                       result
@@ -223,6 +230,7 @@ const Page = () => {
                         value={unit}
                         onChange={(e) => handleChange(e, rowIndex, 2)}
                         className="w-full border p-1"
+                        title="Row2"
                       />
                     ) : (
                       unit
@@ -235,6 +243,7 @@ const Page = () => {
                         value={range}
                         onChange={(e) => handleChange(e, rowIndex, 3)}
                         className="w-full border p-1"
+                        title="Row3"
                       />
                     ) : (
                       range
@@ -246,6 +255,7 @@ const Page = () => {
                         value={flag}
                         onChange={(e) => handleFlagChange(e, rowIndex)}
                         className="w-full border p-1 text-black"
+                        title="Row"
                       >
                         <option value="High" className="bg-red-500">High</option>
                         <option value="Normal" className="bg-green-500">Normal</option>

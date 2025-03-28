@@ -130,6 +130,7 @@ const Navbar = () => {
       <button
         className="text-xl p-2 hover:bg-white/20 w-full rounded-lg flex justify-center cursor-pointer transition-all"
         onClick={() => setIsOpen(!isOpen)}
+        aria-label="Toggle Sidebar"
       >
         <FaBars />
       </button>

@@ -97,6 +97,7 @@ const Page = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 disabled={!isEditing}
+                placeholder="null"
               />
             </div>
 
@@ -108,6 +109,7 @@ const Page = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 disabled={!isEditing}
+                title="Description"
               />
             </div>
 
@@ -117,7 +119,7 @@ const Page = () => {
               <select
                 className="w-full border border-gray-500 p-2 bg-white outline-none"
                 value={type}
-                onChange={(e) => setType(e.target.value)}
+                title="Type"
                 disabled={!isEditing}
               >
                 <option>Option 1</option>
