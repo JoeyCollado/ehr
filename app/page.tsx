@@ -31,7 +31,7 @@ export default function HomePage() {
 
   return (
     <>
-    <div className="h-screen flex flex-col md:flex-row items-center justify-center bg-gray-50">
+    <div className="h-screen flex flex-col md:flex-row items-center justify-center bg-[#e3e3e3]">
       {/* Left Side - Image Section */}
       <div className="hidden md:flex md:w-1/2 h-full relative overflow-hidden">
         <motion.div

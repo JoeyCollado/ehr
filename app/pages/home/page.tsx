@@ -86,7 +86,7 @@ const Page = () => {
         {/* Recent Activity */}
         <div className="mt-32 w-full max-w-3xl">
           <h2 className="text-2xl font-semibold mb-4">Recent Activity</h2>
-          <div ref={activityRef} className="bg-gray-100 p-6 rounded-lg shadow-md space-y-5 text-start">
+          <div ref={activityRef} className="bg-gray-100 p-6 rounded-lg shadow-md space-y-5 text-start cursor-pointer">
             {[
               { icon: "✅", text: "Lab result uploaded for John Doe", time: "2 hours ago" },
               { icon: "📄", text: "New clinical note added", time: "Yesterday" },
