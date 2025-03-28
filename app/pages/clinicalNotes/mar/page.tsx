@@ -44,7 +44,7 @@ const Page = () => {
     <>
       <button
         onClick={handleEdit}
-        className="text-center text-1xl cursor-pointer rounded-md px-3 text-white bg-blue-500 mb-[2%] justify-center ml-[50%] mt-[5%]"
+        className="text-center text-1xl cursor-pointer rounded-md px-3 text-white bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform mb-[2%] justify-center ml-[50%] mt-[5%]"
       >
         {isEditing ? "Save" : "Edit"}
       </button>

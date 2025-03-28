@@ -57,7 +57,7 @@
           ) : (
             <button 
               onClick={() => setIsEditing(true)}
-              className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 cursor-pointer mb-4"
+              className="bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform text-white px-4 py-1 rounded cursor-pointer mb-4"
             >
               Edit
             </button>

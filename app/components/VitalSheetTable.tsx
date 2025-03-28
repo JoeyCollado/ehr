@@ -196,12 +196,12 @@ const VitalSheetTable = () => {
       </div>
 
       {/* Title - Fixed Above Table */}
-      <div className="w-full border-1 border-black bg-[#00695C]  text-white text-4xl  font-bold text-center p-4 ">
+      <div className="w-full   bg-[#00695C]  text-white text-4xl  font-bold text-center p-4 ">
         VITAL SIGNS SHEET
       </div>
 
       {/* Scrollable Table */}
-      <div className="overflow-x-auto border-1 border-black ">
+      <div className="overflow-x-auto  ">
         <table className="w-full min-w-max border-collapse border border-gray-300">
           <thead className="sticky top-0 bg-white shadow-md z-10">
             {/* Date Row */}
