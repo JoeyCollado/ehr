@@ -62,12 +62,12 @@ const Page = () => {
         {/* Quick Access Tiles */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-20 ">
           {[
-            { label: "New Patient", icon: "➕" },
-            { label: "Lab Results", icon: "🧪" },
-            { label: "Pending Docs", icon: "📂" },
-            { label: "Clinical Notes", icon: "📝" },
-            { label: "Appointments", icon: "📅" },
-            { label: "Billing", icon: "💰" },
+        { label: "History", icon: "📜" },
+        { label: "Complaints", icon: "⚕️" }, 
+        { label: "Assessments", icon: "🩺" },
+        { label: "Immunization", icon: "💉" }, 
+        { label: "Vital Signs", icon: "❤️" }, 
+        { label: "Personal Info", icon: "🆔" }, 
           ].map((item, index) => (
             <div
               key={index}
