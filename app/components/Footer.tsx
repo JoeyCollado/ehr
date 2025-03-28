@@ -70,7 +70,7 @@ const Footer = () => {
 
         {/* Copyright Section */}
         <div className="mt-10 text-center text-sm text-gray-600 font-bold">
-          Copyright © {new Date().getFullYear()} by YourCompany. All Rights Reserved.
+          Copyright © {new Date().getFullYear()} by Tamaraw Services. All Rights Reserved.
         </div>
 
       </div>
