@@ -45,6 +45,8 @@ const Page = () => {
     "Nebulizer treatment as ordered"
   ]);
 
+  
+
   useEffect(() => {
     setHasMounted(true);
     const savedDetails = localStorage.getItem("details");
@@ -69,7 +71,7 @@ const Page = () => {
     setDetails({ ...details, [key]: e.target.value });
   };
 
-  const handleMedicationChange = (medIndex: number, timeIndex: number, field: string, value: string) => {
+  const handleMedicationChange = (medIndex: number, timeIndex: number, field: string, value: string,) => {
     const updatedMeds = [...medications];
     updatedMeds[medIndex].times[timeIndex][field] = value;
     setMedications(updatedMeds);
@@ -299,6 +301,7 @@ const Page = () => {
                             value={time.time}
                             onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'time', e.target.value)}
                             className="border p-1 w-full"
+                            title="time"
                           />
                         ) : (
                           time.time
@@ -311,6 +314,7 @@ const Page = () => {
                             value={time.dose}
                             onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'dose', e.target.value)}
                             className="border p-1 w-full"
+                            title="dose"
                           />
                         ) : (
                           time.dose
@@ -323,6 +327,7 @@ const Page = () => {
                             value={time.route}
                             onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'route', e.target.value)}
                             className="border p-1 w-full"
+                            title="route"
                           />
                         ) : (
                           time.route
@@ -335,6 +340,7 @@ const Page = () => {
                             value={time.frequency}
                             onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'frequency', e.target.value)}
                             className="border p-1 w-full"
+                            title="frequency"
                           />
                         ) : (
                           time.frequency
@@ -347,6 +353,7 @@ const Page = () => {
                             value={time.adm}
                             onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'adm', e.target.value)}
                             className="border p-1 w-full"
+                            title="adm"
                           />
                         ) : (
                           time.adm
@@ -359,6 +366,7 @@ const Page = () => {
                             value={time.signature}
                             onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'signature', e.target.value)}
                             className="border p-1 w-full"
+                            title="signature"
                           />
                         ) : (
                           time.signature
@@ -371,6 +379,7 @@ const Page = () => {
                             value={time.comments}
                             onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'comments', e.target.value)}
                             className="border p-1 w-full"
+                            title="comments"
                           />
                         ) : (
                           time.comments
@@ -400,6 +409,7 @@ const Page = () => {
                                 value={med.additionalNotes}
                                 onChange={(e) => handleAdditionalNotesChange(medIndex, e.target.value)}
                                 className="border p-1 w-full h-full"
+                                placeholder="notes"
                               />
                             ) : (
                               med.additionalNotes
@@ -445,6 +455,7 @@ const Page = () => {
                     value={order}
                     onChange={(e) => handlePhysicianOrderChange(index, e.target.value)}
                     className="border p-1 flex-1"
+                    title="order"
                   />
                   <button
                     onClick={() => handleDeleteOrder(index)}
