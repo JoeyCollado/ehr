@@ -71,12 +71,24 @@ const Page = () => {
     setDetails({ ...details, [key]: e.target.value });
   };
 
-  const handleMedicationChange = (medIndex: number, timeIndex: number, field: string, value: string,) => {
+  const handleMedicationChange = (
+    medIndex: number,
+    timeIndex: number,
+    field: string,
+    value: string,
+  ) => {
+    // Define valid field types explicitly
+    type MedicationTimeField = 'time' | 'dose' | 'route' | 'frequency';
+    const validFields: MedicationTimeField[] = ['time', 'dose', 'route', 'frequency'];
+  
+    // Narrow down the type with type guard
+    if (!validFields.includes(field as MedicationTimeField)) return;
+  
     const updatedMeds = [...medications];
-    updatedMeds[medIndex].times[timeIndex][field] = value;
+    updatedMeds[medIndex].times[timeIndex][field as MedicationTimeField] = value;
     setMedications(updatedMeds);
   };
-
+  
   const handleAdditionalNotesChange = (medIndex: number, value: string) => {
     const updatedMeds = [...medications];
     updatedMeds[medIndex].additionalNotes = value;
