@@ -93,6 +93,27 @@ const Page = () => {
     setMedications(updatedMeds);
   };
 
+  const handleDeleteMedication = (medIndex: number) => {
+    const updatedMeds = medications.filter((_, index) => index !== medIndex);
+    setMedications(updatedMeds);
+  };
+
+  const handleAddMedication = () => {
+    const newMedication = {
+      name: "New Medication",
+      additionalNotes: "",
+      times: [
+        { time: "", dose: "", route: "", frequency: "", comments: "", status: "", adm: "", signature: "" }
+      ]
+    };
+    setMedications([...medications, newMedication]);
+  };
+
+  const handleDeleteOrder = (index: number) => {
+    const updatedOrders = physicianOrders.filter((_, i) => i !== index);
+    setPhysicianOrders(updatedOrders);
+  };
+
   if (!hasMounted) return null;
   return (
     <>
@@ -230,176 +251,207 @@ const Page = () => {
           </tbody>
         </table>
 
-        <table className="w-full border-collapse border border-black mt-2">
-          <thead>
-            <tr>
-              <th className="border border-black p-2">Medication</th>
-              <th className="border border-black p-2">Time</th>
-              <th className="border border-black p-2">Dose</th>
-              <th className="border border-black p-2">Route</th>
-              <th className="border border-black p-2">Frequency</th>
-              <th className="border border-black p-2">Adm</th>
-              <th className="border border-black p-2">Signature</th>
-              <th className="border border-black p-2">Comments</th>
-              <th className="border border-black p-2">Status</th>
-              <th className="border border-black p-2">Additional Notes: </th>
-            </tr>
-          </thead>
-          <tbody>
-            {medications.map((med, medIndex) => (
-              <React.Fragment key={medIndex}>
-                {med.times.map((time, timeIndex) => (
-                  <tr key={`${medIndex}-${timeIndex}`}>
-                    {timeIndex === 0 && (
-                      <td className="border border-black p-2" rowSpan={med.times.length}>
+        <div className="max-h-96 overflow-y-auto scrollbar-hidden">
+          <table className="w-full border-collapse border border-black mt-2">
+            <thead>
+              <tr>
+                <th className="border border-black p-2">Medication</th>
+                <th className="border border-black p-2">Time</th>
+                <th className="border border-black p-2">Dose</th>
+                <th className="border border-black p-2">Route</th>
+                <th className="border border-black p-2">Frequency</th>
+                <th className="border border-black p-2">Adm</th>
+                <th className="border border-black p-2">Signature</th>
+                <th className="border border-black p-2">Comments</th>
+                <th className="border border-black p-2 px-8">Status</th>
+                <th className="border border-black p-2">Additional Notes</th>
+                {!isEditing && <th className="border border-black p-2">Actions</th>}
+                {isEditing && <th className="border border-black p-2">Actions</th>}
+                </tr>
+            </thead>
+            <tbody>
+              {medications.map((med, medIndex) => (
+                <React.Fragment key={medIndex}>
+                  {med.times.map((time, timeIndex) => (
+                    <tr key={`${medIndex}-${timeIndex}`}>
+                      {timeIndex === 0 && (
+                        <td className="border border-black p-2" rowSpan={med.times.length}>
+                          {isEditing ? (
+                            <input
+                              type="text"
+                              value={med.name}
+                              onChange={(e) => {
+                                const updatedMeds = [...medications];
+                                updatedMeds[medIndex].name = e.target.value;
+                                setMedications(updatedMeds);
+                              }}
+                              className="border p-1 w-full"
+                            />
+                          ) : (
+                            med.name
+                          )}
+                        </td>
+                      )}
+                      <td className="border border-black p-2">
                         {isEditing ? (
                           <input
                             type="text"
-                            value={med.name}
-                            onChange={(e) => {
-                              const updatedMeds = [...medications];
-                              updatedMeds[medIndex].name = e.target.value;
-                              setMedications(updatedMeds);
-                            }}
+                            value={time.time}
+                            onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'time', e.target.value)}
                             className="border p-1 w-full"
                           />
                         ) : (
-                          med.name
+                          time.time
                         )}
                       </td>
-                    )}
-                    <td className="border border-black p-2">
-                      {isEditing ? (
-                        <input
-                          type="text"
-                          value={time.time}
-                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'time', e.target.value)}
-                          className="border p-1 w-full"
-                        />
-                      ) : (
-                        time.time
-                      )}
-                    </td>
-                    <td className="border border-black p-2">
-                      {isEditing ? (
-                        <input
-                          type="text"
-                          value={time.dose}
-                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'dose', e.target.value)}
-                          className="border p-1 w-full"
-                        />
-                      ) : (
-                        time.dose
-                      )}
-                    </td>
-                    <td className="border border-black p-2">
-                      {isEditing ? (
-                        <input
-                          type="text"
-                          value={time.route}
-                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'route', e.target.value)}
-                          className="border p-1 w-full"
-                        />
-                      ) : (
-                        time.route
-                      )}
-                    </td>
-                    <td className="border border-black p-2">
-                      {isEditing ? (
-                        <input
-                          type="text"
-                          value={time.frequency}
-                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'frequency', e.target.value)}
-                          className="border p-1 w-full"
-                        />
-                      ) : (
-                        time.frequency
-                      )}
-                    </td>
-                    <td className="border border-black p-2">
-                      {isEditing ? (
-                        <input
-                          type="text"
-                          value={time.adm}
-                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'adm', e.target.value)}
-                          className="border p-1 w-full"
-                        />
-                      ) : (
-                        time.adm
-                      )}
-                    </td>
-                    <td className="border border-black p-2">
-                      {isEditing ? (
-                        <input
-                          type="text"
-                          value={time.signature}
-                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'signature', e.target.value)}
-                          className="border p-1 w-full"
-                        />
-                      ) : (
-                        time.signature
-                      )}
-                    </td>
-                    <td className="border border-black p-2">
-                      {isEditing ? (
-                        <input
-                          type="text"
-                          value={time.comments}
-                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'comments', e.target.value)}
-                          className="border p-1 w-full"
-                        />
-                      ) : (
-                        time.comments
-                      )}
-                    </td>
-                    <td className="border border-black p-2" style={{ backgroundColor: time.status }}>
-                      {isEditing && (
-                        <select
-                          value={time.status}
-                          onChange={(e) => handleStatusChange(medIndex, timeIndex, e.target.value)}
-                          className="w-full"
-                          title="status"
-                        >
-                          <option value="">Select Status</option>
-                          <option value="#4CAF50">Given</option>
-                          <option value="#F44336">Not Given</option>
-                          <option value="#FF9800">Delayed</option>
-                          <option value="#2196F3">Discontinued</option>
-                        </select>
-                      )}
-                    </td>
-                    {timeIndex === 0 && (
-                      <td className="border border-black p-2 text-center" rowSpan={med.times.length}>
+                      <td className="border border-black p-2">
                         {isEditing ? (
-                          <textarea
-                            value={med.additionalNotes}
-                            onChange={(e) => handleAdditionalNotesChange(medIndex, e.target.value)}
-                            className="border p-1 w-full h-full"
+                          <input
+                            type="text"
+                            value={time.dose}
+                            onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'dose', e.target.value)}
+                            className="border p-1 w-full"
                           />
                         ) : (
-                          med.additionalNotes
+                          time.dose
                         )}
                       </td>
-                    )}
-                  </tr>
-                ))}
-              </React.Fragment>
-            ))}
-          </tbody>
-        </table>
+                      <td className="border border-black p-2">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={time.route}
+                            onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'route', e.target.value)}
+                            className="border p-1 w-full"
+                          />
+                        ) : (
+                          time.route
+                        )}
+                      </td>
+                      <td className="border border-black p-2">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={time.frequency}
+                            onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'frequency', e.target.value)}
+                            className="border p-1 w-full"
+                          />
+                        ) : (
+                          time.frequency
+                        )}
+                      </td>
+                      <td className="border border-black p-2">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={time.adm}
+                            onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'adm', e.target.value)}
+                            className="border p-1 w-full"
+                          />
+                        ) : (
+                          time.adm
+                        )}
+                      </td>
+                      <td className="border border-black p-2">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={time.signature}
+                            onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'signature', e.target.value)}
+                            className="border p-1 w-full"
+                          />
+                        ) : (
+                          time.signature
+                        )}
+                      </td>
+                      <td className="border border-black p-2">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={time.comments}
+                            onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'comments', e.target.value)}
+                            className="border p-1 w-full"
+                          />
+                        ) : (
+                          time.comments
+                        )}
+                      </td>
+                      <td className="border border-black p-2" style={{ backgroundColor: time.status }}>
+                        {isEditing && (
+                          <select
+                            value={time.status}
+                            onChange={(e) => handleStatusChange(medIndex, timeIndex, e.target.value)}
+                            className="w-full"
+                            title="status"
+                          >
+                            <option value="">Select Status</option>
+                            <option value="#4CAF50">Given</option>
+                            <option value="#F44336">Not Given</option>
+                            <option value="#FF9800">Delayed</option>
+                            <option value="#2196F3">Discontinued</option>
+                          </select>
+                        )}
+                      </td>
+                      {timeIndex === 0 && (
+                        <>
+                          <td className="border border-black p-2 text-center" rowSpan={med.times.length}>
+                            {isEditing ? (
+                              <textarea
+                                value={med.additionalNotes}
+                                onChange={(e) => handleAdditionalNotesChange(medIndex, e.target.value)}
+                                className="border p-1 w-full h-full"
+                              />
+                            ) : (
+                              med.additionalNotes
+                            )}
+                          </td>
+                          <td className="border border-black p-2 text-center" rowSpan={med.times.length}>
+                            {isEditing && (
+                              <button
+                                onClick={() => handleDeleteMedication(medIndex)}
+                                className="bg-red-500 text-white px-2 py-1 rounded"
+                              >
+                                Delete
+                              </button>
+                            )}
+                          </td>
+                        </>
+                      )}
+                    </tr>
+                  ))}
+                </React.Fragment>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-        <div className="mt-4">
+        {isEditing && (
+          <button
+            onClick={handleAddMedication}
+            className="bg-blue-500 text-white px-2 py-1 rounded mt-2"
+          >
+            Add Medication
+          </button>
+        )}
+
+        <div className="mt-4 border pl-2 py-2 ">
           <h3 className="font-bold">Physician’s Orders:</h3>
           {isEditing ? (
             <div>
               {physicianOrders.map((order, index) => (
-                <div key={index} className="mb-2">
+                <div key={index} className="mb-2 flex gap-2">
                   <input
                     type="text"
                     value={order}
                     onChange={(e) => handlePhysicianOrderChange(index, e.target.value)}
-                    className="border p-1 w-full"
+                    className="border p-1 flex-1"
                   />
+                  <button
+                    onClick={() => handleDeleteOrder(index)}
+                    className="bg-red-500 text-white px-2 py-1 rounded"
+                  >
+                    Delete
+                  </button>
                 </div>
               ))}
               <button
