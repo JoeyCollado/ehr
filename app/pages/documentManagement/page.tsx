@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-// Interface defining the structure of a patient document
 interface PatientDocument {
   id: number;
   category: string;
@@ -12,49 +11,50 @@ interface PatientDocument {
 }
 
 const Page = () => {
-  // State to store the list of patient documents
   const [data, setData] = useState<PatientDocument[]>([]);
-  
-  // State to toggle edit mode
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  
-  // State to track if the component has mounted
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
+  // State for Patient Name, Doctor, and Date (with LocalStorage)
+  const [patientName, setPatientName] = useState<string>("");
+  const [doctor, setDoctor] = useState<string>("");
+  const [date, setDate] = useState<string>("");
+
   useEffect(() => {
-    // Mark component as mounted
     setIsMounted(true);
-    
-    // Load saved data from localStorage if available
+
+    // Retrieve saved data from localStorage
     const savedData = localStorage.getItem("patientDocuments");
     if (savedData) {
       setData(JSON.parse(savedData));
-    } else {
-      // Default data if no saved records exist
-      setData([
-        { id: 1, category: "Medical Administration Record", dateEntered: "3/10/2025", dateVisited: "", description: "Medication Record", status: "" },
-        { id: 2, category: "Visit Note", dateEntered: "3/10/2025", dateVisited: "", description: "", status: "" },
-        { id: 3, category: "Consent Form", dateEntered: "3/10/2025", dateVisited: "", description: "Agreement/Consent Form", status: "" },
-        { id: 4, category: "Consult", dateEntered: "3/10/2025", dateVisited: "", description: "", status: "" },
-        { id: 5, category: "Appointment Letter", dateEntered: "3/10/2025", dateVisited: "", description: "Referral Form", status: "" },
-        { id: 6, category: "Registration (BILLING)", dateEntered: "3/10/2025", dateVisited: "", description: "Patient Registration Form", status: "" },
-      ]);
     }
+
+    // Retrieve saved patient info from localStorage
+    setPatientName(localStorage.getItem("patientName") || "John Doe");
+    setDoctor(localStorage.getItem("doctor") || "Dr. Smith");
+    setDate(localStorage.getItem("date") || "3/10/2025");
+
   }, []);
 
   useEffect(() => {
-    // Save data to localStorage whenever it changes (after mounting)
     if (isMounted) {
       localStorage.setItem("patientDocuments", JSON.stringify(data));
     }
   }, [data, isMounted]);
 
-  // Toggle edit mode
+  // Save Patient Details to LocalStorage on Change
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem("patientName", patientName);
+      localStorage.setItem("doctor", doctor);
+      localStorage.setItem("date", date);
+    }
+  }, [patientName, doctor, date, isMounted]);
+
   const handleEdit = () => {
     setIsEditing(!isEditing);
   };
 
-  // Handle changes in table inputs
   const handleChange = (id: number, field: keyof PatientDocument, value: string) => {
     setData((prevData) =>
       prevData.map((row) =>
@@ -63,7 +63,6 @@ const Page = () => {
     );
   };
 
-  // Add a new empty document entry
   const addDateEntry = () => {
     const newEntry: PatientDocument = {
       id: data.length + 1,
@@ -76,35 +75,69 @@ const Page = () => {
     setData([...data, newEntry]);
   };
 
-  // Delete an entry from the list
   const deleteEntry = (id: number) => {
     setData(data.filter((row) => row.id !== id));
   };
 
-  // Avoid rendering until component has mounted (to prevent hydration issues)
   if (!isMounted) return null;
 
   return (
     <div className="min-h-screen bg-white text-[#3A2B22] flex flex-col items-center p-6 shadow-lg">
-      {/* Action Buttons */}
       <div className="flex gap-10 text-white mt-[5%]">
         <button onClick={addDateEntry} className="bg-orange-500 px-4 py-1 rounded-md cursor-pointer">Add Date</button>
         <button onClick={handleEdit} className="bg-blue-500 px-4 py-1 rounded-md cursor-pointer">{isEditing ? "Save" : "Edit"}</button>
       </div>
 
-      {/* Table Container */}
       <div className="border border-gray-400 rounded-lg overflow-hidden w-full max-w-6xl mt-[1%] shadow-lg mb-[5%]">
         <h2 className="text-xl font-bold text-center p-4 border-b bg-[#00695C] text-white">PATIENT DOCUMENT MANAGEMENT</h2>
         
-        {/* Patient Information Header */}
+        {/* Editable Patient Information Header */}
         <div className="border border-gray-400 flex">
-          <div className="flex-1 flex items-center justify-center border-r p-4 font-semibold">PATIENT NAME:</div>
-          <div className="flex-1 flex items-center justify-center border-r p-4 font-semibold">DOCTOR:</div>
-          <div className="flex-1 flex items-center justify-center p-4 font-semibold">DATE:</div>
+          <div className="flex-1 flex items-center justify-center border-r p-4 font-semibold">
+            PATIENT NAME: {isEditing ? (
+              <input 
+                type="text" 
+                value={patientName} 
+                onChange={(e) => setPatientName(e.target.value)} 
+                className="ml-2 border border-gray-300 px-2 py-1 rounded-md"
+                placeholder="null"
+              />
+            ) : (
+              <span className="ml-2">{patientName}</span>
+            )}
+          </div>
+          
+          <div className="flex-1 flex items-center justify-center border-r p-4 font-semibold">
+            DOCTOR: {isEditing ? (
+              <input 
+                type="text" 
+                value={doctor} 
+                onChange={(e) => setDoctor(e.target.value)} 
+                className="ml-2 border border-gray-300 px-2 py-1 rounded-md"
+                placeholder="null"
+              />
+            ) : (
+              <span className="ml-2">{doctor}</span>
+            )}
+          </div>
+          
+          <div className="flex-1 flex items-center justify-center p-4 font-semibold">
+            DATE: {isEditing ? (
+              <input 
+                type="date" 
+                value={date} 
+                onChange={(e) => setDate(e.target.value)} 
+                className="ml-2 border border-gray-300 px-2 py-1 rounded-md"
+                placeholder="null"
+              />
+            ) : (
+              <span className="ml-2">{date}</span>
+            )}
+          </div>
         </div>
+        
         <p className="p-3 font-semibold">ALL</p>
 
-        {/* Table of Patient Documents */}
         <div className="overflow-y-auto max-h-96">
           <table className="w-full border-collapse border border-gray-400 text-sm">
             <thead className="bg-gray-200">
