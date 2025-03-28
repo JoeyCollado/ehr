@@ -175,7 +175,7 @@ const VitalSheetTable = () => {
   if (!data) return <p className="text-center p-4">Loading...</p>;
 
   return (
-    <div className="w-full overflow-x-auto p-4 shadow-lg">
+    <div className="w-full overflow-x-auto p-4 shadow-lg ml-[5%] mr-[5%]">
       {/* Edit/Add Buttons */}
       <div className="flex justify-between items-center mb-2 ">
         <button
