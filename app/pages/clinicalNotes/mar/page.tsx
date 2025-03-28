@@ -44,11 +44,11 @@ const Page = () => {
     <>
       <button
         onClick={handleEdit}
-        className="text-center text-1xl cursor-pointer rounded-md px-3 text-white bg-blue-500 justify-center ml-[50%] mt-[5%]"
+        className="text-center text-1xl cursor-pointer rounded-md px-3 text-white bg-blue-500 mb-[2%] justify-center ml-[50%] mt-[5%]"
       >
         {isEditing ? "Save" : "Edit"}
       </button>
-      <div className="max-w-5xl mx-auto p-4 text-black">
+      <div className="max-w-5xl mx-auto p-4 text-black bg-white rounded-t-lg">
         <h2 className="text-2xl font-bold text-center bg-[#f8e6db] p-2 border border-black">
           Medication Administration Record (MAR)
         </h2>

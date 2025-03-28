@@ -82,7 +82,7 @@ const Page = () => {
   if (!isMounted) return null;
 
   return (
-    <div className="min-h-screen bg-white text-[#3A2B22] flex flex-col items-center p-6 shadow-lg ">
+    <div className="min-h-screen bg-[#e3e3e3] text-[#3A2B22] flex flex-col items-center p-6 shadow-lg ">
       <div className="flex gap-10 text-white mt-[5%]">
         <button onClick={addDateEntry} className="bg-orange-500 px-4 py-1 rounded-md cursor-pointer">Add Date</button>
         <button onClick={handleEdit} className="bg-blue-500 px-4 py-1 rounded-md cursor-pointer">{isEditing ? "Save" : "Edit"}</button>

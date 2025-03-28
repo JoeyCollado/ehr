@@ -63,15 +63,15 @@ const Page = () => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-white text-[#685442]">
+    <div className="h-screen flex items-center justify-center bg-[#e3e3e3] text-[#685442] ">
       {/* Main Container */}
-      <div className="bg-[#FAD2A5] shadow-lg w-[900px] h-[500px] flex border border-gray-500">
+      <div className=" shadow-lg w-[900px] h-[500px] flex ">
         
         {/* Left Side - Image */}
-        <div className="w-[60%] flex flex-col items-center justify-center bg-white">
+        <div className="w-[60%] flex flex-col items-center justify-center bg-white rounded-l-lg">
           <div className="w-[90%] h-[60%] bg-white shadow-lg flex items-center justify-center">
             {imageSrc ? (
-              <Image alt="X-ray Image" src={imageSrc} width={400} height={300} className="w-full h-auto" />
+              <Image alt="X-ray Image" src={imageSrc} width={400} height={300} className="w-full h-auto border-1 rounded-md" />
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-gray-300 text-gray-600">No Image</div>
             )}
@@ -85,7 +85,7 @@ const Page = () => {
         </div>
 
         {/* Right Side - Form */}
-        <div className="w-[40%] bg-[#00695C] p-6 flex flex-col justify-between border-l border-gray-500">
+        <div className="w-[40%] bg-[#00695C] p-6 flex flex-col justify-between rounded-r-lg">
           
           <div className="space-y-4">
             {/* Name Field */}

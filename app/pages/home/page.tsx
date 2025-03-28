@@ -52,9 +52,9 @@ const Page = () => {
 
   return (
     <>
-      <div className="min-h-screen font-sans bg-white text-[#3A2B22] flex flex-col items-center text-center p-6">
+      <div className="min-h-screen font-sans bg-[#e3e3e3] text-[#3A2B22] flex flex-col items-center text-center p-6">
         {/* Welcome Message */}
-        <div ref={welcomeRef} className="mt-25 shadow-md px-[12%] py-5 pb-15 rounded-lg">
+        <div ref={welcomeRef} className="mt-25  px-[12%] py-5 pb-15 rounded-lg">
           <h1 className="text-6xl md:text-7xl font-bold mt-[5%] ">Welcome Back!</h1>
           <p className="text-xl mt-4">Manage your health records with ease</p>
         </div>
@@ -74,8 +74,8 @@ const Page = () => {
               ref={(el) => {
                 if (el) tilesRef.current[index] = el;
             }}            
-              className="flex flex-col items-center justify-center p-6 bg-[#E0F2F1] rounded-lg shadow-md w-40 
-                transition transform hover:scale-105 hover:shadow-lg hover:bg-[#d8eceb]  cursor-pointer "
+              className="flex flex-col items-center justify-center p-6 bg-[#ffffff] rounded-lg shadow-md w-40 
+                transition transform hover:scale-105 hover:shadow-lg hover:bg-[#f1f1f1]  cursor-pointer "
             >
               <span className="text-3xl">{item.icon}</span>
               <p className="mt-2 font-medium">{item.label}</p>

@@ -175,7 +175,8 @@ const VitalSheetTable = () => {
   if (!data) return <p className="text-center p-4">Loading...</p>;
 
   return (
-    <div className="w-full overflow-x-auto p-4 shadow-lg ml-[5%] mr-[5%]">
+    
+    <div className="w-full overflow-x-auto p-4 shadow-lg ml-[5%] mr-[5%] bg-white rounded-lg">
       {/* Edit/Add Buttons */}
       <div className="flex justify-between items-center mb-2 ">
         <button
@@ -195,12 +196,12 @@ const VitalSheetTable = () => {
       </div>
 
       {/* Title - Fixed Above Table */}
-      <div className="w-full border-1 border-black bg-[#00695C] text-white text-4xl  font-bold text-center p-4 ">
+      <div className="w-full border-1 border-black bg-[#00695C]  text-white text-4xl  font-bold text-center p-4 ">
         VITAL SIGNS SHEET
       </div>
 
       {/* Scrollable Table */}
-      <div className="overflow-x-auto border-1 border-black">
+      <div className="overflow-x-auto border-1 border-black ">
         <table className="w-full min-w-max border-collapse border border-gray-300">
           <thead className="sticky top-0 bg-white shadow-md z-10">
             {/* Date Row */}
@@ -269,6 +270,7 @@ const VitalSheetTable = () => {
         </div>
       )}
     </div>
+   
   );
 };
 

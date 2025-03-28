@@ -63,7 +63,7 @@
             </button>
           )}
         </div>
-    <div className="min-h-screen bg-white flex items-center justify-center pb-4 mb-[5%]">
+    <div className="min-h-screen bg-[#e3e3e3] flex items-center justify-center pb-4 mb-[5%]">
       <div className="w-full max-w-4xl bg-white text-black shadow-lg rounded-lg p-6 border-1">
         <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5 mb-4">PATIENT INFORMATION</h2>
         {/* First part */}
