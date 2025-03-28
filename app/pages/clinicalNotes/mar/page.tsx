@@ -15,31 +15,85 @@ const Page = () => {
     Address: "",
   };
 
+  const defaultMedications = [
+    {
+      name: "Amoxicillin",
+      additionalNotes: "Monitor temperature every 4 hours.",
+      times: [
+        { time: "8:00 AM", dose: "250 mg", route: "Oral (PO)", frequency: "Every 8 hours", comments: "First dose", status: "", adm: "", signature: "" },
+        { time: "4:00 PM", dose: "250 mg", route: "Oral (PO)", frequency: "Every 8 hours", comments: "", status: "", adm: "", signature: "" },
+        { time: "12:00 NN", dose: "250 mg", route: "Oral (PO)", frequency: "Every 8 hours", comments: "", status: "", adm: "", signature: "" },
+        { time: "8:00 AM", dose: "250 mg", route: "Oral (PO)", frequency: "Every 8 hours", comments: "", status: "", adm: "", signature: "" },
+      ]
+    },
+    {
+      name: "Acetaminophen",
+      additionalNotes: "Monitor for pain relief effectiveness.",
+      times: [
+        { time: "8:00 AM", dose: "10 mg/kg", route: "Oral (PO)", frequency: "Every 4 hours", comments: "For fever (if needed)", status: "", adm: "", signature: "" },
+        { time: "12:00 PM", dose: "10 mg/kg", route: "Oral (PO)", frequency: "Every 4 hours", comments: "", status: "", adm: "", signature: "" },
+        { time: "4:00 PM", dose: "10 mg/kg", route: "Oral (PO)", frequency: "Every 4 hours", comments: "", status: "", adm: "", signature: "" },
+        { time: "8:00 PM", dose: "10 mg/kg", route: "Oral (PO)", frequency: "Every 4 hours", comments: "", status: "", adm: "", signature: "" },
+      ]
+    }
+  ];
+
   const [details, setDetails] = useState(defaultDetails);
+  const [medications, setMedications] = useState(defaultMedications);
+  const [physicianOrders, setPhysicianOrders] = useState([
+    "Monitor vital every 4 hours",
+    "Nebulizer treatment as ordered"
+  ]);
 
   useEffect(() => {
     setHasMounted(true);
     const savedDetails = localStorage.getItem("details");
+    const savedMeds = localStorage.getItem("medications");
+    const savedOrders = localStorage.getItem("physicianOrders");
 
     if (savedDetails) setDetails(JSON.parse(savedDetails));
+    if (savedMeds) setMedications(JSON.parse(savedMeds));
+    if (savedOrders) setPhysicianOrders(JSON.parse(savedOrders));
   }, []);
 
   const handleEdit = () => {
     if (isEditing) {
       localStorage.setItem("details", JSON.stringify(details));
+      localStorage.setItem("medications", JSON.stringify(medications));
+      localStorage.setItem("physicianOrders", JSON.stringify(physicianOrders));
     }
     setIsEditing(!isEditing);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    key: string
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
     setDetails({ ...details, [key]: e.target.value });
   };
 
-  if (!hasMounted) return null;
+  const handleMedicationChange = (medIndex: number, timeIndex: number, field: string, value: string) => {
+    const updatedMeds = [...medications];
+    updatedMeds[medIndex].times[timeIndex][field] = value;
+    setMedications(updatedMeds);
+  };
 
+  const handleAdditionalNotesChange = (medIndex: number, value: string) => {
+    const updatedMeds = [...medications];
+    updatedMeds[medIndex].additionalNotes = value;
+    setMedications(updatedMeds);
+  };
+
+  const handlePhysicianOrderChange = (index: number, value: string) => {
+    const updatedOrders = [...physicianOrders];
+    updatedOrders[index] = value;
+    setPhysicianOrders(updatedOrders);
+  };
+
+  const handleStatusChange = (medIndex: number, timeIndex: number, color: string) => {
+    const updatedMeds = [...medications];
+    updatedMeds[medIndex].times[timeIndex].status = color;
+    setMedications(updatedMeds);
+  };
+
+  if (!hasMounted) return null;
   return (
     <>
       <button
@@ -57,12 +111,12 @@ const Page = () => {
           <tbody>
             <tr>
               <td className="border border-black p-2 font-bold">
-              <label htmlFor="Name" className="mr-2">
+                <label htmlFor="Name" className="mr-2">
                   Name:
                 </label>
                 {isEditing ? (
                   <input
-                  id="Name"
+                    id="Name"
                     type="text"
                     value={details.name}
                     onChange={(e) => handleChange(e, "name")}
@@ -89,7 +143,7 @@ const Page = () => {
                 )}
               </td>
               <td className="border border-black p-2 font-bold">
-              <label htmlFor="endDate" className="mr-2">
+                <label htmlFor="endDate" className="mr-2">
                   End Date:
                 </label>
                 {isEditing ? (
@@ -107,12 +161,12 @@ const Page = () => {
             </tr>
             <tr>
               <td className="border border-black p-2 font-bold">
-              <label htmlFor="dateBirth" className="mr-2">
+                <label htmlFor="dateBirth" className="mr-2">
                   Date of Birth:
                 </label>
                 {isEditing ? (
                   <input
-                  id="dateBirth"
+                    id="dateBirth"
                     type="date"
                     value={details.birthDate}
                     onChange={(e) => handleChange(e, "birthDate")}
@@ -123,12 +177,12 @@ const Page = () => {
                 )}
               </td>
               <td className="border border-black p-2 font-bold" colSpan={2}>
-              <label htmlFor="doctor" className="mr-2">
+                <label htmlFor="doctor" className="mr-2">
                   Doctor:
                 </label>
                 {isEditing ? (
                   <input
-                  id="doctor"
+                    id="doctor"
                     type="text"
                     value={details.doctor}
                     onChange={(e) => handleChange(e, "doctor")}
@@ -141,12 +195,12 @@ const Page = () => {
             </tr>
             <tr>
               <td className="border border-black p-2 font-bold" colSpan={3}>
-              <label htmlFor="allergies" className="mr-2">
+                <label htmlFor="allergies" className="mr-2">
                   Known Allergies:
                 </label>
                 {isEditing ? (
                   <input
-                  id="allergies"
+                    id="allergies"
                     type="text"
                     value={details.knownAllergies}
                     onChange={(e) => handleChange(e, "knownAllergies")}
@@ -176,127 +230,193 @@ const Page = () => {
           </tbody>
         </table>
 
-       {/* second part */}
-<table className="w-full border-collapse border border-black mt-2">
-  <thead>
-    <tr>
-      <th className="border border-black p-2">Medication</th>
-      <th className="border border-black p-2">Time</th>
-      <th className="border border-black p-2">Dose</th>
-      <th className="border border-black p-2">Route</th>
-      <th className="border border-black p-2">Frequency</th>
-      <th className="border border-black p-2">Adm</th>
-      <th className="border border-black p-2">Signature</th>
-      <th className="border border-black p-2">Comments</th>
-      <th className="border border-black p-2">Status</th>
-      
+        <table className="w-full border-collapse border border-black mt-2">
+          <thead>
+            <tr>
+              <th className="border border-black p-2">Medication</th>
+              <th className="border border-black p-2">Time</th>
+              <th className="border border-black p-2">Dose</th>
+              <th className="border border-black p-2">Route</th>
+              <th className="border border-black p-2">Frequency</th>
+              <th className="border border-black p-2">Adm</th>
+              <th className="border border-black p-2">Signature</th>
+              <th className="border border-black p-2">Comments</th>
+              <th className="border border-black p-2">Status</th>
+              <th className="border border-black p-2">Additional Notes: </th>
+            </tr>
+          </thead>
+          <tbody>
+            {medications.map((med, medIndex) => (
+              <React.Fragment key={medIndex}>
+                {med.times.map((time, timeIndex) => (
+                  <tr key={`${medIndex}-${timeIndex}`}>
+                    {timeIndex === 0 && (
+                      <td className="border border-black p-2" rowSpan={med.times.length}>
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={med.name}
+                            onChange={(e) => {
+                              const updatedMeds = [...medications];
+                              updatedMeds[medIndex].name = e.target.value;
+                              setMedications(updatedMeds);
+                            }}
+                            className="border p-1 w-full"
+                          />
+                        ) : (
+                          med.name
+                        )}
+                      </td>
+                    )}
+                    <td className="border border-black p-2">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={time.time}
+                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'time', e.target.value)}
+                          className="border p-1 w-full"
+                        />
+                      ) : (
+                        time.time
+                      )}
+                    </td>
+                    <td className="border border-black p-2">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={time.dose}
+                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'dose', e.target.value)}
+                          className="border p-1 w-full"
+                        />
+                      ) : (
+                        time.dose
+                      )}
+                    </td>
+                    <td className="border border-black p-2">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={time.route}
+                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'route', e.target.value)}
+                          className="border p-1 w-full"
+                        />
+                      ) : (
+                        time.route
+                      )}
+                    </td>
+                    <td className="border border-black p-2">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={time.frequency}
+                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'frequency', e.target.value)}
+                          className="border p-1 w-full"
+                        />
+                      ) : (
+                        time.frequency
+                      )}
+                    </td>
+                    <td className="border border-black p-2">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={time.adm}
+                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'adm', e.target.value)}
+                          className="border p-1 w-full"
+                        />
+                      ) : (
+                        time.adm
+                      )}
+                    </td>
+                    <td className="border border-black p-2">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={time.signature}
+                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'signature', e.target.value)}
+                          className="border p-1 w-full"
+                        />
+                      ) : (
+                        time.signature
+                      )}
+                    </td>
+                    <td className="border border-black p-2">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={time.comments}
+                          onChange={(e) => handleMedicationChange(medIndex, timeIndex, 'comments', e.target.value)}
+                          className="border p-1 w-full"
+                        />
+                      ) : (
+                        time.comments
+                      )}
+                    </td>
+                    <td className="border border-black p-2" style={{ backgroundColor: time.status }}>
+                      {isEditing && (
+                        <select
+                          value={time.status}
+                          onChange={(e) => handleStatusChange(medIndex, timeIndex, e.target.value)}
+                          className="w-full"
+                          title="status"
+                        >
+                          <option value="">Select Status</option>
+                          <option value="#4CAF50">Given</option>
+                          <option value="#F44336">Not Given</option>
+                          <option value="#FF9800">Delayed</option>
+                          <option value="#2196F3">Discontinued</option>
+                        </select>
+                      )}
+                    </td>
+                    {timeIndex === 0 && (
+                      <td className="border border-black p-2 text-center" rowSpan={med.times.length}>
+                        {isEditing ? (
+                          <textarea
+                            value={med.additionalNotes}
+                            onChange={(e) => handleAdditionalNotesChange(medIndex, e.target.value)}
+                            className="border p-1 w-full h-full"
+                          />
+                        ) : (
+                          med.additionalNotes
+                        )}
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
 
-    </tr>
-  </thead>
-  <tbody>
-    {/* Amoxicillin */}
-    <tr>
-      <td className="border border-black p-2" rowSpan={4}>Amoxicillin</td>
-      <td className="border border-black p-2">8:00 AM</td>
-      <td className="border border-black p-2">250 mg</td>
-      <td className="border border-black p-2">Oral (PO)</td>
-      <td className="border border-black p-2">Every 8 hours</td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2">First dose</td>
-      <td className="border border-black p-2"></td>
-      <th className="border border-black p-2" rowSpan={4}>Additional Notes: - Monitor temperature every 4 hours.</th>
-    </tr>
-    <tr>
-      <td className="border border-black p-2">4:00 PM</td>
-      <td className="border border-black p-2">250 mg</td>
-      <td className="border border-black p-2">Oral (PO)</td>
-      <td className="border border-black p-2">Every 8 hours</td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-    </tr>
-    <tr>
-      <td className="border border-black p-2">12:00 NN</td>
-      <td className="border border-black p-2">250 mg</td>
-      <td className="border border-black p-2">Oral (PO)</td>
-      <td className="border border-black p-2">Every 8 hours</td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-    </tr>
-    <tr>
-      <td className="border border-black p-2">8:00 AM</td>
-      <td className="border border-black p-2">250 mg</td>
-      <td className="border border-black p-2">Oral (PO)</td>
-      <td className="border border-black p-2">Every 8 hours</td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-    </tr>
-
-    {/* Acetaminophen */}
-    <tr>
-      <td className="border border-black p-2" rowSpan={4}>Acetaminophen</td>
-      <td className="border border-black p-2">8:00 AM</td>
-      <td className="border border-black p-2">10 mg/kg</td>
-      <td className="border border-black p-2">Oral (PO)</td>
-      <td className="border border-black p-2">Every 4 hours</td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2">For fever (if needed)</td>
-      <td className="border border-black p-2"></td>
-      <th className="border border-black p-2" rowSpan={4}>Additional Notes: - Monitor temperature every 4 hours.</th>
-    </tr>
-    <tr>
-      <td className="border border-black p-2">12:00 PM</td>
-      <td className="border border-black p-2">10 mg/kg</td>
-      <td className="border border-black p-2">Oral (PO)</td>
-      <td className="border border-black p-2">Every 4 hours</td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-    </tr>
-    <tr>
-      <td className="border border-black p-2">4:00 PM</td>
-      <td className="border border-black p-2">10 mg/kg</td>
-      <td className="border border-black p-2">Oral (PO)</td>
-      <td className="border border-black p-2">Every 4 hours</td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-    </tr>
-    <tr>
-      <td className="border border-black p-2">8:00 PM</td>
-      <td className="border border-black p-2">10 mg/kg</td>
-      <td className="border border-black p-2">Oral (PO)</td>
-      <td className="border border-black p-2">Every 4 hours</td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-      <td className="border border-black p-2"></td>
-    </tr>
-  </tbody>
-</table>
-
-<div className="mt-4 ">
-  <table className="border w-full text-start">
-  <h3 className="font-bold pl-[5%] mt-[2.5%]">Physician’s Orders:</h3>
-  <ul className="list-disc pl-[5%] mb-[2.5%]">
-    <li>Monitor vital every 4 hours</li>
-    <li>Nebulizer treatment as ordered</li>
-  </ul>
-  </table>
-</div>
-  
-
-
-
+        <div className="mt-4">
+          <h3 className="font-bold">Physician’s Orders:</h3>
+          {isEditing ? (
+            <div>
+              {physicianOrders.map((order, index) => (
+                <div key={index} className="mb-2">
+                  <input
+                    type="text"
+                    value={order}
+                    onChange={(e) => handlePhysicianOrderChange(index, e.target.value)}
+                    className="border p-1 w-full"
+                  />
+                </div>
+              ))}
+              <button
+                onClick={() => setPhysicianOrders([...physicianOrders, ""])}
+                className="bg-blue-500 text-white px-2 py-1 rounded mt-2"
+              >
+                Add Order
+              </button>
+            </div>
+          ) : (
+            <ul className="list-disc pl-5">
+              {physicianOrders.map((order, index) => (
+                <li key={index}>{order}</li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </>
   );
