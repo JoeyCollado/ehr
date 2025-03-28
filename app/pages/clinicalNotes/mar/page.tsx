@@ -48,7 +48,7 @@ const Page = () => {
       >
         {isEditing ? "Save" : "Edit"}
       </button>
-      <div className="max-w-6xl mx-auto p-4 text-black">
+      <div className="max-w-5xl mx-auto p-4 text-black">
         <h2 className="text-2xl font-bold text-center bg-[#f8e6db] p-2 border border-black">
           Medication Administration Record (MAR)
         </h2>
