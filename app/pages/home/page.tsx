@@ -90,7 +90,7 @@ const Page = () => {
             {[
               { icon: "✅", text: "Lab result uploaded for John Doe", time: "2 hours ago" },
               { icon: "📄", text: "New clinical note added", time: "Yesterday" },
-              { icon: "🔔", text: "Upcoming appointment: Jane Smith (Tomorrow)", time: "Scheduled" },
+              { icon: "🔔", text: "Placeholder", time: "Placeholder" },
             ].map((activity, index) => (
               <div
                 key={index}
