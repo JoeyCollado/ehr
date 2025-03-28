@@ -138,7 +138,7 @@ const Page = () => {
         {isEditing ? "Save" : "Edit"}
       </button>
       <div className="max-w-5xl mx-auto p-4 text-black bg-white rounded-t-lg mb-[5%] rounded-lg">
-        <h2 className="text-2xl font-bold text-center bg-[#f8e6db] p-2 border border-black">
+        <h2 className="text-2xl font-bold text-center bg-[#00695C] text-white p-2 border border-black">
           Medication Administration Record (MAR)
         </h2>
 
@@ -266,8 +266,8 @@ const Page = () => {
         </table>
 
         <div className="max-h-96 overflow-y-auto scrollbar-hidden">
-          <table className="w-full border-collapse border border-black mt-2">
-            <thead>
+          <table className="w-full border-collapse border border-black mt-2 ">
+            <thead className="bg-[#00695C] text-white">
               <tr>
                 <th className="border border-black p-2">Medication</th>
                 <th className="border border-black p-2">Time</th>
@@ -498,7 +498,7 @@ const Page = () => {
       <div className="overflow-x-auto ">
       <table className="border-collapse border border-gray-800 text-[14px] text-center ">
         <thead>
-          <tr className="bg-gray-200">
+          <tr className="bg-[#00695C] text-white">
             <th className="border border-gray-800 p-2 pb-10">Codes to be used:</th>
             <th className="border border-gray-800 p-2 pb-10">(R) <br></br> Refused</th>
             <th className="border border-gray-800 p-2 pb-5">(E)<br></br> Refused and destroyed</th>
