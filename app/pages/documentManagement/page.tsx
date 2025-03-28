@@ -83,12 +83,12 @@ const Page = () => {
 
   return (
     <div className="min-h-screen bg-[#e3e3e3] text-[#3A2B22] flex flex-col items-center p-6 shadow-lg ">
-      <div className="flex gap-10 text-white mt-[5%]">
+      <div className="flex gap-10 text-white mt-[5%] ">
         <button onClick={addDateEntry} className="bg-orange-500 hover:bg-orange-700 hover:scale-105 hover:shadow-lg transition-transform px-4 py-1 rounded-md cursor-pointer">Add Date</button>
         <button onClick={handleEdit} className="bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform px-4 py-1 rounded-md cursor-pointer">{isEditing ? "Save" : "Edit"}</button>
       </div>
 
-      <div className="border border-gray-400 rounded-lg overflow-hidden w-full max-w-5xl mt-[1%] shadow-lg mb-[5%] ">
+      <div className="border bg-white border-gray-400 rounded-lg overflow-hidden w-full max-w-5xl mt-[1%] shadow-lg mb-[5%] ">
         <h2 className="text-xl font-bold text-center p-4 border-b bg-[#00695C] text-white">PATIENT DOCUMENT MANAGEMENT</h2>
         
         {/* Editable Patient Information Header */}
