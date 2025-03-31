@@ -137,7 +137,7 @@ const Page = () => {
       >
         {isEditing ? "Save" : "Edit"}
       </button>
-      <div className="max-w-5xl mx-auto p-4 text-black bg-white rounded-t-lg mb-[5%] rounded-lg">
+      <div className="max-w-5xl mx-auto p-4 text-black bg-white rounded-t-lg mb-[5%] rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center bg-[#00695C] text-white p-2 border border-black">
           Medication Administration Record (MAR)
         </h2>
@@ -494,7 +494,7 @@ const Page = () => {
         </div>
       </div>
 
-<div className="max-w-5xl mx-auto p-4 text-black bg-white rounded-t-lg mb-[5%] rounded-lg ">
+<div className="max-w-5xl mx-auto p-4 text-black bg-white rounded-t-lg mb-[5%] rounded-lg shadow-lg">
       <div className="overflow-x-auto ">
       <table className="border-collapse border border-gray-800 text-[14px] text-center ">
         <thead>
