@@ -121,13 +121,17 @@ const Page = () => {
         {isEditing ? "Save" : "Edit"}
       </button>
       <div className="rounded-lg p-6 w-[80%] max-w-[60rem] bg-[#ffffff] mt-[15%] shadow-lg">
+        
         <h1 className="text-2xl font-bold text-center mb-6">Medical Billing Invoice</h1>
 
         <div className="grid grid-cols-2 gap-6 border-b-2 border-[#3A2B22] pb-4 relative">
+          
           <div className="ml-[5%]">
+            
             <h2 className="font-semibold">Patient Information</h2>
             {["patientName", "patientContact", "patientAddress"].map((field) => (
               <div key={field}>
+                
                 <p className="italic font-bold">{field.replace("patient", "").trim()}</p>
                 {isEditing ? (
                   <input
@@ -140,11 +144,16 @@ const Page = () => {
                 ) : (
                   <p className="italic">{formData[field as FormDataStringKeys]}</p>
                 )}
+                
               </div>
+              
             ))}
+            
           </div>
-
+ {/* Vertical Divider */}
+ <div className="absolute top-0 h-[90%] border-l-2 border-[#3A2B22] transform -translate-x-1/2"></div>
           <div className="ml-[5%]">
+            
             <h2 className="font-semibold">Prescribing Physician Information</h2>
             {["physicianName", "physicianContact", "physicianAddress"].map((field) => (
               <div key={field}>
@@ -163,6 +172,8 @@ const Page = () => {
               </div>
             ))}
           </div>
+           {/* Vertical Divider */}
+  <div className="absolute left-1/2 top-0 h-[90%] border-l-2 border-[#3A2B22] transform -translate-x-1/2"></div>
         </div>
 
         <div className="grid grid-cols-4 text-center font-semibold border-b-2 border-[#3A2B22] pb-2 mb-4">
@@ -185,6 +196,8 @@ const Page = () => {
             )
           ))}
         </div>
+
+        
 
         <div className="border-2 border-[#3A2B22] mb-4">
           <div className="grid grid-cols-3 text-center font-semibold border-b-2 border-[#3A2B22] p-2">
