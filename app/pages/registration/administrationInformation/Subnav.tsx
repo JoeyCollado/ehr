@@ -3,8 +3,8 @@ import Link from 'next/link';
 
 const Subnav = () => {
   return (
-    <div className="absolute top-10 w-full h-[10vh]   text-white flex justify-center items-center">
-      <ul className="flex gap-6 ">
+    <div className="absolute top-30 w-full h-[10vh]   text-white flex justify-center items-center">
+      <ul className="flex gap-6 text-2xl ">
         {[
           { href: "/pages/registration/administrationInformation/vitalSigns", label: "Vital Signs "},
           { href: "/pages/registration/administrationInformation/chiefComplaint", label: "Chief Complaint" },
@@ -12,9 +12,9 @@ const Subnav = () => {
           { href: "/pages/registration/administrationInformation/immunization", label: "Immunization" },
           { href: "/pages/registration/administrationInformation/medicalHistory", label: "Medical History" }
         ].map((item, index) => (
-          <li key={index} className=''>
+          <li key={index} className='hover:scale-105 ease-in-out duration-300'>
             <Link href={item.href}>
-              <button className="px-4 py-2 cursor-pointer  bg-[#ffffff]  text-black hover:bg-[#eeeded] hover:scale-105 duration-300 ease-in-out font-semibold rounded-lg shadow-lg  transition">
+              <button className="px-4 py-5 cursor-pointer  bg-[#ffffff]  text-black hover:bg-[#eeeded] hover:scale-105 duration-300 ease-in-out font-semibold rounded-lg shadow-lg  transition">
                 {item.label}
               </button>
             </Link>
