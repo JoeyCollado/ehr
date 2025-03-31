@@ -52,7 +52,7 @@ const Page = () => {
 
   return (
     <>
-      <div className="min-h-screen font-sans bg-[#e3e3e3] text-[#3A2B22] flex flex-col items-center text-center p-6">
+      <div className="min-h-screen font-sans bg-[#faf6f6] text-[#3A2B22] flex flex-col items-center text-center p-6">
         {/* Welcome Message */}
         <div ref={welcomeRef} className="mt-25  px-[12%] py-5 pb-15 rounded-lg">
           <h1 className="text-6xl md:text-7xl font-bold mt-[5%] ">Welcome Back!</h1>

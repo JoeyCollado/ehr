@@ -93,7 +93,7 @@ const Page = () => {
       >
         {isEditing ? "Save" : "Edit"}
       </button>
-      <div className="min-h-screen bg-[#e3e3e3] text-[#685442] flex justify-center ">
+      <div className="min-h-screen bg-[#faf6f6] text-[#685442] flex justify-center ">
         <div className="w-[80%] h-[90%]  bg-white shadow-2xl p-4 mb-[5%] rounded-lg">
           <h1 className="text-3xl font-bold text-center bg-[#00695C] text-white py-4">
             LABORATORY RESULTS

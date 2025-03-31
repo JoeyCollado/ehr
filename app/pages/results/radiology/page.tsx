@@ -63,7 +63,7 @@ const Page = () => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-[#e3e3e3] text-[#685442] ">
+    <div className="h-screen flex items-center justify-center bg-[#faf6f6] text-[#685442] ">
       {/* Main Container */}
       <div className=" shadow-lg w-[900px] h-[500px] flex ">
         
