@@ -1,7 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-interface FormData { //safety measure
+interface Item {
+  id: string;
+  item: string;
+  description: string;
+  amount: string;
+}
+
+interface FormData {
   patientName: string;
   patientContact: string;
   patientAddress: string;
@@ -12,18 +19,19 @@ interface FormData { //safety measure
   date: string;
   dueDate: string;
   amountDue: string;
-  item1: string;
-  description1: string;
-  amount1: string;
-  item2: string;
-  description2: string;
-  amount2: string;
+  items: Item[];
   notes: string;
   total: string;
 }
 
+type StringKeys<T> = {
+  [K in keyof T]: T[K] extends string ? K : never;
+}[keyof T];
+
+type FormDataStringKeys = StringKeys<FormData>;
+
 const Page = () => {
-  const initialData: FormData = { //localstorage (1)
+  const initialData: FormData = {
     patientName: "",
     patientContact: "",
     patientAddress: "",
@@ -34,189 +42,190 @@ const Page = () => {
     date: "21/03/2025",
     dueDate: "20/04/2025",
     amountDue: "Info",
-    item1: "Info",
-    description1: "Info",
-    amount1: "Info",
-    item2: "Info",
-    description2: "Info",
-    amount2: "Info",
+    items: [
+      { id: "1", item: "Info", description: "Info", amount: "0" },
+      { id: "2", item: "Info", description: "Info", amount: "0" }
+    ],
     notes: "Info",
-    total: "Info",
+    total: "0",
   };
 
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState<FormData>(initialData); //localstorage(2)
+  const [formData, setFormData] = useState<FormData>(initialData);
   const [hasMounted, setHasMounted] = useState(false);
 
-  useEffect(() => { //localstorage(3)
+  useEffect(() => {
     const savedData = localStorage.getItem("invoiceData");
     if (savedData) {
-      setFormData(JSON.parse(savedData));
+      // Merge with initial data to ensure all fields exist
+      setFormData({ ...initialData, ...JSON.parse(savedData) });
     }
     setHasMounted(true);
   }, []);
 
-  useEffect(() => { //localstorage(4)
+  useEffect(() => {
     if (hasMounted && !isEditing) {
       localStorage.setItem("invoiceData", JSON.stringify(formData));
     }
   }, [isEditing, formData, hasMounted]);
 
+  useEffect(() => {
+    const total = formData.items.reduce((acc, item) => {
+      const amount = parseFloat(item.amount) || 0;
+      return acc + amount;
+    }, 0);
+    setFormData(prev => ({ ...prev, total: total.toFixed(2) }));
+  }, [formData.items]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      [name as keyof FormData]: value,
+      [name as FormDataStringKeys]: value,
     }));
   };
 
-  if (!hasMounted) return null; //localstorage(5)
+  const handleItemChange = (id: string, field: keyof Item, value: string) => {
+    const newItems = formData.items.map(item => {
+      if (item.id === id) {
+        return { ...item, [field]: value };
+      }
+      return item;
+    });
+    setFormData(prev => ({ ...prev, items: newItems }));
+  };
+
+  const addItem = () => {
+    const newItem: Item = {
+      id: Date.now().toString(),
+      item: "",
+      description: "",
+      amount: "0"
+    };
+    setFormData(prev => ({ ...prev, items: [...prev.items, newItem] }));
+  };
+
+  const deleteItem = (id: string) => {
+    const newItems = formData.items.filter(item => item.id !== id);
+    setFormData(prev => ({ ...prev, items: newItems }));
+  };
+
+  if (!hasMounted) return null;
 
   return (
-<div className="h-screen flex items-center justify-center bg-[#faf6f6] text-[#3A2B22]  mb-[10%]">
+    <div className="min-h-screen flex items-center justify-center bg-[#faf6f6] text-[#3A2B22] mb-[10%]">
       <button
-        className="bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform  rounded-md text-white px-4 py-1 absolute top-10 cursor-pointer mt-[5%] "
+        className="bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform rounded-md text-white px-4 py-1 absolute top-10 cursor-pointer mt-[5%]"
         onClick={() => setIsEditing(!isEditing)}
       >
         {isEditing ? "Save" : "Edit"}
       </button>
       <div className="rounded-lg p-6 w-[80%] max-w-[60rem] bg-[#ffffff] mt-[15%] shadow-lg">
         <h1 className="text-2xl font-bold text-center mb-6">Medical Billing Invoice</h1>
+
         <div className="grid grid-cols-2 gap-6 border-b-2 border-[#3A2B22] pb-4 relative">
-        <div className="absolute h-[90%] border-l-2 border-[#3A2B22] "></div>        
-  <div className="ml-[5%]">
-    <h2 className="font-semibold">Patient Information</h2>
-    <p className="italic font-bold">Name</p>
-    {isEditing ? (    
-      <input
-        className="border w-full p-1" 
-        name="patientName"
-        value={formData.patientName}
-        onChange={handleChange}
-        aria-label="Patient Name"
-      />
-    ) : (
-      <p className="italic">{formData.patientName}</p>
-    )}
-    <p className="italic font-bold">Contact Number</p>
-    {isEditing ? (
-      <input
-        className="border w-full p-1"
-        name="patientContact"
-        value={formData.patientContact}
-        onChange={handleChange}
-        aria-label="Patient Contact"
-      />
-    ) : (
-      <p className="italic">{formData.patientContact}</p>
-    )}
-    <p className="italic font-bold">Address</p>
-    {isEditing ? (
-      <input
-        className="border w-full p-1"
-        name="patientAddress"
-        value={formData.patientAddress}
-        onChange={handleChange}
-        aria-label="Patient Address"
-      />
-    ) : (
-      <p className="italic">{formData.patientAddress}</p>
-    )}
-  </div>
+          <div className="ml-[5%]">
+            <h2 className="font-semibold">Patient Information</h2>
+            {["patientName", "patientContact", "patientAddress"].map((field) => (
+              <div key={field}>
+                <p className="italic font-bold">{field.replace("patient", "").trim()}</p>
+                {isEditing ? (
+                  <input
+                    className="border w-full p-1"
+                    name={field}
+                    value={formData[field as FormDataStringKeys]}
+                    onChange={handleChange}
+                    title="patient"
+                  />
+                ) : (
+                  <p className="italic">{formData[field as FormDataStringKeys]}</p>
+                )}
+              </div>
+            ))}
+          </div>
 
-  {/* Vertical Divider */}
-  <div className="absolute left-1/2 top-0 h-[90%] border-l-2 border-[#3A2B22] transform -translate-x-1/2"></div>
-
-  <div className="ml-[5%]">
-    <h2 className="font-semibold">Prescribing Physician Information</h2>
-    <p className="italic font-bold">Name</p>
-    {isEditing ? (
-      <input
-        className="border w-full p-1"
-        name="physicianName"
-        value={formData.physicianName}
-        onChange={handleChange}
-        aria-label="Physician Name"
-      />
-    ) : (
-      <p className="italic">{formData.physicianName}</p>
-    )}
-    <p className="italic font-bold">Contact Number</p>
-    {isEditing ? (
-      <input
-        className="border w-full p-1"
-        name="physicianContact"
-        value={formData.physicianContact}
-        onChange={handleChange}
-        aria-label="Physician Contact"
-      />
-    ) : (
-      <p className="italic">{formData.physicianContact}</p>
-    )}
-    <p className="italic font-bold">Address</p>
-    {isEditing ? (
-      <input
-        className="border w-full p-1"
-        name="physicianAddress"
-        value={formData.physicianAddress}
-        onChange={handleChange}
-        aria-label="Physician Address"
-      />
-    ) : (
-      <p className="italic">{formData.physicianAddress}</p>
-    )}
-  </div>
-</div>
-
+          <div className="ml-[5%]">
+            <h2 className="font-semibold">Prescribing Physician Information</h2>
+            {["physicianName", "physicianContact", "physicianAddress"].map((field) => (
+              <div key={field}>
+                <p className="italic font-bold">{field.replace("physician", "").trim()}</p>
+                {isEditing ? (
+                  <input
+                    className="border w-full p-1"
+                    name={field}
+                    value={formData[field as FormDataStringKeys]}
+                    onChange={handleChange}
+                    title="physician"
+                  />
+                ) : (
+                  <p className="italic">{formData[field as FormDataStringKeys]}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
 
         <div className="grid grid-cols-4 text-center font-semibold border-b-2 border-[#3A2B22] pb-2 mb-4">
-          <div>INVOICE NUMBER</div>
-          <div>DATE</div>
-          <div>INVOICE DUE DATE</div>
-          <div>AMOUNT DUE</div>
-          {["invoiceNumber", "date", "dueDate", "amountDue"].map((field, index) => (
+          {["INVOICE NUMBER", "DATE", "INVOICE DUE DATE", "AMOUNT DUE"].map((label) => (
+            <div key={label}>{label}</div>
+          ))}
+          {["invoiceNumber", "date", "dueDate", "amountDue"].map((field) => (
             isEditing ? (
               <input
-                key={index}
+                key={field}
                 type="text"
                 name={field}
-                value={formData[field as keyof FormData]}
+                value={formData[field as FormDataStringKeys]}
                 onChange={handleChange}
-                className="italic col-span-1 border p-1 w-full text-center"
-                aria-label={field.replace(/([A-Z])/g, ' $1').trim()}
-                
+                className="italic border p-1 w-full text-center"
+                title="date"
               />
             ) : (
-              <div key={index} className="italic col-span-1">{formData[field as keyof FormData]}</div>
+              <div key={field} className="italic">{formData[field as FormDataStringKeys]}</div>
             )
           ))}
         </div>
 
         <div className="border-2 border-[#3A2B22] mb-4">
           <div className="grid grid-cols-3 text-center font-semibold border-b-2 border-[#3A2B22] p-2">
-            <div>ITEM</div>
-            <div>DESCRIPTION</div>
-            <div>AMOUNT</div>
+            {["ITEM", "DESCRIPTION", "AMOUNT"].map((header) => (
+              <div key={header}>{header}</div>
+            ))}
           </div>
-          {[1, 2].map((i) => (
-            <div key={i} className="grid grid-cols-3 text-center italic p-2">
-              {[`item${i}`, `description${i}`, `amount${i}`].map((field, idx) => (
+          {formData.items?.map((item) => (
+            <div key={item.id} className="grid grid-cols-3 text-center italic p-2 relative group">
+              {isEditing && (
+                <button
+                  className="absolute left-0 top-1/2 -translate-x-full -translate-y-1/2 text-red-500 hover:text-red-700"
+                  onClick={() => deleteItem(item.id)}
+                >
+                  ×
+                </button>
+              )}
+              {(["item", "description", "amount"] as const).map((field) => (
                 isEditing ? (
                   <input
-                    key={idx}
-                    type="text"
-                    name={field}
-                    value={formData[field as keyof FormData]}
-                    onChange={handleChange}
+                    key={field}
+                    type={field === 'amount' ? 'number' : 'text'}
+                    value={item[field]}
+                    onChange={(e) => handleItemChange(item.id, field, e.target.value)}
                     className="italic border p-1 w-full text-center"
-                    aria-label={`${field.replace(/(\d)/, ' $1')}`}
+                    title="amount"
                   />
                 ) : (
-                  <div key={idx}>{formData[field as keyof FormData]}</div>
+                  <div key={field}>{item[field]}</div>
                 )
               ))}
             </div>
           ))}
+          {isEditing && (
+            <button
+              className="w-full p-2 text-blue-500 hover:text-blue-700"
+              onClick={addItem}
+            >
+              + Add Item
+            </button>
+          )}
         </div>
 
         <div className="grid grid-cols-2">
@@ -229,7 +238,7 @@ const Page = () => {
                 value={formData.notes}
                 onChange={handleChange}
                 className="italic border p-1 w-full"
-                aria-label="Notes"
+                title="notes"
               />
             ) : (
               <p className="italic">{formData.notes}</p>
@@ -237,18 +246,7 @@ const Page = () => {
           </div>
           <div className="text-right">
             <h2 className="font-semibold">Total</h2>
-            {isEditing ? (
-              <input
-                type="text"
-                name="total"
-                value={formData.total}
-                onChange={handleChange}
-                className="italic border p-1 w-full"
-                aria-label="Total"
-              />
-            ) : (
-              <p className="italic">{formData.total}</p>
-            )}
+            <p className="italic">₱{formData.total}</p>
           </div>
         </div>
       </div>
