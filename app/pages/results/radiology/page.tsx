@@ -122,9 +122,16 @@ const Page = () => {
                 title="Type"
                 disabled={!isEditing}
               >
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
+                <option>MRI</option>
+                <option>CT scan</option>
+                <option>Chest X ray</option>
+                <option>Chest x ray (lateral view)</option>
+                <option>Chest x-ray (PA)</option>
+                <option>CT scan - Chest</option>
+                <option>Lung ultrasound</option>
+                <option>Fluoroscopy</option>
+                <option>Mammography</option>
+                <option>Ultrasound</option>
               </select>
             </div>
           </div>

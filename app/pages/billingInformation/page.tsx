@@ -44,7 +44,7 @@ const Page = () => {
     amountDue: "Info",
     items: [
       { id: "1", item: "Info", description: "Info", amount: "0" },
-      { id: "2", item: "Info", description: "Info", amount: "0" }
+      { id: "2", item: "Info", description: "Info", amount: "0" },
     ],
     notes: "Info",
     total: "0",
@@ -74,25 +74,25 @@ const Page = () => {
       const amount = parseFloat(item.amount) || 0;
       return acc + amount;
     }, 0);
-    setFormData(prev => ({ ...prev, total: total.toFixed(2) }));
+    setFormData((prev) => ({ ...prev, total: total.toFixed(2) }));
   }, [formData.items]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name as FormDataStringKeys]: value,
     }));
   };
 
   const handleItemChange = (id: string, field: keyof Item, value: string) => {
-    const newItems = formData.items.map(item => {
+    const newItems = formData.items.map((item) => {
       if (item.id === id) {
         return { ...item, [field]: value };
       }
       return item;
     });
-    setFormData(prev => ({ ...prev, items: newItems }));
+    setFormData((prev) => ({ ...prev, items: newItems }));
   };
 
   const addItem = () => {
@@ -100,14 +100,14 @@ const Page = () => {
       id: Date.now().toString(),
       item: "",
       description: "",
-      amount: "0"
+      amount: "0",
     };
-    setFormData(prev => ({ ...prev, items: [...prev.items, newItem] }));
+    setFormData((prev) => ({ ...prev, items: [...prev.items, newItem] }));
   };
 
   const deleteItem = (id: string) => {
-    const newItems = formData.items.filter(item => item.id !== id);
-    setFormData(prev => ({ ...prev, items: newItems }));
+    const newItems = formData.items.filter((item) => item.id !== id);
+    setFormData((prev) => ({ ...prev, items: newItems }));
   };
 
   if (!hasMounted) return null;
@@ -121,66 +121,74 @@ const Page = () => {
         {isEditing ? "Save" : "Edit"}
       </button>
       <div className="rounded-lg p-6 w-[80%] max-w-[60rem] bg-[#ffffff] mt-[15%] shadow-lg">
-        
-        <h1 className="text-2xl font-bold text-center mb-6">Medical Billing Invoice</h1>
+        <h1 className="text-2xl font-bold text-center mb-6">
+          Medical Billing Invoice
+        </h1>
 
         <div className="grid grid-cols-2 gap-6 border-b-2 border-[#3A2B22] pb-4 relative">
-          
           <div className="ml-[5%]">
-            
             <h2 className="font-semibold">Patient Information</h2>
-            {["patientName", "patientContact", "patientAddress"].map((field) => (
-              <div key={field}>
-                
-                <p className="italic font-bold">{field.replace("patient", "").trim()}</p>
-                {isEditing ? (
-                  <input
-                    className="border w-full p-1"
-                    name={field}
-                    value={formData[field as FormDataStringKeys]}
-                    onChange={handleChange}
-                    title="patient"
-                  />
-                ) : (
-                  <p className="italic">{formData[field as FormDataStringKeys]}</p>
-                )}
-                
-              </div>
-              
-            ))}
-            
+            {["patientName", "patientContact", "patientAddress"].map(
+              (field) => (
+                <div key={field}>
+                  <p className="italic font-bold">
+                    {field.replace("patient", "").trim()}
+                  </p>
+                  {isEditing ? (
+                    <input
+                      className="border w-full p-1"
+                      name={field}
+                      value={formData[field as FormDataStringKeys]}
+                      onChange={handleChange}
+                      title="patient"
+                    />
+                  ) : (
+                    <p className="italic">
+                      {formData[field as FormDataStringKeys]}
+                    </p>
+                  )}
+                </div>
+              )
+            )}
           </div>
- {/* Vertical Divider */}
- <div className="absolute top-0 h-[90%] border-l-2 border-[#3A2B22] transform -translate-x-1/2"></div>
+          {/* Vertical Divider */}
+          <div className="absolute top-0 h-[90%] border-l-2 border-[#3A2B22] transform -translate-x-1/2"></div>
           <div className="ml-[5%]">
-            
             <h2 className="font-semibold">Prescribing Physician Information</h2>
-            {["physicianName", "physicianContact", "physicianAddress"].map((field) => (
-              <div key={field}>
-                <p className="italic font-bold">{field.replace("physician", "").trim()}</p>
-                {isEditing ? (
-                  <input
-                    className="border w-full p-1"
-                    name={field}
-                    value={formData[field as FormDataStringKeys]}
-                    onChange={handleChange}
-                    title="physician"
-                  />
-                ) : (
-                  <p className="italic">{formData[field as FormDataStringKeys]}</p>
-                )}
-              </div>
-            ))}
+            {["physicianName", "physicianContact", "physicianAddress"].map(
+              (field) => (
+                <div key={field}>
+                  <p className="italic font-bold">
+                    {field.replace("physician", "").trim()}
+                  </p>
+                  {isEditing ? (
+                    <input
+                      className="border w-full p-1"
+                      name={field}
+                      value={formData[field as FormDataStringKeys]}
+                      onChange={handleChange}
+                      title="physician"
+                    />
+                  ) : (
+                    <p className="italic">
+                      {formData[field as FormDataStringKeys]}
+                    </p>
+                  )}
+                </div>
+              )
+            )}
           </div>
-           {/* Vertical Divider */}
-  <div className="absolute left-1/2 top-0 h-[90%] border-l-2 border-[#3A2B22] transform -translate-x-1/2"></div>
+          {/* Vertical Divider */}
+          <div className="absolute left-1/2 top-0 h-[90%] border-l-2 border-[#3A2B22] transform -translate-x-1/2"></div>
         </div>
 
         <div className="grid grid-cols-4 text-center font-semibold border-b-2 border-[#3A2B22] pb-2 mb-4">
-          {["INVOICE NUMBER", "DATE", "INVOICE DUE DATE", "AMOUNT DUE"].map((label) => (
-            <div key={label}>{label}</div>
-          ))}
-          {["invoiceNumber", "date", "dueDate", "amountDue"].map((field) => (
+          {["INVOICE NUMBER", "DATE", "INVOICE DUE DATE", "AMOUNT DUE"].map(
+            (label) => (
+              <div key={label}>{label}</div>
+            )
+          )}
+          {["invoiceNumber", "date", "dueDate", "amountDue"].map((field) =>
             isEditing ? (
               <input
                 key={field}
@@ -192,12 +200,12 @@ const Page = () => {
                 title="date"
               />
             ) : (
-              <div key={field} className="italic">{formData[field as FormDataStringKeys]}</div>
+              <div key={field} className="italic">
+                {formData[field as FormDataStringKeys]}
+              </div>
             )
-          ))}
+          )}
         </div>
-
-        
 
         <div className="border-2 border-[#3A2B22] mb-4">
           <div className="grid grid-cols-3 text-center font-semibold border-b-2 border-[#3A2B22] p-2">
@@ -206,7 +214,10 @@ const Page = () => {
             ))}
           </div>
           {formData.items?.map((item) => (
-            <div key={item.id} className="grid grid-cols-3 text-center italic p-2 relative group">
+            <div
+              key={item.id}
+              className="grid grid-cols-3 text-center italic p-2 relative group"
+            >
               {isEditing && (
                 <button
                   className="absolute left-0 top-1/2 -translate-x-full -translate-y-1/2 text-red-500 hover:text-red-700"
@@ -215,20 +226,22 @@ const Page = () => {
                   ×
                 </button>
               )}
-              {(["item", "description", "amount"] as const).map((field) => (
+              {(["item", "description", "amount"] as const).map((field) =>
                 isEditing ? (
                   <input
                     key={field}
-                    type={field === 'amount' ? 'number' : 'text'}
+                    type={field === "amount" ? "number" : "text"}
                     value={item[field]}
-                    onChange={(e) => handleItemChange(item.id, field, e.target.value)}
+                    onChange={(e) =>
+                      handleItemChange(item.id, field, e.target.value)
+                    }
                     className="italic border p-1 w-full text-center"
                     title="amount"
                   />
                 ) : (
                   <div key={field}>{item[field]}</div>
                 )
-              ))}
+              )}
             </div>
           ))}
           {isEditing && (
