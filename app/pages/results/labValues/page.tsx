@@ -1,9 +1,24 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
+// Compute flag based on result and reference range
+const computeFlag = (result: string, range: string): string => {
+  const resultNum = parseFloat(result);
+  const [minStr, maxStr] = range.split(' - ').map(s => s.trim());
+  const min = parseFloat(minStr);
+  const max = parseFloat(maxStr);
+
+  if (isNaN(resultNum)) return 'Normal';
+  if (isNaN(min) || isNaN(max)) return 'Normal';
+
+  return resultNum > max ? 'High' : resultNum < min ? 'Low' : 'Normal';
+};
+
 const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
+
+  
 
   // Default patient details
   const defaultPatientDetails = {
@@ -15,58 +30,68 @@ const Page = () => {
     admissionDate: "blank",
   };
 
-  // Default table data (now without color in array)
+  // Default table data (without flags)
   const defaultData = [
-    ["White Blood Cells", "15.2", "x10^9/L", "4.0 - 12.0", "High"],
-    ["Red Blood Cells", "4.5", "x10^12/L", "4.1 - 5.2", "Normal"],
-    ["Hemoglobin", "11.8", "g/dL", "12.0 - 16.0", "Low"],
-    ["Hematocrit", "35.5", "%", "36 - 46", "Low"],
-    ["Platelet Count", "310", "x10^9/L", "150 - 450", "Normal"],
-    ["Mean Corpuscular Volume", "78", "fL", "80 - 100", "Low"],
-    ["Mean Corpuscular Hemoglobin", "26.2", "pg", "27 - 33", "Low"],
-    ["Mean Corpuscular Hemoglobin Concentration", "34.0", "g/dL", "32 - 36", "Normal"],
-    ["Neutrophils", "12.1", "x10^9/L", "1.5 - 8.0", "High"],
-    ["Lymphocytes", "2.8", "x10^9/L", "1.0 - 4.0", "Normal"],
-    ["Monocytes", "0.9", "x10^9/L", "0.1 - 1.0", "Normal"],
-    ["Eosinophils", "0.3", "x10^9/L", "0.0 - 0.5", "Normal"],
-    ["Basophils", "0.1", "x10^9/L", "0.0 - 0.2", "Normal"],
+    ["White Blood Cells", "15.2", "x10^9/L", "4.0 - 12.0"],
+    ["Red Blood Cells", "4.5", "x10^12/L", "4.1 - 5.2"],
+    ["Hemoglobin", "11.8", "g/dL", "12.0 - 16.0"],
+    ["Hematocrit", "35.5", "%", "36 - 46"],
+    ["Platelet Count", "310", "x10^9/L", "150 - 450"],
+    ["Mean Corpuscular Volume", "78", "fL", "80 - 100"],
+    ["Mean Corpuscular Hemoglobin", "26.2", "pg", "27 - 33"],
+    ["Mean Corpuscular Hemoglobin Concentration", "34.0", "g/dL", "32 - 36"],
+    ["Neutrophils", "12.1", "x10^9/L", "1.5 - 8.0"],
+    ["Lymphocytes", "2.8", "x10^9/L", "1.0 - 4.0"],
+    ["Monocytes", "0.9", "x10^9/L", "0.1 - 1.0"],
+    ["Eosinophils", "0.3", "x10^9/L", "0.0 - 0.5"],
+    ["Basophils", "0.1", "x10^9/L", "0.0 - 0.2"],
   ];
 
   // State initialization
   const [patientDetails, setPatientDetails] = useState(defaultPatientDetails);
-  const [data, setData] = useState(defaultData);
+  const [data, setData] = useState(() => 
+    defaultData.map(row => [...row, computeFlag(row[1], row[3])])
+  );
 
-  // Hydration fix
+  // Hydration fix and data loading
   useEffect(() => {
     setHasMounted(true);
     const savedPatient = localStorage.getItem('patientDetails');
     const savedData = localStorage.getItem('data');
     
     if (savedPatient) setPatientDetails(JSON.parse(savedPatient));
-    if (savedData) setData(JSON.parse(savedData));
+    
+    let loadedData = defaultData;
+    if (savedData) {
+      loadedData = JSON.parse(savedData);
+    }
+    
+    // Compute flags for all rows
+    const processedData = loadedData.map(row => {
+      const result = row[1];
+      const range = row[3];
+      return [...row.slice(0, 4), computeFlag(result, range)];
+    });
+    
+    setData(processedData);
   }, []);
+
+  
 
   // Get color based on flag value
   const getFlagColor = (flag: string) => {
-    switch (flag.toLowerCase()) {
-      case 'high': return 'bg-red-500';
-      case 'low': return 'bg-yellow-500';
+    switch (flag) {
+      case 'High': return 'bg-red-500';
+      case 'Low': return 'bg-yellow-500';
       default: return 'bg-green-500';
     }
-  };
-
-  // Handle flag changes
-  const handleFlagChange = (e: React.ChangeEvent<HTMLSelectElement>, rowIndex: number) => {
-    const newData = [...data];
-    newData[rowIndex][4] = e.target.value;
-    setData(newData);
   };
 
   // Toggle edit mode
   const handleEdit = () => {
     if (isEditing) {
       localStorage.setItem('patientDetails', JSON.stringify(patientDetails));
-      localStorage.setItem('data', JSON.stringify(data));
+      localStorage.setItem('data', JSON.stringify(data.map(row => row.slice(0, 4))));
     }
     setIsEditing(!isEditing);
   };
@@ -75,6 +100,14 @@ const Page = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, rowIndex: number, colIndex: number) => {
     const newData = [...data];
     newData[rowIndex][colIndex] = e.target.value;
+
+    // Recompute flag if result or range changes
+    if (colIndex === 1 || colIndex === 3) {
+      const result = newData[rowIndex][1];
+      const range = newData[rowIndex][3];
+      newData[rowIndex][4] = computeFlag(result, range);
+    }
+
     setData(newData);
   };
 
@@ -250,20 +283,7 @@ const Page = () => {
                     )}
                   </td>
                   <td className={`border border-black px-4 py-2 text-white ${getFlagColor(flag)}`}>
-                    {isEditing ? (
-                      <select
-                        value={flag}
-                        onChange={(e) => handleFlagChange(e, rowIndex)}
-                        className="w-full border p-1 text-black"
-                        title="Row"
-                      >
-                        <option value="High" className="bg-red-500">High</option>
-                        <option value="Normal" className="bg-green-500">Normal</option>
-                        <option value="Low" className="bg-yellow-500">Low</option>
-                      </select>
-                    ) : (
-                      flag
-                    )}
+                    {flag}
                   </td>
                 </tr>
               ))}
