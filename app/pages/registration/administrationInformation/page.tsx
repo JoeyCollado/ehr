@@ -1,75 +1,182 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [physicalData, setPhysicalData] = useState({
-    height: "135 cm (45\")",
-    weight: "24 kg (52.9 lbs)",
-    bmi: "13.2 kg/m²",
-    armCircumference: "14 cm"
-  });
-  const [surveyData, setSurveyData] = useState({
-    overallAppearance: "Alert",
-    skinCondition: "Pale",
-    postureMobility: "Normal"
-  });
-  const [headToToeData, setHeadToToeData] = useState({
-    headNeck: "No visible head trauma or deformities.\nMildly swollen cervical lymph nodes.\nMucous membranes are dry, indicating possible dehydration.\nNo signs of meningeal irritation.",
-    chestLungs: "Breathing is labored, respiratory rate 32 breaths per minute (tachypnea).\nIntercostal retractions present, suggesting increased work of breathing.\nWheezes heard in both lower lung fields.\nDiminished breath sounds on the left side, indicating possible consolidation.",
-    cardiovascular: "Heart rate 119 bpm (tachycardia). Extremities feel cool to touch.\nCapillary refill is delayed (> 3 seconds), indicating poor perfusion.",
-    abdomen: "Soft, non-tender, and no distension. No hepatosplenomegaly.\nBowel sounds present and normal.",
-    extremities: "No swelling or joint pain.\nMild weakness in upper and lower extremities due to fatigue.",
-    neurological: "Reflexes intact and symmetrical.\nAlert but fatigued."
-  });
-  const [vitalSigns, setVitalSigns] = useState({
-    temperature: "39.2 °C",
-    temperatureRoute: "Axilla",
-    temperatureTime: "7:30am",
-    temperatureDate: "",
-    temperatureStatus: "Hypertermia",
-    bloodPressure: "120/70 mmHg",
-    bloodPressureRoute: "Brachial",
-    bloodPressureTime: "7:45am",
-    bloodPressureDate: "",
-    bloodPressureStatus: "Normal",
-    respiratoryRate: "32 breaths per minute",
-    respiratoryRateTime: "7:48am",
-    respiratoryRateDate: "",
-    respiratoryRateStatus: "Tachypnea",
-    heartRate: "119 beats per minute",
-    heartRateRoute: "Radial",
-    heartRateTime: "7:46am",
-    heartRateDate: "",
-    heartRateStatus: "Tachycardia",
-    oxygenSaturation: "90%",
-    oxygenSaturationTime: "7:48am",
-    oxygenSaturationDate: "",
-    oxygenSaturationStatus: "Hypoxemia"
+  
+  // Initialize all state with localStorage or default values
+  const [physicalData, setPhysicalData] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('physicalData');
+      return saved ? JSON.parse(saved) : {
+        height: "135 cm (45\")",
+        weight: "24 kg (52.9 lbs)",
+        bmi: "13.2 kg/m²",
+        armCircumference: "14 cm"
+      };
+    }
+    return {
+      height: "135 cm (45\")",
+      weight: "24 kg (52.9 lbs)",
+      bmi: "13.2 kg/m²",
+      armCircumference: "14 cm"
+    };
   });
 
-  // state variables for medical history
-  const [historyOfPresentIllness, setHistoryOfPresentIllness] = useState({
-    onset: "Symptoms started 5 days ago with mild coughing and nasal congestion.",
-    location: "Chest pain is central and worsens with deep breathing or coughing.",
-    duration: "Symptoms have progressively worsened over the past few days.",
-    character: "Cough: Initially dry, now productive with yellowish sputum. Fever: Persistent, highest recorded at 39.2°C. Fatigue: Patient appears weak, sleeps more than usual, and has reduced appetite. Shortness of Breath: Occurs even at rest, worsens with physical activity",
-    aggravatingFactors: "Cold air exposure Physical exertion",
-    associatedSymptoms: "Nasal congestion Mid headache Poor appetite"
+  const [surveyData, setSurveyData] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('surveyData');
+      return saved ? JSON.parse(saved) : {
+        overallAppearance: "Alert",
+        skinCondition: "Pale",
+        postureMobility: "Normal"
+      };
+    }
+    return {
+      overallAppearance: "Alert",
+      skinCondition: "Pale",
+      postureMobility: "Normal"
+    };
   });
 
-  const [pastMedicalHistory, setPastMedicalHistory] = useState({
-    chronicIllnesses: "Diagnosed with asthma at age 6, managed with Salbutamol PRN.",
-    hospitalizations: "No previous hospitalizations for pneumonia or any major surgeries",
-    infections: "Frequent respiratory infections in early childhood (history of bronchiolitis at age 2)."
+  const [headToToeData, setHeadToToeData] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('headToToeData');
+      return saved ? JSON.parse(saved) : {
+        headNeck: "No visible head trauma or deformities.\nMildly swollen cervical lymph nodes.\nMucous membranes are dry, indicating possible dehydration.\nNo signs of meningeal irritation.",
+        chestLungs: "Breathing is labored, respiratory rate 32 breaths per minute (tachypnea).\nIntercostal retractions present, suggesting increased work of breathing.\nWheezes heard in both lower lung fields.\nDiminished breath sounds on the left side, indicating possible consolidation.",
+        cardiovascular: "Heart rate 119 bpm (tachycardia). Extremities feel cool to touch.\nCapillary refill is delayed (> 3 seconds), indicating poor perfusion.",
+        abdomen: "Soft, non-tender, and no distension. No hepatosplenomegaly.\nBowel sounds present and normal.",
+        extremities: "No swelling or joint pain.\nMild weakness in upper and lower extremities due to fatigue.",
+        neurological: "Reflexes intact and symmetrical.\nAlert but fatigued."
+      };
+    }
+    return {
+      headNeck: "No visible head trauma or deformities.\nMildly swollen cervical lymph nodes.\nMucous membranes are dry, indicating possible dehydration.\nNo signs of meningeal irritation.",
+      chestLungs: "Breathing is labored, respiratory rate 32 breaths per minute (tachypnea).\nIntercostal retractions present, suggesting increased work of breathing.\nWheezes heard in both lower lung fields.\nDiminished breath sounds on the left side, indicating possible consolidation.",
+      cardiovascular: "Heart rate 119 bpm (tachycardia). Extremities feel cool to touch.\nCapillary refill is delayed (> 3 seconds), indicating poor perfusion.",
+      abdomen: "Soft, non-tender, and no distension. No hepatosplenomegaly.\nBowel sounds present and normal.",
+      extremities: "No swelling or joint pain.\nMild weakness in upper and lower extremities due to fatigue.",
+      neurological: "Reflexes intact and symmetrical.\nAlert but fatigued."
+    };
   });
 
-  const [familyHealthHistory, setFamilyHealthHistory] = useState(
-    "Father: History of asthma as a child.\nMother: No known chronic illnesses.\nSiblings: No reported respiratory illnesses.\nNo family history of tuberculosis, heart disease, or genetic disorders."
-  );
+  const [vitalSigns, setVitalSigns] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('vitalSigns');
+      return saved ? JSON.parse(saved) : {
+        temperature: "39.2 °C",
+        temperatureRoute: "Axilla",
+        temperatureTime: "7:30am",
+        temperatureDate: "",
+        temperatureStatus: "Hypertermia",
+        bloodPressure: "120/70 mmHg",
+        bloodPressureRoute: "Brachial",
+        bloodPressureTime: "7:45am",
+        bloodPressureDate: "",
+        bloodPressureStatus: "Normal",
+        respiratoryRate: "32 breaths per minute",
+        respiratoryRateTime: "7:48am",
+        respiratoryRateDate: "",
+        respiratoryRateStatus: "Tachypnea",
+        heartRate: "119 beats per minute",
+        heartRateRoute: "Radial",
+        heartRateTime: "7:46am",
+        heartRateDate: "",
+        heartRateStatus: "Tachycardia",
+        oxygenSaturation: "90%",
+        oxygenSaturationTime: "7:48am",
+        oxygenSaturationDate: "",
+        oxygenSaturationStatus: "Hypoxemia"
+      };
+    }
+    return {
+      temperature: "39.2 °C",
+      temperatureRoute: "Axilla",
+      temperatureTime: "7:30am",
+      temperatureDate: "",
+      temperatureStatus: "Hypertermia",
+      bloodPressure: "120/70 mmHg",
+      bloodPressureRoute: "Brachial",
+      bloodPressureTime: "7:45am",
+      bloodPressureDate: "",
+      bloodPressureStatus: "Normal",
+      respiratoryRate: "32 breaths per minute",
+      respiratoryRateTime: "7:48am",
+      respiratoryRateDate: "",
+      respiratoryRateStatus: "Tachypnea",
+      heartRate: "119 beats per minute",
+      heartRateRoute: "Radial",
+      heartRateTime: "7:46am",
+      heartRateDate: "",
+      heartRateStatus: "Tachycardia",
+      oxygenSaturation: "90%",
+      oxygenSaturationTime: "7:48am",
+      oxygenSaturationDate: "",
+      oxygenSaturationStatus: "Hypoxemia"
+    };
+  });
 
-    // Add state for immunization
-    const [immunization, setImmunization] = useState({
+  const [historyOfPresentIllness, setHistoryOfPresentIllness] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('historyOfPresentIllness');
+      return saved ? JSON.parse(saved) : {
+        onset: "Symptoms started 5 days ago with mild coughing and nasal congestion.",
+        location: "Chest pain is central and worsens with deep breathing or coughing.",
+        duration: "Symptoms have progressively worsened over the past few days.",
+        character: "Cough: Initially dry, now productive with yellowish sputum. Fever: Persistent, highest recorded at 39.2°C. Fatigue: Patient appears weak, sleeps more than usual, and has reduced appetite. Shortness of Breath: Occurs even at rest, worsens with physical activity",
+        aggravatingFactors: "Cold air exposure Physical exertion",
+        associatedSymptoms: "Nasal congestion Mid headache Poor appetite"
+      };
+    }
+    return {
+      onset: "Symptoms started 5 days ago with mild coughing and nasal congestion.",
+      location: "Chest pain is central and worsens with deep breathing or coughing.",
+      duration: "Symptoms have progressively worsened over the past few days.",
+      character: "Cough: Initially dry, now productive with yellowish sputum. Fever: Persistent, highest recorded at 39.2°C. Fatigue: Patient appears weak, sleeps more than usual, and has reduced appetite. Shortness of Breath: Occurs even at rest, worsens with physical activity",
+      aggravatingFactors: "Cold air exposure Physical exertion",
+      associatedSymptoms: "Nasal congestion Mid headache Poor appetite"
+    };
+  });
+
+  const [pastMedicalHistory, setPastMedicalHistory] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('pastMedicalHistory');
+      return saved ? JSON.parse(saved) : {
+        chronicIllnesses: "Diagnosed with asthma at age 6, managed with Salbutamol PRN.",
+        hospitalizations: "No previous hospitalizations for pneumonia or any major surgeries",
+        infections: "Frequent respiratory infections in early childhood (history of bronchiolitis at age 2)."
+      };
+    }
+    return {
+      chronicIllnesses: "Diagnosed with asthma at age 6, managed with Salbutamol PRN.",
+      hospitalizations: "No previous hospitalizations for pneumonia or any major surgeries",
+      infections: "Frequent respiratory infections in early childhood (history of bronchiolitis at age 2)."
+    };
+  });
+
+  const [familyHealthHistory, setFamilyHealthHistory] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('familyHealthHistory');
+      return saved ? saved : "Father: History of asthma as a child.\nMother: No known chronic illnesses.\nSiblings: No reported respiratory illnesses.\nNo family history of tuberculosis, heart disease, or genetic disorders.";
+    }
+    return "Father: History of asthma as a child.\nMother: No known chronic illnesses.\nSiblings: No reported respiratory illnesses.\nNo family history of tuberculosis, heart disease, or genetic disorders.";
+  });
+
+  const [immunization, setImmunization] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('immunization');
+      return saved ? JSON.parse(saved) : {
+        MMR: [false, false, false, false],
+        TDap: [false, false, false, false],
+        Varicella: [false, false, false, false],
+        FluVaccine: [false, false, false, false],
+        HepatitisB: [false, false, false, false],
+        HepatitisA: [false, false, false, false],
+        COVID19: [false, false, false, false]
+      };
+    }
+    return {
       MMR: [false, false, false, false],
       TDap: [false, false, false, false],
       Varicella: [false, false, false, false],
@@ -77,25 +184,91 @@ const Page = () => {
       HepatitisB: [false, false, false, false],
       HepatitisA: [false, false, false, false],
       COVID19: [false, false, false, false]
-    });
-  
-    // Add state for allergies
-    const [allergies, setAllergies] = useState({
+    };
+  });
+
+  const [allergies, setAllergies] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('allergies');
+      return saved ? JSON.parse(saved) : {
+        drugAllergies: "None known.",
+        foodAllergies: "None reported.",
+        environmentalAllergies: ""
+      };
+    }
+    return {
       drugAllergies: "None known.",
       foodAllergies: "None reported.",
       environmentalAllergies: ""
-    });
-  
-       // Add state for immunization
-    const handleImmunizationChange = (vaccine, doseIndex) => {
-      const updatedImmunization = {...immunization};
-      updatedImmunization[vaccine][doseIndex] = !updatedImmunization[vaccine][doseIndex];
-      setImmunization(updatedImmunization);
     };
-  
-    const handleAllergiesChange = (field, value) => {
-      setAllergies({...allergies, [field]: value});
-    };
+  });
+
+  // Save all data to localStorage whenever any state changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('physicalData', JSON.stringify(physicalData));
+    }
+  }, [physicalData]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('surveyData', JSON.stringify(surveyData));
+    }
+  }, [surveyData]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('headToToeData', JSON.stringify(headToToeData));
+    }
+  }, [headToToeData]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('vitalSigns', JSON.stringify(vitalSigns));
+    }
+  }, [vitalSigns]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('historyOfPresentIllness', JSON.stringify(historyOfPresentIllness));
+    }
+  }, [historyOfPresentIllness]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('pastMedicalHistory', JSON.stringify(pastMedicalHistory));
+    }
+  }, [pastMedicalHistory]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('familyHealthHistory', familyHealthHistory);
+    }
+  }, [familyHealthHistory]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('immunization', JSON.stringify(immunization));
+    }
+  }, [immunization]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('allergies', JSON.stringify(allergies));
+    }
+  }, [allergies]);
+
+  // Handle immunization change
+  const handleImmunizationChange = (vaccine, doseIndex) => {
+    const updatedImmunization = {...immunization};
+    updatedImmunization[vaccine][doseIndex] = !updatedImmunization[vaccine][doseIndex];
+    setImmunization(updatedImmunization);
+  };
+
+  // Handle allergies change
+  const handleAllergiesChange = (field, value) => {
+    setAllergies({...allergies, [field]: value});
+  };
 
   const handleSave = () => setIsEditing(false);
 
