@@ -90,10 +90,22 @@ const Page = () => {
             )}
           </div>
 
-          <div className="grid grid-cols-3 gap-4 mb-6 text-center">
-            <div className="text-gray-500">Underweight</div>
-            <div className="text-gray-500">Normal</div>
-            <div className="text-gray-500">Overweight</div>
+             {/* Weight Category Radio Buttons */}
+             <div className="grid grid-cols-3 gap-4 mb-6 text-center p-2">
+            {["Underweight", "Normal", "Overweight"].map((category) => (
+              <label key={category} className="flex items-center justify-center gap-2">
+                <input
+                  type="radio"
+                  name="weightCategory"
+                  value={category}
+                  checked={physicalData.weightCategory === category}
+                  onChange={(e) => setPhysicalData({...physicalData, weightCategory: e.target.value})}
+                  disabled={!isEditing}
+                  className="form-radio h-4 w-4"
+                />
+                <span className="text-gray-700">{category}</span>
+              </label>
+            ))}
           </div>
 
           <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
@@ -101,7 +113,7 @@ const Page = () => {
           </h3>
 
           <div className="space-y-6 p-4">
-            <div>
+            <div className="">
               <h4 className="font-bold mb-2">Overall Appearance:</h4>
               {["Alert", "Lethargic", "In Distress"].map((option) => (
                 <label key={option} className="mr-4">
@@ -154,6 +166,9 @@ const Page = () => {
                 </label>
               ))}
             </div>
+            <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
+            Head to Toe Assessment:
+          </h3>
           </div>
         </div>
       </div>
