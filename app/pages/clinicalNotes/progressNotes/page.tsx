@@ -105,6 +105,7 @@ const Page = () => {
                   {isEditing ? (
                     <input
                       type="text"
+                      title="info"
                       value={entries[0]?.[field as keyof Entry] || ""}
                       onChange={(e) => {
                         const newEntries = [...entries];
@@ -134,6 +135,7 @@ const Page = () => {
                   {isEditing ? (
                     <input
                       type="text"
+                      title="info"
                       value={entry.date_Time || ""}
                       onChange={(e) => {
                         const newEntries = [...entries];
@@ -149,6 +151,7 @@ const Page = () => {
                 <div className="p-2">
                   {isEditing ? (
                     <textarea
+                    title="info"
                       value={entry.progressNotes || ""}
                       onChange={(e) => {
                         const newEntries = [...entries];
@@ -165,6 +168,7 @@ const Page = () => {
                   {isEditing ? (
                     <input
                       type="text"
+                      title="info"
                       value={entry.nurseInfo || ""}
                       onChange={(e) => {
                         const newEntries = [...entries];
