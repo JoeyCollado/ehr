@@ -14,6 +14,14 @@ const Page = () => {
     skinCondition: "Pale",
     postureMobility: "Normal"
   });
+  const [headToToeData, setHeadToToeData] = useState({
+    headNeck: "No visible head trauma or deformities.\nMildly swollen cervical lymph nodes.\nMucous membranes are dry, indicating possible dehydration.\nNo signs of meningeal irritation.",
+    chestLungs: "Breathing is labored, respiratory rate 32 breaths per minute (tachypnea).\nIntercostal retractions present, suggesting increased work of breathing.\nWheezes heard in both lower lung fields.\nDiminished breath sounds on the left side, indicating possible consolidation.",
+    cardiovascular: "Heart rate 119 bpm (tachycardia). Extremities feel cool to touch.\nCapillary refill is delayed (> 3 seconds), indicating poor perfusion.",
+    abdomen: "Soft, non-tender, and no distension. No hepatosplenomegaly.\nBowel sounds present and normal.",
+    extremities: "No swelling or joint pain.\nMild weakness in upper and lower extremities due to fatigue.",
+    neurological: "Reflexes intact and symmetrical.\nAlert but fatigued."
+  });
 
   const handleSave = () => setIsEditing(false);
 
@@ -21,11 +29,17 @@ const Page = () => {
     <>
       <div className="flex justify-center mt-[5%]">
         {isEditing ? (
-          <button onClick={handleSave} className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 cursor-pointer mb-4">
+          <button
+            onClick={handleSave}
+            className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 cursor-pointer mb-4"
+          >
             Save
           </button>
         ) : (
-          <button onClick={() => setIsEditing(true)} className="bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform text-white px-4 py-1 rounded cursor-pointer mb-4">
+          <button
+            onClick={() => setIsEditing(true)}
+            className="bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform text-white px-4 py-1 rounded cursor-pointer mb-4"
+          >
             Edit
           </button>
         )}
@@ -55,51 +69,82 @@ const Page = () => {
           <div className="grid grid-cols-4 gap-4 mb-6 p-2 border-b">
             <div className="font-semibold">Height:</div>
             {isEditing ? (
-              <input className="border p-1" value={physicalData.height} 
-              title="height"
-                onChange={(e) => setPhysicalData({...physicalData, height: e.target.value})} />
+              <input
+                className="border p-1"
+                value={physicalData.height}
+                title="height"
+                onChange={(e) =>
+                  setPhysicalData({ ...physicalData, height: e.target.value })
+                }
+              />
             ) : (
               <div>{physicalData.height}</div>
             )}
-            
+
             <div className="font-semibold">Weight:</div>
             {isEditing ? (
-              <input className="border p-1" value={physicalData.weight} 
-              title="weight"
-                onChange={(e) => setPhysicalData({...physicalData, weight: e.target.value})} />
+              <input
+                className="border p-1"
+                value={physicalData.weight}
+                title="weight"
+                onChange={(e) =>
+                  setPhysicalData({ ...physicalData, weight: e.target.value })
+                }
+              />
             ) : (
               <div>{physicalData.weight}</div>
             )}
 
             <div className="font-semibold">BMI:</div>
             {isEditing ? (
-              <input className="border p-1" value={physicalData.bmi} 
-              title="BMI"
-                onChange={(e) => setPhysicalData({...physicalData, bmi: e.target.value})} />
+              <input
+                className="border p-1"
+                value={physicalData.bmi}
+                title="BMI"
+                onChange={(e) =>
+                  setPhysicalData({ ...physicalData, bmi: e.target.value })
+                }
+              />
             ) : (
               <div>{physicalData.bmi}</div>
             )}
 
             <div className="font-semibold">Arm Circumference:</div>
             {isEditing ? (
-              <input className="border p-1" value={physicalData.armCircumference}
-              title="Arm Circumference" 
-                onChange={(e) => setPhysicalData({...physicalData, armCircumference: e.target.value})} />
+              <input
+                className="border p-1"
+                value={physicalData.armCircumference}
+                title="Arm Circumference"
+                onChange={(e) =>
+                  setPhysicalData({
+                    ...physicalData,
+                    armCircumference: e.target.value,
+                  })
+                }
+              />
             ) : (
               <div>{physicalData.armCircumference}</div>
             )}
           </div>
 
-             {/* Weight Category Radio Buttons */}
-             <div className="grid grid-cols-3 gap-4 mb-6 text-center p-2">
+          {/* Weight Category Radio Buttons */}
+          <div className="grid grid-cols-3 gap-4 mb-6 text-center p-2">
             {["Underweight", "Normal", "Overweight"].map((category) => (
-              <label key={category} className="flex items-center justify-center gap-2">
+              <label
+                key={category}
+                className="flex items-center justify-center gap-2"
+              >
                 <input
                   type="radio"
                   name="weightCategory"
                   value={category}
                   checked={physicalData.weightCategory === category}
-                  onChange={(e) => setPhysicalData({...physicalData, weightCategory: e.target.value})}
+                  onChange={(e) =>
+                    setPhysicalData({
+                      ...physicalData,
+                      weightCategory: e.target.value,
+                    })
+                  }
                   disabled={!isEditing}
                   className="form-radio h-4 w-4"
                 />
@@ -122,7 +167,12 @@ const Page = () => {
                     name="appearance"
                     value={option}
                     checked={surveyData.overallAppearance === option}
-                    onChange={(e) => setSurveyData({...surveyData, overallAppearance: e.target.value})}
+                    onChange={(e) =>
+                      setSurveyData({
+                        ...surveyData,
+                        overallAppearance: e.target.value,
+                      })
+                    }
                     disabled={!isEditing}
                     className="mr-1"
                   />
@@ -140,7 +190,12 @@ const Page = () => {
                     name="skin"
                     value={option}
                     checked={surveyData.skinCondition === option}
-                    onChange={(e) => setSurveyData({...surveyData, skinCondition: e.target.value})}
+                    onChange={(e) =>
+                      setSurveyData({
+                        ...surveyData,
+                        skinCondition: e.target.value,
+                      })
+                    }
                     disabled={!isEditing}
                     className="mr-1"
                   />
@@ -158,7 +213,12 @@ const Page = () => {
                     name="posture"
                     value={option}
                     checked={surveyData.postureMobility === option}
-                    onChange={(e) => setSurveyData({...surveyData, postureMobility: e.target.value})}
+                    onChange={(e) =>
+                      setSurveyData({
+                        ...surveyData,
+                        postureMobility: e.target.value,
+                      })
+                    }
                     disabled={!isEditing}
                     className="mr-1"
                   />
@@ -170,68 +230,117 @@ const Page = () => {
             Head to Toe Assessment:
           </h3>
           <div className="space-y-4 p-4">
+            {/* Head and Neck */}
+            <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+              <div className="font-semibold border-r">Head and Neck:</div>
+              <div>
+                {isEditing ? (
+                  <textarea
+                    value={headToToeData.headNeck}
+                    onChange={(e) => setHeadToToeData({...headToToeData, headNeck: e.target.value})}
+                    className="w-full p-1 border"
+                  />
+                ) : (
+                  headToToeData.headNeck.split('\n').map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))
+                )}
+              </div>
+            </div>
 
-        {/* Head and Neck */}
-        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b ">
-          <div className="font-semibold border-r">Head and Neck:</div>
-          <div>
-            <p>No visible head trauma or deformities.</p>
-            <p>Mildly swollen cervical lymph nodes.</p>
-            <p><strong>Mucous membranes are dry</strong>, indicating possible dehydration.</p>
-            <p>No signs of meningeal irritation.</p>
-          </div>
-        </div>
+            {/* Chest and Lungs */}
+            <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+              <div className="font-semibold border-r">Chest and Lungs:</div>
+              <div>
+                {isEditing ? (
+                  <textarea
+                    value={headToToeData.chestLungs}
+                    onChange={(e) => setHeadToToeData({...headToToeData, chestLungs: e.target.value})}
+                    className="w-full p-1 border"
+                  />
+                ) : (
+                  headToToeData.chestLungs.split('\n').map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))
+                )}
+              </div>
+            </div>
 
-        {/* Chest and Lungs */}
-        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
-          <div className="font-semibold border-r">Chest and Lungs:</div>
-          <div>
-            <p><strong>Breathing is labored</strong>, respiratory rate 32 breaths per minute (tachypnea).</p>
-            <p><strong>Intercostal retractions present</strong>, suggesting increased work of breathing.</p>
-            <p><strong>Wheezes heard in both lower lung fields.</strong></p>
-            <p><strong>Diminished breath sounds on the left side</strong>, indicating possible consolidation.</p>
-          </div>
-        </div>
+            {/* Cardiovascular */}
+            <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+              <div className="font-semibold border-r">Cardiovascular:</div>
+              <div>
+                {isEditing ? (
+                  <textarea
+                    value={headToToeData.cardiovascular}
+                    onChange={(e) => setHeadToToeData({...headToToeData, cardiovascular: e.target.value})}
+                    className="w-full p-1 border"
+                  />
+                ) : (
+                  headToToeData.cardiovascular.split('\n').map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))
+                )}
+              </div>
+            </div>
 
-        {/* Cardiovascular */}
-        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
-          <div className="font-semibold border-r">Cardiovascular:</div>
-          <div>
-            <p>Heart rate 119 bpm (tachycardia). Extremities feel cool to touch.</p>
-            <p><strong>Capillary refill is delayed (&gt; 3 seconds)</strong>, indicating poor perfusion.</p>
-          </div>
-        </div>
+            {/* Abdomen */}
+            <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+              <div className="font-semibold border-r">Abdomen:</div>
+              <div>
+                {isEditing ? (
+                  <textarea
+                    value={headToToeData.abdomen}
+                    onChange={(e) => setHeadToToeData({...headToToeData, abdomen: e.target.value})}
+                    className="w-full p-1 border"
+                  />
+                ) : (
+                  headToToeData.abdomen.split('\n').map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))
+                )}
+              </div>
+            </div>
 
-        {/* Abdomen */}
-        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
-          <div className="font-semibold border-r">Abdomen:</div>
-          <div>
-            <p>Soft, non-tender, and no distension. No hepatosplenomegaly.</p>
-            <p>Bowel sounds present and normal.</p>
-          </div>
-        </div>
+            {/* Extremities */}
+            <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+              <div className="font-semibold border-r">Extremities:</div>
+              <div>
+                {isEditing ? (
+                  <textarea
+                    value={headToToeData.extremities}
+                    onChange={(e) => setHeadToToeData({...headToToeData, extremities: e.target.value})}
+                    className="w-full p-1 border"
+                  />
+                ) : (
+                  headToToeData.extremities.split('\n').map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))
+                )}
+              </div>
+            </div>
 
-        {/* Extremities */}
-        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
-          <div className="font-semibold border-r">Extremities:</div>
-          <div>
-            <p>No swelling or joint pain.</p>
-            <p>Mild weakness in upper and lower extremities due to fatigue.</p>
-          </div>
-        </div>
-
-        {/* Neurological */}
-        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
-          <div className="font-semibold border-r">Neurological:</div>
-          <div>
-            <p>Reflexes intact and symmetrical.</p>
-            <p><strong>Alert but fatigued.</strong></p>
+            {/* Neurological */}
+            <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+              <div className="font-semibold border-r">Neurological:</div>
+              <div>
+                {isEditing ? (
+                  <textarea
+                    value={headToToeData.neurological}
+                    onChange={(e) => setHeadToToeData({...headToToeData, neurological: e.target.value})}
+                    className="w-full p-1 border"
+                  />
+                ) : (
+                  headToToeData.neurological.split('\n').map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))
+                )}
+              </div>
+            </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-          </div>
     </>
   );
 };
