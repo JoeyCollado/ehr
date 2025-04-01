@@ -7,13 +7,43 @@ const page = () => {
         <table>
           <thead>
             <tr className="border">
-              <th className="border">Consult Report ID</th>
-              <th className="border">Consult Report ID</th>
-              <th className="border">Consult Report ID</th>
-              <th className="border">Consult Report ID</th>
-              <th className="border">Consult Report ID</th>
-              <th className="border">Consult Report ID</th>
-              <th className="border">Consult Report ID</th>
+              <th className="border px-2">Consult Report ID</th>
+              <th className="border px-2">Patient ID</th>
+              <th className="border px-2">Consulting Provider</th>
+              <th className="border px-2">Findings</th>
+              <th className="border px-2">Recomendations</th>
+              <th className="border px-2">Report Date</th>
+              <th className="border px-2">Follow-Up Actions</th>
+            </tr>
+
+            <tr className="border">
+                <td className="border">98768</td>
+                <td className="border"></td>
+                <td className="border"></td>
+                <td className="border"></td>
+                <td className="border"></td>
+                <td className="border"></td>
+                <td className="border"></td>
+            </tr>
+
+            <tr className="border">
+                <td className="border">98768</td>
+                <td className="border"></td>
+                <td className="border"></td>
+                <td className="border"></td>
+                <td className="border"></td>
+                <td className="border"></td>
+                <td className="border"></td>
+            </tr>
+
+            <tr className="border">
+                <td className="border">98768</td>
+                <td className="border"></td>
+                <td className="border"></td>
+                <td className="border"></td>
+                <td className="border"></td>
+                <td className="border"></td>
+                <td className="border"></td>
             </tr>
           </thead>
         </table>
