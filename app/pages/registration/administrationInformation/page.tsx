@@ -31,13 +31,13 @@ const Page = () => {
         )}
       </div>
 
-      <div className="min-h-screen bg-[#faf6f6] flex items-center justify-center pb-4 mb-[5%]">
-        <div className="w-full max-w-4xl bg-white text-black shadow-lg rounded-lg p-6">
-          <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5 mb-4">
+      <div className="min-h-screen bg-[#faf6f6] flex items-center justify-center pb-4 mb-[5%] ">
+        <div className="w-full max-w-4xl bg-white text-black shadow-lg rounded-lg p-6 ">
+          <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5 mb-4 ">
             CHIEF COMPLAINT
           </h2>
           <div className="text-center">
-            <h2 className="p-2">
+            <h2 className="p-2 ">
               The patient complain that his chest hurts when he breathes or
               cough, has difficulty in breathing, and always feeling really
               tired and weak
@@ -169,9 +169,69 @@ const Page = () => {
             <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
             Head to Toe Assessment:
           </h3>
+          <div className="space-y-4 p-4">
+
+        {/* Head and Neck */}
+        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b ">
+          <div className="font-semibold border-r">Head and Neck:</div>
+          <div>
+            <p>No visible head trauma or deformities.</p>
+            <p>Mildly swollen cervical lymph nodes.</p>
+            <p><strong>Mucous membranes are dry</strong>, indicating possible dehydration.</p>
+            <p>No signs of meningeal irritation.</p>
+          </div>
+        </div>
+
+        {/* Chest and Lungs */}
+        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+          <div className="font-semibold border-r">Chest and Lungs:</div>
+          <div>
+            <p><strong>Breathing is labored</strong>, respiratory rate 32 breaths per minute (tachypnea).</p>
+            <p><strong>Intercostal retractions present</strong>, suggesting increased work of breathing.</p>
+            <p><strong>Wheezes heard in both lower lung fields.</strong></p>
+            <p><strong>Diminished breath sounds on the left side</strong>, indicating possible consolidation.</p>
+          </div>
+        </div>
+
+        {/* Cardiovascular */}
+        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+          <div className="font-semibold border-r">Cardiovascular:</div>
+          <div>
+            <p>Heart rate 119 bpm (tachycardia). Extremities feel cool to touch.</p>
+            <p><strong>Capillary refill is delayed (&gt; 3 seconds)</strong>, indicating poor perfusion.</p>
+          </div>
+        </div>
+
+        {/* Abdomen */}
+        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+          <div className="font-semibold border-r">Abdomen:</div>
+          <div>
+            <p>Soft, non-tender, and no distension. No hepatosplenomegaly.</p>
+            <p>Bowel sounds present and normal.</p>
+          </div>
+        </div>
+
+        {/* Extremities */}
+        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+          <div className="font-semibold border-r">Extremities:</div>
+          <div>
+            <p>No swelling or joint pain.</p>
+            <p>Mild weakness in upper and lower extremities due to fatigue.</p>
+          </div>
+        </div>
+
+        {/* Neurological */}
+        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+          <div className="font-semibold border-r">Neurological:</div>
+          <div>
+            <p>Reflexes intact and symmetrical.</p>
+            <p><strong>Alert but fatigued.</strong></p>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+          </div>
     </>
   );
 };
