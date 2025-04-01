@@ -364,9 +364,9 @@ const Page = () => {
               </div>
             </div>
 
-            <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
-              VITAL SIGNS:
-            </h3>
+            <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5">
+            VITAL SIGNS
+          </h2>
             
             <div className="space-y-4 p-4">
               {/* Temperature */}
@@ -674,6 +674,20 @@ const Page = () => {
                 ))}
               </div>
             </div>
+            <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5">
+            MEDICAL HISTORY
+          </h2>
+            <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
+              History of Present Illness
+            </h3>
+
+            <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
+              Past Medical History
+            </h3>
+
+            <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
+              Family Health History
+            </h3>
           </div>
         </div>
       </div>
