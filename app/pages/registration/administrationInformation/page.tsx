@@ -48,6 +48,26 @@ const Page = () => {
     oxygenSaturationStatus: "Hypoxemia"
   });
 
+  // state variables for medical history
+  const [historyOfPresentIllness, setHistoryOfPresentIllness] = useState({
+    onset: "Symptoms started 5 days ago with mild coughing and nasal congestion.",
+    location: "Chest pain is central and worsens with deep breathing or coughing.",
+    duration: "Symptoms have progressively worsened over the past few days.",
+    character: "Cough: Initially dry, now productive with yellowish sputum. Fever: Persistent, highest recorded at 39.2°C. Fatigue: Patient appears weak, sleeps more than usual, and has reduced appetite. Shortness of Breath: Occurs even at rest, worsens with physical activity",
+    aggravatingFactors: "Cold air exposure Physical exertion",
+    associatedSymptoms: "Nasal congestion Mid headache Poor appetite"
+  });
+
+  const [pastMedicalHistory, setPastMedicalHistory] = useState({
+    chronicIllnesses: "Diagnosed with asthma at age 6, managed with Salbutamol PRN.",
+    hospitalizations: "No previous hospitalizations for pneumonia or any major surgeries",
+    infections: "Frequent respiratory infections in early childhood (history of bronchiolitis at age 2)."
+  });
+
+  const [familyHealthHistory, setFamilyHealthHistory] = useState(
+    "Father: History of asthma as a child.\nMother: No known chronic illnesses.\nSiblings: No reported respiratory illnesses.\nNo family history of tuberculosis, heart disease, or genetic disorders."
+  );
+
   const handleSave = () => setIsEditing(false);
 
   return (
@@ -675,19 +695,81 @@ const Page = () => {
               </div>
             </div>
             <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5">
-            MEDICAL HISTORY
-          </h2>
-            <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
-              History of Present Illness
-            </h3>
+        MEDICAL HISTORY
+      </h2>
 
-            <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
-              Past Medical History
-            </h3>
+      {/* History of Present Illness */}
+      <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
+        History of Present Illness
+      </h3>
+      <div className="space-y-4 p-4">
+        {Object.entries(historyOfPresentIllness).map(([key, value]) => (
+          <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b" key={key}>
+            <div className="font-semibold">
+              {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}:
+            </div>
+            {isEditing ? (
+              <input
+                className="border p-1"
+                value={value}
+                onChange={(e) => setHistoryOfPresentIllness({
+                  ...historyOfPresentIllness,
+                  [key]: e.target.value
+                })}
+              />
+            ) : (
+              <div>{value}</div>
+            )}
+          </div>
+        ))}
+      </div>
 
-            <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
-              Family Health History
-            </h3>
+      {/* Past Medical History */}
+      <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
+        Past Medical History
+      </h3>
+      <div className="space-y-4 p-4">
+        {Object.entries(pastMedicalHistory).map(([key, value]) => (
+          <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b" key={key}>
+            <div className="font-semibold">
+              {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}:
+            </div>
+            {isEditing ? (
+              <input
+                className="border p-1"
+                value={value}
+                onChange={(e) => setPastMedicalHistory({
+                  ...pastMedicalHistory,
+                  [key]: e.target.value
+                })}
+              />
+            ) : (
+              <div>{value}</div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Family Health History */}
+      <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
+        Family Health History
+      </h3>
+      <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+        <div className="font-semibold border-r">Family History:</div>
+        <div>
+          {isEditing ? (
+            <textarea
+              value={familyHealthHistory}
+              onChange={(e) => setFamilyHealthHistory(e.target.value)}
+              className="w-full p-1 border"
+            />
+          ) : (
+            familyHealthHistory.split('\n').map((line, index) => (
+              <p key={index}>{line}</p>
+            ))
+          )}
+        </div>
+      </div>
           </div>
         </div>
       </div>
