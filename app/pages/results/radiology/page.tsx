@@ -7,7 +7,7 @@ const Page = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("Option 1");
-  const [imageSrc, setImageSrc] = useState("/skeleton.png");
+  const [imageSrc, setImageSrc] = useState("");
   const [tempData, setTempData] = useState({ name: "", description: "", type: "", imageSrc: "" });
 
   // Load saved data from localStorage on mount
@@ -57,8 +57,16 @@ const Page = () => {
   // Handles image upload
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      const imageUrl = URL.createObjectURL(event.target.files[0]);
-      setImageSrc(imageUrl);
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const base64Image = reader.result as string; // The base64 string of the image
+        setImageSrc(base64Image);
+        localStorage.setItem("imageSrc", base64Image); // Save base64 image to localStorage
+      };
+
+      reader.readAsDataURL(file); // Convert image file to base64 string
     }
   };
 
@@ -71,7 +79,7 @@ const Page = () => {
         <div className="w-[60%] flex flex-col items-center justify-center bg-white rounded-l-lg">
           <div className="w-[90%] h-[60%] bg-white shadow-lg flex items-center justify-center">
             {imageSrc ? (
-              <Image alt="X-ray Image" src={imageSrc} width={400} height={300} className="w-full h-auto border-1 rounded-md" />
+              <Image alt="Uploaded Image" src={imageSrc} width={400} height={300} className="w-full h-auto border-1 rounded-md" />
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-gray-300 text-gray-600">No Image</div>
             )}

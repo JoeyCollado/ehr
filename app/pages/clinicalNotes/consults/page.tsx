@@ -27,20 +27,37 @@ const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [entries, setEntries] = useState<Entry[]>([]);
 
+  // Load entries from localStorage on component mount and page focus
   useEffect(() => {
-    const storedEntries = localStorage.getItem("entries");
-    if (storedEntries) {
-      setEntries(JSON.parse(storedEntries));
-    } else {
-      setEntries([defaultDetails]);
-    }
+    const loadEntries = () => {
+      const storedEntries = localStorage.getItem("consultationEntries");
+      if (storedEntries) {
+        setEntries(JSON.parse(storedEntries));
+      } else {
+        setEntries([defaultDetails]);
+      }
+    };
+
+    loadEntries();
+
+    // Reload data when page gains focus
+    window.addEventListener("focus", loadEntries);
+    return () => window.removeEventListener("focus", loadEntries);
   }, []);
 
+  // Save entries to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem("entries", JSON.stringify(entries));
+    // Make sure to only save if the entries are different
+    if (entries.length > 0) {
+      localStorage.setItem("consultationEntries", JSON.stringify(entries));
+    }
   }, [entries]);
 
   const handleEdit = () => {
+    if (isEditing) {
+      // Explicit save action when exiting edit mode
+      localStorage.setItem("consultationEntries", JSON.stringify(entries));
+    }
     setIsEditing(!isEditing);
   };
 
@@ -61,24 +78,23 @@ const Page = () => {
 
   return (
     <>
-     <div className="flex justify-center items-center gap-4 mb-5 mt-[5%]">
-  <button
-    onClick={handleEdit}
-    className="text-1xl cursor-pointer rounded-md px-3 text-white bg-[#007bff] py-1 hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform"
-  >
-    {isEditing ? "Save" : "Edit"}
-  </button>
-  <button
-    onClick={addEntry}
-    className="text-1xl cursor-pointer rounded-md px-3 text-white bg-green-600 py-1 hover:bg-green-700 hover:scale-105 hover:shadow-lg transition-transform"
-  >
-    Add Entry
-  </button>
-</div>
+      <div className="flex justify-center items-center gap-4 mb-5 mt-[5%]">
+        <button
+          onClick={handleEdit}
+          className="text-1xl cursor-pointer rounded-md px-3 text-white bg-[#007bff] py-1 hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform"
+        >
+          {isEditing ? "Save & Exit" : "Edit"}
+        </button>
+        <button
+          onClick={addEntry}
+          className="text-1xl cursor-pointer rounded-md px-3 text-white bg-green-600 py-1 hover:bg-green-700 hover:scale-105 hover:shadow-lg transition-transform"
+        >
+          Add Entry
+        </button>
+      </div>
 
-      <div className="min-h-screen bg-[#faf6f6] text-[#3A2B22] flex flex-col items-center pl-[10%] pr-[10%] shadow-lg ">
+      <div className="min-h-screen bg-[#faf6f6] text-[#3A2B22] flex flex-col items-center pl-[10%] pr-[10%] shadow-lg">
         <div className={`w-full ${entries.length > 10 ? 'max-h-[500px] overflow-y-auto' : ''}`}>
-            
           <table className="w-full border-collapse border bg-white">
             <thead>
               <tr className="border">
