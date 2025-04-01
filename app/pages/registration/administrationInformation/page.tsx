@@ -68,6 +68,35 @@ const Page = () => {
     "Father: History of asthma as a child.\nMother: No known chronic illnesses.\nSiblings: No reported respiratory illnesses.\nNo family history of tuberculosis, heart disease, or genetic disorders."
   );
 
+    // Add state for immunization
+    const [immunization, setImmunization] = useState({
+      MMR: [false, false, false, false],
+      TDap: [false, false, false, false],
+      Varicella: [false, false, false, false],
+      FluVaccine: [false, false, false, false],
+      HepatitisB: [false, false, false, false],
+      HepatitisA: [false, false, false, false],
+      COVID19: [false, false, false, false]
+    });
+  
+    // Add state for allergies
+    const [allergies, setAllergies] = useState({
+      drugAllergies: "None known.",
+      foodAllergies: "None reported.",
+      environmentalAllergies: ""
+    });
+  
+       // Add state for immunization
+    const handleImmunizationChange = (vaccine, doseIndex) => {
+      const updatedImmunization = {...immunization};
+      updatedImmunization[vaccine][doseIndex] = !updatedImmunization[vaccine][doseIndex];
+      setImmunization(updatedImmunization);
+    };
+  
+    const handleAllergiesChange = (field, value) => {
+      setAllergies({...allergies, [field]: value});
+    };
+
   const handleSave = () => setIsEditing(false);
 
   return (
@@ -767,6 +796,91 @@ const Page = () => {
             familyHealthHistory.split('\n').map((line, index) => (
               <p key={index}>{line}</p>
             ))
+          )}
+        </div>
+      </div>
+      <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5">
+        IMMUNIZATION
+      </h2>
+      
+      <div className="overflow-x-auto p-4">
+        <table className="w-full border-collapse border border-gray-300">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="border border-gray-300 p-2 font-semibold">Vaccine</th>
+              <th className="border border-gray-300 p-2 font-semibold">1st Dose</th>
+              <th className="border border-gray-300 p-2 font-semibold">2nd Dose</th>
+              <th className="border border-gray-300 p-2 font-semibold">3rd Dose</th>
+              <th className="border border-gray-300 p-2 font-semibold">Booster</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(immunization).map(([vaccine, doses]) => (
+              <tr key={vaccine} className="border border-gray-300">
+                <td className="border border-gray-300 p-2 font-semibold">
+                  {vaccine.replace(/([A-Z])/g, ' $1').replace('COVID19', 'COVID-19')}
+                </td>
+                {doses.map((dose, index) => (
+                  <td key={index} className="border border-gray-300 p-2 text-center">
+                    {isEditing ? (
+                      <input
+                        type="checkbox"
+                        checked={dose}
+                        onChange={() => handleImmunizationChange(vaccine, index)}
+                        className="h-5 w-5"
+                      />
+                    ) : (
+                      <span>{dose ? "✓" : "☐"}</span>
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5">
+        ALLERGIES
+      </h2>
+      
+      <div className="space-y-4 p-4">
+        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+          <div className="font-semibold">Drug Allergies:</div>
+          {isEditing ? (
+            <input
+              className="border p-1"
+              value={allergies.drugAllergies}
+              onChange={(e) => handleAllergiesChange('drugAllergies', e.target.value)}
+            />
+          ) : (
+            <div>{allergies.drugAllergies}</div>
+          )}
+        </div>
+        
+        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+          <div className="font-semibold">Food Allergies:</div>
+          {isEditing ? (
+            <input
+              className="border p-1"
+              value={allergies.foodAllergies}
+              onChange={(e) => handleAllergiesChange('foodAllergies', e.target.value)}
+            />
+          ) : (
+            <div>{allergies.foodAllergies}</div>
+          )}
+        </div>
+        
+        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+          <div className="font-semibold">Environmental Allergies:</div>
+          {isEditing ? (
+            <textarea
+              className="border p-1 w-full"
+              value={allergies.environmentalAllergies}
+              onChange={(e) => handleAllergiesChange('environmentalAllergies', e.target.value)}
+            />
+          ) : (
+            <div>{allergies.environmentalAllergies || "None reported."}</div>
           )}
         </div>
       </div>
