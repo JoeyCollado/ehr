@@ -564,6 +564,7 @@ const Page = () => {
                 <div>
                   {isEditing ? (
                     <textarea
+                    title="chest and lungs"
                       value={headToToeData.chestLungs}
                       onChange={(e) => setHeadToToeData({...headToToeData, chestLungs: e.target.value})}
                       className="w-full p-1 border"
@@ -582,6 +583,7 @@ const Page = () => {
                 <div>
                   {isEditing ? (
                     <textarea
+                      title="cardiovascular"
                       value={headToToeData.cardiovascular}
                       onChange={(e) => setHeadToToeData({...headToToeData, cardiovascular: e.target.value})}
                       className="w-full p-1 border"
@@ -600,6 +602,7 @@ const Page = () => {
                 <div>
                   {isEditing ? (
                     <textarea
+                    title="abdomen"
                       value={headToToeData.abdomen}
                       onChange={(e) => setHeadToToeData({...headToToeData, abdomen: e.target.value})}
                       className="w-full p-1 border"
@@ -618,6 +621,7 @@ const Page = () => {
                 <div>
                   {isEditing ? (
                     <textarea
+                    title="extremities"
                       value={headToToeData.extremities}
                       onChange={(e) => setHeadToToeData({...headToToeData, extremities: e.target.value})}
                       className="w-full p-1 border"
@@ -636,6 +640,7 @@ const Page = () => {
                 <div>
                   {isEditing ? (
                     <textarea
+                    title="neuro"
                       value={headToToeData.neurological}
                       onChange={(e) => setHeadToToeData({...headToToeData, neurological: e.target.value})}
                       className="w-full p-1 border"
@@ -659,6 +664,7 @@ const Page = () => {
                 <div className="font-semibold">Temperature:</div>
                 {isEditing ? (
                   <input
+                  title="temp"
                     className="border p-1 "
                     value={vitalSigns.temperature}
                     onChange={(e) => setVitalSigns({...vitalSigns, temperature: e.target.value})}
@@ -669,6 +675,7 @@ const Page = () => {
                 <div className="font-semibold">Route:</div>
                 {isEditing ? (
                   <input
+                  title="route"
                     className="border p-1"
                     value={vitalSigns.temperatureRoute}
                     onChange={(e) => setVitalSigns({...vitalSigns, temperatureRoute: e.target.value})}
@@ -679,6 +686,7 @@ const Page = () => {
                 <div className="font-semibold">Time Taken:</div>
                 {isEditing ? (
                   <input
+                  title="time"
                     className="border p-1"
                     value={vitalSigns.temperatureTime}
                     onChange={(e) => setVitalSigns({...vitalSigns, temperatureTime: e.target.value})}
@@ -689,6 +697,7 @@ const Page = () => {
                 <div className="font-semibold">Date Taken:</div>
                 {isEditing ? (
                   <input
+                  title="date"
                     type="date"
                     className="border p-1"
                     value={vitalSigns.temperatureDate}
@@ -720,6 +729,7 @@ const Page = () => {
                 <div className="font-semibold">Blood Pressure:</div>
                 {isEditing ? (
                   <input
+                  title="blood"
                     className="border p-1"
                     value={vitalSigns.bloodPressure}
                     onChange={(e) => setVitalSigns({...vitalSigns, bloodPressure: e.target.value})}
@@ -730,6 +740,7 @@ const Page = () => {
                 <div className="font-semibold">Route:</div>
                 {isEditing ? (
                   <input
+                  title="route"
                     className="border p-1"
                     value={vitalSigns.bloodPressureRoute}
                     onChange={(e) => setVitalSigns({...vitalSigns, bloodPressureRoute: e.target.value})}
@@ -740,6 +751,7 @@ const Page = () => {
                 <div className="font-semibold">Time Taken:</div>
                 {isEditing ? (
                   <input
+                  title="time"
                     className="border p-1"
                     value={vitalSigns.bloodPressureTime}
                     onChange={(e) => setVitalSigns({...vitalSigns, bloodPressureTime: e.target.value})}
@@ -750,6 +762,7 @@ const Page = () => {
                 <div className="font-semibold">Date Taken:</div>
                 {isEditing ? (
                   <input
+                    title="date"
                     type="date"
                     className="border p-1"
                     value={vitalSigns.bloodPressureDate}
@@ -781,6 +794,7 @@ const Page = () => {
                 <div className="font-semibold">Respiratory Rate:</div>
                 {isEditing ? (
                   <input
+                  title="respiratory"
                     className="border p-1"
                     value={vitalSigns.respiratoryRate}
                     onChange={(e) => setVitalSigns({...vitalSigns, respiratoryRate: e.target.value})}
@@ -791,6 +805,7 @@ const Page = () => {
                 <div className="font-semibold">Route:</div>
                 {isEditing ? (
                   <input
+                  title="route"
                     className="border p-1"
                     value={vitalSigns.respiratoryRateRoute}
                     onChange={(e) => setVitalSigns({...vitalSigns, respiratoryRateRoute: e.target.value})}
@@ -801,6 +816,7 @@ const Page = () => {
                 <div className="font-semibold">Time Taken:</div>
                 {isEditing ? (
                   <input
+                  title="time taken"
                     className="border p-1"
                     value={vitalSigns.respiratoryRateTime}
                     onChange={(e) => setVitalSigns({...vitalSigns, respiratoryRateTime: e.target.value})}
@@ -811,6 +827,7 @@ const Page = () => {
                 <div className="font-semibold">Date Taken:</div>
                 {isEditing ? (
                   <input
+                  title="date taken"
                     type="date"
                     className="border p-1"
                     value={vitalSigns.respiratoryRateDate}
@@ -842,6 +859,7 @@ const Page = () => {
                 <div className="font-semibold">Heart Rate:</div>
                 {isEditing ? (
                   <input
+                  title="heart rate"
                     className="border p-1"
                     value={vitalSigns.heartRate}
                     onChange={(e) => setVitalSigns({...vitalSigns, heartRate: e.target.value})}
@@ -852,6 +870,7 @@ const Page = () => {
                 <div className="font-semibold">Route:</div>
                 {isEditing ? (
                   <input
+                  title="route"
                     className="border p-1"
                     value={vitalSigns.heartRateRoute}
                     onChange={(e) => setVitalSigns({...vitalSigns, heartRateRoute: e.target.value})}
@@ -862,6 +881,7 @@ const Page = () => {
                 <div className="font-semibold">Time Taken:</div>
                 {isEditing ? (
                   <input
+                  title="time"
                     className="border p-1"
                     value={vitalSigns.heartRateTime}
                     onChange={(e) => setVitalSigns({...vitalSigns, heartRateTime: e.target.value})}
@@ -872,6 +892,7 @@ const Page = () => {
                 <div className="font-semibold">Date Taken:</div>
                 {isEditing ? (
                   <input
+                  title="date"
                     type="date"
                     className="border p-1"
                     value={vitalSigns.heartRateDate}
@@ -903,6 +924,7 @@ const Page = () => {
                 <div className="font-semibold">Oxygen Saturation:</div>
                 {isEditing ? (
                   <input
+                  title="oxygen"
                     className="border p-1"
                     value={vitalSigns.oxygenSaturation}
                     onChange={(e) => setVitalSigns({...vitalSigns, oxygenSaturation: e.target.value})}
@@ -913,6 +935,7 @@ const Page = () => {
                 <div className="font-semibold">Route:</div>
                 {isEditing ? (
                   <input
+                  title="route"
                     className="border p-1"
                     value={vitalSigns.oxygenSaturationRoute}
                     onChange={(e) => setVitalSigns({...vitalSigns, oxygenSaturationRoute: e.target.value})}
@@ -923,6 +946,7 @@ const Page = () => {
                 <div className="font-semibold">Time Taken:</div>
                 {isEditing ? (
                   <input
+                  title="time taken"
                     className="border p-1"
                     value={vitalSigns.oxygenSaturationTime}
                     onChange={(e) => setVitalSigns({...vitalSigns, oxygenSaturationTime: e.target.value})}
@@ -933,6 +957,7 @@ const Page = () => {
                 <div className="font-semibold">Date Taken:</div>
                 {isEditing ? (
                   <input
+                  title="date taken"
                     type="date"
                     className="border p-1"
                     value={vitalSigns.oxygenSaturationDate}
@@ -975,6 +1000,7 @@ const Page = () => {
             </div>
             {isEditing ? (
               <input
+              title="history"
                 className="border p-1"
                 value={value}
                 onChange={(e) => setHistoryOfPresentIllness({
@@ -1001,6 +1027,7 @@ const Page = () => {
             </div>
             {isEditing ? (
               <input
+                title="history"
                 className="border p-1"
                 value={value}
                 onChange={(e) => setPastMedicalHistory({
@@ -1024,6 +1051,7 @@ const Page = () => {
         <div>
           {isEditing ? (
             <textarea
+            title="family history"
               value={familyHealthHistory}
               onChange={(e) => setFamilyHealthHistory(e.target.value)}
               className="w-full p-1 border"
@@ -1060,6 +1088,7 @@ const Page = () => {
                   <td key={index} className="border border-gray-300 p-2 text-center">
                     {isEditing ? (
                       <input
+                      title="checkbox"
                         type="checkbox"
                         checked={dose}
                         onChange={() => handleImmunizationChange(vaccine, index)}
