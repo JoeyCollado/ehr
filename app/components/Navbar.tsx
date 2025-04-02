@@ -43,7 +43,7 @@ const Navbar = () => {
         { name: "MAR", link: "/pages/clinicalNotes/mar" },
         { name: "Progress Notes", link: "/pages/clinicalNotes/progressNotes" },
         { name: "Consults", link: "/pages/clinicalNotes/consults" },
-        { name: "Order Management", link: "/pages/clinicalNotes/order-management" },
+        { name: "Order Management", link: "/pages/clinicalNotes/orderManagement" },
       ],
     },
     { name: "Billing Information", icon: <FaFileInvoiceDollar />, link: "/pages/billingInformation" },
