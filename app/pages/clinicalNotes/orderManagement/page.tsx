@@ -207,59 +207,69 @@ const Page = () => {
 
   const addRow = (tableName: keyof TableData) => {
     const updatedTables = { ...tables };
-    const emptyRow: any = {};
     
     // Create an empty row based on the table structure
     switch (tableName) {
       case "medication":
-        emptyRow.drugName = "";
-        emptyRow.dosage = "";
-        emptyRow.route = "";
-        emptyRow.frequency = "";
-        emptyRow.startDateTime = "";
-        emptyRow.duration = "";
-        emptyRow.quantity = "";
-        emptyRow.prescribingPhysician = "";
+        updatedTables[tableName].push({
+          drugName: "",
+          dosage: "",
+          route: "",
+          frequency: "",
+          startDateTime: "",
+          duration: "",
+          quantity: "",
+          prescribingPhysician: ""
+        });
         break;
       case "labTest":
-        emptyRow.testName = "";
-        emptyRow.testCode = "";
-        emptyRow.collectionDateTime = "";
-        emptyRow.urgency = "";
-        emptyRow.orderingPhysician = "";
+        updatedTables[tableName].push({
+          testName: "",
+          testCode: "",
+          collectionDateTime: "",
+          urgency: "",
+          orderingPhysician: ""
+        });
         break;
       case "imaging":
-        emptyRow.imagingType = "";
-        emptyRow.bodyPart = "";
-        emptyRow.reason = "";
-        emptyRow.instructions = "";
-        emptyRow.orderingPhysician = "";
+        updatedTables[tableName].push({
+          imagingType: "",
+          bodyPart: "",
+          reason: "",
+          instructions: "",
+          orderingPhysician: ""
+        });
         break;
       case "procedure":
-        emptyRow.procedureName = "";
-        emptyRow.procedureCode = "";
-        emptyRow.scheduledDateTime = "";
-        emptyRow.location = "";
-        emptyRow.preoperativeInstruction = "";
-        emptyRow.orderingPhysician = "";
+        updatedTables[tableName].push({
+          procedureName: "",
+          procedureCode: "",
+          scheduledDateTime: "",
+          location: "",
+          preoperativeInstruction: "",
+          orderingPhysician: ""
+        });
         break;
       case "referral":
-        emptyRow.orderType = "";
-        emptyRow.referralTo = "";
-        emptyRow.reason = "";
-        emptyRow.primaryDiagnosis = "";
-        emptyRow.clinicalSummary = "";
-        emptyRow.referralPhysician = "";
+        updatedTables[tableName].push({
+          orderType: "",
+          referralTo: "",
+          reason: "",
+          primaryDiagnosis: "",
+          clinicalSummary: "",
+          referralPhysician: ""
+        });
         break;
       case "nursing":
-        emptyRow.orderType = "";
-        emptyRow.nursingOrder = "";
+        updatedTables[tableName].push({
+          orderType: "",
+          nursingOrder: ""
+        });
         break;
       default:
-        break;
+        throw new Error(`Unknown table name: ${tableName}`);
     }
     
-    updatedTables[tableName].push(emptyRow);
     setTables(updatedTables);
   };
 
