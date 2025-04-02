@@ -1,7 +1,32 @@
+"use client";
 import React from "react";
+import { useState } from "react";
 
 const page = () => {
+
+  const [isEditing, setIsEditing] = useState(false);
+  
+
   return (
+    <>
+        <div className="flex justify-center mt-[5%]">
+        {isEditing ? (
+          <button
+            onClick={handleSave}
+            className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 cursor-pointer mb-4"
+          >
+            Save
+          </button>
+        ) : (
+          <button
+            onClick={() => setIsEditing(true)}
+            className="bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform text-white px-4 py-1 rounded cursor-pointer mb-4"
+          >
+            Edit
+          </button>
+        )}
+      </div>
+
     <div className="min-h-screen bg-[#faf6f6] flex items-center justify-center pb-4 mb-[5%] text-black">
       <div className="w-full max-w-4xl p-6 bg-white rounded-lg shadow-md">
         {/* MEDICATION ORDER */}
@@ -264,6 +289,7 @@ const page = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
