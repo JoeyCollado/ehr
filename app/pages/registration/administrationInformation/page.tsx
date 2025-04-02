@@ -204,6 +204,36 @@ const Page = () => {
     };
   });
 
+  //
+    // Initialize all state including chief complaint
+    const [chiefComplaint, setChiefComplaint] = useState(
+      "The patient complains that his chest hurts when he breathes or cough, has difficulty in breathing, and always feeling really tired and weak"
+    );
+
+      // Load data from localStorage after component mounts
+  useEffect(() => {
+    setHasMounted(true);
+    
+    const loadFromLocalStorage = () => {
+      const savedChiefComplaint = localStorage.getItem('chiefComplaint');
+      if (savedChiefComplaint) setChiefComplaint(savedChiefComplaint);
+      
+      const savedPhysicalData = localStorage.getItem('physicalData');
+      if (savedPhysicalData) setPhysicalData(JSON.parse(savedPhysicalData));
+      
+      // Load other data similarly...
+    };
+
+    loadFromLocalStorage();
+  }, []);
+
+  // Save chief complaint to localStorage
+  useEffect(() => {
+    if (hasMounted) {
+      localStorage.setItem('chiefComplaint', chiefComplaint);
+    }
+  }, [chiefComplaint, hasMounted]);
+
   // Save all data to localStorage whenever any state changes
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -320,15 +350,21 @@ const Page = () => {
 
       <div className="min-h-screen bg-[#faf6f6] flex items-center justify-center pb-4 mb-[5%] ">
         <div className="w-full max-w-4xl bg-white text-black shadow-lg rounded-lg p-6 ">
-          <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5 mb-4 ">
+        <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5 mb-4">
             CHIEF COMPLAINT
           </h2>
           <div className="text-center">
-            <h2 className="p-2 ">
-              The patient complain that his chest hurts when he breathes or
-              cough, has difficulty in breathing, and always feeling really
-              tired and weak
-            </h2>
+            {isEditing ? (
+              <textarea
+                title="complaint"
+                className="w-full p-2 border rounded"
+                value={chiefComplaint}
+                onChange={(e) => setChiefComplaint(e.target.value)}
+                rows={4}
+              />
+            ) : (
+              <h2 className="p-2">{chiefComplaint}</h2>
+            )}
           </div>
 
           <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5">
@@ -509,6 +545,7 @@ const Page = () => {
                 <div>
                   {isEditing ? (
                     <textarea
+                      title="head and neck"
                       value={headToToeData.headNeck}
                       onChange={(e) => setHeadToToeData({...headToToeData, headNeck: e.target.value})}
                       className="w-full p-1 border"
@@ -1048,6 +1085,7 @@ const Page = () => {
           <div className="font-semibold">Drug Allergies:</div>
           {isEditing ? (
             <input
+            title="drug allergies"
               className="border p-1"
               value={allergies.drugAllergies}
               onChange={(e) => handleAllergiesChange('drugAllergies', e.target.value)}
@@ -1061,6 +1099,7 @@ const Page = () => {
           <div className="font-semibold">Food Allergies:</div>
           {isEditing ? (
             <input
+              title="food allergies"
               className="border p-1"
               value={allergies.foodAllergies}
               onChange={(e) => handleAllergiesChange('foodAllergies', e.target.value)}
@@ -1074,6 +1113,7 @@ const Page = () => {
           <div className="font-semibold">Environmental Allergies:</div>
           {isEditing ? (
             <textarea
+            title="environmental allergies"
               className="border p-1 w-full"
               value={allergies.environmentalAllergies}
               onChange={(e) => handleAllergiesChange('environmentalAllergies', e.target.value)}
