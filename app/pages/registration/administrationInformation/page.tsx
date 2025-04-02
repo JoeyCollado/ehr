@@ -569,7 +569,7 @@ const Page = () => {
                       className="w-full p-1 border"
                     />
                   ) : (
-                    headToToeData.headNeck.split('\n').map((line: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined, index: React.Key | null | undefined) => (
+                    headToToeData.headNeck.split('\n').map((line: string, index: number) => (
                       <p key={index}>{line}</p>
                     ))
                   )}
@@ -588,7 +588,7 @@ const Page = () => {
                       className="w-full p-1 border"
                     />
                   ) : (
-                    headToToeData.chestLungs.split('\n').map((line: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined, index: React.Key | null | undefined) => (
+                    headToToeData.chestLungs.split('\n').map((line: string, index: number) => (
                       <p key={index}>{line}</p>
                     ))
                   )}
@@ -607,7 +607,7 @@ const Page = () => {
                       className="w-full p-1 border"
                     />
                   ) : (
-                    headToToeData.cardiovascular.split('\n').map((line: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined, index: React.Key | null | undefined) => (
+                    headToToeData.cardiovascular.split('\n').map((line: string, index: number) => (
                       <p key={index}>{line}</p>
                     ))
                   )}
@@ -626,7 +626,7 @@ const Page = () => {
                       className="w-full p-1 border"
                     />
                   ) : (
-                    headToToeData.abdomen.split('\n').map((line: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined, index: React.Key | null | undefined) => (
+                    headToToeData.abdomen.split('\n').map((line: string, index: number) => (
                       <p key={index}>{line}</p>
                     ))
                   )}
@@ -645,7 +645,7 @@ const Page = () => {
                       className="w-full p-1 border"
                     />
                   ) : (
-                    headToToeData.extremities.split('\n').map((line: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined, index: React.Key | null | undefined) => (
+                    headToToeData.extremities.split('\n').map((line: string, index: number) => (
                       <p key={index}>{line}</p>
                     ))
                   )}
@@ -664,7 +664,7 @@ const Page = () => {
                       className="w-full p-1 border"
                     />
                   ) : (
-                    headToToeData.neurological.split('\n').map((line: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined, index: React.Key | null | undefined) => (
+                    headToToeData.neurological.split('\n').map((line: string, index: number) => (
                       <p key={index}>{line}</p>
                     ))
                   )}
