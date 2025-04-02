@@ -2,53 +2,68 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-interface TableData {
-  [key: string]: any[];
-  medication: {
-    drugName: string;
-    dosage: string;
-    route: string;
-    frequency: string;
-    startDateTime: string;
-    duration: string;
-    quantity: string;
-    prescribingPhysician: string;
-  }[];
-  labTest: {
-    testName: string;
-    testCode: string;
-    collectionDateTime: string;
-    urgency: string;
-    orderingPhysician: string;
-  }[];
-  imaging: {
-    imagingType: string;
-    bodyPart: string;
-    reason: string;
-    instructions: string;
-    orderingPhysician: string;
-  }[];
-  procedure: {
-    procedureName: string;
-    procedureCode: string;
-    scheduledDateTime: string;
-    location: string;
-    preoperativeInstruction: string;
-    orderingPhysician: string;
-  }[];
-  referral: {
-    orderType: string;
-    referralTo: string;
-    reason: string;
-    primaryDiagnosis: string;
-    clinicalSummary: string;
-    referralPhysician: string;
-  }[];
-  nursing: {
-    orderType: string;
-    nursingOrder: string;
-  }[];
+interface MedicationRow {
+  drugName: string;
+  dosage: string;
+  route: string;
+  frequency: string;
+  startDateTime: string;
+  duration: string;
+  quantity: string;
+  prescribingPhysician: string;
 }
+
+interface LabTestRow {
+  testName: string;
+  testCode: string;
+  collectionDateTime: string;
+  urgency: string;
+  orderingPhysician: string;
+}
+
+interface ImagingRow {
+  imagingType: string;
+  bodyPart: string;
+  reason: string;
+  instructions: string;
+  orderingPhysician: string;
+}
+
+interface ProcedureRow {
+  procedureName: string;
+  procedureCode: string;
+  scheduledDateTime: string;
+  location: string;
+  preoperativeInstruction: string;
+  orderingPhysician: string;
+}
+
+interface ReferralRow {
+  orderType: string;
+  referralTo: string;
+  reason: string;
+  primaryDiagnosis: string;
+  clinicalSummary: string;
+  referralPhysician: string;
+}
+
+interface NursingRow {
+  orderType: string;
+  nursingOrder: string;
+}
+
+type TableRow = MedicationRow | LabTestRow | ImagingRow | ProcedureRow | ReferralRow | NursingRow;
+
+interface TableData {
+  [key: string]: TableRow[]; // Now correctly enforces an array of known row types
+  medication: MedicationRow[];
+  labTest: LabTestRow[];
+  imaging: ImagingRow[];
+  procedure: ProcedureRow[];
+  referral: ReferralRow[];
+  nursing: NursingRow[];
+}
+
 
 const defaultTables: TableData = {
   medication: [
@@ -142,7 +157,7 @@ const defaultTables: TableData = {
   ],
 };
 
-const page = () => {
+const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [tables, setTables] = useState<TableData>(defaultTables);
   const [hasMounted, setHasMounted] = useState(false);
@@ -181,9 +196,14 @@ const page = () => {
     value: string
   ) => {
     const updatedTables = { ...tables };
-    (updatedTables[tableName][rowIndex] as any)[field] = value;
+    updatedTables[tableName] = [...updatedTables[tableName]];
+    updatedTables[tableName][rowIndex] = {
+      ...updatedTables[tableName][rowIndex],
+      [field]: value,
+    };
     setTables(updatedTables);
   };
+  
 
   const addRow = (tableName: keyof TableData) => {
     const updatedTables = { ...tables };
@@ -1216,4 +1236,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
