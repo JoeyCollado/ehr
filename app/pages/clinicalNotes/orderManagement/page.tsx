@@ -306,6 +306,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="medication"
                           type="text"
                           value={row.drugName}
                           onChange={(e) =>
@@ -325,6 +326,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="dosage"
                           type="text"
                           value={row.dosage}
                           onChange={(e) =>
@@ -344,6 +346,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="route"
                           type="text"
                           value={row.route}
                           onChange={(e) =>
@@ -363,6 +366,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="frequency"
                           type="text"
                           value={row.frequency}
                           onChange={(e) =>
@@ -382,6 +386,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="date"
                           type="text"
                           value={row.startDateTime}
                           onChange={(e) =>
@@ -401,6 +406,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="duration"
                           type="text"
                           value={row.duration}
                           onChange={(e) =>
@@ -420,6 +426,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="quantity"
                           type="text"
                           value={row.quantity}
                           onChange={(e) =>
@@ -439,6 +446,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="physician"
                           type="text"
                           value={row.prescribingPhysician}
                           onChange={(e) =>
@@ -505,6 +513,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="test"
                           type="text"
                           value={row.testName}
                           onChange={(e) =>
@@ -524,6 +533,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="textcode"
                           type="text"
                           value={row.testCode}
                           onChange={(e) =>
@@ -543,6 +553,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="collection"
                           type="text"
                           value={row.collectionDateTime}
                           onChange={(e) =>
@@ -562,6 +573,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="urgency"
                           type="text"
                           value={row.urgency}
                           onChange={(e) =>
@@ -581,6 +593,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="order"
                           type="text"
                           value={row.orderingPhysician}
                           onChange={(e) =>
@@ -651,6 +664,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="imaging"
                           type="text"
                           value={row.imagingType}
                           onChange={(e) =>
@@ -670,6 +684,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="bodypart"
                           type="text"
                           value={row.bodyPart}
                           onChange={(e) =>
@@ -689,6 +704,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="reason"
                           type="text"
                           value={row.reason}
                           onChange={(e) =>
@@ -708,6 +724,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="instructions"
                           type="text"
                           value={row.instructions}
                           onChange={(e) =>
@@ -727,6 +744,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="order"
                           type="text"
                           value={row.orderingPhysician}
                           onChange={(e) =>
@@ -798,6 +816,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="procedure"
                           type="text"
                           value={row.procedureName}
                           onChange={(e) =>
@@ -817,6 +836,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="procedure"
                           type="text"
                           value={row.procedureCode}
                           onChange={(e) =>
@@ -836,6 +856,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="schedule"
                           type="text"
                           value={row.scheduledDateTime}
                           onChange={(e) =>
@@ -855,6 +876,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="location"
                           type="text"
                           value={row.location}
                           onChange={(e) =>
@@ -874,6 +896,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="preoperative"
                           type="text"
                           value={row.preoperativeInstruction}
                           onChange={(e) =>
@@ -893,6 +916,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="order"
                           type="text"
                           value={row.orderingPhysician}
                           onChange={(e) =>
@@ -966,6 +990,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="order"
                           type="text"
                           value={row.orderType}
                           onChange={(e) =>
@@ -985,6 +1010,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="referral"
                           type="text"
                           value={row.referralTo}
                           onChange={(e) =>
@@ -1004,6 +1030,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="reason"
                           type="text"
                           value={row.reason}
                           onChange={(e) =>
@@ -1023,6 +1050,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="diagnosis"
                           type="text"
                           value={row.primaryDiagnosis}
                           onChange={(e) =>
@@ -1042,6 +1070,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <textarea
+                        title="clinical"
                           value={row.clinicalSummary}
                           onChange={(e) =>
                             handleInputChange(
@@ -1060,6 +1089,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="referral"
                           type="text"
                           value={row.referralPhysician}
                           onChange={(e) =>
@@ -1121,6 +1151,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <input
+                        title="order"
                           type="text"
                           value={row.orderType}
                           onChange={(e) =>
@@ -1140,6 +1171,7 @@ const page = () => {
                     <td className="py-2 px-4 border-b">
                       {isEditing ? (
                         <textarea
+                        title="nursing"
                           value={row.nursingOrder}
                           onChange={(e) =>
                             handleInputChange(
