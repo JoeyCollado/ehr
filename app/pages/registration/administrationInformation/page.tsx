@@ -1,6 +1,22 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
+type ImmunizationType = {
+  MMR: boolean[];
+  TDap: boolean[];
+  Varicella: boolean[];
+  FluVaccine: boolean[];
+  HepatitisB: boolean[];
+  HepatitisA: boolean[];
+  COVID19: boolean[];
+};
+
+type AllergiesType = {
+  drugAllergies: string;
+  foodAllergies: string;
+  environmentalAllergies: string;
+};
+
 const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
@@ -164,7 +180,7 @@ const Page = () => {
     return "Father: History of asthma as a child. Mother: No known chronic illnesses. Siblings: No reported respiratory illnesses. No family history of tuberculosis, heart disease, or genetic disorders.";
   });
 
-  const [immunization, setImmunization] = useState(() => {
+  const [immunization, setImmunization] = useState<ImmunizationType>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('immunization');
       return saved ? JSON.parse(saved) : {
@@ -188,7 +204,7 @@ const Page = () => {
     };
   });
 
-  const [allergies, setAllergies] = useState(() => {
+  const [allergies, setAllergies] = useState<AllergiesType>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('allergies');
       return saved ? JSON.parse(saved) : {
@@ -204,13 +220,11 @@ const Page = () => {
     };
   });
 
-  //
-    // Initialize all state including chief complaint
-    const [chiefComplaint, setChiefComplaint] = useState(
-      "The patient complains that his chest hurts when he breathes or cough, has difficulty in breathing, and always feeling really tired and weak"
-    );
+  const [chiefComplaint, setChiefComplaint] = useState(
+    "The patient complains that his chest hurts when he breathes or cough, has difficulty in breathing, and always feeling really tired and weak"
+  );
 
-      // Load data from localStorage after component mounts
+  // Load data from localStorage after component mounts
   useEffect(() => {
     setHasMounted(true);
     
@@ -221,7 +235,29 @@ const Page = () => {
       const savedPhysicalData = localStorage.getItem('physicalData');
       if (savedPhysicalData) setPhysicalData(JSON.parse(savedPhysicalData));
       
-      // Load other data similarly...
+      const savedSurveyData = localStorage.getItem('surveyData');
+      if (savedSurveyData) setSurveyData(JSON.parse(savedSurveyData));
+      
+      const savedHeadToToeData = localStorage.getItem('headToToeData');
+      if (savedHeadToToeData) setHeadToToeData(JSON.parse(savedHeadToToeData));
+      
+      const savedVitalSigns = localStorage.getItem('vitalSigns');
+      if (savedVitalSigns) setVitalSigns(JSON.parse(savedVitalSigns));
+      
+      const savedHistoryOfPresentIllness = localStorage.getItem('historyOfPresentIllness');
+      if (savedHistoryOfPresentIllness) setHistoryOfPresentIllness(JSON.parse(savedHistoryOfPresentIllness));
+      
+      const savedPastMedicalHistory = localStorage.getItem('pastMedicalHistory');
+      if (savedPastMedicalHistory) setPastMedicalHistory(JSON.parse(savedPastMedicalHistory));
+      
+      const savedFamilyHealthHistory = localStorage.getItem('familyHealthHistory');
+      if (savedFamilyHealthHistory) setFamilyHealthHistory(savedFamilyHealthHistory);
+      
+      const savedImmunization = localStorage.getItem('immunization');
+      if (savedImmunization) setImmunization(JSON.parse(savedImmunization));
+      
+      const savedAllergies = localStorage.getItem('allergies');
+      if (savedAllergies) setAllergies(JSON.parse(savedAllergies));
     };
 
     loadFromLocalStorage();
@@ -289,44 +325,24 @@ const Page = () => {
     }
   }, [allergies]);
 
-  //
-    
-    // Load data from localStorage after component mounts
-    useEffect(() => {
-      setHasMounted(true);
-      
-      const loadFromLocalStorage = () => {
-        const savedPhysicalData = localStorage.getItem('physicalData');
-        if (savedPhysicalData) setPhysicalData(JSON.parse(savedPhysicalData));
-        
-        const savedSurveyData = localStorage.getItem('surveyData');
-        if (savedSurveyData) setSurveyData(JSON.parse(savedSurveyData));
-        
-        // Load other data similarly...
-      };
-  
-      loadFromLocalStorage();
-    }, []);
-  
-
   // Handle immunization change
-  const handleImmunizationChange = (vaccine, doseIndex) => {
+  const handleImmunizationChange = (vaccine: keyof ImmunizationType, doseIndex: number) => {
     const updatedImmunization = {...immunization};
     updatedImmunization[vaccine][doseIndex] = !updatedImmunization[vaccine][doseIndex];
     setImmunization(updatedImmunization);
   };
 
   // Handle allergies change
-  const handleAllergiesChange = (field, value) => {
+  const handleAllergiesChange = (field: keyof AllergiesType, value: string) => {
     setAllergies({...allergies, [field]: value});
   };
 
   const handleSave = () => setIsEditing(false);
 
-    // Only render the component after mounting (client-side)
-    if (!hasMounted) {
-      return null; // or a loading spinner
-    }
+  // Only render the component after mounting (client-side)
+  if (!hasMounted) {
+    return null; // or a loading spinner
+  }
 
   return (
     <>
@@ -551,7 +567,7 @@ const Page = () => {
                       className="w-full p-1 border"
                     />
                   ) : (
-                    headToToeData.headNeck.split('\n').map((line, index) => (
+                    headToToeData.headNeck.split('\n').map((line: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined, index: React.Key | null | undefined) => (
                       <p key={index}>{line}</p>
                     ))
                   )}
@@ -570,7 +586,7 @@ const Page = () => {
                       className="w-full p-1 border"
                     />
                   ) : (
-                    headToToeData.chestLungs.split('\n').map((line, index) => (
+                    headToToeData.chestLungs.split('\n').map((line: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined, index: React.Key | null | undefined) => (
                       <p key={index}>{line}</p>
                     ))
                   )}
@@ -589,7 +605,7 @@ const Page = () => {
                       className="w-full p-1 border"
                     />
                   ) : (
-                    headToToeData.cardiovascular.split('\n').map((line, index) => (
+                    headToToeData.cardiovascular.split('\n').map((line: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined, index: React.Key | null | undefined) => (
                       <p key={index}>{line}</p>
                     ))
                   )}
@@ -608,7 +624,7 @@ const Page = () => {
                       className="w-full p-1 border"
                     />
                   ) : (
-                    headToToeData.abdomen.split('\n').map((line, index) => (
+                    headToToeData.abdomen.split('\n').map((line: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined, index: React.Key | null | undefined) => (
                       <p key={index}>{line}</p>
                     ))
                   )}
@@ -627,7 +643,7 @@ const Page = () => {
                       className="w-full p-1 border"
                     />
                   ) : (
-                    headToToeData.extremities.split('\n').map((line, index) => (
+                    headToToeData.extremities.split('\n').map((line: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined, index: React.Key | null | undefined) => (
                       <p key={index}>{line}</p>
                     ))
                   )}
@@ -646,7 +662,7 @@ const Page = () => {
                       className="w-full p-1 border"
                     />
                   ) : (
-                    headToToeData.neurological.split('\n').map((line, index) => (
+                    headToToeData.neurological.split('\n').map((line: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined, index: React.Key | null | undefined) => (
                       <p key={index}>{line}</p>
                     ))
                   )}
