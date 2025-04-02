@@ -17,6 +17,8 @@ type AllergiesType = {
   environmentalAllergies: string;
 };
 
+
+
 const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
@@ -1018,14 +1020,14 @@ const Page = () => {
               <input
               title="history"
                 className="border p-1"
-                value={value}
+                value={value as string}
                 onChange={(e) => setHistoryOfPresentIllness({
                   ...historyOfPresentIllness,
                   [key]: e.target.value
                 })}
               />
             ) : (
-              <div>{value}</div>
+              <div>{value as string}</div>
             )}
           </div>
         ))}
@@ -1045,14 +1047,14 @@ const Page = () => {
               <input
                 title="history"
                 className="border p-1"
-                value={value}
+                value={value as string}
                 onChange={(e) => setPastMedicalHistory({
                   ...pastMedicalHistory,
                   [key]: e.target.value
                 })}
               />
             ) : (
-              <div>{value}</div>
+              <div>{value as string}</div>
             )}
           </div>
         ))}
@@ -1107,7 +1109,7 @@ const Page = () => {
                       title="checkbox"
                         type="checkbox"
                         checked={dose}
-                        onChange={() => handleImmunizationChange(vaccine, index)}
+                        onChange={() => handleImmunizationChange(vaccine as keyof ImmunizationType, index)}
                         className="h-5 w-5"
                       />
                     ) : (
