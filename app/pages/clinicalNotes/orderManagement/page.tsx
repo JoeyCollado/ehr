@@ -1,116 +1,193 @@
 "use client";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+interface TableData {
+  [key: string]: any[];
+  medication: {
+    drugName: string;
+    dosage: string;
+    route: string;
+    frequency: string;
+    startDateTime: string;
+    duration: string;
+    quantity: string;
+    prescribingPhysician: string;
+  }[];
+  labTest: {
+    testName: string;
+    testCode: string;
+    collectionDateTime: string;
+    urgency: string;
+    orderingPhysician: string;
+  }[];
+  imaging: {
+    imagingType: string;
+    bodyPart: string;
+    reason: string;
+    instructions: string;
+    orderingPhysician: string;
+  }[];
+  procedure: {
+    procedureName: string;
+    procedureCode: string;
+    scheduledDateTime: string;
+    location: string;
+    preoperativeInstruction: string;
+    orderingPhysician: string;
+  }[];
+  referral: {
+    orderType: string;
+    referralTo: string;
+    reason: string;
+    primaryDiagnosis: string;
+    clinicalSummary: string;
+    referralPhysician: string;
+  }[];
+  nursing: {
+    orderType: string;
+    nursingOrder: string;
+  }[];
+}
+
+const defaultTables: TableData = {
+  medication: [
+    {
+      drugName: "Amoxicillin",
+      dosage: "250mg",
+      route: "Oral",
+      frequency: "Every 8 hours",
+      startDateTime: "2025-03-24",
+      duration: "7 days",
+      quantity: "21 capsules",
+      prescribingPhysician: "Dr. Michael Reyes",
+    },
+  ],
+  labTest: [
+    {
+      testName: "Complete Blood Count (CBC)",
+      testCode: "CBC01",
+      collectionDateTime: "3/24/2025",
+      urgency: "STAT",
+      orderingPhysician: "Dr. Michael Reyes",
+    },
+    {
+      testName: "Sputum Culture",
+      testCode: "SPC01",
+      collectionDateTime: "3/24/2025",
+      urgency: "Routine",
+      orderingPhysician: "Dr. Michael Reyes",
+    },
+  ],
+  imaging: [
+    {
+      imagingType: "Chest X-Ray",
+      bodyPart: "Lungs",
+      reason: "Suspected Pneumonia",
+      instructions: "PA and Lateral views",
+      orderingPhysician: "Dr. Michael Reyes",
+    },
+  ],
+  procedure: [
+    {
+      procedureName: "Chest X-Ray, Two Views (PA & Lateral)",
+      procedureCode: "7046",
+      scheduledDateTime: "3/24/2025",
+      location: "Radiology Department",
+      preoperativeInstruction: "Remove any metal objects",
+      orderingPhysician: "Dr. Michael Reyes",
+    },
+  ],
+  referral: [
+    {
+      orderType: "Referral Order",
+      referralTo: "Pulmonology, Primary Care, Infectious Disease",
+      reason: "Evaluation and Management for Pneumonia",
+      primaryDiagnosis: "J18.9 (Pneumonia, unspecified organism)",
+      clinicalSummary:
+        "Symptoms: Fever, cough, dyspnea, fatigue Dr. Michael Reyes Diagnostics: Chest Xray shows infiltrates Treatment: Antibiotics, oxygen therapy (if applicable) Response: [Stable/Improving/Worsening]",
+      referralPhysician: "Dr. Michael Reyes",
+    },
+  ],
+  nursing: [
+    { orderType: "Patient Name", nursingOrder: "Patient's Name" },
+    { orderType: "Date of Birth", nursingOrder: "Patient's Date of Birth" },
+    {
+      orderType: "Medication Administration",
+      nursingOrder:
+        "Administer prescribed antibiotics and antipyretics, Provide nebulizer treatments as needed",
+    },
+    {
+      orderType: "Diagnosis (ICD-10)",
+      nursingOrder: "J18.9 (Pneumonia, unspecified organism)",
+    },
+    {
+      orderType: "Vital Signs Monitoring",
+      nursingOrder:
+        "Monitor temperature, HR, RR, BP, SpO₂ q4h , Notify provider if SpO₂ > 92% or RR > 30/min",
+    },
+    {
+      orderType: "Respiratory Care",
+      nursingOrder: "Administer oxygen therapy as ordered",
+    },
+    {
+      orderType: "Nutritional Support",
+      nursingOrder: "Assess nutritional status and encourage high-protein diet",
+    },
+    {
+      orderType: "Patient Education",
+      nursingOrder:
+        "Educate patient on pneumonia, medication adherence, and symptoms to report, Provide smoking cessation counseling if applicable",
+    },
+  ],
+};
 
 const page = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [tables, setTables] = useState({
-    medication: [
-      {
-        drugName: "Amoxicillin",
-        dosage: "250mg",
-        route: "Oral",
-        frequency: "Every 8 hours",
-        startDateTime: "2025-03-24",
-        duration: "7 days",
-        quantity: "21 capsules",
-        prescribingPhysician: "Dr. Michael Reyes",
-      },
-    ],
-    labTest: [
-      {
-        testName: "Complete Blood Count (CBC)",
-        testCode: "CBC01",
-        collectionDateTime: "3/24/2025",
-        urgency: "STAT",
-        orderingPhysician: "Dr. Michael Reyes",
-      },
-      {
-        testName: "Sputum Culture",
-        testCode: "SPC01",
-        collectionDateTime: "3/24/2025",
-        urgency: "Routine",
-        orderingPhysician: "Dr. Michael Reyes",
-      },
-    ],
-    imaging: [
-      {
-        imagingType: "Chest X-Ray",
-        bodyPart: "Lungs",
-        reason: "Suspected Pneumonia",
-        instructions: "PA and Lateral views",
-        orderingPhysician: "Dr. Michael Reyes",
-      },
-    ],
-    procedure: [
-      {
-        procedureName: "Chest X-Ray, Two Views (PA & Lateral)",
-        procedureCode: "7046",
-        scheduledDateTime: "3/24/2025",
-        location: "Radiology Department",
-        preoperativeInstruction: "Remove any metal objects",
-        orderingPhysician: "Dr. Michael Reyes",
-      },
-    ],
-    referral: [
-      {
-        orderType: "Referral Order",
-        referralTo: "Pulmonology, Primary Care, Infectious Disease",
-        reason: "Evaluation and Management for Pneumonia",
-        primaryDiagnosis: "J18.9 (Pneumonia, unspecified organism)",
-        clinicalSummary:
-          "Symptoms: Fever, cough, dyspnea, fatigue Dr. Michael Reyes Diagnostics: Chest Xray shows infiltrates Treatment: Antibiotics, oxygen therapy (if applicable) Response: [Stable/Improving/Worsening]",
-        referralPhysician: "Dr. Michael Reyes",
-      },
-    ],
-    nursing: [
-      { orderType: "Patient Name", nursingOrder: "Patient's Name" },
-      { orderType: "Date of Birth", nursingOrder: "Patient's Date of Birth" },
-      {
-        orderType: "Medication Administration",
-        nursingOrder:
-          "Administer prescribed antibiotics and antipyretics, Provide nebulizer treatments as needed",
-      },
-      {
-        orderType: "Diagnosis (ICD-10)",
-        nursingOrder: "J18.9 (Pneumonia, unspecified organism)",
-      },
-      {
-        orderType: "Vital Signs Monitoring",
-        nursingOrder:
-          "Monitor temperature, HR, RR, BP, SpO₂ q4h , Notify provider if SpO₂ > 92% or RR > 30/min",
-      },
-      {
-        orderType: "Respiratory Care",
-        nursingOrder: "Administer oxygen therapy as ordered",
-      },
-      {
-        orderType: "Nutritional Support",
-        nursingOrder: "Assess nutritional status and encourage high-protein diet",
-      },
-      {
-        orderType: "Patient Education",
-        nursingOrder:
-          "Educate patient on pneumonia, medication adherence, and symptoms to report, Provide smoking cessation counseling if applicable",
-      },
-    ],
-  });
+  const [tables, setTables] = useState<TableData>(defaultTables);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  // Load data from localStorage on component mount
+  useEffect(() => {
+    const savedData = localStorage.getItem("medicalOrdersData");
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        setTables(parsedData);
+      } catch (error) {
+        console.error("Failed to parse saved data", error);
+      }
+    }
+    setHasMounted(true);
+  }, []);
+
+  // Save data to localStorage whenever it changes
+  useEffect(() => {
+    if (hasMounted) {
+      localStorage.setItem("medicalOrdersData", JSON.stringify(tables));
+    }
+  }, [tables, hasMounted]);
 
   const handleSave = () => {
     setIsEditing(false);
-    // Here you would typically send the updated data to your backend
+    // Data is already being saved to localStorage via useEffect
     console.log("Saved data:", tables);
   };
 
-  const handleInputChange = (tableName, rowIndex, field, value) => {
+  const handleInputChange = (
+    tableName: keyof TableData,
+    rowIndex: number,
+    field: string,
+    value: string
+  ) => {
     const updatedTables = { ...tables };
-    updatedTables[tableName][rowIndex][field] = value;
+    (updatedTables[tableName][rowIndex] as any)[field] = value;
     setTables(updatedTables);
   };
 
-  const addRow = (tableName) => {
+  const addRow = (tableName: keyof TableData) => {
     const updatedTables = { ...tables };
-    const emptyRow = {};
+    const emptyRow: any = {};
     
     // Create an empty row based on the table structure
     switch (tableName) {
@@ -166,11 +243,15 @@ const page = () => {
     setTables(updatedTables);
   };
 
-  const deleteRow = (tableName, rowIndex) => {
+  const deleteRow = (tableName: keyof TableData, rowIndex: number) => {
     const updatedTables = { ...tables };
     updatedTables[tableName].splice(rowIndex, 1);
     setTables(updatedTables);
   };
+
+  if (!hasMounted) {
+    return null; // or a loading spinner
+  }
 
   return (
     <>
