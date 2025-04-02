@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
   
   // Initialize all state with localStorage or default values
   const [physicalData, setPhysicalData] = useState(() => {
@@ -158,9 +159,9 @@ const Page = () => {
   const [familyHealthHistory, setFamilyHealthHistory] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('familyHealthHistory');
-      return saved ? saved : "Father: History of asthma as a child.\nMother: No known chronic illnesses.\nSiblings: No reported respiratory illnesses.\nNo family history of tuberculosis, heart disease, or genetic disorders.";
+      return saved ? saved : "Father: History of asthma as a child. Mother: No known chronic illnesses.\nSiblings: No reported respiratory illnesses. No family history of tuberculosis, heart disease, or genetic disorders.";
     }
-    return "Father: History of asthma as a child.\nMother: No known chronic illnesses.\nSiblings: No reported respiratory illnesses.\nNo family history of tuberculosis, heart disease, or genetic disorders.";
+    return "Father: History of asthma as a child. Mother: No known chronic illnesses. Siblings: No reported respiratory illnesses. No family history of tuberculosis, heart disease, or genetic disorders.";
   });
 
   const [immunization, setImmunization] = useState(() => {
@@ -258,6 +259,26 @@ const Page = () => {
     }
   }, [allergies]);
 
+  //
+    
+    // Load data from localStorage after component mounts
+    useEffect(() => {
+      setHasMounted(true);
+      
+      const loadFromLocalStorage = () => {
+        const savedPhysicalData = localStorage.getItem('physicalData');
+        if (savedPhysicalData) setPhysicalData(JSON.parse(savedPhysicalData));
+        
+        const savedSurveyData = localStorage.getItem('surveyData');
+        if (savedSurveyData) setSurveyData(JSON.parse(savedSurveyData));
+        
+        // Load other data similarly...
+      };
+  
+      loadFromLocalStorage();
+    }, []);
+  
+
   // Handle immunization change
   const handleImmunizationChange = (vaccine, doseIndex) => {
     const updatedImmunization = {...immunization};
@@ -271,6 +292,11 @@ const Page = () => {
   };
 
   const handleSave = () => setIsEditing(false);
+
+    // Only render the component after mounting (client-side)
+    if (!hasMounted) {
+      return null; // or a loading spinner
+    }
 
   return (
     <>
