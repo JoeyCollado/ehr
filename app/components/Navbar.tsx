@@ -11,6 +11,7 @@ import {
   FaFolderOpen,
   FaBars,
 } from "react-icons/fa";
+import { FaFileMedical } from "react-icons/fa";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -48,6 +49,7 @@ const Navbar = () => {
     },
     { name: "Billing Information", icon: <FaFileInvoiceDollar />, link: "/pages/billingInformation" },
     { name: "Document Management", icon: <FaFolderOpen />, link: "/pages/documentManagement" },
+    { name: "CDSS", icon: <FaFileMedical />, link: "/pages/cdss" },
   ];
 
   return (
