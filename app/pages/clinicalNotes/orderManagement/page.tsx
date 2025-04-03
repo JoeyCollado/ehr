@@ -306,7 +306,7 @@ const Page = () => {
       <div className="min-h-screen bg-[#faf6f6] flex items-center justify-center pb-4 mb-[5%] text-black">
         <div className="w-full max-w-5xl p-6 bg-white rounded-lg shadow-md">
           {/* MEDICATION ORDER */}
-          <h2 className="text-xl font-bold mb-4 text-gray-800">
+          <h2 className="text-xl font-bold mb-4 text-gray-800 text-center">
             MEDICATION ORDER
           </h2>
           <div className="overflow-x-auto mb-8">
@@ -518,7 +518,7 @@ const Page = () => {
           </div>
 
           {/* LAB TEST ORDER */}
-          <h2 className="text-xl font-bold mb-4 text-gray-800">LAB TEST ORDER</h2>
+          <h2 className="text-xl font-bold mb-4 text-gray-800 text-center">LAB TEST ORDER</h2>
           <div className="overflow-x-auto mb-8">
             <table className="min-w-full border border-gray-200">
               <thead className="bg-gray-100">
@@ -665,7 +665,7 @@ const Page = () => {
           </div>
 
           {/* IMAGING ORDER */}
-          <h2 className="text-xl font-bold mb-4 text-gray-800">IMAGING ORDER</h2>
+          <h2 className="text-xl font-bold mb-4 text-gray-800 text-center">IMAGING ORDER</h2>
           <div className="overflow-x-auto mb-8">
             <table className="min-w-full border border-gray-200">
               <thead className="bg-gray-100">
@@ -816,7 +816,7 @@ const Page = () => {
           </div>
 
           {/* PROCEDURE ORDER */}
-          <h2 className="text-xl font-bold mb-4 text-gray-800">
+          <h2 className="text-xl font-bold mb-4 text-gray-800 text-center">
             PROCEDURE ORDER
           </h2>
           <div className="overflow-x-auto">
@@ -988,7 +988,7 @@ const Page = () => {
           </div>
 
           {/* REFERRAL ORDER */}
-          <h2 className="text-xl font-bold mb-4 text-gray-800 mt-4">
+          <h2 className="text-xl font-bold mb-4 text-gray-800 mt-4 text-center">
             REFERRAL ORDER
           </h2>
           <div className="overflow-x-auto">
@@ -1161,7 +1161,7 @@ const Page = () => {
           </div>
 
           {/* NURSING ORDER */}
-          <h2 className="text-xl font-bold mb-4 text-gray-800 mt-4">
+          <h2 className="text-xl font-bold mb-4 text-gray-800 mt-4 text-center">
             NURSING ORDER
           </h2>
           <div className="overflow-x-auto">

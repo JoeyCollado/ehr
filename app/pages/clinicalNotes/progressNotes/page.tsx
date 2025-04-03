@@ -102,7 +102,7 @@ const Page = () => {
             <div className="grid grid-cols-1 border-b border-black">
               <div className="p-2 font-bold border-b border-black">Patient Information</div>
             </div>
-            {["firstName", "lastName", "dateOfBirth", "roomNumber"].map((field, index) => (
+            {["FirstName", "LastName", "DateOfBirth", "RoomNumber"].map((field, index) => (
               <div key={index} className="grid grid-cols-2 border-b border-black">
                 <div className="border-r border-black p-2 font-bold">
                   {field.replace(/([A-Z])/g, " $1")}:{" "}
