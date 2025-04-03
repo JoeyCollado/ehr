@@ -94,7 +94,7 @@ const Page = () => {
 
       <div className="min-h-screen bg-[#faf6f6] text-[#3A2B22] flex flex-col items-center p-10 shadow-lg">
         <div className="w-full max-w-5xl border border-black">
-          <div className="bg-[#E8A87C] text-center font-bold text-lg p-2 border-b border-black italic">
+          <div className="bg-[#00695C] text-center font-bold text-lg p-2 border-b border-black italic text-white">
             NURSING PROGRESS NOTES
           </div>
 
@@ -126,7 +126,7 @@ const Page = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-3 bg-[#E8A87C] border-b border-black text-center font-bold">
+          <div className="grid grid-cols-3 bg-[#00695C] text-white border-b border-black text-center font-bold">
             <div className="p-2 border-r border-black">DATE / TIME</div>
             <div className="p-2">PROGRESS NOTES</div>
             <div className="p-2 border-l border-black">Nurse Name with Signature:</div>

@@ -123,7 +123,7 @@ const Page = () => {
       <div className="min-h-screen bg-[#faf6f6] text-[#3A2B22] flex flex-col items-center pl-[10%] pr-[10%] shadow-lg">
         <div className={`w-full ${entries.length > 10 ? 'max-h-[500px] overflow-y-auto' : ''}`}>
           <table className="w-full border-collapse border bg-white">
-            <thead>
+            <thead className="bg-[#00695C] text-white text-[1.1rem] ">
               <tr className="border">
                 <th className="border px-2">Consult Report ID</th>
                 <th className="border px-2">Patient ID</th>
