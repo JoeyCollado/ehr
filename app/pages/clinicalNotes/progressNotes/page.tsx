@@ -26,22 +26,24 @@ const Page = () => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [entries, setEntries] = useState<Entry[]>([defaultDetails]);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
+  // Load entries on initial render
   useEffect(() => {
     const loadEntries = () => {
       try {
         const storedEntries = localStorage.getItem("consultationEntries");
-        const parsedEntries = storedEntries ? JSON.parse(storedEntries) : [];
-
-        if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
-          setEntries(parsedEntries);
-        } else {
-          setEntries([defaultDetails]);
+        if (storedEntries) {
+          const parsedEntries = JSON.parse(storedEntries);
+          if (Array.isArray(parsedEntries)) {
+            setEntries(parsedEntries.length > 0 ? parsedEntries : [defaultDetails]);
+          }
         }
       } catch (error) {
         console.error("Error loading entries from localStorage:", error);
         setEntries([defaultDetails]);
       }
+      setHasLoaded(true);
     };
 
     loadEntries();
@@ -49,26 +51,28 @@ const Page = () => {
     return () => window.removeEventListener("focus", loadEntries);
   }, []);
 
+  // Save entries when they change (only after initial load)
   useEffect(() => {
-    if (entries.length > 0) {
-      localStorage.setItem("consultationEntries", JSON.stringify(entries));
+    if (hasLoaded) {
+      try {
+        localStorage.setItem("consultationEntries", JSON.stringify(entries));
+      } catch (error) {
+        console.error("Error saving entries to localStorage:", error);
+      }
     }
-  }, [entries]);
+  }, [entries, hasLoaded]);
 
   const handleEdit = () => {
-    if (isEditing) {
-      localStorage.setItem("consultationEntries", JSON.stringify(entries));
-    }
     setIsEditing(!isEditing);
   };
 
   const addEntry = () => {
-    setEntries([...entries, defaultDetails]);
+    setEntries([...entries, { ...defaultDetails }]);
   };
 
   const deleteEntry = (index: number) => {
     const updatedEntries = entries.filter((_, i) => i !== index);
-    setEntries(updatedEntries.length > 0 ? updatedEntries : [defaultDetails]);
+    setEntries(updatedEntries.length > 0 ? updatedEntries : [{ ...defaultDetails }]);
   };
 
   return (
@@ -128,70 +132,68 @@ const Page = () => {
             <div className="p-2 border-l border-black">Nurse Name with Signature:</div>
           </div>
 
-          {entries.map((entry, index) =>
-            entry ? (
-              <div key={index} className="grid grid-cols-3 border-b border-black">
-                <div className="p-2 border-r border-black">
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      title="info"
-                      value={entry.date_Time || ""}
-                      onChange={(e) => {
-                        const newEntries = [...entries];
-                        newEntries[index].date_Time = e.target.value;
-                        setEntries(newEntries);
-                      }}
-                      className="border p-1 w-full"
-                    />
-                  ) : (
-                    entry.date_Time || "-"
-                  )}
-                </div>
-                <div className="p-2">
-                  {isEditing ? (
-                    <textarea
+          {entries.map((entry, index) => (
+            <div key={index} className="grid grid-cols-3 border-b border-black relative">
+              <div className="p-2 border-r border-black">
+                {isEditing ? (
+                  <input
+                    type="text"
                     title="info"
-                      value={entry.progressNotes || ""}
-                      onChange={(e) => {
-                        const newEntries = [...entries];
-                        newEntries[index].progressNotes = e.target.value;
-                        setEntries(newEntries);
-                      }}
-                      className="border p-1 w-full"
-                    />
-                  ) : (
-                    entry.progressNotes || "-"
-                  )}
-                </div>
-                <div className="p-2 border-l border-black">
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      title="info"
-                      value={entry.nurseInfo || ""}
-                      onChange={(e) => {
-                        const newEntries = [...entries];
-                        newEntries[index].nurseInfo = e.target.value;
-                        setEntries(newEntries);
-                      }}
-                      className="border p-1 w-full"
-                    />
-                  ) : (
-                    entry.nurseInfo || "-"
-                  )}
-                </div>
-                {isEditing && (
-                  <button
-                    onClick={() => deleteEntry(index)}
-                    className="text-white bg-red-600 p-1 mt-1 rounded hover:bg-red-700"
-                  >
-                    Delete
-                  </button>
+                    value={entry.date_Time || ""}
+                    onChange={(e) => {
+                      const newEntries = [...entries];
+                      newEntries[index].date_Time = e.target.value;
+                      setEntries(newEntries);
+                    }}
+                    className="border p-1 w-full"
+                  />
+                ) : (
+                  entry.date_Time || "-"
                 )}
               </div>
-            ) : null
-          )}
+              <div className="p-2">
+                {isEditing ? (
+                  <textarea
+                    title="info"
+                    value={entry.progressNotes || ""}
+                    onChange={(e) => {
+                      const newEntries = [...entries];
+                      newEntries[index].progressNotes = e.target.value;
+                      setEntries(newEntries);
+                    }}
+                    className="border p-1 w-full"
+                  />
+                ) : (
+                  entry.progressNotes || "-"
+                )}
+              </div>
+              <div className="p-2 border-l border-black">
+                {isEditing ? (
+                  <input
+                    type="text"
+                    title="info"
+                    value={entry.nurseInfo || ""}
+                    onChange={(e) => {
+                      const newEntries = [...entries];
+                      newEntries[index].nurseInfo = e.target.value;
+                      setEntries(newEntries);
+                    }}
+                    className="border p-1 w-full"
+                  />
+                ) : (
+                  entry.nurseInfo || "-"
+                )}
+              </div>
+              {isEditing && (
+                <button
+                  onClick={() => deleteEntry(index)}
+                  className="absolute right-0 top-0 transform translate-x-full text-white bg-red-600 p-1 rounded hover:bg-red-700"
+                >
+                  Delete
+                </button>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </>

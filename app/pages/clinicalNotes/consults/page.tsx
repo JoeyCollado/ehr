@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import React from "react";
+import { usePathname } from "next/navigation";
 
 interface Entry {
   consultReportID: string;
@@ -15,59 +16,81 @@ interface Entry {
 
 const Page = () => {
   const defaultDetails: Entry = {
-    consultReportID: "-",
-    patientID: "-",
-    consultingProvider: "-",
-    findings: "-",
-    recomendations: "-",
-    reportDate: "-",
-    followUpActions: "-",
+    consultReportID: "",
+    patientID: "",
+    consultingProvider: "",
+    findings: "",
+    recomendations: "",
+    reportDate: "",
+    followUpActions: "",
   };
 
   const [isEditing, setIsEditing] = useState(false);
   const [entries, setEntries] = useState<Entry[]>([]);
+  const [hasHydrated, setHasHydrated] = useState(false);
+  const pathname = usePathname();
 
-  // Load entries from localStorage on component mount and page focus
+  // Load entries from localStorage on component mount or route change
   useEffect(() => {
     const loadEntries = () => {
-      const storedEntries = localStorage.getItem("consultationEntries");
-      if (storedEntries) {
-        setEntries(JSON.parse(storedEntries));
-      } else {
-        setEntries([defaultDetails]);
+      try {
+        const storedEntries = localStorage.getItem("consultationEntries");
+        console.log("Loading entries from localStorage:", storedEntries);
+        
+        if (storedEntries) {
+          const parsedEntries = JSON.parse(storedEntries);
+          const sanitizedEntries = parsedEntries.map((entry: Partial<Entry>) => ({
+            ...defaultDetails,
+            ...entry
+          }));
+          setEntries(sanitizedEntries.length > 0 ? sanitizedEntries : [{ ...defaultDetails }]);
+        } else {
+          setEntries([{ ...defaultDetails }]);
+        }
+      } catch (error) {
+        console.error("Failed to load entries:", error);
+        setEntries([{ ...defaultDetails }]);
+      } finally {
+        setHasHydrated(true);
       }
     };
 
     loadEntries();
 
-    // Reload data when page gains focus
-    window.addEventListener("focus", loadEntries);
-    return () => window.removeEventListener("focus", loadEntries);
-  }, []);
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === "consultationEntries") {
+        console.log("Storage event detected, reloading entries");
+        loadEntries();
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, [pathname]); // Add pathname to dependency array
 
   // Save entries to localStorage whenever they change
   useEffect(() => {
-    // Make sure to only save if the entries are different
-    if (entries.length > 0) {
-      localStorage.setItem("consultationEntries", JSON.stringify(entries));
+    if (hasHydrated) {
+      try {
+        console.log("Saving entries to localStorage:", entries);
+        localStorage.setItem("consultationEntries", JSON.stringify(entries));
+      } catch (error) {
+        console.error("Failed to save entries:", error);
+      }
     }
-  }, [entries]);
+  }, [entries, hasHydrated]);
 
   const handleEdit = () => {
-    if (isEditing) {
-      // Explicit save action when exiting edit mode
-      localStorage.setItem("consultationEntries", JSON.stringify(entries));
-    }
     setIsEditing(!isEditing);
   };
 
   const addEntry = () => {
-    setEntries([...entries, defaultDetails]);
+    setEntries([...entries, { ...defaultDetails }]);
   };
 
   const deleteEntry = (index: number) => {
     const updatedEntries = entries.filter((_, i) => i !== index);
-    setEntries(updatedEntries.length > 0 ? updatedEntries : [defaultDetails]);
+    setEntries(updatedEntries.length > 0 ? updatedEntries : [{ ...defaultDetails }]);
   };
 
   const handleInputChange = (index: number, field: keyof Entry, value: string) => {
@@ -75,6 +98,10 @@ const Page = () => {
     updatedEntries[index] = { ...updatedEntries[index], [field]: value };
     setEntries(updatedEntries);
   };
+
+  if (!hasHydrated) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -116,13 +143,13 @@ const Page = () => {
                       {isEditing ? (
                         <input
                           type="text"
-                          value={entry[field as keyof Entry] === "-" ? "" : entry[field as keyof Entry]}
+                          value={entry[field as keyof Entry] || ""}
                           onChange={(e) => handleInputChange(index, field as keyof Entry, e.target.value)}
                           className="w-full p-1 border"
-                          title="field"
+                          title={field}
                         />
                       ) : (
-                        entry[field as keyof Entry]
+                        entry[field as keyof Entry] || "-"
                       )}
                     </td>
                   ))}
