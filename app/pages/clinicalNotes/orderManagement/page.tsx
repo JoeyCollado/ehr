@@ -311,7 +311,7 @@ const Page = () => {
           </h2>
           <div className="overflow-x-auto mb-8">
             <table className="min-w-full border border-gray-200">
-              <thead className="bg-gray-100">
+              <thead className="bg-[#00695C] text-white">
                 <tr>
                   <th className="py-2 px-4 border-b text-left">Drug Name</th>
                   <th className="py-2 px-4 border-b text-left">Dosage</th>
@@ -521,7 +521,7 @@ const Page = () => {
           <h2 className="text-xl font-bold mb-4 text-gray-800 text-center">LAB TEST ORDER</h2>
           <div className="overflow-x-auto mb-8">
             <table className="min-w-full border border-gray-200">
-              <thead className="bg-gray-100">
+              <thead className="bg-[#00695C] text-white">
                 <tr>
                   <th className="py-2 px-4 border-b text-left">Test Name</th>
                   <th className="py-2 px-4 border-b text-left">Test Code</th>
@@ -668,7 +668,7 @@ const Page = () => {
           <h2 className="text-xl font-bold mb-4 text-gray-800 text-center">IMAGING ORDER</h2>
           <div className="overflow-x-auto mb-8">
             <table className="min-w-full border border-gray-200">
-              <thead className="bg-gray-100">
+              <thead className="bg-[#00695C] text-white">
                 <tr>
                   <th className="py-2 px-4 border-b text-left">Imaging Type</th>
                   <th className="py-2 px-4 border-b text-left">
@@ -821,7 +821,7 @@ const Page = () => {
           </h2>
           <div className="overflow-x-auto">
             <table className="min-w-full border border-gray-200">
-              <thead className="bg-gray-100">
+              <thead className="bg-[#00695C] text-white">
                 <tr>
                   <th className="py-2 px-4 border-b text-left">Procedure Name</th>
                   <th className="py-2 px-4 border-b text-left">Procedure Code</th>
@@ -993,7 +993,7 @@ const Page = () => {
           </h2>
           <div className="overflow-x-auto">
             <table className="min-w-full border border-gray-200">
-              <thead className="bg-gray-100">
+              <thead className="bg-[#00695C] text-white">
                 <tr>
                   <th className="py-2 px-4 border-b text-left">Order Type</th>
                   <th className="py-2 px-4 border-b text-left">Referral To</th>
@@ -1166,7 +1166,7 @@ const Page = () => {
           </h2>
           <div className="overflow-x-auto">
             <table className="min-w-full border border-gray-200">
-              <thead className="bg-gray-100">
+              <thead className="bg-[#00695C] text-white">
                 <tr>
                   <th className="py-2 px-4 border-b text-left">Order Type</th>
                   <th className="py-2 px-4 border-b text-left">Nursing Order</th>
