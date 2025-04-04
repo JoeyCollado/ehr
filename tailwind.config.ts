@@ -18,8 +18,12 @@ module.exports = {
         contrast: "#D8E2DC", 
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"], // Default UI font
-        heading: ["Poppins", "sans-serif"], // Custom font for headings
+        sans: ["Inter", "sans-serif"], // Default UI font - modern and highly readable
+        heading: ["Poppins", "sans-serif"], // Headings - sleek and professional
+        body: ["Roboto", "sans-serif"], // Body text - neutral and readable
+        display: ["Montserrat", "sans-serif"], // Display sections - strong and contemporary
+        accent: ["Lato", "sans-serif"], // Accent text - friendly yet professional
+        alt: ["Nunito", "sans-serif"], // Alternative font - balanced and inviting
       },
     },
   },

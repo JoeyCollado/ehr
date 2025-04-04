@@ -385,7 +385,7 @@ const Page = () => {
             )}
           </div>
 
-          <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5">
+          <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5 mb-5">
             HEALTH ASSESSMENT
           </h2>
 
@@ -1008,8 +1008,10 @@ const Page = () => {
 
       {/* History of Present Illness */}
       <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
-        History of Present Illness
+        History of Present Illness  
       </h3>
+
+     
       <div className="space-y-4 p-4">
         {Object.entries(historyOfPresentIllness).map(([key, value]) => (
           <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b" key={key}>

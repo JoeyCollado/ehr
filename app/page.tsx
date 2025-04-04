@@ -46,7 +46,7 @@ export default function HomePage() {
       </div>
 
       {/* Right Side - Content Section */}
-      <div className="w-full md:w-1/2 flex flex-col items-center text-center p-8">
+      <div className="w-full md:w-1/2 flex flex-col items-center text-center p-8 ">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}

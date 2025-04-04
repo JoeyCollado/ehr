@@ -48,8 +48,13 @@ const Navbar = () => {
       ],
     },
     { name: "Billing Information", icon: <FaFileInvoiceDollar />, link: "/pages/billingInformation" },
+    { name: "CDSS", icon: <FaFileMedical />, link: "/pages/cdss", subItems: [
+      { name: "CDSS2", link: ".pages/cdss/cdss2"},
+      { name: "CDSS3", link: ".pages/cdss/cdss3"},
+      { name: "CDSS4", link: ".pages/cdss/cdss4"},
+   ]},
     { name: "Document Management", icon: <FaFolderOpen />, link: "/pages/documentManagement" },
-    { name: "CDSS", icon: <FaFileMedical />, link: "/pages/cdss" },
+
   ];
 
   return (
