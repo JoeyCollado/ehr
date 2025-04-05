@@ -318,16 +318,16 @@ const Page = () => {
             <table className="min-w-full border border-gray-200 ">
               <thead className="bg-[#00695C] text-white ">
                 <tr>
-                  <th className="py-2 px-4 border-b text-left border">Drug Name</th>
-                  <th className="py-2 px-4 border-b text-left border">Dosage</th>
-                  <th className="py-2 px-4 border-b text-left border">Route</th>
-                  <th className="py-2 px-4 border-b text-left border">Frequency</th>
-                  <th className="py-2 px-4 border-b text-left border">
+                  <th className="py-2 px-4 border-b text-left ">Drug Name</th>
+                  <th className="py-2 px-4 border-b text-left ">Dosage</th>
+                  <th className="py-2 px-4 border-b text-left ">Route</th>
+                  <th className="py-2 px-4 border-b text-left ">Frequency</th>
+                  <th className="py-2 px-4 border-b text-left ">
                     Start Date/Time
                   </th>
-                  <th className="py-2 px-4 border-b text-left border">Duration</th>
-                  <th className="py-2 px-4 border-b text-left border">Quantity</th>
-                  <th className="py-2 px-4 border-b text-left border">
+                  <th className="py-2 px-4 border-b text-left ">Duration</th>
+                  <th className="py-2 px-4 border-b text-left ">Quantity</th>
+                  <th className="py-2 px-4 border-b text-left ">
                     Prescribing Physician
                   </th>
                   {isEditing && (
@@ -478,7 +478,7 @@ const Page = () => {
                         row.quantity
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="physician"
@@ -545,7 +545,7 @@ const Page = () => {
               <tbody>
                 {tables.labTest.map((row, index) => (
                   <tr key={index}>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="test"
@@ -565,7 +565,7 @@ const Page = () => {
                         row.testName
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="textcode"
@@ -585,7 +585,7 @@ const Page = () => {
                         row.testCode
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="collection"
@@ -605,7 +605,7 @@ const Page = () => {
                         row.collectionDateTime
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="urgency"
@@ -625,7 +625,7 @@ const Page = () => {
                         row.urgency
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="order"
@@ -646,7 +646,7 @@ const Page = () => {
                       )}
                     </td>
                     {isEditing && (
-                      <td className="py-2 px-4 border-b">
+                      <td className="py-2 px-4 border-b border">
                         <button
                           onClick={() => deleteRow("labTest", index)}
                           className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-1"
