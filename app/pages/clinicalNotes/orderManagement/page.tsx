@@ -314,7 +314,7 @@ const Page = () => {
           <h2 className="text-xl font-bold mb-4 text-gray-800 text-center">
             MEDICATION ORDER
           </h2>
-          <div className="overflow-x-auto mb-8">
+          <div className="overflow-x-auto mb-8  border border-[#00695C]">
             <table className="min-w-full border border-gray-200 ">
               <thead className="bg-[#00695C] text-white ">
                 <tr>
@@ -524,7 +524,7 @@ const Page = () => {
 
           {/* LAB TEST ORDER */}
           <h2 className="text-xl font-bold mb-4 text-gray-800 text-center">LAB TEST ORDER</h2>
-          <div className="overflow-x-auto mb-8">
+          <div className="overflow-x-auto mb-8  border border-[#00695C]">
             <table className="min-w-full border border-gray-200">
               <thead className="bg-[#00695C] text-white">
                 <tr>
@@ -671,7 +671,7 @@ const Page = () => {
 
           {/* IMAGING ORDER */}
           <h2 className="text-xl font-bold mb-4 text-gray-800 text-center">IMAGING ORDER</h2>
-          <div className="overflow-x-auto mb-8">
+          <div className="overflow-x-auto mb-8 border border-[#00695C]">
             <table className="min-w-full border border-gray-200">
               <thead className="bg-[#00695C] text-white">
                 <tr>
@@ -696,7 +696,7 @@ const Page = () => {
               <tbody>
                 {tables.imaging.map((row, index) => (
                   <tr key={index}>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="imaging"
@@ -824,7 +824,7 @@ const Page = () => {
           <h2 className="text-xl font-bold mb-4 text-gray-800 text-center">
             PROCEDURE ORDER
           </h2>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto  border border-[#00695C]">
             <table className="min-w-full border border-gray-200">
               <thead className="bg-[#00695C] text-white">
                 <tr>
@@ -996,7 +996,7 @@ const Page = () => {
           <h2 className="text-xl font-bold mb-4 text-gray-800 mt-4 text-center">
             REFERRAL ORDER
           </h2>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto  border border-[#00695C]">
             <table className="min-w-full border border-gray-200">
               <thead className="bg-[#00695C] text-white">
                 <tr>
@@ -1169,7 +1169,7 @@ const Page = () => {
           <h2 className="text-xl font-bold mb-4 text-gray-800 mt-4 text-center">
             NURSING ORDER
           </h2>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto  border border-[#00695C]">
             <table className="min-w-full border border-gray-200">
               <thead className="bg-[#00695C] text-white">
                 <tr>
