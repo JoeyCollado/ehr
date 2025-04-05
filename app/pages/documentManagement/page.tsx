@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 interface PatientDocument {
   id: number;
@@ -82,6 +83,11 @@ const Page = () => {
   if (!isMounted) return null;
 
   return (
+    <>
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}>
     <div className="min-h-screen bg-[#faf6f6] text-[#3A2B22] flex flex-col items-center p-6 shadow-lg ">
       <div className="flex gap-10 text-white mt-[5%] ">
         <button onClick={addDateEntry} className="bg-orange-500 hover:bg-orange-700 hover:scale-105 hover:shadow-lg transition-transform px-4 py-1 rounded-md cursor-pointer">Add Date</button>
@@ -187,6 +193,8 @@ const Page = () => {
         </div>
       </div>
     </div>
+    </motion.div>
+    </>
   );
 };
 
