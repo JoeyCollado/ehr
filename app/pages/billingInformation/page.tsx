@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
 
 interface Item {
   id: string;
@@ -113,6 +115,11 @@ const Page = () => {
   if (!hasMounted) return null;
 
   return (
+    <>
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}>
     <div className="min-h-screen flex items-center justify-center bg-[#faf6f6] text-[#3A2B22] mb-[10%]">
       <button
         className="bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform rounded-md text-white px-4 py-1 absolute top-10 cursor-pointer mt-[5%]"
@@ -120,6 +127,7 @@ const Page = () => {
       >
         {isEditing ? "Save" : "Edit"}
       </button>
+      
       <div className="rounded-lg p-6 w-[80%] max-w-[60rem] bg-[#ffffff] mt-[15%] shadow-lg">
         <h1 className="text-2xl font-bold text-center mb-6">
           Medical Billing Invoice
@@ -277,6 +285,8 @@ const Page = () => {
         </div>
       </div>
     </div>
+    </motion.div>
+    </>
   );
 };
 
