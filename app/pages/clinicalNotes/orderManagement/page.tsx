@@ -1183,7 +1183,7 @@ const Page = () => {
               <tbody>
                 {tables.nursing.map((row, index) => (
                   <tr key={index}>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="order"
@@ -1203,7 +1203,7 @@ const Page = () => {
                         row.orderType
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <textarea
                         title="nursing"
@@ -1223,7 +1223,7 @@ const Page = () => {
                       )}
                     </td>
                     {isEditing && (
-                      <td className="py-2 px-4 border-b">
+                      <td className="py-2 px-4 border-b border">
                         <button
                           onClick={() => deleteRow("nursing", index)}
                           className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-1"
