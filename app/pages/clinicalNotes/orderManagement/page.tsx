@@ -716,7 +716,7 @@ const Page = () => {
                         row.imagingType
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="bodypart"
@@ -736,7 +736,7 @@ const Page = () => {
                         row.bodyPart
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="reason"
@@ -756,7 +756,7 @@ const Page = () => {
                         row.reason
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="instructions"
@@ -776,7 +776,7 @@ const Page = () => {
                         row.instructions
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="order"
@@ -797,7 +797,7 @@ const Page = () => {
                       )}
                     </td>
                     {isEditing && (
-                      <td className="py-2 px-4 border-b">
+                      <td className="py-2 px-4 border-b border">
                         <button
                           onClick={() => deleteRow("imaging", index)}
                           className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-1"
