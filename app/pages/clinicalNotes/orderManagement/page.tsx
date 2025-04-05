@@ -315,30 +315,30 @@ const Page = () => {
             MEDICATION ORDER
           </h2>
           <div className="overflow-x-auto mb-8">
-            <table className="min-w-full border border-gray-200">
-              <thead className="bg-[#00695C] text-white">
+            <table className="min-w-full border border-gray-200 ">
+              <thead className="bg-[#00695C] text-white ">
                 <tr>
-                  <th className="py-2 px-4 border-b text-left">Drug Name</th>
-                  <th className="py-2 px-4 border-b text-left">Dosage</th>
-                  <th className="py-2 px-4 border-b text-left">Route</th>
-                  <th className="py-2 px-4 border-b text-left">Frequency</th>
-                  <th className="py-2 px-4 border-b text-left">
+                  <th className="py-2 px-4 border-b text-left border">Drug Name</th>
+                  <th className="py-2 px-4 border-b text-left border">Dosage</th>
+                  <th className="py-2 px-4 border-b text-left border">Route</th>
+                  <th className="py-2 px-4 border-b text-left border">Frequency</th>
+                  <th className="py-2 px-4 border-b text-left border">
                     Start Date/Time
                   </th>
-                  <th className="py-2 px-4 border-b text-left">Duration</th>
-                  <th className="py-2 px-4 border-b text-left">Quantity</th>
-                  <th className="py-2 px-4 border-b text-left">
+                  <th className="py-2 px-4 border-b text-left border">Duration</th>
+                  <th className="py-2 px-4 border-b text-left border">Quantity</th>
+                  <th className="py-2 px-4 border-b text-left border">
                     Prescribing Physician
                   </th>
                   {isEditing && (
-                    <th className="py-2 px-4 border-b text-left">Actions</th>
+                    <th className="py-2 px-4 border-b text-left border">Actions</th>
                   )}
                 </tr>
               </thead>
               <tbody>
                 {tables.medication.map((row, index) => (
                   <tr key={index}>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="medication"
@@ -358,7 +358,7 @@ const Page = () => {
                         row.drugName
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="dosage"
@@ -378,7 +378,7 @@ const Page = () => {
                         row.dosage
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="route"
@@ -398,7 +398,7 @@ const Page = () => {
                         row.route
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="frequency"
@@ -418,7 +418,7 @@ const Page = () => {
                         row.frequency
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="date"
@@ -432,13 +432,13 @@ const Page = () => {
                               e.target.value
                             )
                           }
-                          className="w-full p-1 border rounded"
+                          className="w-full p-1 border rounded "
                         />
                       ) : (
                         row.startDateTime
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="duration"
@@ -458,7 +458,7 @@ const Page = () => {
                         row.duration
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="quantity"
