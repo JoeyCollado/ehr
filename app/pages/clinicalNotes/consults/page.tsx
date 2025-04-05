@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
+
 
 interface Entry {
   consultReportID: string;
@@ -105,6 +107,9 @@ const Page = () => {
 
   return (
     <>
+     <motion.div  initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}>
       <div className="flex justify-center items-center gap-4 mb-5 mt-[5%]">
         <button
           onClick={handleEdit}
@@ -169,6 +174,7 @@ const Page = () => {
           </table>
         </div>
       </div>
+      </motion.div>
     </>
   );
 };
