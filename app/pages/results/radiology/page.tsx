@@ -91,7 +91,7 @@ const Page = () => {
             )}
           </div>
           {isEditing && (
-            <label className="mt-4 bg-[#00695C] text-white px-4 py-2 cursor-pointer">
+            <label className="mt-4 bg-[#00695C] text-white px-4 py-2 cursor-pointer rounded-md hover:scale-105 duration-300 ease-in-out">
               Upload Image
               <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
             </label>
@@ -101,13 +101,13 @@ const Page = () => {
         {/* Right Side - Form */}
         <div className="w-[40%] bg-[#00695C] p-6 flex flex-col justify-between rounded-r-lg">
           
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             {/* Name Field */}
             <div>
-              <label className="block font-semibold text-white">Name:</label>
+              <label className="block font-semibold text-white ">Name:</label>
               <input 
                 type="text"
-                className="w-full border border-gray-500 p-2 bg-white outline-none"
+                className="w-full border border-gray-500 p-2 bg-white outline-none rounded-md"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 disabled={!isEditing}
@@ -119,7 +119,7 @@ const Page = () => {
             <div>
               <label className="block font-semibold text-white">Description:</label>
               <textarea
-                className="w-full border border-gray-500 p-2 bg-white outline-none"
+                className="w-full border border-gray-500 p-2 bg-white outline-none rounded-md"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 disabled={!isEditing}
@@ -131,7 +131,7 @@ const Page = () => {
             <div>
               <label className="block font-semibold text-white">Type:</label>
               <select
-                className="w-full border border-gray-500 p-2 bg-white outline-none"
+                className="w-full border border-gray-500 p-2 bg-white outline-none rounded-md"
                 value={type}
                 title="Type"
                 disabled={!isEditing}
@@ -153,14 +153,14 @@ const Page = () => {
           {/* Buttons */}
           <div className="text-center text-white font-semibold">
             {!isEditing ? (
-              <button className="bg-white text-[#00695C] px-4 py-2 font-bold" onClick={handleEdit}>
+              <button className="bg-white text-[#00695C] px-4 py-2 font-bold cursor-pointer rounded-md hover:scale-105 cursour-pointer duration-300 ease-in-out hover:bg-white/80" onClick={handleEdit}>
                 Edit
               </button>
             ) : (
               <>
-                <button className="mx-2 hover:underline" onClick={handleSave}>Save</button> /
-                <button className="mx-2 hover:underline" onClick={handleDelete}>Delete</button> /
-                <button className="mx-2 hover:underline" onClick={handleCancel}>Cancel</button>
+                <button className="mx-2 hover:scale-105 cursor-pointer duration-300 ease-in-out hover:text-white/80" onClick={handleSave}>Save</button> /
+                <button className="mx-2 hover:scale-105 cursor-pointer duration-300 ease-in-out hover:text-white/80" onClick={handleDelete}>Delete</button> /
+                <button className="mx-2 hover:scale-105 cursor-pointer duration-300 ease-in-out hover:text-white/80" onClick={handleCancel}>Cancel</button>
               </>
             )}
           </div>

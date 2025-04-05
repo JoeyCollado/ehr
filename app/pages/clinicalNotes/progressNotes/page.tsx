@@ -85,7 +85,7 @@ const Page = () => {
       <div className="flex justify-center items-center gap-4 mb-5 mt-[5%]">
         <button
           onClick={handleEdit}
-          className="text-1xl cursor-pointer rounded-md px-3 text-white bg-[#007bff] py-1 hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform"
+          className="text-1xl cursor-pointer rounded-md px-4 text-white bg-[#007bff] py-1 hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform"
         >
           {isEditing ? "Save & Exit" : "Edit"}
         </button>

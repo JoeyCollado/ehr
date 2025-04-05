@@ -127,7 +127,7 @@ const Page = () => {
       transition={{ duration: 0.8, ease: "easeOut" }}>
       <button
         onClick={handleEdit}
-        className="text-center text-1xl cursor-pointer rounded-md px-3 text-white bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform py-1 justify-center ml-[50%] mt-[5%] mb-[2%]"
+        className="text-center text-1xl cursor-pointer rounded-md px-4 text-white bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform py-1 justify-center ml-[50%] mt-[5%] mb-[2%]"
       >
         {isEditing ? "Save" : "Edit"}
       </button>
