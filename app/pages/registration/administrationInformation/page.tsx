@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
 
 type ImmunizationType = {
   MMR: boolean[];
@@ -348,7 +350,12 @@ const Page = () => {
 
   return (
     <>
+       <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}>
       <div className="flex justify-center mt-[5%]">
+     
         {isEditing ? (
           <button
             onClick={handleSave}
@@ -364,8 +371,13 @@ const Page = () => {
             Edit
           </button>
         )}
+        
       </div>
-
+      </motion.div>
+      <motion.div
+       initial={{ opacity: 0, y: -20 }}
+       animate={{ opacity: 1, y: 0 }}
+       transition={{ duration: 0.8, ease: "easeOut" }}>
       <div className="min-h-screen bg-[#faf6f6] flex items-center justify-center pb-4 mb-[5%] ">
         <div className="w-full max-w-4xl bg-white text-black shadow-lg rounded-lg p-6 ">
         <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5 mb-4">
@@ -1175,6 +1187,7 @@ const Page = () => {
           </div>
         </div>
       </div>
+      </motion.div>
     </>
   );
 };
