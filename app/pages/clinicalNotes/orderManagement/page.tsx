@@ -848,7 +848,7 @@ const Page = () => {
               <tbody>
                 {tables.procedure.map((row, index) => (
                   <tr key={index}>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="procedure"
@@ -868,7 +868,7 @@ const Page = () => {
                         row.procedureName
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="procedure"
@@ -888,7 +888,7 @@ const Page = () => {
                         row.procedureCode
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="schedule"
@@ -908,7 +908,7 @@ const Page = () => {
                         row.scheduledDateTime
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="location"
@@ -928,7 +928,7 @@ const Page = () => {
                         row.location
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="preoperative"
@@ -948,7 +948,7 @@ const Page = () => {
                         row.preoperativeInstruction
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="order"
