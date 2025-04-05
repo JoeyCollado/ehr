@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
 
 const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -71,6 +73,10 @@ const Page = () => {
   };
 
   return (
+    <>
+      <motion.div  initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}>
     <div className="h-screen flex items-center justify-center bg-[#faf6f6] text-[#685442] ">
       {/* Main Container */}
       <div className=" shadow-lg w-[900px] h-[500px] flex ">
@@ -161,6 +167,8 @@ const Page = () => {
         </div>
       </div>
     </div>
+    </motion.div>
+    </>
   );
 };
 
