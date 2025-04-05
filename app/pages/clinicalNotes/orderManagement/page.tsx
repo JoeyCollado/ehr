@@ -1022,7 +1022,7 @@ const Page = () => {
               <tbody>
                 {tables.referral.map((row, index) => (
                   <tr key={index}>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="order"
@@ -1042,7 +1042,7 @@ const Page = () => {
                         row.orderType
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="referral"
@@ -1062,7 +1062,7 @@ const Page = () => {
                         row.referralTo
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="reason"
@@ -1082,7 +1082,7 @@ const Page = () => {
                         row.reason
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="diagnosis"
@@ -1102,7 +1102,7 @@ const Page = () => {
                         row.primaryDiagnosis
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <textarea
                         title="clinical"
@@ -1121,7 +1121,7 @@ const Page = () => {
                         row.clinicalSummary
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border">
                       {isEditing ? (
                         <input
                         title="referral"
@@ -1142,7 +1142,7 @@ const Page = () => {
                       )}
                     </td>
                     {isEditing && (
-                      <td className="py-2 px-4 border-b">
+                      <td className="py-2 px-4 border-b border">
                         <button
                           onClick={() => deleteRow("referral", index)}
                           className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-1"
