@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Head from "next/head";
+
 import "./globals.css";
 import {
   ClerkProvider,
@@ -22,6 +24,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Tamaraw Services",
   description: "LearnTo",
+  icons: {
+    icon: '/logo4.png',
+    shortcut: '/logo4.png',
+    apple: '/logo4.png',
+  },
 };
 
 export default function RootLayout({
@@ -32,6 +39,10 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+      <Head>
+        <link rel="icon" href="/logo4.png" />
+        <title>Your Website Title</title>
+      </Head>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
