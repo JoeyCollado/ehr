@@ -98,7 +98,7 @@ const Page = () => {
       </div>
 
       <div className="min-h-screen bg-[#faf6f6] text-[#3A2B22] flex flex-col items-center p-10 shadow-lg">
-        <div className="w-full max-w-5xl border border-black">
+        <div className="w-full max-w-5xl border border-black ">
           <div className="bg-[#00695C] text-center font-bold text-lg p-2 border-b border-black italic text-white">
             NURSING PROGRESS NOTES
           </div>

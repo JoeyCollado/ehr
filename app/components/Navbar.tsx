@@ -3,6 +3,9 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+import Logo from "@/public/logo3.png";
+import Image from "next/image";
+
 import {
   FaHome,
   FaUserPlus,
@@ -99,18 +102,35 @@ const Navbar = () => {
       {/* Logo / Title */}
       <div className="flex flex-col items-center w-full">
         <span
-          className={`font-bold text-2xl mt-5 transition-all duration-300 mb-12 ${
+          className={`font-bold text-[18px] mt-5 transition-all duration-300 mb-5 flex gap-2 items-center text-left w-full ${
             isOpen ? "block" : "hidden"
           }`}
         >
-          Tamaraw Services
+          <Image
+            src={Logo}
+            width={50}
+            height={20}
+            alt="logo"
+            className="rounded-md border border-white flex-shrink-0"
+          />
+          <div className="text-left">
+            Tamaraw
+            <br />
+            Services
+          </div>
         </span>
         <span
-          className={`font-bold text-3xl mt-5 transition-all duration-300 mb-12 ${
+          className={`font-bold text-3xl mt-5 transition-all duration-300 mb-12 rounded-md ${
             isOpen ? "hidden" : "block"
           }`}
         >
-          TS
+          <Image
+            src={Logo}
+            width={50}
+            height={20}
+            alt="logo"
+            className="rounded-md"
+          />
         </span>
 
         {/* Menu Items */}
@@ -124,7 +144,9 @@ const Navbar = () => {
             <Link
               href="/pages/home"
               className={`flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all ${
-                isActiveRoute("/pages/home") ? "bg-white/20" : "hover:bg-white/20"
+                isActiveRoute("/pages/home")
+                  ? "bg-white/20"
+                  : "hover:bg-white/20"
               }`}
             >
               <FaHome className="text-lg" />
