@@ -128,7 +128,7 @@ const Page = () => {
         {isEditing ? "Save" : "Edit"}
       </button>
       
-      <div className="rounded-lg p-6 w-[80%] max-w-[60rem] bg-[#ffffff] mt-[15%] shadow-lg">
+      <div className="rounded-lg p-6 w-[80%] max-w-[60rem] bg-[#ffffff] mt-[12%] shadow-lg">
         <h1 className="text-2xl font-bold text-center mb-6">
           Medical Billing Invoice
         </h1>
