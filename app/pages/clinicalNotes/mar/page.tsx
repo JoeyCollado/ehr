@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -131,6 +132,9 @@ const Page = () => {
   if (!hasMounted) return null;
   return (
     <>
+      <motion.div  initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}>
       <button
         onClick={handleEdit}
         className="text-center text-1xl cursor-pointer rounded-md px-3 text-white bg-[#007bff] py-1 hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform mb-[2%] justify-center ml-[50%] mt-[5%]"
@@ -528,6 +532,7 @@ const Page = () => {
     </div>
   
     </div>
+    </motion.div>
     </>
   );
 };
