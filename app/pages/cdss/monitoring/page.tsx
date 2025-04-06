@@ -45,7 +45,7 @@ const page = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Patient Overview */}
           <div className="border border-black rounded-lg p-4">
-            <h2 className="text-lg font-semibold mb-3">Patient Overview</h2>
+            <h2 className="text-lg font-semibold mb-3 text-center">Patient Overview</h2>
             <div className="space-y-2">
               <p><span className="font-medium">Name:</span> A.J.S</p>
               <p><span className="font-medium">Age:</span> 10 <span className="font-medium ml-2">Gender:</span> Male</p>
@@ -57,7 +57,7 @@ const page = () => {
 
           {/* Vital Signs */}
           <div className="border border-black rounded-lg p-4">
-            <h2 className="text-lg font-semibold mb-3">Vital Signs</h2>
+            <h2 className="text-lg font-semibold mb-3 text-center">Vital Signs</h2>
             <div className="space-y-2">
               <p><span className="font-medium">Temperature:</span> 39.2°C</p>
               <p><span className="font-medium">HR:</span> 119 bpm</p>
@@ -69,7 +69,7 @@ const page = () => {
 
           {/* Alerts */}
           <div className="border border-black rounded-lg p-4">
-            <h2 className="text-lg font-semibold mb-3">Alerts</h2>
+            <h2 className="text-lg font-semibold mb-3 text-center">Alerts</h2>
             <div className="space-y-2">
               <p>If SpO₂ &lt; 92%, recommend increasing oxygen therapy</p>
               <p>If RR &gt; 30, risk of respiratory distress—monitor closely</p>
@@ -78,7 +78,7 @@ const page = () => {
 
           {/* Treatment & Medication */}
           <div className="border border-black rounded-lg p-4">
-            <h2 className="text-lg font-semibold mb-3">Treatment & Medication</h2>
+            <h2 className="text-lg font-semibold mb-3 text-center">Treatment & Medication</h2>
             <div className="space-y-2">
               {/* Empty content as per your example */}
             </div>
@@ -86,7 +86,7 @@ const page = () => {
 
           {/* Progress Tracking */}
           <div className="border border-black rounded-lg p-4">
-            <h2 className="text-lg font-semibold mb-3">Progress Tracking</h2>
+            <h2 className="text-lg font-semibold mb-3 text-center">Progress Tracking</h2>
             <div className="space-y-2">
               {/* Empty content as per your example */}
             </div>
@@ -94,12 +94,23 @@ const page = () => {
 
           {/* Outcome Prediction */}
           <div className="border border-black rounded-lg p-4">
-            <h2 className="text-lg font-semibold mb-3">Outcome Prediction</h2>
+            <h2 className="text-lg font-semibold mb-3 text-center">Outcome Prediction</h2>
             <div className="space-y-2">
-              {/* Empty content as per your example */}
+              {/* Empty content as per your example */} 
             </div>
           </div>
+         
         </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-[5%]">
+            <div className="border border-black rounded-lg p-4 ">
+            <h2 className="text-lg font-semibold mb-3 text-center">Latest Laboratory and Diagnostic Result</h2>
+
+            </div>
+            <div className="border border-black rounded-lg p-4 text-center">
+            <h2 className="text-lg font-semibold mb-3 text-center">Laboratory and Diagnostic Result</h2>
+
+            </div>
+          </div>
       </div>
     </div>
     </>
