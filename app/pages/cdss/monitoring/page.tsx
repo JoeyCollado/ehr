@@ -1,26 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [intakeOutputData, setIntakeOutputData] = useState([
-    {
-      id: Date.now(),
-      date: "",
-      time: "",
-      shift: "",
-      intakeDescription: "",
-      intakeVolume: "",
-      intakeTotal: "",
-      outputDescription: "",
-      outputVolume: "",
-      outputTotal: ""
-    }
-  ]);
+  
+  // Initialize all states with default values
+  const [intakeOutputData, setIntakeOutputData] = useState([{
+    id: Date.now(),
+    date: "",
+    time: "",
+    shift: "",
+    intakeDescription: "",
+    intakeVolume: "",
+    intakeTotal: "",
+    outputDescription: "",
+    outputVolume: "",
+    outputTotal: ""
+  }]);
 
-  // State for editable sections
   const [patientOverview, setPatientOverview] = useState({
     name: "A.J.S",
     age: "10",
@@ -58,14 +57,50 @@ const Page = () => {
     chestXRay: {
       findings: "",
       description: "",
-      image: null,
       imagePreview: null
     }
   });
 
+  // Load data from localStorage on component mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedIntakeOutput = localStorage.getItem('intakeOutputData');
+      if (savedIntakeOutput) setIntakeOutputData(JSON.parse(savedIntakeOutput));
+
+      const savedPatientOverview = localStorage.getItem('patientOverview');
+      if (savedPatientOverview) setPatientOverview(JSON.parse(savedPatientOverview));
+
+      const savedVitalSigns = localStorage.getItem('vitalSigns');
+      if (savedVitalSigns) setVitalSigns(JSON.parse(savedVitalSigns));
+
+      const savedTreatment = localStorage.getItem('treatmentMedication');
+      if (savedTreatment) setTreatmentMedication(savedTreatment);
+
+      const savedProgress = localStorage.getItem('progressTracking');
+      if (savedProgress) setProgressTracking(savedProgress);
+
+      const savedOutcome = localStorage.getItem('outcomePrediction');
+      if (savedOutcome) setOutcomePrediction(savedOutcome);
+
+      const savedLabResults = localStorage.getItem('labResults');
+      if (savedLabResults) setLabResults(JSON.parse(savedLabResults));
+    }
+  }, []);
+
   const handleSave = () => {
     setIsEditing(false);
+    // Save all states to localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('patientOverview', JSON.stringify(patientOverview));
+      localStorage.setItem('vitalSigns', JSON.stringify(vitalSigns));
+      localStorage.setItem('treatmentMedication', treatmentMedication);
+      localStorage.setItem('progressTracking', progressTracking);
+      localStorage.setItem('outcomePrediction', outcomePrediction);
+      localStorage.setItem('labResults', JSON.stringify(labResults));
+      localStorage.setItem('intakeOutputData', JSON.stringify(intakeOutputData));
+    }
   };
+
 
   const handleAddRow = () => {
     setIntakeOutputData([
@@ -116,7 +151,6 @@ const Page = () => {
           ...prev,
           [section]: {
             ...prev[section],
-            image: file,
             imagePreview: reader.result
           }
         }));
@@ -487,57 +521,59 @@ const Page = () => {
             </div>
 
             <div className="border border-black rounded-lg p-4">
-              <h2 className="text-lg font-semibold mb-3 text-center">
-                Laboratory and Diagnostic Result
-              </h2>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-medium text-center">Chest X-Ray Findings</h3>
-                
+      <h2 className="text-lg font-semibold mb-3 text-center">
+        Laboratory and Diagnostic Result
+      </h2>
+      <div className="space-y-4">
+        <div>
+          <h3 className="font-medium text-center">Chest X-Ray Findings</h3>
+          <div className="mt-2">
+            {isEditing ? (
+              <>
+                <label className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600 transition-colors block text-center">
+                  Upload Image
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleImageUpload(e, "chestXRay")}
+                    className="hidden"
+                  />
+                </label>
+                {labResults.chestXRay.imagePreview && (
                   <div className="mt-2">
-                    {isEditing ? (
-                      <>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleImageUpload(e, "chestXRay")}
-                          className="w-full p-1 border rounded"
-                        />
-                        {labResults.chestXRay.imagePreview && (
-                          <div className="mt-2">
-                            <img 
-                              src={labResults.chestXRay.imagePreview} 
-                              alt="X-Ray Preview" 
-                              className="max-w-full h-auto max-h-48"
-                            />
-                          </div>
-                        )}
-                      </>
-                    ) : labResults.chestXRay.imagePreview ? (
-                      <div className="mt-2">
-                        <img 
-                          src={labResults.chestXRay.imagePreview} 
-                          alt="X-Ray" 
-                          className="max-w-full h-auto max-h-48"
-                        />
-                      </div>
-                    ) : (
-                      <p className="text-gray-500 text-center">No image uploaded</p>
-                    )}
+                    <img 
+                      src={labResults.chestXRay.imagePreview} 
+                      alt="X-Ray Preview" 
+                      className="max-w-full h-auto max-h-48"
+                    />
                   </div>
-                  <div className="ml-4 space-y-1">
-                  <h3 className="font-medium  text-left mt-[20%]">Description</h3>
-                    {isEditing ? (
-                      <input
-                        value={labResults.chestXRay.findings}
-                        onChange={(e) => handleLabResultsChange("chestXRay", "findings", e.target.value)}
-                        className="w-full p-1 border rounded"
-                      />
-                    ) : (
-                      labResults.chestXRay.findings
-                    )}
-                  </div>
-                </div>
+                )}
+              </>
+            ) : labResults.chestXRay.imagePreview ? (
+              <div className="mt-2">
+                <img 
+                  src={labResults.chestXRay.imagePreview} 
+                  alt="X-Ray" 
+                  className="max-w-full h-auto max-h-48"
+                />
+              </div>
+            ) : (
+              <p className="text-gray-500 text-center">No image uploaded</p>
+            )}
+          </div>
+          <div className="ml-4 space-y-1">
+          <h3 className="font-medium  text-left mt-[20%]">Description</h3>
+            {isEditing ? (
+              <input
+                value={labResults.chestXRay.findings}
+                onChange={(e) => handleLabResultsChange("chestXRay", "findings", e.target.value)}
+                className="w-full p-1 border rounded"
+              />
+            ) : (
+              labResults.chestXRay.findings
+            )}
+          </div>
+        </div>
               </div>
             </div>
           </div>
