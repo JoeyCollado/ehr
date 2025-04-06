@@ -383,7 +383,7 @@ const Page = () => {
         <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5 mb-4">
             CHIEF COMPLAINT
           </h2>
-          <div className="text-center">
+          <div className="text-center ">
             {isEditing ? (
               <textarea
                 title="complaint"
@@ -405,7 +405,7 @@ const Page = () => {
             Physical Measurements:
           </h3>
 
-          <div className="grid grid-cols-4 gap-4 mb-6 p-2 border-b">
+          <div className="grid grid-cols-4 gap-4 mb-6 p-2 border-b ">
             <div className="font-semibold">Height:</div>
             {isEditing ? (
               <input
@@ -496,12 +496,13 @@ const Page = () => {
             General Survey:
           </h3>
 
-          <div className="space-y-6 p-4">
-            <div className="">
+          <div className="space-y-6 p-4 ">
+            <div className="flex gap-[10%] ">
               <h4 className="font-bold mb-2">Overall Appearance:</h4>
               {["Alert", "Lethargic", "In Distress"].map((option) => (
                 <label key={option} className="mr-4">
                   <input
+                  className=""
                     type="radio"
                     name="appearance"
                     value={option}
@@ -513,14 +514,16 @@ const Page = () => {
                       })
                     }
                     disabled={!isEditing}
-                    className="mr-1"
                   />
                   {option}
                 </label>
               ))}
             </div>
+            
 
-            <div>
+            
+
+            <div className="flex gap-[10%]">
               <h4 className="font-bold mb-2">Skin Condition:</h4>
               {["Pale", "Flushed", "Cyanotic", "Jaundice"].map((option) => (
                 <label key={option} className="mr-4">
@@ -543,7 +546,7 @@ const Page = () => {
               ))}
             </div>
 
-            <div>
+            <div className="flex gap-[10%]">
               <h4 className="font-bold mb-2">Posture and Mobility:</h4>
               {["Normal", "Need support"].map((option) => (
                 <label key={option} className="mr-4">
@@ -568,7 +571,7 @@ const Page = () => {
             <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
               Head to Toe Assessment:
             </h3>
-            <div className="space-y-4 p-4">
+            <div className="space-y-6 p-4">
               {/* Head and Neck */}
               <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
                 <div className="font-semibold border-r">Head and Neck:</div>
@@ -1024,9 +1027,9 @@ const Page = () => {
       </h3>
 
      
-      <div className="space-y-4 p-4">
+      <div className="space-y-4 p-4 border">
         {Object.entries(historyOfPresentIllness).map(([key, value]) => (
-          <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b" key={key}>
+          <div className="grid grid-cols-2 gap-4 mb-4 p-2  " key={key}>
             <div className="font-semibold">
               {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}:
             </div>
@@ -1051,9 +1054,9 @@ const Page = () => {
       <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
         Past Medical History
       </h3>
-      <div className="space-y-4 p-4">
+      <div className="space-y-4 p-4 border">
         {Object.entries(pastMedicalHistory).map(([key, value]) => (
-          <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b" key={key}>
+          <div className="grid grid-cols-2 gap-4 mb-4 p-2 " key={key}>
             <div className="font-semibold">
               {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}:
             </div>
@@ -1078,7 +1081,7 @@ const Page = () => {
       <h3 className="text-xl font-bold bg-[#039383] text-white p-2 text-center mb-4">
         Family Health History
       </h3>
-      <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
+      <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b border">
         <div className="font-semibold border-r">Family History:</div>
         <div>
           {isEditing ? (
@@ -1137,17 +1140,17 @@ const Page = () => {
         </table>
       </div>
 
-      <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5">
+      <h2 className="text-3xl font-bold bg-[#00695C] text-white p-2 text-center py-5 ">
         ALLERGIES
       </h2>
       
-      <div className="space-y-4 p-4">
-        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
-          <div className="font-semibold">Drug Allergies:</div>
+      <div className="space-y-4 p-4 border ">
+        <div className="grid grid-cols-2 gap-4 mb-4 p-2 ">
+          <div className="font-semibold ">Drug Allergies:</div>
           {isEditing ? (
             <input
             title="drug allergies"
-              className="border p-1"
+              className="border p-1 "
               value={allergies.drugAllergies}
               onChange={(e) => handleAllergiesChange('drugAllergies', e.target.value)}
             />
@@ -1156,12 +1159,12 @@ const Page = () => {
           )}
         </div>
         
-        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
-          <div className="font-semibold">Food Allergies:</div>
+        <div className="grid grid-cols-2 gap-4 mb-4 p-2 ">
+          <div className="font-semibold ">Food Allergies:</div>
           {isEditing ? (
             <input
               title="food allergies"
-              className="border p-1"
+              className="border p-1 "
               value={allergies.foodAllergies}
               onChange={(e) => handleAllergiesChange('foodAllergies', e.target.value)}
             />
@@ -1170,12 +1173,12 @@ const Page = () => {
           )}
         </div>
         
-        <div className="grid grid-cols-2 gap-4 mb-4 p-2 border-b">
-          <div className="font-semibold">Environmental Allergies:</div>
+        <div className="grid grid-cols-2 gap-4 mb-4 p-2 ">
+          <div className="font-semibold ">Environmental Allergies:</div>
           {isEditing ? (
             <textarea
             title="environmental allergies"
-              className="border p-1 w-full"
+              className="border p-1 w-full "
               value={allergies.environmentalAllergies}
               onChange={(e) => handleAllergiesChange('environmentalAllergies', e.target.value)}
             />
