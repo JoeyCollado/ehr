@@ -302,7 +302,7 @@ const Page = () => {
                       className="ml-1 border rounded p-1 w-16"
                     />
                   ) : (
-                    ` ${vitalSigns.temperature}°C`
+                    ` ${vitalSigns.temperature}`
                   )}
                 </p>
                 <p>
@@ -412,8 +412,8 @@ const Page = () => {
               </h2>
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-medium text-center">Complete Blood Count Test</h3>
-                  <div className="ml-4 space-y-1">
+                  <h3 className="font-bold text-center">Complete Blood Count Test</h3>
+                  <div className="ml-4 space-y-1 ">
                     <p>
                       WBC: 
                       {isEditing ? (
@@ -489,7 +489,7 @@ const Page = () => {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-medium text-center">Sputum Culture Test</h3>
+                  <h3 className="font-bold text-center">Sputum Culture Test</h3>
                   <div className="ml-4 space-y-1">
                     <p>
                       Pathogen Identified:
@@ -526,7 +526,7 @@ const Page = () => {
       </h2>
       <div className="space-y-4">
         <div>
-          <h3 className="font-medium text-center">Chest X-Ray Findings</h3>
+          <h3 className="font-bold text-center">Chest X-Ray Findings</h3>
           <div className="mt-2">
             {isEditing ? (
               <>
@@ -544,7 +544,7 @@ const Page = () => {
                     <img 
                       src={labResults.chestXRay.imagePreview} 
                       alt="X-Ray Preview" 
-                      className="max-w-full h-auto max-h-48"
+                      className="max-w-full h-auto max-h-64"
                     />
                   </div>
                 )}
@@ -562,7 +562,7 @@ const Page = () => {
             )}
           </div>
           <div className="ml-4 space-y-1">
-          <h3 className="font-medium  text-left mt-[20%]">Description</h3>
+          <h3 className="font-bold  text-left mt-[10%]">Description</h3>
             {isEditing ? (
               <input
                 value={labResults.chestXRay.findings}
@@ -594,7 +594,8 @@ const Page = () => {
                     <th className="p-2 border border-black text-center" colSpan={3}>
                       OUTPUT
                     </th>
-                    <th className="p-2 border border-black text-center">Action</th>
+                   <th className="p-2 border border-black text-center">Action</th>
+                
                   </tr>
                   <tr className="border-b border-black">
                     <th className="p-2 border border-black"></th>
