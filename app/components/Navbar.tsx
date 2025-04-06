@@ -74,8 +74,8 @@ const Navbar = () => {
         { name: "Diagnosis", link: "/pages/cdss/diagnosis" },
         { name: "Treament", link: "/pages/cdss/treatment" },
         { name: "Monitoring", link: "/pages/cdss/monitoring" },
-        { name: "Recommendation D", link: "/pages/cdss/recod" },
-        { name: "Recommendation S", link: "/pages/cdss/recos" },
+        { name: "Diagnostic Recommendations", link: "/pages/cdss/recod" },
+        { name: "Supportive Care Recommendations", link: "/pages/cdss/recos" },
       ],
     },
 
