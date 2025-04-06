@@ -56,7 +56,7 @@ const Page = () => {
       antibioticSensitivity: ""
     },
     chestXRay: {
-      findings: "imaging test results",
+      findings: "",
       description: "",
       image: null,
       imagePreview: null
@@ -390,7 +390,7 @@ const Page = () => {
                         />
                       ) : (
                         ` ${labResults.cbc.wbc}`
-                      )} x10^9/l
+                      )} 
                     </p>
                     <p>
                       Hemoglobin: 
@@ -402,7 +402,7 @@ const Page = () => {
                         />
                       ) : (
                         ` ${labResults.cbc.hemoglobin}`
-                      )} g/dL
+                      )} 
                     </p>
                     <p>
                       Hematocrit: 
@@ -414,7 +414,43 @@ const Page = () => {
                         />
                       ) : (
                         ` ${labResults.cbc.hematocrit}`
-                      )} %
+                      )} 
+                    </p>
+                    <p>
+                     Mean Corpuscular Hemoglobin:
+                      {isEditing ? (
+                        <input
+                          value={labResults.cbc.hematocrit}
+                          onChange={(e) => handleLabResultsChange("cbc", "mch", e.target.value)}
+                          className="ml-1 border rounded p-1 w-20"
+                        />
+                      ) : (
+                        ` ${labResults.cbc.hematocrit}`
+                      )} 
+                    </p>
+                    <p>
+                    Mean Corpuscular Hemoglobin Concentration:
+                      {isEditing ? (
+                        <input
+                          value={labResults.cbc.hematocrit}
+                          onChange={(e) => handleLabResultsChange("cbc", "mchc", e.target.value)}
+                          className="ml-1 border rounded p-1 w-20"
+                        />
+                      ) : (
+                        ` ${labResults.cbc.hematocrit}`
+                      )} 
+                    </p>
+                    <p>
+                    Neutrophils:
+                      {isEditing ? (
+                        <input
+                          value={labResults.cbc.hematocrit}
+                          onChange={(e) => handleLabResultsChange("cbc", "neutrophils", e.target.value)}
+                          className="ml-1 border rounded p-1 w-20"
+                        />
+                      ) : (
+                        ` ${labResults.cbc.hematocrit}`
+                      )} 
                     </p>
                   </div>
                 </div>
@@ -457,17 +493,7 @@ const Page = () => {
               <div className="space-y-4">
                 <div>
                   <h3 className="font-medium text-center">Chest X-Ray Findings</h3>
-                  <div className="ml-4 space-y-1">
-                    {isEditing ? (
-                      <input
-                        value={labResults.chestXRay.findings}
-                        onChange={(e) => handleLabResultsChange("chestXRay", "findings", e.target.value)}
-                        className="w-full p-1 border rounded"
-                      />
-                    ) : (
-                      labResults.chestXRay.findings
-                    )}
-                  </div>
+                
                   <div className="mt-2">
                     {isEditing ? (
                       <>
@@ -496,7 +522,19 @@ const Page = () => {
                         />
                       </div>
                     ) : (
-                      <p className="text-gray-500">No image uploaded</p>
+                      <p className="text-gray-500 text-center">No image uploaded</p>
+                    )}
+                  </div>
+                  <div className="ml-4 space-y-1">
+                  <h3 className="font-medium  text-left mt-[20%]">Description</h3>
+                    {isEditing ? (
+                      <input
+                        value={labResults.chestXRay.findings}
+                        onChange={(e) => handleLabResultsChange("chestXRay", "findings", e.target.value)}
+                        className="w-full p-1 border rounded"
+                      />
+                    ) : (
+                      labResults.chestXRay.findings
                     )}
                   </div>
                 </div>
