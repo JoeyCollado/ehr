@@ -3,12 +3,126 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-const page = () => {
+const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const [intakeOutputData, setIntakeOutputData] = useState([
+    {
+      id: Date.now(),
+      date: "",
+      time: "",
+      shift: "",
+      intakeDescription: "",
+      intakeVolume: "",
+      intakeTotal: "",
+      outputDescription: "",
+      outputVolume: "",
+      outputTotal: ""
+    }
+  ]);
 
-  //disable the editing mode
+  // State for editable sections
+  const [patientOverview, setPatientOverview] = useState({
+    name: "A.J.S",
+    age: "10",
+    gender: "Male",
+    admission: "",
+    diagnosis: "",
+    riskFactors: ""
+  });
+
+  const [vitalSigns, setVitalSigns] = useState({
+    temperature: "39.2",
+    hr: "119",
+    rr: "32",
+    spO2: "90",
+    bp: "120/70"
+  });
+
+  const [treatmentMedication, setTreatmentMedication] = useState("");
+  const [progressTracking, setProgressTracking] = useState("");
+  const [outcomePrediction, setOutcomePrediction] = useState("");
+
+  const [labResults, setLabResults] = useState({
+    cbc: {
+      wbc: "15.2",
+      hemoglobin: "11.8",
+      hematocrit: "35.50",
+      mch: "78",
+      mchc: "79",
+      neutrophils: "12.1"
+    },
+    sputumCulture: {
+      pathogen: "",
+      antibioticSensitivity: ""
+    },
+    chestXRay: {
+      findings: "imaging test results",
+      description: "",
+      image: null,
+      imagePreview: null
+    }
+  });
+
   const handleSave = () => {
     setIsEditing(false);
+  };
+
+  const handleAddRow = () => {
+    setIntakeOutputData([
+      ...intakeOutputData,
+      {
+        id: Date.now(),
+        date: "",
+        time: "",
+        shift: "",
+        intakeDescription: "",
+        intakeVolume: "",
+        intakeTotal: "",
+        outputDescription: "",
+        outputVolume: "",
+        outputTotal: ""
+      }
+    ]);
+  };
+
+  const handleDeleteRow = (id) => {
+    if (intakeOutputData.length > 1) {
+      setIntakeOutputData(intakeOutputData.filter(row => row.id !== id));
+    }
+  };
+
+  const handleInputChange = (id, field, value) => {
+    setIntakeOutputData(intakeOutputData.map(row => 
+      row.id === id ? { ...row, [field]: value } : row
+    ));
+  };
+
+  const handleLabResultsChange = (section, field, value) => {
+    setLabResults(prev => ({
+      ...prev,
+      [section]: {
+        ...prev[section],
+        [field]: value
+      }
+    }));
+  };
+
+  const handleImageUpload = (e, section) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setLabResults(prev => ({
+          ...prev,
+          [section]: {
+            ...prev[section],
+            image: file,
+            imagePreview: reader.result
+          }
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -18,14 +132,16 @@ const page = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <div className="flex justify-center mt-[5%] ">
+        <div className="flex justify-center mt-[5%]">
           {isEditing ? (
-            <button
-              onClick={handleSave}
-              className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 cursor-pointer mb-4"
-            >
-              Save
-            </button>
+            <div className="flex gap-4">
+              <button
+                onClick={handleSave}
+                className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 cursor-pointer mb-4"
+              >
+                Save
+              </button>
+            </div>
           ) : (
             <button
               onClick={() => setIsEditing(true)}
@@ -47,21 +163,93 @@ const page = () => {
               </h2>
               <div className="space-y-2">
                 <p>
-                  <span className="font-medium">Name:</span> A.J.S
+                  <span className="font-medium">Name:</span>
+                  {isEditing ? (
+                    <input
+                      value={patientOverview.name}
+                      onChange={(e) => setPatientOverview({...patientOverview, name: e.target.value})}
+                      className="ml-1 border rounded p-1 w-32"
+                    />
+                  ) : (
+                    ` ${patientOverview.name}`
+                  )}
                 </p>
                 <p>
-                  <span className="font-medium">Age:</span> 10{" "}
-                  <span className="font-medium ml-2">Gender:</span> Male
+                  <span className="font-medium">Age:</span>
+                  {isEditing ? (
+                    <input
+                      value={patientOverview.age}
+                      onChange={(e) => setPatientOverview({...patientOverview, age: e.target.value})}
+                      className="ml-1 border rounded p-1 w-12"
+                    />
+                  ) : (
+                    ` ${patientOverview.age}`
+                  )}
+                  <span className="font-medium ml-2">Gender:</span>
+                  {isEditing ? (
+                    <input
+                      value={patientOverview.gender}
+                      onChange={(e) => setPatientOverview({...patientOverview, gender: e.target.value})}
+                      className="ml-1 border rounded p-1 w-20"
+                    />
+                  ) : (
+                    ` ${patientOverview.gender}`
+                  )}
                 </p>
                 <p>
                   <span className="font-medium">Admission:</span>
+                  {isEditing ? (
+                    <input
+                      value={patientOverview.admission}
+                      onChange={(e) => setPatientOverview({...patientOverview, admission: e.target.value})}
+                      className="ml-1 border rounded p-1 w-full"
+                    />
+                  ) : (
+                    ` ${patientOverview.admission || "-"}`
+                  )}
                 </p>
                 <p>
                   <span className="font-medium">Diagnosis:</span>
+                  {isEditing ? (
+                    <input
+                      value={patientOverview.diagnosis}
+                      onChange={(e) => setPatientOverview({...patientOverview, diagnosis: e.target.value})}
+                      className="ml-1 border rounded p-1 w-full"
+                    />
+                  ) : (
+                    ` ${patientOverview.diagnosis || "-"}`
+                  )}
                 </p>
                 <p>
                   <span className="font-medium">Risk factors:</span>
+                  {isEditing ? (
+                    <input
+                      value={patientOverview.riskFactors}
+                      onChange={(e) => setPatientOverview({...patientOverview, riskFactors: e.target.value})}
+                      className="ml-1 border rounded p-1 w-full"
+                    />
+                  ) : (
+                    ` ${patientOverview.riskFactors || "-"}`
+                  )}
                 </p>
+              </div>
+            </div>
+
+            {/* Treatment & Medication */}
+            <div className="border border-black rounded-lg p-4">
+              <h2 className="text-lg font-semibold mb-3 text-center">
+                Treatment & Medication
+              </h2>
+              <div className="space-y-2">
+                {isEditing ? (
+                  <textarea
+                    value={treatmentMedication}
+                    onChange={(e) => setTreatmentMedication(e.target.value)}
+                    className="w-full p-1 border rounded h-32"
+                  />
+                ) : (
+                  treatmentMedication || <p className="text-gray-500">No content</p>
+                )}
               </div>
             </div>
 
@@ -72,19 +260,64 @@ const page = () => {
               </h2>
               <div className="space-y-2">
                 <p>
-                  <span className="font-medium">Temperature:</span> 39.2°C
+                  <span className="font-medium">Temperature:</span>
+                  {isEditing ? (
+                    <input
+                      value={vitalSigns.temperature}
+                      onChange={(e) => setVitalSigns({...vitalSigns, temperature: e.target.value})}
+                      className="ml-1 border rounded p-1 w-16"
+                    />
+                  ) : (
+                    ` ${vitalSigns.temperature}°C`
+                  )}
                 </p>
                 <p>
-                  <span className="font-medium">HR:</span> 119 bpm
+                  <span className="font-medium">HR:</span>
+                  {isEditing ? (
+                    <input
+                      value={vitalSigns.hr}
+                      onChange={(e) => setVitalSigns({...vitalSigns, hr: e.target.value})}
+                      className="ml-1 border rounded p-1 w-16"
+                    />
+                  ) : (
+                    ` ${vitalSigns.hr} bpm`
+                  )}
                 </p>
                 <p>
-                  <span className="font-medium">RR:</span> 32 breaths/min
+                  <span className="font-medium">RR:</span>
+                  {isEditing ? (
+                    <input
+                      value={vitalSigns.rr}
+                      onChange={(e) => setVitalSigns({...vitalSigns, rr: e.target.value})}
+                      className="ml-1 border rounded p-1 w-16"
+                    />
+                  ) : (
+                    ` ${vitalSigns.rr} breaths/min`
+                  )}
                 </p>
                 <p>
-                  <span className="font-medium">SpO₂:</span> 90%
+                  <span className="font-medium">SpO₂:</span>
+                  {isEditing ? (
+                    <input
+                      value={vitalSigns.spO2}
+                      onChange={(e) => setVitalSigns({...vitalSigns, spO2: e.target.value})}
+                      className="ml-1 border rounded p-1 w-16"
+                    />
+                  ) : (
+                    ` ${vitalSigns.spO2}%`
+                  )}
                 </p>
                 <p>
-                  <span className="font-medium">BP:</span> 120/70 mmHg
+                  <span className="font-medium">BP:</span>
+                  {isEditing ? (
+                    <input
+                      value={vitalSigns.bp}
+                      onChange={(e) => setVitalSigns({...vitalSigns, bp: e.target.value})}
+                      className="ml-1 border rounded p-1 w-24"
+                    />
+                  ) : (
+                    ` ${vitalSigns.bp} mmHg`
+                  )}
                 </p>
               </div>
             </div>
@@ -100,23 +333,21 @@ const page = () => {
               </div>
             </div>
 
-            {/* Treatment & Medication */}
-            <div className="border border-black rounded-lg p-4">
-              <h2 className="text-lg font-semibold mb-3 text-center">
-                Treatment & Medication
-              </h2>
-              <div className="space-y-2">
-                {/* Empty content as per your example */}
-              </div>
-            </div>
-
             {/* Progress Tracking */}
             <div className="border border-black rounded-lg p-4">
               <h2 className="text-lg font-semibold mb-3 text-center">
                 Progress Tracking
               </h2>
               <div className="space-y-2">
-                {/* Empty content as per your example */}
+                {isEditing ? (
+                  <textarea
+                    value={progressTracking}
+                    onChange={(e) => setProgressTracking(e.target.value)}
+                    className="w-full p-1 border rounded h-32"
+                  />
+                ) : (
+                  progressTracking || <p className="text-gray-500">No content</p>
+                )}
               </div>
             </div>
 
@@ -125,83 +356,325 @@ const page = () => {
               <h2 className="text-lg font-semibold mb-3 text-center">
                 Outcome Prediction
               </h2>
-              <div className="space-y-2"></div>
+              <div className="space-y-2">
+                {isEditing ? (
+                  <textarea
+                    value={outcomePrediction}
+                    onChange={(e) => setOutcomePrediction(e.target.value)}
+                    className="w-full p-1 border rounded h-32"
+                  />
+                ) : (
+                  outcomePrediction || <p className="text-gray-500">No content</p>
+                )}
+              </div>
             </div>
           </div>
-          {/* Latest Laboratory and Diagnostic Result & Laboratory and Diagnostic Result */}
+
+          {/* Latest Laboratory and Diagnostic Result */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-[5%]">
-            <div className="border border-black rounded-lg p-4 ">
+            <div className="border border-black rounded-lg p-4">
               <h2 className="text-lg font-semibold mb-3 text-center">
                 Latest Laboratory and Diagnostic Result
               </h2>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-medium text-center">Complete Blood Count Test</h3>
+                  <div className="ml-4 space-y-1">
+                    <p>
+                      WBC: 
+                      {isEditing ? (
+                        <input
+                          value={labResults.cbc.wbc}
+                          onChange={(e) => handleLabResultsChange("cbc", "wbc", e.target.value)}
+                          className="ml-1 border rounded p-1 w-20"
+                        />
+                      ) : (
+                        ` ${labResults.cbc.wbc}`
+                      )} x10^9/l
+                    </p>
+                    <p>
+                      Hemoglobin: 
+                      {isEditing ? (
+                        <input
+                          value={labResults.cbc.hemoglobin}
+                          onChange={(e) => handleLabResultsChange("cbc", "hemoglobin", e.target.value)}
+                          className="ml-1 border rounded p-1 w-20"
+                        />
+                      ) : (
+                        ` ${labResults.cbc.hemoglobin}`
+                      )} g/dL
+                    </p>
+                    <p>
+                      Hematocrit: 
+                      {isEditing ? (
+                        <input
+                          value={labResults.cbc.hematocrit}
+                          onChange={(e) => handleLabResultsChange("cbc", "hematocrit", e.target.value)}
+                          className="ml-1 border rounded p-1 w-20"
+                        />
+                      ) : (
+                        ` ${labResults.cbc.hematocrit}`
+                      )} %
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="font-medium text-center">Sputum Culture Test</h3>
+                  <div className="ml-4 space-y-1">
+                    <p>
+                      Pathogen Identified:
+                      {isEditing ? (
+                        <input
+                          value={labResults.sputumCulture.pathogen}
+                          onChange={(e) => handleLabResultsChange("sputumCulture", "pathogen", e.target.value)}
+                          className="ml-1 border rounded p-1 w-40"
+                        />
+                      ) : (
+                        ` ${labResults.sputumCulture.pathogen || "-"}`
+                      )}
+                    </p>
+                    <p>
+                      Antibiotic Sensitivity Test:
+                      {isEditing ? (
+                        <input
+                          value={labResults.sputumCulture.antibioticSensitivity}
+                          onChange={(e) => handleLabResultsChange("sputumCulture", "antibioticSensitivity", e.target.value)}
+                          className="ml-1 border rounded p-1 w-40"
+                        />
+                      ) : (
+                        ` ${labResults.sputumCulture.antibioticSensitivity || "-"}`
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="border border-black rounded-lg p-4 text-center">
+
+            <div className="border border-black rounded-lg p-4">
               <h2 className="text-lg font-semibold mb-3 text-center">
                 Laboratory and Diagnostic Result
               </h2>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-medium text-center">Chest X-Ray Findings</h3>
+                  <div className="ml-4 space-y-1">
+                    {isEditing ? (
+                      <input
+                        value={labResults.chestXRay.findings}
+                        onChange={(e) => handleLabResultsChange("chestXRay", "findings", e.target.value)}
+                        className="w-full p-1 border rounded"
+                      />
+                    ) : (
+                      labResults.chestXRay.findings
+                    )}
+                  </div>
+                  <div className="mt-2">
+                    {isEditing ? (
+                      <>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleImageUpload(e, "chestXRay")}
+                          className="w-full p-1 border rounded"
+                        />
+                        {labResults.chestXRay.imagePreview && (
+                          <div className="mt-2">
+                            <img 
+                              src={labResults.chestXRay.imagePreview} 
+                              alt="X-Ray Preview" 
+                              className="max-w-full h-auto max-h-48"
+                            />
+                          </div>
+                        )}
+                      </>
+                    ) : labResults.chestXRay.imagePreview ? (
+                      <div className="mt-2">
+                        <img 
+                          src={labResults.chestXRay.imagePreview} 
+                          alt="X-Ray" 
+                          className="max-w-full h-auto max-h-48"
+                        />
+                      </div>
+                    ) : (
+                      <p className="text-gray-500">No image uploaded</p>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Intake-Output Chart */}
           <div className="mt-[5%] w-full overflow-x-auto">
-  <div className="border border-black rounded-lg p-4">
-    <h2 className="text-lg font-semibold mb-3 text-center">Intake-Output Chart</h2>
-    <table className="w-full border-collapse border border-black">
-      <thead>
-        <tr className="border-b border-black">
-          <th className="p-2 border border-black text-left" >DATE</th>
-          <th className="p-2 border border-black text-left">TIME</th>
-          <th className="p-2 border border-black text-left" >SHIFT</th>
-          <th className="p-2 border border-black text-center" colSpan={3}>
-            INTAKE
-          </th>
-          <th className="p-2 border border-black text-center" colSpan={3}>
-            OUTPUT
-          </th>
-        </tr>
-        <tr className="border-b border-black">
-          <th className="p-2 border border-black"></th>
-          <th className="p-2 border border-black"></th>
-          <th className="p-2 border border-black"></th>
-          <th className="p-2 border border-black">Description/Type</th>
-          <th className="p-2 border border-black">Volume</th>
-          <th className="p-2 border border-black">Total</th>
-          <th className="p-2 border border-black">Description/Type</th>
-          <th className="p-2 border border-black">Volume</th>
-          <th className="p-2 border border-black">Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-        </tr>
-        <tr>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-          <td className="p-2 border border-black"></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+            <div className="border border-black rounded-lg p-4">
+              <h2 className="text-lg font-semibold mb-3 text-center">Intake-Output Chart</h2>
+              <table className="w-full border-collapse border border-black">
+                <thead>
+                  <tr className="border-b border-black">
+                    <th className="p-2 border border-black text-left">DATE</th>
+                    <th className="p-2 border border-black text-left">TIME</th>
+                    <th className="p-2 border border-black text-left">SHIFT</th>
+                    <th className="p-2 border border-black text-center" colSpan={3}>
+                      INTAKE
+                    </th>
+                    <th className="p-2 border border-black text-center" colSpan={3}>
+                      OUTPUT
+                    </th>
+                    <th className="p-2 border border-black text-center">Action</th>
+                  </tr>
+                  <tr className="border-b border-black">
+                    <th className="p-2 border border-black"></th>
+                    <th className="p-2 border border-black"></th>
+                    <th className="p-2 border border-black"></th>
+                    <th className="p-2 border border-black">Description/Type</th>
+                    <th className="p-2 border border-black">Volume</th>
+                    <th className="p-2 border border-black">Total</th>
+                    <th className="p-2 border border-black">Description/Type</th>
+                    <th className="p-2 border border-black">Volume</th>
+                    <th className="p-2 border border-black">Total</th>
+                    <th className="p-2 border border-black"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {intakeOutputData.map((row) => (
+                    <tr key={row.id}>
+                      <td className="p-2 border border-black">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={row.date}
+                            onChange={(e) => handleInputChange(row.id, 'date', e.target.value)}
+                            className="w-full p-1 border rounded"
+                          />
+                        ) : (
+                          row.date || "-"
+                        )}
+                      </td>
+                      <td className="p-2 border border-black">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={row.time}
+                            onChange={(e) => handleInputChange(row.id, 'time', e.target.value)}
+                            className="w-full p-1 border rounded"
+                          />
+                        ) : (
+                          row.time || "-"
+                        )}
+                      </td>
+                      <td className="p-2 border border-black">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={row.shift}
+                            onChange={(e) => handleInputChange(row.id, 'shift', e.target.value)}
+                            className="w-full p-1 border rounded"
+                          />
+                        ) : (
+                          row.shift || "-"
+                        )}
+                      </td>
+                      <td className="p-2 border border-black">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={row.intakeDescription}
+                            onChange={(e) => handleInputChange(row.id, 'intakeDescription', e.target.value)}
+                            className="w-full p-1 border rounded"
+                          />
+                        ) : (
+                          row.intakeDescription || "-"
+                        )}
+                      </td>
+                      <td className="p-2 border border-black">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={row.intakeVolume}
+                            onChange={(e) => handleInputChange(row.id, 'intakeVolume', e.target.value)}
+                            className="w-full p-1 border rounded"
+                          />
+                        ) : (
+                          row.intakeVolume || "-"
+                        )}
+                      </td>
+                      <td className="p-2 border border-black">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={row.intakeTotal}
+                            onChange={(e) => handleInputChange(row.id, 'intakeTotal', e.target.value)}
+                            className="w-full p-1 border rounded"
+                          />
+                        ) : (
+                          row.intakeTotal || "-"
+                        )}
+                      </td>
+                      <td className="p-2 border border-black">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={row.outputDescription}
+                            onChange={(e) => handleInputChange(row.id, 'outputDescription', e.target.value)}
+                            className="w-full p-1 border rounded"
+                          />
+                        ) : (
+                          row.outputDescription || "-"
+                        )}
+                      </td>
+                      <td className="p-2 border border-black">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={row.outputVolume}
+                            onChange={(e) => handleInputChange(row.id, 'outputVolume', e.target.value)}
+                            className="w-full p-1 border rounded"
+                          />
+                        ) : (
+                          row.outputVolume || "-"
+                        )}
+                      </td>
+                      <td className="p-2 border border-black">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={row.outputTotal}
+                            onChange={(e) => handleInputChange(row.id, 'outputTotal', e.target.value)}
+                            className="w-full p-1 border rounded"
+                          />
+                        ) : (
+                          row.outputTotal || "-"
+                        )}
+                      </td>
+                      <td className="p-2 border border-black">
+                        {isEditing && (
+                          <button
+                            onClick={() => handleDeleteRow(row.id)}
+                            className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                            disabled={intakeOutputData.length <= 1}
+                          >
+                            Delete
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {isEditing && (
+                <button
+                  onClick={handleAddRow}  
+                  className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 cursor-pointer mb-4 mt-4"
+                >
+                  Add Entry
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>
   );
 };
 
-export default page;
+export default Page;
