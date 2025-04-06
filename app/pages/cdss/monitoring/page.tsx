@@ -1,0 +1,109 @@
+"use client"
+
+import React, {  useState } from "react";
+import { motion } from "framer-motion";
+
+const page = () => {
+
+  const [isEditing, setIsEditing] = useState(false);
+
+
+
+   //disable the editing mode
+   const handleSave = () => {
+    setIsEditing(false);
+  };
+
+  return (
+    <>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <div className="flex justify-center mt-[5%] ">
+          {isEditing ? (
+            <button
+              onClick={handleSave}
+              className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 cursor-pointer mb-4"
+            >
+              Save
+            </button>
+          ) : (
+            <button
+              onClick={() => setIsEditing(true)}
+              className="bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform text-white px-4 py-1 rounded cursor-pointer mb-4"
+            >
+              Edit
+            </button>
+          )}
+        </div>
+      </motion.div>
+    <div className="min-h-screen bg-[#faf6f6] flex items-center justify-center pb-4 mb-[5%]">
+      <div className="w-full max-w-4xl bg-white text-black shadow-lg rounded-lg p-6">
+        <h1 className='text-center text-3xl font-bold mb-[3%]'>Monitoring</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Patient Overview */}
+          <div className="border border-black rounded-lg p-4">
+            <h2 className="text-lg font-semibold mb-3">Patient Overview</h2>
+            <div className="space-y-2">
+              <p><span className="font-medium">Name:</span> A.J.S</p>
+              <p><span className="font-medium">Age:</span> 10 <span className="font-medium ml-2">Gender:</span> Male</p>
+              <p><span className="font-medium">Admission:</span></p>
+              <p><span className="font-medium">Diagnosis:</span></p>
+              <p><span className="font-medium">Risk factors:</span></p>
+            </div>
+          </div>
+
+          {/* Vital Signs */}
+          <div className="border border-black rounded-lg p-4">
+            <h2 className="text-lg font-semibold mb-3">Vital Signs</h2>
+            <div className="space-y-2">
+              <p><span className="font-medium">Temperature:</span> 39.2°C</p>
+              <p><span className="font-medium">HR:</span> 119 bpm</p>
+              <p><span className="font-medium">RR:</span> 32 breaths/min</p>
+              <p><span className="font-medium">SpO₂:</span> 90%</p>
+              <p><span className="font-medium">BP:</span> 120/70 mmHg</p>
+            </div>
+          </div>
+
+          {/* Alerts */}
+          <div className="border border-black rounded-lg p-4">
+            <h2 className="text-lg font-semibold mb-3">Alerts</h2>
+            <div className="space-y-2">
+              <p>If SpO₂ &lt; 92%, recommend increasing oxygen therapy</p>
+              <p>If RR &gt; 30, risk of respiratory distress—monitor closely</p>
+            </div>
+          </div>
+
+          {/* Treatment & Medication */}
+          <div className="border border-black rounded-lg p-4">
+            <h2 className="text-lg font-semibold mb-3">Treatment & Medication</h2>
+            <div className="space-y-2">
+              {/* Empty content as per your example */}
+            </div>
+          </div>
+
+          {/* Progress Tracking */}
+          <div className="border border-black rounded-lg p-4">
+            <h2 className="text-lg font-semibold mb-3">Progress Tracking</h2>
+            <div className="space-y-2">
+              {/* Empty content as per your example */}
+            </div>
+          </div>
+
+          {/* Outcome Prediction */}
+          <div className="border border-black rounded-lg p-4">
+            <h2 className="text-lg font-semibold mb-3">Outcome Prediction</h2>
+            <div className="space-y-2">
+              {/* Empty content as per your example */}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </>
+  )
+}
+
+export default page

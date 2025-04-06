@@ -71,11 +71,11 @@ const Navbar = () => {
       icon: <FaFileMedical />,
       link: "/pages/cdss",
       subItems: [
-        { name: "Diagnosis", link: "/pages/cdss/cdss2" },
-        { name: "Treament", link: "/pages/cdss/cdss5" },
-        { name: "Monitoring", link: "/pages/cdss/cdss3" },
-        { name: "Recommendation D", link: "/pages/cdss/cdss3" },
-        { name: "Recommendation S", link: "/pages/cdss/cdss3" },
+        { name: "Diagnosis", link: "/pages/cdss/diagnosis" },
+        { name: "Treament", link: "/pages/cdss/cdss3" },
+        { name: "Monitoring", link: "/pages/cdss/monitoring" },
+        { name: "Recommendation D", link: "/pages/cdss/cdss5" },
+        { name: "Recommendation S", link: "/pages/cdss/cdss6" },
       ],
     },
 
