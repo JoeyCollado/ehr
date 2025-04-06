@@ -8,15 +8,32 @@ const Page = () => {
     sections: [
       {
         title: "A. Physical Examination:",
-        items: [""]
+        items: [
+          "**Auscultation**: Listen for crackles, rales, or wheezing, which can indicate consolidation or fluid in the lungs.",
+          "**Percussion**: Check for dullness (may indicate consolidation).",
+          "**Oxygen saturation**: Measure oxygen levels (SpO2) with a pulse oximeter. In pneumonia, SpO2 might be slightly decreased, indicating the need for oxygen supplementation.",
+          "**Vitals**: Measure heart rate, respiratory rate, blood pressure, and temperature."
+        ]
       },
       {
         title: "B. Appropriate Testing: Serum Fungal Antigen Testing",
-        items: [""]
+        items: [
+          "**Histoplasma Antigen (Urine or Serum)**: A positive result indicates an active infection, though false positives may occur in people with other infections.",
+          "**Coccidioides Antigen (Urine or Serum)**: A positive result is diagnostic of Coccidioidomycosis.",
+          "**Blastomyces Antigen (Urine or Serum)**: Positive results indicate an active infection.",
+          "**Complete Blood Count (CBC) and Inflammatory Markers**:",
+          "- Elevated WBC count may indicate an inflammatory response to the fungal infection.",
+          "- CRP and ESR: These markers can help assess the degree of inflammation, though they are nonspecific."
+        ]
       },
       {
         title: "C. Imaging",
-        items: [""]
+        items: [
+          "**Imaging Follow-up**: Repeat chest X-ray or CT scan after 7-10 days of antifungal therapy to assess for improvement in lung findings, particularly if there are concerns about complications like lung abscess or pleural effusion. Provide recommendations for imaging based on patient symptoms, such as chest X-ray or CT scan for patients with suspected severe pneumonia.",
+          "- Nodular infiltrates or cavitary lesions (especially with Histoplasma, Blastomyces, or Coccidioides).",
+          "- Lobar consolidation or interstitial infiltrates.",
+          "- In advanced cases, there may be pleural effusion or lung abscess."
+        ]
       }
     ]
   });

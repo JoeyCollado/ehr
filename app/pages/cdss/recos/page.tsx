@@ -7,24 +7,41 @@ const Page = () => {
   const [content, setContent] = useState({
     sections: [
       {
-        title: "A. Oxygen Therapy:",
-        items: [""]
+        title: "A. Oxygen Therapy",
+        items: [
+          "If the child's oxygen saturation is below 92%, oxygen therapy should be started to **maintain SpO2 ≤ 92%**. Supplemental oxygen via nasal cannula or mask is usually sufficient, but if the child becomes severely hypoxic, consider non-invasive ventilation (e.g., CPAP/BPAP)."
+        ]
       },
       {
         title: "B. Fluid Management",
-        items: [""]
+        items: [
+          "**Hydration:** Ensure the child is adequately hydrated, particularly if they have fever and increased respiratory effort.",
+          "Oral fluids are generally adequate unless the child is unable to drink due to fatigue or respiratory distress.",
+          "IV fluids may be required if dehydration is noted, especially in children who have significant respiratory distress or fever."
+        ]
       },
       {
         title: "C. Pain Management",
-        items: [""]
+        items: [
+          "**Analgesics:** For pleuritic chest pain, acetaminophen or ibuprofen can be used to reduce fever and provide comfort.",
+          "For severe pain, especially if there is lung involvement or pleural effusion, stronger analgesics (e.g., opioids) may be considered."
+        ]
       },
       {
         title: "D. Fever Management",
-        items: [""]
+        items: [
+          "**Antipyretics:** If the **fever is high (above 102°F or 38.9°C)** and causing discomfort, acetaminophen or ibuprofen should be administered.",
+          "Close monitoring for fever-related dehydration is essential."
+        ]
       },
       {
         title: "E. Discharge Criteria",
-        items: [""]
+        items: [
+          "The child may be discharged once they are **afebrile for 48-72 hours**, show clinical improvement, and can maintain oxygen saturation on room air.",
+          "Follow-up should include a visit with a pediatric infectious disease specialist for long-term management and to discuss further antifungal treatment for more severe infections.",
+          "Avoid Exposure: Advise the child's caregivers to limit exposure to areas where fungal infections are endemic (e.g., bat caves, bird droppings).",
+          "Vaccination: Make sure the child is up-to-date with all routine vaccinations, though vaccines are not available for most fungi."
+        ]
       }
     ]
   });
