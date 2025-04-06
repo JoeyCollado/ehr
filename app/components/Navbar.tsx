@@ -71,16 +71,20 @@ const Navbar = () => {
       icon: <FaFileMedical />,
       link: "/pages/cdss",
       subItems: [
-        { name: "CDSS2", link: "/pages/cdss/cdss2" },
-        { name: "CDSS3", link: "/pages/cdss/cdss3" },
-        { name: "CDSS4", link: "/pages/cdss/cdss4" },
+        { name: "Diagnosis", link: "/pages/cdss/cdss2" },
+        { name: "Treament", link: "/pages/cdss/cdss5" },
+        { name: "Monitoring", link: "/pages/cdss/cdss3" },
+        { name: "Recommendation D", link: "/pages/cdss/cdss3" },
+        { name: "Recommendation S", link: "/pages/cdss/cdss3" },
       ],
     },
+
     {
       name: "Document Management",
       icon: <FaFolderOpen />,
       link: "/pages/documentManagement",
     },
+   
   ];
 
   // Function to check if a route is active
@@ -188,7 +192,7 @@ const Navbar = () => {
                       <Link
                         key={subItem.name}
                         href={subItem.link}
-                        className={`block px-5 py-3 text-sm font-medium hover:bg-white/20 transition-all rounded-lg
+                        className={`block px-5 py-2 text-sm font-medium hover:bg-white/20 transition-all rounded-lg
                   pathname === subItem.link ? "bg-white/20" : "hover:bg-white/20"`}
                       >
                         {subItem.name}
