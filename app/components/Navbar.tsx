@@ -76,6 +76,7 @@ const Navbar = () => {
         { name: "Monitoring", link: "/pages/cdss/monitoring" },
         { name: "Recommendation D", link: "/pages/cdss/recod" },
         { name: "Recommendation S", link: "/pages/cdss/recos" },
+        { name: "Our Doctors", link: "/pages/cdss/ourDoctors" },
       ],
     },
 
