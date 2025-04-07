@@ -16,7 +16,26 @@ type Entry = {
     others: string;
     outputTotal: string;
   }[];
+  total: {
+    oral: string;
+    parenteral: string;
+    intakeTotal: string;
+    urine: string;
+    drainage: string;
+    others: string;
+    outputTotal: string;
+  };
 };
+
+const defaultTotal = () => ({
+  oral: "",
+  parenteral: "",
+  intakeTotal: "",
+  urine: "",
+  drainage: "",
+  others: "",
+  outputTotal: "",
+});
 
 const defaultRow = (time: string): Entry["rows"][0] => ({
   time,
@@ -52,7 +71,12 @@ const Page = () => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("entries2");
       if (stored) {
-        return JSON.parse(stored);
+        // Add default totals to existing entries if missing
+        const parsed = JSON.parse(stored);
+        return parsed.map((entry: Entry) => ({
+          ...entry,
+          total: entry.total || defaultTotal(),
+        }));
       }
     }
     return [
@@ -60,9 +84,24 @@ const Page = () => {
         id: Date.now(),
         date: "",
         rows: [defaultRow("6-2"), defaultRow("2-10"), defaultRow("10-6")],
+        total: defaultTotal(), // Initialize total
       },
     ];
   });
+
+  const handleTotalChange = (
+    entryId: number,
+    field: keyof Entry["total"],
+    value: string
+  ) => {
+    setEntries2((prev) =>
+      prev.map((entry) =>
+        entry.id === entryId
+          ? { ...entry, total: { ...entry.total, [field]: value } }
+          : entry
+      )
+    );
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -105,6 +144,7 @@ const Page = () => {
         id: Date.now(),
         date: "",
         rows: [defaultRow("6-2"), defaultRow("2-10"), defaultRow("10-6")],
+        total: defaultTotal(), // Add total here
       },
     ]);
   };
@@ -1436,7 +1476,24 @@ const Page = () => {
                           </td>
                         )}
 
-                        <td className="border px-2 py-1">{row.time}</td>
+                        <td className="border px-2 py-1">
+                          {isEditing ? (
+                            <input
+                              value={row.time}
+                              onChange={(e) =>
+                                handleCellChange(
+                                  entry.id,
+                                  rowIndex,
+                                  "time",
+                                  e.target.value
+                                )
+                              }
+                              className="w-full px-1 py-0.5"
+                            />
+                          ) : (
+                            row.time
+                          )}
+                        </td>
                         <td className="border px-2 py-1">
                           <input
                             value={row.oral}
@@ -1556,13 +1613,83 @@ const Page = () => {
                       <td className="border px-2 py-1 text-center" colSpan={1}>
                         TOTAL
                       </td>
-                      <td className="border px-2 py-1" colSpan={1}></td>
-                      <td className="border px-2 py-1" colSpan={1}></td>
-                      <td className="border px-2 py-1" colSpan={1}></td>
-                      <td className="border px-2 py-1" colSpan={1}></td>
-                      <td className="border px-2 py-1" colSpan={1}></td>
-                      <td className="border px-2 py-1" colSpan={1}></td>
-                      <td className="border px-2 py-1" colSpan={1}></td>
+                      <td className="border px-2 py-1">
+        {isEditing ? (
+          <input
+            value={entry.total.oral}
+            onChange={(e) => handleTotalChange(entry.id, "oral", e.target.value)}
+            className="w-full px-1 py-0.5"
+          />
+        ) : (
+          entry.total.oral
+        )}
+      </td>
+      <td className="border px-2 py-1">
+        {isEditing ? (
+          <input
+            value={entry.total.parenteral}
+            onChange={(e) => handleTotalChange(entry.id, "parenteral", e.target.value)}
+            className="w-full px-1 py-0.5"
+          />
+        ) : (
+          entry.total.parenteral
+        )}
+      </td>
+      <td className="border px-2 py-1">
+        {isEditing ? (
+          <input
+            value={entry.total.intakeTotal}
+            onChange={(e) => handleTotalChange(entry.id, "intakeTotal", e.target.value)}
+            className="w-full px-1 py-0.5"
+          />
+        ) : (
+          entry.total.intakeTotal
+        )}
+      </td>
+      <td className="border px-2 py-1">
+        {isEditing ? (
+          <input
+            value={entry.total.urine}
+            onChange={(e) => handleTotalChange(entry.id, "urine", e.target.value)}
+            className="w-full px-1 py-0.5"
+          />
+        ) : (
+          entry.total.urine
+        )}
+      </td>
+      <td className="border px-2 py-1">
+        {isEditing ? (
+          <input
+            value={entry.total.drainage}
+            onChange={(e) => handleTotalChange(entry.id, "drainage", e.target.value)}
+            className="w-full px-1 py-0.5"
+          />
+        ) : (
+          entry.total.drainage
+        )}
+      </td>
+      <td className="border px-2 py-1">
+        {isEditing ? (
+          <input
+            value={entry.total.others}
+            onChange={(e) => handleTotalChange(entry.id, "others", e.target.value)}
+            className="w-full px-1 py-0.5"
+          />
+        ) : (
+          entry.total.others
+        )}
+      </td>
+      <td className="border px-2 py-1">
+        {isEditing ? (
+          <input
+            value={entry.total.outputTotal}
+            onChange={(e) => handleTotalChange(entry.id, "outputTotal", e.target.value)}
+            className="w-full px-1 py-0.5"
+          />
+        ) : (
+          entry.total.outputTotal
+        )}
+      </td>
                     </tr>
                   </React.Fragment>
                 ))}
