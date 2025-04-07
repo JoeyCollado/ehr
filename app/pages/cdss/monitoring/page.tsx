@@ -55,11 +55,13 @@ const Page = () => {
         return JSON.parse(stored);
       }
     }
-    return [{
-      id: Date.now(),
-      date: "",
-      rows: [defaultRow("6-2"), defaultRow("2-10"), defaultRow("10-6")],
-    }];
+    return [
+      {
+        id: Date.now(),
+        date: "",
+        rows: [defaultRow("6-2"), defaultRow("2-10"), defaultRow("10-6")],
+      },
+    ];
   });
 
   useEffect(() => {
@@ -461,9 +463,10 @@ const Page = () => {
         <td className="border px-2 py-1"></td>
       </tr>
       <tr className="border font-semibold">
-        <td className="border px-2 py-1 text-center" colSpan={2}>
+        <td className="border px-2 py-1 text-center" colSpan={1}>
           TOTAL
         </td>
+        <td className="border px-2 py-1"></td>
         <td className="border px-2 py-1"></td>
         <td className="border px-2 py-1"></td>
         <td className="border px-2 py-1"></td>
@@ -1402,7 +1405,6 @@ const Page = () => {
                   <th className="border px-2 py-1" rowSpan={2}>
                     TOTAL
                   </th>
-
                   <th className="border px-2 py-1" rowSpan={2}>
                     ACTION
                   </th>
@@ -1433,6 +1435,7 @@ const Page = () => {
                             />
                           </td>
                         )}
+
                         <td className="border px-2 py-1">{row.time}</td>
                         <td className="border px-2 py-1">
                           <input
@@ -1550,10 +1553,16 @@ const Page = () => {
                       </tr>
                     ))}
                     <tr className="border font-semibold">
-                      <td className="border px-2 py-1 text-center" colSpan={2}>
+                      <td className="border px-2 py-1 text-center" colSpan={1}>
                         TOTAL
                       </td>
-                      <td className="border px-2 py-1" colSpan={7}></td>
+                      <td className="border px-2 py-1" colSpan={1}></td>
+                      <td className="border px-2 py-1" colSpan={1}></td>
+                      <td className="border px-2 py-1" colSpan={1}></td>
+                      <td className="border px-2 py-1" colSpan={1}></td>
+                      <td className="border px-2 py-1" colSpan={1}></td>
+                      <td className="border px-2 py-1" colSpan={1}></td>
+                      <td className="border px-2 py-1" colSpan={1}></td>
                     </tr>
                   </React.Fragment>
                 ))}
