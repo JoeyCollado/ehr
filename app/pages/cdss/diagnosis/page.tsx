@@ -68,6 +68,13 @@ const Page = () => {
     const [newDiagnosisDescription, setNewDiagnosisDescription] = useState('');
     const [newDiagnosisCategory, setNewDiagnosisCategory] = useState('COMMON');
 
+    const [searchTerm, setSearchTerm] = useState(''); // Add search term state
+
+    const filteredDiagnoses = (activeTab === "ALL" 
+        ? diagnoses 
+        : diagnoses.filter(d => d.category === activeTab))
+        .filter(d => d.name.toLowerCase().includes(searchTerm.toLowerCase())); // Add search filter
+
     // Default state values for reset
     const defaultState = {
         isEditing: false,
@@ -325,9 +332,7 @@ const Page = () => {
         console.log("Data saved:", { toggles, optionalSymptoms, diagnosisData });
     };
 
-    const filteredDiagnoses = activeTab === "ALL" 
-        ? diagnoses 
-        : diagnoses.filter(d => d.category === activeTab);
+  
 
     const symptoms = [
         "Fever",
@@ -492,6 +497,13 @@ const Page = () => {
                     {/* Diagnosis Finder Section */}
                     <div className="mt-8">
                         <h3 className="text-lg font-semibold mb-4">FIND DIAGNOSIS</h3>
+                        <input
+                    type="text"
+                    placeholder="Search diagnoses..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="border border-gray-300 rounded px-4 py-2 mb-4 w-full"
+                />
                         <div className="flex space-x-2 mb-4">
                             <button
                                 onClick={() => setActiveTab("ALL")}
