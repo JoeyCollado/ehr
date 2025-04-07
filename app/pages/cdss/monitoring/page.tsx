@@ -200,6 +200,7 @@ const Page = () => {
                   <span className="font-medium">Name:</span>
                   {isEditing ? (
                     <input
+                    title="name"
                       value={patientOverview.name}
                       onChange={(e) => setPatientOverview({...patientOverview, name: e.target.value})}
                       className="ml-1 border rounded p-1 w-32"
@@ -212,6 +213,7 @@ const Page = () => {
                   <span className="font-medium">Age:</span>
                   {isEditing ? (
                     <input
+                    title="age"
                       value={patientOverview.age}
                       onChange={(e) => setPatientOverview({...patientOverview, age: e.target.value})}
                       className="ml-1 border rounded p-1 w-12"
@@ -222,6 +224,7 @@ const Page = () => {
                   <span className="font-medium ml-2">Gender:</span>
                   {isEditing ? (
                     <input
+                    title="gender"
                       value={patientOverview.gender}
                       onChange={(e) => setPatientOverview({...patientOverview, gender: e.target.value})}
                       className="ml-1 border rounded p-1 w-20"
@@ -234,6 +237,7 @@ const Page = () => {
                   <span className="font-medium">Admission:</span>
                   {isEditing ? (
                     <input
+                    title="admission"
                       value={patientOverview.admission}
                       onChange={(e) => setPatientOverview({...patientOverview, admission: e.target.value})}
                       className="ml-1 border rounded p-1 w-full"
@@ -246,6 +250,7 @@ const Page = () => {
                   <span className="font-medium">Diagnosis:</span>
                   {isEditing ? (
                     <input
+                    title="diagnosis"
                       value={patientOverview.diagnosis}
                       onChange={(e) => setPatientOverview({...patientOverview, diagnosis: e.target.value})}
                       className="ml-1 border rounded p-1 w-full"
@@ -258,6 +263,7 @@ const Page = () => {
                   <span className="font-medium">Risk factors:</span>
                   {isEditing ? (
                     <input
+                    title="risk factors"
                       value={patientOverview.riskFactors}
                       onChange={(e) => setPatientOverview({...patientOverview, riskFactors: e.target.value})}
                       className="ml-1 border rounded p-1 w-full"
@@ -277,6 +283,7 @@ const Page = () => {
               <div className="space-y-2">
                 {isEditing ? (
                   <textarea
+                  title="medication"
                     value={treatmentMedication}
                     onChange={(e) => setTreatmentMedication(e.target.value)}
                     className="w-full p-1 border rounded h-32"
@@ -297,6 +304,7 @@ const Page = () => {
                   <span className="font-medium">Temperature:</span>
                   {isEditing ? (
                     <input
+                    title="temp"
                       value={vitalSigns.temperature}
                       onChange={(e) => setVitalSigns({...vitalSigns, temperature: e.target.value})}
                       className="ml-1 border rounded p-1 w-16"
@@ -309,6 +317,7 @@ const Page = () => {
                   <span className="font-medium">HR:</span>
                   {isEditing ? (
                     <input
+                    title="hr"
                       value={vitalSigns.hr}
                       onChange={(e) => setVitalSigns({...vitalSigns, hr: e.target.value})}
                       className="ml-1 border rounded p-1 w-16"
@@ -321,6 +330,7 @@ const Page = () => {
                   <span className="font-medium">RR:</span>
                   {isEditing ? (
                     <input
+                    title="rr"
                       value={vitalSigns.rr}
                       onChange={(e) => setVitalSigns({...vitalSigns, rr: e.target.value})}
                       className="ml-1 border rounded p-1 w-16"
@@ -333,6 +343,7 @@ const Page = () => {
                   <span className="font-medium">SpO₂:</span>
                   {isEditing ? (
                     <input
+                    title="sp02"
                       value={vitalSigns.spO2}
                       onChange={(e) => setVitalSigns({...vitalSigns, spO2: e.target.value})}
                       className="ml-1 border rounded p-1 w-16"
@@ -345,6 +356,7 @@ const Page = () => {
                   <span className="font-medium">BP:</span>
                   {isEditing ? (
                     <input
+                    title="bp"
                       value={vitalSigns.bp}
                       onChange={(e) => setVitalSigns({...vitalSigns, bp: e.target.value})}
                       className="ml-1 border rounded p-1 w-24"
@@ -375,6 +387,7 @@ const Page = () => {
               <div className="space-y-2">
                 {isEditing ? (
                   <textarea
+                  title="pt"
                     value={progressTracking}
                     onChange={(e) => setProgressTracking(e.target.value)}
                     className="w-full p-1 border rounded h-32"
@@ -393,6 +406,7 @@ const Page = () => {
               <div className="space-y-2">
                 {isEditing ? (
                   <textarea
+                  title="outcome prediction"
                     value={outcomePrediction}
                     onChange={(e) => setOutcomePrediction(e.target.value)}
                     className="w-full p-1 border rounded h-32"
@@ -418,6 +432,7 @@ const Page = () => {
                       WBC: 
                       {isEditing ? (
                         <input
+                        title="wbc"
                           value={labResults.cbc.wbc}
                           onChange={(e) => handleLabResultsChange("cbc", "wbc", e.target.value)}
                           className="ml-1 border rounded p-1 w-20"
@@ -430,6 +445,7 @@ const Page = () => {
                       Hemoglobin: 
                       {isEditing ? (
                         <input
+                        title="hemoglobin"
                           value={labResults.cbc.hemoglobin}
                           onChange={(e) => handleLabResultsChange("cbc", "hemoglobin", e.target.value)}
                           className="ml-1 border rounded p-1 w-20"
@@ -442,6 +458,7 @@ const Page = () => {
                       Hematocrit: 
                       {isEditing ? (
                         <input
+                        title="hematocrit"
                           value={labResults.cbc.hematocrit}
                           onChange={(e) => handleLabResultsChange("cbc", "hematocrit", e.target.value)}
                           className="ml-1 border rounded p-1 w-20"
@@ -454,6 +471,7 @@ const Page = () => {
                      Mean Corpuscular Hemoglobin:
                       {isEditing ? (
                         <input
+                        title="mhc"
                           value={labResults.cbc.hematocrit}
                           onChange={(e) => handleLabResultsChange("cbc", "mch", e.target.value)}
                           className="ml-1 border rounded p-1 w-20"
@@ -466,6 +484,7 @@ const Page = () => {
                     Mean Corpuscular Hemoglobin Concentration:
                       {isEditing ? (
                         <input
+                        title="mchc"
                           value={labResults.cbc.hematocrit}
                           onChange={(e) => handleLabResultsChange("cbc", "mchc", e.target.value)}
                           className="ml-1 border rounded p-1 w-20"
@@ -478,6 +497,7 @@ const Page = () => {
                     Neutrophils:
                       {isEditing ? (
                         <input
+                        title="neutrophils"
                           value={labResults.cbc.hematocrit}
                           onChange={(e) => handleLabResultsChange("cbc", "neutrophils", e.target.value)}
                           className="ml-1 border rounded p-1 w-20"
@@ -495,6 +515,7 @@ const Page = () => {
                       Pathogen Identified:
                       {isEditing ? (
                         <input
+                        title="pi"
                           value={labResults.sputumCulture.pathogen}
                           onChange={(e) => handleLabResultsChange("sputumCulture", "pathogen", e.target.value)}
                           className="ml-1 border rounded p-1 w-40"
@@ -507,6 +528,7 @@ const Page = () => {
                       Antibiotic Sensitivity Test:
                       {isEditing ? (
                         <input
+                        title="ast"
                           value={labResults.sputumCulture.antibioticSensitivity}
                           onChange={(e) => handleLabResultsChange("sputumCulture", "antibioticSensitivity", e.target.value)}
                           className="ml-1 border rounded p-1 w-40"
@@ -565,6 +587,7 @@ const Page = () => {
           <h3 className="font-bold  text-left mt-[10%]">Description</h3>
             {isEditing ? (
               <input
+              title="desc"
                 value={labResults.chestXRay.findings}
                 onChange={(e) => handleLabResultsChange("chestXRay", "findings", e.target.value)}
                 className="w-full p-1 border rounded"
@@ -616,6 +639,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="intake"
                             type="text"
                             value={row.date}
                             onChange={(e) => handleInputChange(row.id, 'date', e.target.value)}
@@ -628,6 +652,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="time"
                             type="text"
                             value={row.time}
                             onChange={(e) => handleInputChange(row.id, 'time', e.target.value)}
@@ -640,6 +665,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="shift"
                             type="text"
                             value={row.shift}
                             onChange={(e) => handleInputChange(row.id, 'shift', e.target.value)}
@@ -652,6 +678,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="desc"
                             type="text"
                             value={row.intakeDescription}
                             onChange={(e) => handleInputChange(row.id, 'intakeDescription', e.target.value)}
@@ -664,6 +691,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="volume"
                             type="text"
                             value={row.intakeVolume}
                             onChange={(e) => handleInputChange(row.id, 'intakeVolume', e.target.value)}
@@ -676,6 +704,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="total"
                             type="text"
                             value={row.intakeTotal}
                             onChange={(e) => handleInputChange(row.id, 'intakeTotal', e.target.value)}
@@ -688,6 +717,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="desc"
                             type="text"
                             value={row.outputDescription}
                             onChange={(e) => handleInputChange(row.id, 'outputDescription', e.target.value)}
@@ -700,6 +730,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="volume"
                             type="text"
                             value={row.outputVolume}
                             onChange={(e) => handleInputChange(row.id, 'outputVolume', e.target.value)}
@@ -712,6 +743,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="output"
                             type="text"
                             value={row.outputTotal}
                             onChange={(e) => handleInputChange(row.id, 'outputTotal', e.target.value)}
