@@ -187,11 +187,11 @@ const Page = () => {
         </div>
       </motion.div>
       <div className="min-h-screen bg-[#faf6f6] flex items-center justify-center pb-4 mb-[5%]">
-        <div className="w-full max-w-5xl bg-white text-black shadow-lg rounded-lg p-6">
+        <div className="w-full max-w-5xl bg-[#efefef] text-black shadow-lg rounded-lg p-6">
           <h1 className="text-center text-3xl font-bold mb-[3%]">Monitoring</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Patient Overview */}
-            <div className="border border-black rounded-lg p-4">
+            <div className="border border-white bg-white rounded-lg p-4">
               <h2 className="text-lg font-semibold mb-3 text-center">
                 Patient Overview
               </h2>
@@ -276,7 +276,7 @@ const Page = () => {
             </div>
 
             {/* Treatment & Medication */}
-            <div className="border border-black rounded-lg p-4">
+            <div className="border border-white bg-white rounded-lg p-4">
               <h2 className="text-lg font-semibold mb-3 text-center">
                 Treatment & Medication
               </h2>
@@ -295,7 +295,7 @@ const Page = () => {
             </div>
 
             {/* Vital Signs */}
-            <div className="border border-black rounded-lg p-4">
+            <div className="border border-white bg-white rounded-lg p-4">
               <h2 className="text-lg font-semibold mb-3 text-center">
                 Vital Signs
               </h2>
@@ -369,7 +369,7 @@ const Page = () => {
             </div>
 
             {/* Alerts */}
-            <div className="border border-black rounded-lg p-4">
+            <div className="border border-white bg-white rounded-lg p-4">
               <h2 className="text-lg font-semibold mb-3 text-center">Alerts</h2>
               <div className="space-y-2">
                 <p>If SpO₂ &lt; 92%, recommend increasing oxygen therapy</p>
@@ -380,7 +380,7 @@ const Page = () => {
             </div>
 
             {/* Progress Tracking */}
-            <div className="border border-black rounded-lg p-4">
+            <div className="border border-white bg-white rounded-lg p-4">
               <h2 className="text-lg font-semibold mb-3 text-center">
                 Progress Tracking
               </h2>
@@ -399,7 +399,7 @@ const Page = () => {
             </div>
 
             {/* Outcome Prediction */}
-            <div className="border border-black rounded-lg p-4">
+            <div className="border border-white bg-white rounded-lg p-4">
               <h2 className="text-lg font-semibold mb-3 text-center">
                 Outcome Prediction
               </h2>
@@ -420,7 +420,7 @@ const Page = () => {
 
           {/* Latest Laboratory and Diagnostic Result */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-[5%]">
-            <div className="border border-black rounded-lg p-4">
+            <div className="border border-white bg-white rounded-lg p-4">
               <h2 className="text-lg font-semibold mb-3 text-center">
                 Latest Laboratory and Diagnostic Result
               </h2>
@@ -542,7 +542,7 @@ const Page = () => {
               </div>
             </div>
 
-            <div className="border border-black rounded-lg p-4">
+            <div className="border border-white bg-white rounded-lg p-4">
       <h2 className="text-lg font-semibold mb-3 text-center">
         Laboratory and Diagnostic Result
       </h2>
@@ -603,7 +603,7 @@ const Page = () => {
 
           {/* Intake-Output Chart */}
           <div className="mt-[5%] w-full overflow-x-auto">
-            <div className="border border-black rounded-lg p-4">
+            <div className="border border-white bg-white rounded-lg p-4">
               <h2 className="text-lg font-semibold mb-3 text-center">Intake-Output Chart</h2>
               <table className="w-full border-collapse border border-black">
                 <thead>

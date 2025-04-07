@@ -68,6 +68,68 @@ const Page = () => {
     const [newDiagnosisDescription, setNewDiagnosisDescription] = useState('');
     const [newDiagnosisCategory, setNewDiagnosisCategory] = useState('COMMON');
 
+    // Default state values for reset
+    const defaultState = {
+        isEditing: false,
+        activeTab: "ALL",
+        ageGroup: "",
+        gender: "",
+        toggles: {
+            Fever: false,
+            Chills: false,
+            Cough: false,
+            "Thick colored plegm": false,
+            "Difficulty breathing": false,
+            Nausea: false,
+            "Shortness of breath": false,
+        },
+        optionalSymptoms: [
+            { id: 1, name: "Mental confusion", value: "" },
+            { id: 2, name: "Pale-colored skin", value: "" },
+            { id: 3, name: "Grunts or rattles while breathing", value: "" },
+            { id: 4, name: "Limp appearance", value: "" },
+            { id: 5, name: "Less urine production", value: "" },
+            { id: 6, name: "Fussiness", value: "" },
+        ],
+        diagnosisData: [
+            {
+                id: 1,
+                cues: "",
+                diagnosis: "",
+                analysis: "",
+                goals: "",
+                implementation: "",
+                rationale: "",
+                evaluation: ""
+            }
+        ],
+        newEntry: "",
+        newDiagnosisName: '',
+        newDiagnosisDescription: '',
+        newDiagnosisCategory: 'COMMON'
+    };
+
+
+
+    // Function to reset all data
+    const handleStartOver = () => {
+        setIsEditing(defaultState.isEditing);
+        setActiveTab(defaultState.activeTab);
+        setAgeGroup(defaultState.ageGroup);
+        setGender(defaultState.gender);
+        setToggles(defaultState.toggles);
+        setOptionalSymptoms(defaultState.optionalSymptoms);
+        setDiagnosisData(defaultState.diagnosisData);
+        setNewEntry(defaultState.newEntry);
+        setNewDiagnosisName(defaultState.newDiagnosisName);
+        setNewDiagnosisDescription(defaultState.newDiagnosisDescription);
+        setNewDiagnosisCategory(defaultState.newDiagnosisCategory);
+        
+        // Also clear localStorage
+        localStorage.clear();
+    };
+
+
     // Load data from localStorage after component mounts
     useEffect(() => {
         setIsHydrated(true);
@@ -325,8 +387,8 @@ const Page = () => {
                             />
                         </div>
                         <button 
-                            className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded"
-                            disabled={!isEditing}
+                            className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded cursor-pointer"
+                            onClick={handleStartOver}
                         >
                             START OVER
                         </button>
