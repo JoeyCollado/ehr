@@ -120,6 +120,7 @@ const Page = () => {
                       {isEditing ? (
                         <>
                           <textarea
+                          title='section'
                             value={item}
                             onChange={(e) => handleContentChange(sectionIndex, itemIndex, e.target.value)}
                             className="w-full border border-blue-500 rounded p-2 min-h-[50px]"

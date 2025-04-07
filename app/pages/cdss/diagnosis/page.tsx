@@ -318,6 +318,7 @@ const Page = () => {
                         <div className="flex items-center">
                             <span className="font-semibold mr-2">ENTER FINDING:</span>
                             <input 
+                            title="enter finding"
                                 type="text" 
                                 className="border border-gray-300 rounded px-4 py-2 w-64" 
                                 disabled={!isEditing}
@@ -335,6 +336,7 @@ const Page = () => {
                         <div className="w-1/2 pr-2">
                             <label className="block font-semibold mb-1">AGE GROUP:</label>
                             <select 
+                            title="age group"
                                 className="w-full border border-gray-300 rounded px-4 py-2"
                                 disabled={!isEditing}
                                 value={ageGroup}
@@ -349,6 +351,7 @@ const Page = () => {
                         <div className="w-1/2 pl-2">
                             <label className="block font-semibold mb-1">GENDER:</label>
                             <select 
+                            title="gender"
                                 className="w-full border border-gray-300 rounded px-4 py-2"
                                 disabled={!isEditing}
                                 value={gender}
@@ -368,6 +371,7 @@ const Page = () => {
                                 <span className="font-medium">{symptom}</span>
                                 <label className="relative inline-flex items-center cursor-pointer">
                                     <input 
+                                    title="symptom"
                                         type="checkbox" 
                                         checked={toggles[symptom]} 
                                         onChange={() => toggleValue(symptom)}
@@ -460,6 +464,7 @@ const Page = () => {
                                         className="border rounded px-2 py-1 flex-1"
                                     />
                                     <select
+                                    title="category"
                                         value={newDiagnosisCategory}
                                         onChange={(e) => setNewDiagnosisCategory(e.target.value)}
                                         className="border rounded px-2 py-1"
@@ -527,6 +532,7 @@ const Page = () => {
                                             <td className="border border-gray-300 px-4 py-2">
                                                 {isEditing ? (
                                                     <input
+                                                    title="cues"
                                                         type="text"
                                                         value={row.cues}
                                                         onChange={(e) => handleDiagnosisChange(row.id, 'cues', e.target.value)}
@@ -539,6 +545,7 @@ const Page = () => {
                                             <td className="border border-gray-300 px-4 py-2">
                                                 {isEditing ? (
                                                     <input
+                                                    title="diagnosis"
                                                         type="text"
                                                         value={row.diagnosis}
                                                         onChange={(e) => handleDiagnosisChange(row.id, 'diagnosis', e.target.value)}
@@ -551,6 +558,7 @@ const Page = () => {
                                             <td className="border border-gray-300 px-4 py-2">
                                                 {isEditing ? (
                                                     <input
+                                                    title="analysis"
                                                         type="text"
                                                         value={row.analysis}
                                                         onChange={(e) => handleDiagnosisChange(row.id, 'analysis', e.target.value)}
@@ -563,6 +571,7 @@ const Page = () => {
                                             <td className="border border-gray-300 px-4 py-2">
                                                 {isEditing ? (
                                                     <input
+                                                    title="goals"
                                                         type="text"
                                                         value={row.goals}
                                                         onChange={(e) => handleDiagnosisChange(row.id, 'goals', e.target.value)}
@@ -575,6 +584,7 @@ const Page = () => {
                                             <td className="border border-gray-300 px-4 py-2">
                                                 {isEditing ? (
                                                     <input
+                                                    title="implementation"
                                                         type="text"
                                                         value={row.implementation}
                                                         onChange={(e) => handleDiagnosisChange(row.id, 'implementation', e.target.value)}
@@ -587,6 +597,7 @@ const Page = () => {
                                             <td className="border border-gray-300 px-4 py-2">
                                                 {isEditing ? (
                                                     <input
+                                                    title="rationale"
                                                         type="text"
                                                         value={row.rationale}
                                                         onChange={(e) => handleDiagnosisChange(row.id, 'rationale', e.target.value)}
@@ -599,6 +610,7 @@ const Page = () => {
                                             <td className="border border-gray-300 px-4 py-2">
                                                 {isEditing ? (
                                                     <input
+                                                    title="evaluation"
                                                         type="text"
                                                         value={row.evaluation}
                                                         onChange={(e) => handleDiagnosisChange(row.id, 'evaluation', e.target.value)}
