@@ -36,7 +36,6 @@ const PneumoniaFlowchart = () => {
     vitalMonitoring: []
   });
 
-
   const resetAssessment = () => {
     setStep('start');
     setResponses({
@@ -161,6 +160,7 @@ const PneumoniaFlowchart = () => {
     });
 
     doc.save('pneumonia-assessment.pdf');
+    setStep('completed');
   };
 
   const handleVitalsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -200,7 +200,7 @@ const PneumoniaFlowchart = () => {
             <h2 className="text-2xl font-bold mb-6">Pediatric Respiratory Evaluation</h2>
             <button 
               onClick={() => setStep('vitals')}
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
+              className="bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-700"
             >
               Begin Assessment
             </button>
@@ -231,13 +231,13 @@ const PneumoniaFlowchart = () => {
             <div className="mt-4 flex justify-between">
               <button
                 onClick={() => setStep('start')}
-                className="bg-gray-500 text-white px-4 py-2 rounded-md"
+                className="bg-gray-500 px-4 py-2 rounded-md"
               >
                 Back
               </button>
               <button
                 onClick={() => setStep('symptoms')}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md"
+                className="bg-blue-600 px-4 py-2 rounded-md"
               >
                 Continue
               </button>
@@ -256,7 +256,7 @@ const PneumoniaFlowchart = () => {
                   handleResponse('hasSymptoms', true);
                   setStep('duration');
                 }}
-                className="bg-green-600 text-white px-6 py-2 rounded-md"
+                className="bg-green-600 px-6 py-2 rounded-md"
               >
                 Yes
               </button>
@@ -265,7 +265,7 @@ const PneumoniaFlowchart = () => {
                   handleResponse('hasSymptoms', false);
                   setStep('no_symptoms');
                 }}
-                className="bg-red-600 text-white px-6 py-2 rounded-md"
+                className="bg-red-600 px-6 py-2 rounded-md"
               >
                 No
               </button>
@@ -353,13 +353,13 @@ const PneumoniaFlowchart = () => {
             <div className="flex justify-between">
               <button
                 onClick={() => setStep('duration')}
-                className="bg-gray-500 text-white px-4 py-2 rounded-md"
+                className="bg-gray-500 px-4 py-2 rounded-md"
               >
                 Back
               </button>
               <button
                 onClick={() => setStep('severity_assessment')}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md"
+                className="bg-blue-600 px-4 py-2 rounded-md"
               >
                 Continue
               </button>
@@ -378,7 +378,7 @@ const PneumoniaFlowchart = () => {
                   handleResponse('severeSigns', true);
                   setStep('risk_factors');
                 }}
-                className="bg-red-600 text-white px-6 py-2 rounded-md"
+                className="bg-red-600 px-6 py-2 rounded-md"
               >
                 Yes
               </button>
@@ -387,7 +387,7 @@ const PneumoniaFlowchart = () => {
                   handleResponse('severeSigns', false);
                   setStep('mild_management');
                 }}
-                className="bg-green-600 text-white px-6 py-2 rounded-md"
+                className="bg-green-600 px-6 py-2 rounded-md"
               >
                 No
               </button>
@@ -442,13 +442,13 @@ const PneumoniaFlowchart = () => {
             <div className="flex justify-between">
               <button
                 onClick={() => setStep('severity_assessment')}
-                className="bg-gray-500 text-white px-4 py-2 rounded-md"
+                className="bg-gray-500 px-4 py-2 rounded-md"
               >
                 Back
               </button>
               <button
                 onClick={() => setStep('severe_management')}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md"
+                className="bg-blue-600 px-4 py-2 rounded-md"
               >
                 Continue
               </button>
@@ -484,7 +484,7 @@ const PneumoniaFlowchart = () => {
                 handleResponse('followUpPlan', 'ICU admission, daily monitoring');
                 setStep('antifungal_check');
               }}
-              className="bg-blue-600 text-white px-4 py-2 rounded-md"
+              className="bg-blue-600 px-4 py-2 rounded-md"
             >
               Continue
             </button>
@@ -502,13 +502,13 @@ const PneumoniaFlowchart = () => {
                   handleResponse('antifungalTherapy', 'Amphotericin B');
                   setStep('lab_orders_severe');
                 }}
-                className="bg-green-600 text-white px-6 py-2 rounded-md"
+                className="bg-green-600 px-6 py-2 rounded-md"
               >
                 Yes
               </button>
               <button
                 onClick={() => setStep('lab_orders_severe')}
-                className="bg-gray-500 text-white px-6 py-2 rounded-md"
+                className="bg-gray-500 px-6 py-2 rounded-md"
               >
                 No
               </button>
@@ -545,13 +545,13 @@ const PneumoniaFlowchart = () => {
             <div className="flex justify-between">
               <button
                 onClick={() => setStep('severe_management')}
-                className="bg-gray-500 text-white px-4 py-2 rounded-md"
+                className="bg-gray-500 px-4 py-2 rounded-md"
               >
                 Back
               </button>
               <button
                 onClick={() => setStep('followup')}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md"
+                className="bg-blue-600 px-4 py-2 rounded-md"
               >
                 Continue
               </button>
@@ -580,7 +580,7 @@ const PneumoniaFlowchart = () => {
                 handleResponse('followUpPlan', 'Follow-up in 2-3 days');
                 setStep('lab_orders_mild');
               }}
-              className="bg-blue-600 text-white px-4 py-2 rounded-md"
+              className="bg-blue-600 px-4 py-2 rounded-md"
             >
               Continue
             </button>
@@ -614,13 +614,13 @@ const PneumoniaFlowchart = () => {
             <div className="flex justify-between">
               <button
                 onClick={() => setStep('mild_management')}
-                className="bg-gray-500 text-white px-4 py-2 rounded-md"
+                className="bg-gray-500 px-4 py-2 rounded-md"
               >
                 Back
               </button>
               <button
                 onClick={() => setStep('followup')}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md"
+                className="bg-blue-600 px-4 py-2 rounded-md"
               >
                 Continue
               </button>
@@ -672,7 +672,6 @@ const PneumoniaFlowchart = () => {
               ))}
             </div>
             
-
             <div className="space-y-4">
               <h3 className="font-medium">Final Assessment</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -699,21 +698,21 @@ const PneumoniaFlowchart = () => {
 
             <button
               onClick={generatePDF}
-              className="bg-green-600 text-white px-4 py-2 rounded-md w-full"
+              className="bg-green-600 px-4 py-2 rounded-md w-full"
             >
               Generate Final Report
             </button>
           </div>
         );
 
-        case 'completed':
+      case 'completed':
         return (
-          <div className="text-center space-y-6 text-white">
+          <div className="text-center space-y-6">
             <h2 className="text-2xl font-bold">Assessment Complete</h2>
             <p>Report generated successfully!</p>
             <button
               onClick={resetAssessment}
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
+              className="bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-700"
             >
               Start New Assessment
             </button>
@@ -727,7 +726,7 @@ const PneumoniaFlowchart = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4" ref={formRef}>
-      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-6">
+      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-6 text-black">
         <h1 className="text-3xl font-bold text-center mb-8">
           Pediatric Pneumonia Management Protocol
         </h1>

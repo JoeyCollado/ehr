@@ -3,6 +3,7 @@ import Footer from "@/app/components/Footer";
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import VitalSheetTable from "@/app/components/VitalSheetTable";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -111,7 +112,9 @@ const Page = () => {
 
     
     <div className="mt-[5%]">
-
+      <div className="text-black">
+      <VitalSheetTable/>
+      </div>
       <Footer />
       </div>
     </>
