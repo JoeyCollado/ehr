@@ -36,6 +36,47 @@ const PneumoniaFlowchart = () => {
     vitalMonitoring: []
   });
 
+
+  const resetAssessment = () => {
+    setStep('start');
+    setResponses({
+      hasSymptoms: null,
+      symptomDuration: null,
+      severeSigns: null,
+      improvement: null,
+      feverLevel: null,
+      medicationAdherence: null,
+      physicalFindings: [],
+      caregiverAnswers: [],
+      labResults: {
+        cxr: '',
+        sputum: '',
+        lfts: '',
+        cbc: '',
+        bal: '',
+        renalFunction: '',
+        liverFunction: ''
+      },
+      medications: [],
+      followUpPlan: '',
+      riskFactors: {
+        mrsa: false,
+        pseudomonas: false,
+        hospitalAdmission: false
+      },
+      antibioticHistory: '',
+      antifungalTherapy: '',
+      vitalMonitoring: []
+    });
+    setVitals({
+      temperature: '',
+      respiratoryRate: '',
+      oxygenSaturation: '',
+      heartRate: '',
+      bloodPressure: ''
+    });
+  };
+
   const [vitals, setVitals] = useState({
     temperature: '',
     respiratoryRate: '',
@@ -630,6 +671,7 @@ const PneumoniaFlowchart = () => {
                 </div>
               ))}
             </div>
+            
 
             <div className="space-y-4">
               <h3 className="font-medium">Final Assessment</h3>
@@ -660,6 +702,20 @@ const PneumoniaFlowchart = () => {
               className="bg-green-600 text-white px-4 py-2 rounded-md w-full"
             >
               Generate Final Report
+            </button>
+          </div>
+        );
+
+        case 'completed':
+        return (
+          <div className="text-center space-y-6 text-white">
+            <h2 className="text-2xl font-bold">Assessment Complete</h2>
+            <p>Report generated successfully!</p>
+            <button
+              onClick={resetAssessment}
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
+            >
+              Start New Assessment
             </button>
           </div>
         );

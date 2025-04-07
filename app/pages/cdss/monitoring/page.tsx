@@ -37,6 +37,43 @@ const Page = () => {
     bp: "120/70"
   });
 
+  // Calculate vital alerts
+  const vitalAlerts = [];
+  const temp = parseFloat(vitalSigns.temperature);
+  const hr = parseInt(vitalSigns.hr, 10);
+  const rr = parseInt(vitalSigns.rr, 10);
+  const spO2 = parseInt(vitalSigns.spO2, 10);
+  const [systolic, diastolic] = vitalSigns.bp.split('/').map(Number);
+
+  // Check temperature
+  if (!isNaN(temp) && (temp < 36.1 || temp > 37.2)) {
+    vitalAlerts.push(`Temperature ${temp}°C is outside normal range (36.1°C - 37.2°C)`);
+  }
+
+  // Check heart rate
+  if (!isNaN(hr) && (hr < 70 || hr > 110)) {
+    vitalAlerts.push(`Heart rate ${hr} bpm is outside normal range (70-110 bpm)`);
+  }
+
+  // Check respiratory rate
+  if (!isNaN(rr) && (rr < 18 || rr > 30)) {
+    vitalAlerts.push(`Respiratory rate ${rr} breaths/min is outside normal range (18-30 breaths/min)`);
+  }
+
+  // Check SpO2
+  if (!isNaN(spO2) && spO2 < 95) {
+    vitalAlerts.push(`Oxygen saturation ${spO2}% is below normal (95%-100%)`);
+  }
+
+  // Check blood pressure
+  if (!isNaN(systolic) && !isNaN(diastolic)) {
+    if (systolic < 90 || systolic > 120 || diastolic < 60 || diastolic > 80) {
+      vitalAlerts.push(`Blood pressure ${vitalSigns.bp} mmHg is outside normal range (90/60 - 120/80 mmHg)`);
+    }
+  } else {
+    vitalAlerts.push(`Invalid blood pressure format`);
+  }
+
   const [treatmentMedication, setTreatmentMedication] = useState("");
   const [progressTracking, setProgressTracking] = useState("");
   const [outcomePrediction, setOutcomePrediction] = useState("");
@@ -370,14 +407,17 @@ const Page = () => {
 
             {/* Alerts */}
             <div className="border border-white bg-white rounded-lg p-4">
-              <h2 className="text-lg font-semibold mb-3 text-center">Alerts</h2>
-              <div className="space-y-2">
-                <p>If SpO₂ &lt; 92%, recommend increasing oxygen therapy</p>
-                <p>
-                  If RR &gt; 30, risk of respiratory distress—monitor closely
-                </p>
-              </div>
-            </div>
+  <h2 className="text-lg font-semibold mb-3 text-center">Alerts</h2>
+  <div className="space-y-2">
+    {vitalAlerts.length > 0 ? (
+      vitalAlerts.map((alert, index) => (
+        <p key={index} className="text-red-500">{alert}</p>
+      ))
+    ) : (
+      <p className="text-gray-500">All vital signs are within normal ranges.</p>
+    )}
+  </div>
+</div>
 
             {/* Progress Tracking */}
             <div className="border border-white bg-white rounded-lg p-4">
