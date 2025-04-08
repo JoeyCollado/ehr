@@ -2,36 +2,10 @@
 
 import React, { useState, useRef } from "react";
 import jsPDF from "jspdf";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  FiAlertTriangle,
-  FiCheckCircle,
-  FiArrowLeft,
-  FiDownload,
-  FiHeart,
-  FiThermometer,
-  FiActivity,
-  FiChevronRight,
-  FiFileText,
-  FiMonitor,
-  FiAlertOctagon,
-  FiSmile,
-  FiPhoneForwarded,
-  FiClock,
-  FiDroplet,
-  FiEye,
-  FiCalendar,
-  FiPlus,
-  FiMinus,
-  FiRadio,
-  FiCheckSquare,
-  FiSliders,
-  FiBox,
-} from "react-icons/fi";
+import { motion } from "framer-motion";
 
 const PneumoniaFlowchart = () => {
-  // State management (preserved from original with types)
-  const [improvementAnswer, setImprovementAnswer] = useState<string>("");
+  const [improvementAnswer, setImprovementAnswer] = useState<string>(String);
   const [step, setStep] = useState("start");
   const formRef = useRef<HTMLDivElement>(null);
   const [responses, setResponses] = useState({
@@ -64,15 +38,6 @@ const PneumoniaFlowchart = () => {
     vitalMonitoring: [],
   });
 
-  const [vitals, setVitals] = useState({
-    temperature: "",
-    respiratoryRate: "",
-    oxygenSaturation: "",
-    heartRate: "",
-    bloodPressure: "",
-  });
-
-  // Reset function
   const resetAssessment = () => {
     setStep("start");
     setResponses({
@@ -113,156 +78,135 @@ const PneumoniaFlowchart = () => {
     });
   };
 
-  // PDF generation (preserved from original)
+  const [vitals, setVitals] = useState({
+    temperature: "",
+    respiratoryRate: "",
+    oxygenSaturation: "",
+    heartRate: "",
+    bloodPressure: "",
+  });
+
   const generatePDF = () => {
     const doc = new jsPDF();
-    // ... (original PDF generation code)
+    const date = new Date().toLocaleString();
+
+    // Header
+    doc.setFontSize(18);
+    doc.text("Pediatric Pneumonia Assessment Report", 20, 20);
+    doc.setFontSize(12);
+    doc.text(`Date: ${date}`, 20, 30);
+
+    // Vitals
+    doc.setFontSize(14);
+    doc.text("Initial Vitals:", 20, 40);
+    doc.text(`Temperature: ${vitals.temperature}°C`, 20, 50);
+    doc.text(`Respiratory Rate: ${vitals.respiratoryRate} bpm`, 20, 60);
+    doc.text(`SpO2: ${vitals.oxygenSaturation}%`, 20, 70);
+    doc.text(`Heart Rate: ${vitals.heartRate} bpm`, 20, 80);
+    doc.text(`BP: ${vitals.bloodPressure} mmHg`, 20, 90);
+
+    // Clinical Findings
+    let yPos = 100;
+    doc.setFontSize(14);
+    doc.text("Clinical Findings:", 20, yPos);
+    yPos += 10;
+
+    responses.physicalFindings.forEach((finding: string) => {
+      doc.text(`- ${finding}`, 20, yPos);
+      yPos += 10;
+    });
+
+    // Lab Results
+    doc.setFontSize(14);
+    doc.text("Lab Results:", 20, yPos);
+    yPos += 10;
+    Object.entries(responses.labResults).forEach(([key, value]) => {
+      if (value) {
+        doc.text(`${key.toUpperCase()}: ${value}`, 20, yPos);
+        yPos += 10;
+      }
+    });
+
+    // Medications
+    doc.setFontSize(14);
+    doc.text("Medications:", 20, yPos);
+    yPos += 10;
+    responses.medications.forEach((med: string) => {
+      doc.text(`- ${med}`, 20, yPos);
+      yPos += 10;
+    });
+
+    // Follow-up
+    doc.text(`Follow-up: ${responses.followUpPlan}`, 20, yPos);
+    yPos += 10;
+
+    // Caregiver Education
+    doc.setFontSize(14);
+    doc.text("Caregiver Education:", 20, yPos);
+    yPos += 10;
+    [
+      "Proper medication administration",
+      "Hydration guidance",
+      "Warning signs to watch for",
+      "Follow-up schedule",
+    ].forEach((point) => {
+      doc.text(`- ${point}`, 20, yPos);
+      yPos += 10;
+    });
+
     doc.save("pneumonia-assessment.pdf");
     setStep("completed");
   };
 
-  // Handlers (preserved from original)
   const handleVitalsChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setVitals({ ...vitals, [e.target.name]: e.target.value });
+    handleResponse(e.target.name, e.target.value);
   };
 
-  const handleResponse = (key: string, value: any) => {
+  const handleResponse = (
+    key: string,
+    value: string | number | boolean | string[]
+  ) => {
     setResponses((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleCheckboxChange = (category: string, value: string) => {
     setResponses((prev) => {
-      const updated = [...prev[category]];
+      const updated = [
+        ...(prev[category as keyof typeof responses] as string[]),
+      ];
       const index = updated.indexOf(value);
-      if (index === -1) updated.push(value);
-      else updated.splice(index, 1);
+      if (index === -1) {
+        updated.push(value);
+      } else {
+        updated.splice(index, 1);
+      }
       return { ...prev, [category]: updated };
     });
   };
 
-  // UI Components
-  const StepContainer = ({
-    children,
-    key,
-  }: {
-    children: React.ReactNode;
-    key?: string;
-  }) => (
-    <motion.div
-      key={key}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.3 }}
-      className="space-y-8"
-    >
-      {children}
-    </motion.div>
-  );
-
-  const PrimaryButton = ({
-    onClick,
-    children,
-  }: {
-    onClick: () => void;
-    children: React.ReactNode;
-  }) => (
-    <motion.button
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.98 }}
-      onClick={onClick}
-      className="bg-blue-600 cursor-pointer text-white px-8 py-4 rounded-xl hover:bg-blue-700 flex items-center gap-3 justify-center text-lg font-medium shadow-lg transition-all"
-    >
-      {children}
-    </motion.button>
-  );
-
-  const SecondaryButton = ({
-    onClick,
-    children,
-  }: {
-    onClick: () => void;
-    children: React.ReactNode;
-  }) => (
-    <motion.button
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.98 }}
-      onClick={onClick}
-      className="bg-gray-100 cursor-pointer text-gray-700 px-8 py-4 rounded-xl hover:bg-gray-200 flex items-center gap-3 justify-center text-lg font-medium shadow-lg transition-all border-2 border-gray-200"
-    >
-      {children}
-    </motion.button>
-  );
-
-  const DangerButton = ({
-    onClick,
-    children,
-  }: {
-    onClick: () => void;
-    children: React.ReactNode;
-  }) => (
-    <motion.button
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.98 }}
-      onClick={onClick}
-      className="bg-red-600 cursor-pointer text-white px-8 py-4 rounded-xl hover:bg-red-700 flex items-center gap-3 justify-center text-lg font-medium shadow-lg transition-all"
-    >
-      {children}
-    </motion.button>
-  );
-
-  const InfoCard = ({
-    children,
-    icon: Icon = FiActivity,
-    color = "blue",
-  }: {
-    children: React.ReactNode;
-    icon?: any;
-    color?: string;
-  }) => (
-    <div
-      className={`bg-${color}-50 p-6 rounded-2xl flex gap-4 items-start border-2 border-${color}-100 shadow-sm`}
-    >
-      <Icon className={`w-8 h-8 text-${color}-600 flex-shrink-0 mt-1`} />
-      <div className={`text-${color}-900 text-lg leading-relaxed`}>
-        {children}
-      </div>
-    </div>
-  );
-
-  // Step Renderers
   const renderStep = () => {
     switch (step) {
       case "start":
         return (
-          <StepContainer key="start">
-            <div className="text-center text-black bg-blue-50/30 p-10 rounded-2xl shadow-xl border border-blue-100 max-w-xl mx-auto">
-              <div className="flex flex-col items-center gap-4">
-                <FiMonitor className="w-12 h-12 text-blue-600" />
-                <h2 className="text-3xl font-extrabold text-blue-800">
-                  Pediatric Respiratory Evaluation
-                </h2>
-                <p className="text-blue-700 text-base max-w-md">
-                  Begin to assess pediatric patients with respiratory symptoms.
-                </p>
-                <div className="mt-8">
-                  <PrimaryButton onClick={() => setStep("vitals")}>
-                    <FiChevronRight className="w-5 h-5" />
-                    Start Evaluation
-                  </PrimaryButton>
-                </div>
-              </div>
-            </div>
-          </StepContainer>
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-6">
+              Pediatric Respiratory Evaluation
+            </h2>
+            <button
+              onClick={() => setStep("vitals")}
+              className="bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-700"
+            >
+              Start
+            </button>
+          </div>
         );
-      
 
       case "vitals":
         return (
-          <div className="space-y-4 text-black">
-            <h2 className="text-xl font-semibold mb-4 text-center">
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold mb-4">
               Check Baseline Vitals
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -286,45 +230,48 @@ const PneumoniaFlowchart = () => {
               ))}
             </div>
             <div className="mt-4 flex justify-between">
-              <SecondaryButton onClick={() => setStep("start")}>
+              <button
+                onClick={() => setStep("start")}
+                className="bg-gray-500 px-4 py-2 rounded-md"
+              >
                 Back
-              </SecondaryButton>
-              <PrimaryButton
+              </button>
+              <button
                 onClick={() => setStep("symptoms")}
                 className="bg-blue-600 px-4 py-2 rounded-md"
               >
                 Continue
-              </PrimaryButton>
+              </button>
             </div>
           </div>
         );
 
       case "symptoms":
         return (
-          <div className="space-y-4 text-black">
-            <h2 className="text-xl font-semibold text-center">
-              Symptom Screening
-            </h2>
-            <p className="text-center">
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold">Symptom Screening</h2>
+            <p>
               Does the child have chest pain, cough, or breathing difficulty?
             </p>
             <div className="flex gap-4 justify-center">
-              <PrimaryButton
+              <button
                 onClick={() => {
                   handleResponse("hasSymptoms", true);
                   setStep("duration");
                 }}
+                className="bg-green-600 px-6 py-2 rounded-md"
               >
                 Yes
-              </PrimaryButton>
-              <DangerButton
+              </button>
+              <button
                 onClick={() => {
                   handleResponse("hasSymptoms", false);
                   setStep("no_symptoms");
                 }}
+                className="bg-red-600 px-6 py-2 rounded-md"
               >
                 No
-              </DangerButton>
+              </button>
             </div>
           </div>
         );
@@ -332,90 +279,90 @@ const PneumoniaFlowchart = () => {
       case "no_symptoms":
         return (
           <div>
-            <div className="text-center text-black">You have no symptoms</div>
-            <div className="flex justify-center">
-              <PrimaryButton onClick={resetAssessment}>Go Back</PrimaryButton>
+            You have no symptoms
+            <div>
+              <button
+                onClick={resetAssessment}
+                className="bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-700"
+              >
+                Go Back
+              </button>
             </div>
           </div>
         );
 
       case "duration":
         return (
-          <div className="space-y-4 text-black">
-            <h2 className="text-xl font-semibold text-center">
-              Symptom Duration
-            </h2>
-            <p className="text-center">How long has the child had symptoms?</p>
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold">Symptom Duration</h2>
+            <p>How long has the child had symptoms?</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <PrimaryButton
+              <button
                 onClick={() => {
                   handleResponse("symptomDuration", "acute");
                   setStep("less");
                 }}
+                className="p-4 border rounded-md hover:bg-gray-50"
               >
                 Less than 2 weeks
-              </PrimaryButton>
-              <PrimaryButton
+              </button>
+              <button
                 onClick={() => {
                   handleResponse("symptomDuration", "chronic");
                   setStep("more");
                 }}
+                className="p-4 border rounded-md hover:bg-gray-50"
               >
                 More than 2 weeks
-              </PrimaryButton>
+              </button>
             </div>
           </div>
         );
 
       case "less":
         return (
-          <div className="text-black">
+          <div>
+            <button
+              onClick={() => {
+                handleResponse("symptomDuration", "acute");
+                setStep("physical_assessment");
+              }}
+              className="p-4 border rounded-md hover:bg-gray-50"
+            >
+              Continue
+            </button>
             <p>
               - Consider acute infection <br></br>- Request Chest X-ray to
               assess for consolidation or other pulmonary findings <br></br>-
               Consider bacterial or viral diagnostics
             </p>
-
-            <div className="flex justify-center">
-              <PrimaryButton
-                onClick={() => {
-                  handleResponse("symptomDuration", "acute");
-                  setStep("physical_assessment");
-                }}
-              >
-                Continue
-              </PrimaryButton>
-            </div>
           </div>
         );
 
       case "more":
         return (
-          <div className="text-black">
-            <p className="text-center">
+          <div>
+            <button
+              onClick={() => {
+                handleResponse("symptomDuration", "acute");
+                setStep("physical_assessment");
+              }}
+              className="p-4 border rounded-md hover:bg-gray-50"
+            >
+              Continue
+            </button>
+            <p>
               - Consider chronic or unresolved infection <br></br>- Request
               Chest X-ray for further evaluation <br></br>- Consider fungal
               diagnostics
             </p>
-            <div className="flex justify-center">
-              <PrimaryButton
-                onClick={() => {
-                  handleResponse("symptomDuration", "acute");
-                  setStep("physical_assessment");
-                }}
-              >
-                Continue
-              </PrimaryButton>
-            </div>
           </div>
         );
 
       case "physical_assessment":
         return (
-          <div className="space-y-6 text-black">
-            <h2 className="text-xl font-semibold text-center">
-              Physical Assessment
-            </h2>
+          <div className="space-y-6">
+            <h2 className="text-xl font-semibold">Physical Assessment</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
                 <h3 className="font-medium">Caregiver Questions:</h3>
@@ -443,25 +390,26 @@ const PneumoniaFlowchart = () => {
             </div>
 
             <div className="flex justify-between">
-              <DangerButton
+              <button
                 onClick={() => setStep("duration")}
                 className="bg-gray-500 px-4 py-2 rounded-md"
               >
                 Back
-              </DangerButton>
-              <PrimaryButton onClick={() => setStep("perform")}>
+              </button>
+              <button
+                onClick={() => setStep("perform")}
+                className="bg-blue-600 px-4 py-2 rounded-md"
+              >
                 Continue
-              </PrimaryButton>
+              </button>
             </div>
           </div>
         );
 
       case "perform":
         return (
-          <div className="space-y-4 text-black">
-            <h3 className="font-medium text-center">
-              Perform Physical Assessments:
-            </h3>
+          <div className="space-y-4">
+            <h3 className="font-medium">Perform Physical Assessments:</h3>
             {[
               "Check O2 saturation (SpO₂ < 94% is critical)",
               "Look for signs: chest indrawing, cyanosis, altered LOC",
@@ -482,188 +430,159 @@ const PneumoniaFlowchart = () => {
               </div>
             ))}
             <div className="flex justify-between">
-              <DangerButton onClick={() => setStep("perform")}>
+              <button
+                onClick={() => setStep("perform")}
+                className="bg-gray-500 px-4 py-2 rounded-md"
+              >
                 Back
-              </DangerButton>
-              <PrimaryButton onClick={() => setStep("severity_assessment")}>
+              </button>
+              <button
+                onClick={() => setStep("severity_assessment")}
+                className="bg-blue-600 px-4 py-2 rounded-md"
+              >
                 Continue
-              </PrimaryButton>
+              </button>
             </div>
           </div>
         );
 
       case "severity_assessment":
         return (
-          <div className="space-y-4 text-black">
-            <h2 className="text-xl font-semibold text-center">
-              Severity Assessment
-            </h2>
-            <p className="text-center">Does the patient show severe signs?</p>
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold">Severity Assessment</h2>
+            <p>Does the patient show severe signs?</p>
             <div className="flex gap-4 justify-center">
-              <DangerButton
+              <button
                 onClick={() => {
                   handleResponse("severeSigns", true);
                   setStep("severe_management");
                 }}
+                className="bg-red-600 px-6 py-2 rounded-md"
               >
                 Yes
-              </DangerButton>
-              <PrimaryButton
+              </button>
+              <button
                 onClick={() => {
                   handleResponse("severeSigns", false);
                   setStep("mild_management");
                 }}
+                className="bg-green-600 px-6 py-2 rounded-md"
               >
                 No
-              </PrimaryButton>
+              </button>
             </div>
           </div>
         );
 
+      //continue everything from here, we have severe case which is risk_Factors, and mild to moderate which is mild_management case, but have their own flowchart to follow but both will lead to final questions which is the (OPD follow-up)
+
+      //severe case
       case "severe_management":
         return (
-          <StepContainer>
-            <div className="space-y-4 text-black">
-              <h2 className="text-xl font-semibold text-center">
-                IF SEVERE SIGNS IS PRESENT :
-              </h2>
-              <div className="p-4 rounded-md bg-red-50">
-                <ul className=" pl-5 space-y-2">
-                  <li>→ Refer to immediate hospital admission</li>
-                  <li>→ Admit to hospital or ICU</li>
-                  <li>
-                    → Initiate IV antifungal (e.g., Amphotericin B if systemic)
-                  </li>
-                  <li>
-                    → Ceftriaxone PLUS Azithromycin OR Ceftriaxone PLUS
-                    Levofloxacin
-                    <br></br>- Before administering medication, check for drug
-                    allergies, especially to beta-lactams or fluoroquinolones.
-                    Review renal and liver function, ECG and electrolytes due to
-                    QT prolongation risk. Watch for drug interactions, recent
-                    antibiotic use, and local resistance patterns.
-                  </li>
-                  <li>
-                    → Add Vancomycin/Linezolid IF is MRSA. Can be seen through a
-                    sputum culture test or PCR.<br></br>- MRSA is a type of
-                    bacteria that&apos;s resistant to many common antibiotics,
-                    including methicillin and other beta-lactams.
-                  </li>
-                  <li>
-                    - MRSA positive results:<br></br>➢ Skin infections <br></br>
-                    ➢ Wound infections <br></br>➢ Systemic infections
-                    (Bacteremia and Septicemia) <br></br>➢ Endocarditis{" "}
-                    <br></br>➢ Meningitis
-                  </li>
-                  <li>
-                    → Add Piperacillin-tazobactam/Cefepime IF pseudomonas risk{" "}
-                    <br></br>- This includes patients who: <br></br>● Are very
-                    sick or in the ICU <br></br>● Were recently in the hospital
-                    or took antibiotics in the past 3 months <br></br>● Have
-                    lung problems like bronchiectasis or cystic fibrosis{" "}
-                    <br></br>● Had Pseudomonas before <br></br>● Got pneumonia
-                    while already in the hospital for several days
-                  </li>
-                </ul>
-              </div>
-              <button
-                onClick={() => {
-                  const meds = [
-                    "Ceftriaxone",
-                    "Azithromycin", // Default; add logic for Levofloxacin if needed
-                    ...(responses.riskFactors.mrsa
-                      ? ["Vancomycin", "Linezolid"]
-                      : []), // Include both options
-                    ...(responses.riskFactors.pseudomonas
-                      ? ["Piperacillin-tazobactam", "Cefepime"]
-                      : []),
-                  ];
-                  handleResponse("medications", meds);
-                  handleResponse(
-                    "followUpPlan",
-                    "Hospital or ICU admission, daily monitoring"
-                  );
-                  setStep("followup");
-                }}
-                className="bg-blue-600 px-4 py-2 rounded-md text-white"
-              >
-                Continue
-              </button>
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold">
+              IF SEVERE SIGNS IS PRESENT :
+            </h2>
+            <div className="p-4 rounded-md bg-red-50">
+              <ul className="list-disc pl-5 space-y-2">
+                <li>Refer to immediate hospital admission</li>
+                <li>Admit to hospital or ICU</li>
+                <li>
+                  Initiate IV antifungal (e.g., Amphotericin B if systemic)
+                </li>
+                <li>
+                  Ceftriaxone PLUS Azithromycin OR Ceftriaxone PLUS Levofloxacin
+                  <br></br>- Before administering medication, check for drug
+                  allergies, especially to beta-lactams or fluoroquinolones.
+                  Review renal and liver function, ECG and electrolytes due to
+                  QT prolongation risk. Watch for drug interactions, recent
+                  antibiotic use, and local resistance patterns.
+                </li>
+                <li>
+                  Add Vancomycin/Linezolid IF is MRSA. Can be seen through a
+                  sputum culture test or PCR.<br></br>- MRSA is a type of
+                  bacteria that&apos;s resistant to many common antibiotics,
+                  including methicillin and other beta-lactams.
+                </li>
+                <li>
+                  MRSA positive results:<br></br>➢ Skin infections <br></br>➢
+                  Wound infections <br></br>➢ Systemic infections (Bacteremia
+                  and Septicemia) <br></br>➢ Endocarditis <br></br>➢ Meningitis
+                </li>
+                <li>
+                  → Add Piperacillin-tazobactam/Cefepime IF pseudomonas risk{" "}
+                  <br></br>- This includes patients who: <br></br>● Are very
+                  sick or in the ICU <br></br>● Were recently in the hospital or
+                  took antibiotics in the past 3 months <br></br>● Have lung
+                  problems like bronchiectasis or cystic fibrosis <br></br>● Had
+                  Pseudomonas before <br></br>● Got pneumonia while already in
+                  the hospital for several days
+                </li>
+              </ul>
             </div>
-          </StepContainer>
+            <button
+              onClick={() => {
+                const meds = [
+                  "Ceftriaxone",
+                  "Azithromycin", // Default; add logic for Levofloxacin if needed
+                  ...(responses.riskFactors.mrsa
+                    ? ["Vancomycin", "Linezolid"]
+                    : []), // Include both options
+                  ...(responses.riskFactors.pseudomonas
+                    ? ["Piperacillin-tazobactam", "Cefepime"]
+                    : []),
+                ];
+                handleResponse("medications", meds);
+                handleResponse(
+                  "followUpPlan",
+                  "Hospital or ICU admission, daily monitoring"
+                );
+                setStep("followup");
+              }}
+              className="bg-blue-600 px-4 py-2 rounded-md text-white"
+            >
+              Continue
+            </button>
+          </div>
         );
+
+      //case mild to moderate
 
       case "mild_management":
         return (
-          <StepContainer>
-            <h2 className="text-3xl font-bold text-gray-800 mb-8 flex items-center gap-3 ">
-              <FiSmile className="w-8 h-8 text-green-600" />
-              Mild/Moderate Case Protocol
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold">
+              IF MILD TO MODERATE SYMPTOMS:
             </h2>
-
-            <div className="space-y-8">
-              <InfoCard icon={FiActivity} color="green">
-                Treat as Outpatient
-              </InfoCard>
-
-              <div className="bg-green-50 p-8 rounded-2xl space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-semibold text-green-800">
-                      Order:
-                    </h3>
-                    <ul className="list-disc pl-6 space-y-3 text-green-900">
-                      <li>CBC, CXR</li>
-                      <li>Sputum/BAL for fungal stain/culture</li>
-                      <li>LFTs (for antifungal safety)</li>
-                      <li>Baseline liver function tests</li>
-                    </ul>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-semibold text-green-800">
-                      Medication Plan
-                    </h3>
-                    <ul className="list-disc pl-6 space-y-3 text-green-900">
-                      <li>Amoxicillin 1g PO TID</li>
-                      <li>Doxycycline 100mg BID</li>
-                      <li>Azithromycin (if resistance &lt;25%)</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-xl border-2 border-green-100">
-                  <h4 className="text-lg font-semibold text-green-800 mb-4">
-                    Caregiver Education
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {[
-                      "Medication Timing",
-                      "Hydration Plan",
-                      "Warning Signs",
-                      "Follow-up Schedule",
-                    ].map((topic) => (
-                      <div key={topic} className="flex items-center gap-2">
-                        <FiCheckSquare className="w-5 h-5 text-green-600" />
-                        <span className="text-green-900">{topic}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row gap-4 mt-8">
-                <SecondaryButton onClick={() => setStep("severity_assessment")}>
-                  <FiArrowLeft className="w-6 h-6" />
-                  Re-evaluate Severity
-                </SecondaryButton>
-                <PrimaryButton onClick={() => setStep("antifungalTherapy")}>
-                  Initiate Antifungal Protocol
-                  <FiChevronRight className="w-6 h-6" />
-                </PrimaryButton>
-              </div>
+            <div className="p-4 rounded-md bg-green-50">
+              <h3 className="text-center font-bold">Treat as Outpatient</h3>
+              <ul className="  pl-5 space-y-2">
+                <li>
+                  Order: <br></br>- CBC, CXR <br></br>- Sputum/BAL for fungal
+                  stain/culture <br></br>- LFTs (for antifungal safety){" "}
+                  <br></br>- Baseline liver function tests
+                </li>
+                <li>
+                  → Treat w/ Amoxicillin 1 g PO TID or Doxycycline 100 mg PO BID
+                </li>
+                <li>→ Azithromycin(if local resistance &lt; 25%)</li>
+              </ul>
             </div>
-          </StepContainer>
+            <button
+              onClick={() => {
+                handleResponse("medications", [
+                  "Amoxicillin",
+                  "Azithromycin",
+                  "Fluconazole",
+                ]);
+                handleResponse("followUpPlan", "Follow-up in 2-3 days");
+                setStep("antifungalTheraphy");
+              }}
+              className="bg-blue-600 px-4 py-2 rounded-md"
+            >
+              Start antifungal therapy:
+            </button>
+          </div>
         );
 
       case "antifungalTheraphy":
@@ -845,7 +764,7 @@ const PneumoniaFlowchart = () => {
 
       case "followup":
         return (
-          <div className="space-y-6 text-black">
+          <div className="space-y-6">
             <h2 className="text-xl font-semibold text-center">
               Final Questions (OPD follow-up):
             </h2>
@@ -1013,114 +932,84 @@ const PneumoniaFlowchart = () => {
 
       case "scheduling":
         return (
-          <StepContainer key="scheduling">
-            <div className="text-black">
-              <h2 className="text-xl font-semibold text-center">
-                Scheduling follow-up:
-              </h2>
+          <div>
+            <h2 className="text-xl font-semibold text-center">
+              Scheduling follow-up:
+            </h2>
 
-              <div>
-                <p className="font-semibold">→ Educate caregiver:</p>
-                <ul>
-                  <li>- Proper medication administration </li>
-                  <li>- Hydration guidance</li>
-                  <li>- When to return earlier (worsening signs)</li>
-                  <li>- Expected timeline recovery</li>
-                </ul>
-                <p className="font-semibold">
-                  → 📅 Schedule follow-up: every 2–3 days until full recovery
-                </p>
-              </div>
-
-              <button
-                onClick={() => {
-                  handleResponse("medications", [
-                    "Amoxicillin",
-                    "Azithromycin",
-                    "Fluconazole",
-                  ]);
-                  handleResponse("followUpPlan", "Follow-up in 2-3 days");
-                  setStep("completed");
-                }}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition "
-              >
-                Continue
-              </button>
+            <div>
+              <p className="font-semibold">→ Educate caregiver:</p>
+              <ul>
+                <li>- Proper medication administration </li>
+                <li>- Hydration guidance</li>
+                <li>- When to return earlier (worsening signs)</li>
+                <li>- Expected timeline recovery</li>
+              </ul>
+              <p className="font-semibold">
+                → 📅 Schedule follow-up: every 2–3 days until full recovery
+              </p>
             </div>
-          </StepContainer>
+
+            <button
+              onClick={() => {
+                handleResponse("medications", [
+                  "Amoxicillin",
+                  "Azithromycin",
+                  "Fluconazole",
+                ]);
+                handleResponse("followUpPlan", "Follow-up in 2-3 days");
+                setStep("completed");
+              }}
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition "
+            >
+              Continue
+            </button>
+          </div>
         );
 
       case "completed":
         return (
-          <StepContainer key="completed">
-            <div className="text-center space-y-12">
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="inline-block"
-              >
-                <FiCheckCircle className="text-green-500 w-24 h-24 mx-auto" />
-              </motion.div>
-              <h2 className="text-4xl font-bold text-gray-800">
-                Assessment Complete
-              </h2>
-              <p className="text-gray-600 text-xl max-w-2xl mx-auto leading-relaxed">
-                Comprehensive evaluation finished. Generate final report or
-                start new assessment.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                <SecondaryButton onClick={resetAssessment}>
-                  <FiArrowLeft className="w-6 h-6" />
-                  New Assessment
-                </SecondaryButton>
-                <PrimaryButton onClick={generatePDF}>
-                  <FiDownload className="w-6 h-6" />
-                  Download Full Report
-                </PrimaryButton>
-              </div>
-            </div>
-          </StepContainer>
+          <div className="text-center space-y-6">
+            <h2 className="text-2xl font-bold">Assessment Complete</h2>
+            <p>Report generated successfully!</p>
+            <button
+              onClick={resetAssessment}
+              className="bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-700"
+            >
+              Start New Assessment
+            </button>
+
+            <button
+              onClick={generatePDF}
+              className="bg-green-600 px-4 py-2 rounded-md w-full"
+            >
+              Generate Final Report
+            </button>
+          </div>
         );
 
       default:
-        return (
-          <StepContainer>
-            <div className="text-center text-red-500 text-2xl p-8">
-              Invalid workflow state detected
-            </div>
-          </StepContainer>
-        );
+        return <div>Invalid step</div>;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={step}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
-            className="bg-white rounded-3xl shadow-2xl p-10"
-          >
-            <header className="mb-16 text-center">
-              <h1 className="text-4xl font-bold text-gray-900">
-                <FiActivity className="inline-block w-12 h-12 mr-4 text-blue-600 align-middle" />
-                Pediatric Pneumonia Clinical Pathway
-              </h1>
-            </header>
-
-            <main className="relative">{renderStep()}</main>
-
-            <footer className="mt-16 text-center text-gray-500 text-sm">
-              <p>Clinical Decision Support System v2.4</p>
-            </footer>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
+    <>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <div className="min-h-screen bg-gray-50 py-12 px-4" ref={formRef}>
+          <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-6 text-black">
+            <h1 className="text-3xl font-bold text-center mb-8">
+              Pediatric Pneumonia Management Protocol
+            </h1>
+            {renderStep()}
+          </div>
+        </div>
+      </motion.div>
+    </>
   );
 };
 
