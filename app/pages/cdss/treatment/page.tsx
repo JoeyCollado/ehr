@@ -259,75 +259,96 @@ const PneumoniaFlowchart = () => {
         );
       
 
-      case "vitals":
-        return (
-          <div className="space-y-4 text-black">
-            <h2 className="text-xl font-semibold mb-4 text-center">
-              Check Baseline Vitals
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {Object.entries(vitals).map(([key, value]) => (
-                <div key={key} className="space-y-1">
-                  <label className="block text-sm font-medium capitalize">
-                    {key.replace(/([A-Z])/g, " $1")}:
-                  </label>
-                  <select
-                    title="yes"
-                    name={key}
-                    value={value}
-                    onChange={handleVitalsChange}
-                    className="w-full p-2 border rounded-md"
-                  >
-                    <option value="">Select</option>
-                    <option value="done">Done</option>
-                    <option value="not done">Not Done</option>
-                  </select>
+        case "vitals":
+          return (
+            <StepContainer key="vitals">
+              <div className="bg-white border border-blue-100 rounded-2xl p-8 shadow-xl max-w-3xl mx-auto text-black">
+                <div className="text-center mb-8">
+                  <FiActivity className="w-10 h-10 text-blue-600 mx-auto mb-2" />
+                  <h2 className="text-2xl font-bold text-blue-800">
+                    Check Baseline Vitals
+                  </h2>
+                  <p className="text-blue-700 mt-1 text-sm">
+                    Please indicate whether each vital sign has been checked.
+                  </p>
                 </div>
-              ))}
-            </div>
-            <div className="mt-4 flex justify-between">
-              <SecondaryButton onClick={() => setStep("start")}>
-                Back
-              </SecondaryButton>
-              <PrimaryButton
-                onClick={() => setStep("symptoms")}
-                className="bg-blue-600 px-4 py-2 rounded-md"
-              >
-                Continue
-              </PrimaryButton>
-            </div>
-          </div>
-        );
+        
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {Object.entries(vitals).map(([key, value]) => (
+                    <div key={key} className="space-y-2">
+                      <label className="block text-sm font-semibold text-gray-700 capitalize">
+                        {key.replace(/([A-Z])/g, " $1")}
+                      </label>
+                      <select
+                        name={key}
+                        value={value}
+                        onChange={handleVitalsChange}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+                      >
+                        <option value="">Select</option>
+                        <option value="done">Done</option>
+                        <option value="not done">Not Done</option>
+                      </select>
+                    </div>
+                  ))}
+                </div>
+        
+                <div className="mt-10 flex justify-between">
+                  <SecondaryButton onClick={() => setStep("start")}>
+                    <FiArrowLeft className="w-5 h-5" />
+                    Back
+                  </SecondaryButton>
+        
+                  <PrimaryButton onClick={() => setStep("symptoms")}>
+                    Continue
+                    <FiChevronRight className="w-5 h-5" />
+                  </PrimaryButton>
+                </div>
+              </div>
+            </StepContainer>
+          );
+        
 
-      case "symptoms":
-        return (
-          <div className="space-y-4 text-black">
-            <h2 className="text-xl font-semibold text-center">
-              Symptom Screening
-            </h2>
-            <p className="text-center">
-              Does the child have chest pain, cough, or breathing difficulty?
-            </p>
-            <div className="flex gap-4 justify-center">
-              <PrimaryButton
-                onClick={() => {
-                  handleResponse("hasSymptoms", true);
-                  setStep("duration");
-                }}
-              >
-                Yes
-              </PrimaryButton>
-              <DangerButton
-                onClick={() => {
-                  handleResponse("hasSymptoms", false);
-                  setStep("no_symptoms");
-                }}
-              >
-                No
-              </DangerButton>
-            </div>
-          </div>
-        );
+          case "symptoms":
+            return (
+              <StepContainer key="symptoms">
+                <div className="bg-white border border-blue-100 rounded-2xl p-8 shadow-xl max-w-2xl mx-auto">
+                  <div className="text-center mb-6">
+                    <FiAlertOctagon className="w-10 h-10 text-red-500 mx-auto mb-2" />
+                    <h2 className="text-2xl font-bold text-blue-800">
+                      Symptom Screening
+                    </h2>
+                    <p className="text-gray-700 mt-2 text-base">
+                      Does the child have <strong>chest pain</strong>, <strong>cough</strong>, or
+                      <strong> breathing difficulty</strong>?
+                    </p>
+                  </div>
+          
+                  <div className="flex gap-6 justify-center mt-8">
+                    <PrimaryButton
+                      onClick={() => {
+                        handleResponse("hasSymptoms", true);
+                        setStep("duration");
+                      }}
+                    >
+                      <FiCheckCircle className="w-5 h-5" />
+                      Yes
+                    </PrimaryButton>
+          
+                    <DangerButton
+                      onClick={() => {
+                        handleResponse("hasSymptoms", false);
+                        setStep("no_symptoms");
+                      }}
+                    >
+                      <FiAlertTriangle className="w-5 h-5" />
+                      No
+                    </DangerButton>
+                  </div>
+                </div>
+              </StepContainer>
+            );
+          
 
       case "no_symptoms":
         return (
