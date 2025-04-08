@@ -978,6 +978,13 @@ const PneumoniaFlowchart = () => {
             >
               Start New Assessment
             </button>
+
+            <button
+              onClick={generatePDF}
+              className="bg-green-600 px-4 py-2 rounded-md w-full"
+            >
+              Generate Final Report
+            </button>
           </div>
         );
 
