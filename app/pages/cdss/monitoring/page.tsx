@@ -27,7 +27,7 @@ type Entry = {
   };
 };
 
-const defaultTotal = () => ({
+const defaultTotal = (): Entry["total"] => ({
   oral: "",
   parenteral: "",
   intakeTotal: "",
@@ -49,51 +49,144 @@ const defaultRow = (time: string): Entry["rows"][0] => ({
 });
 
 const Page = () => {
-  // Initialize all states with default values
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [intakeOutputData, setIntakeOutputData] = useState<any[]>([]);
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [intakeOutputData, setIntakeOutputData] = useState([
-    {
-      id: Date.now(),
-      date: "",
-      time: "",
-      shift: "",
-      intakeDescription: "",
-      intakeVolume: "",
-      intakeTotal: "",
-      outputDescription: "",
-      outputVolume: "",
-      outputTotal: "",
-    },
-  ]);
+  const [entries2, setEntries2] = useState<Entry[]>([]);
+  const [entries, setEntries] = useState<any[]>([]);
+  const [vitalSignsData, setVitalSignsData] = useState<any[]>([]);
 
-  const [entries2, setEntries2] = useState<Entry[]>(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("entries2");
-      if (stored) {
-        // Add default totals to existing entries if missing
-        const parsed = JSON.parse(stored);
-        return parsed.map((entry: Entry) => ({
-          ...entry,
-          total: entry.total || defaultTotal(),
-        }));
-      }
-    }
-    return [
-      {
-        id: Date.now(),
-        date: "",
-        rows: [defaultRow("6-2"), defaultRow("2-10"), defaultRow("10-6")],
-        total: defaultTotal(), // Initialize total
-      },
-    ];
+  const [patientOverview, setPatientOverview] = useState({
+    familyName: "A",
+    firstName: "J.S",
+    middleName: "",
+    mrNo: "12345",
+    age: "10",
+    gender: "Male",
+    civilStatus: "Single",
+    roomNo: "101",
+    attendingPhysician: "Dr. Smith",
+    admission: "",
+    diagnosis: "",
+    riskFactors: "",
   });
 
-  const handleTotalChange = (
-    entryId: number,
-    field: keyof Entry["total"],
-    value: string
-  ) => {
+  const [vitalSigns, setVitalSigns] = useState({
+    temperature: "39.2",
+    hr: "119",
+    rr: "32",
+    spO2: "90",
+    bp: "120/70",
+  });
+
+  const [treatmentMedication, setTreatmentMedication] = useState("");
+  const [progressTracking, setProgressTracking] = useState("");
+  const [outcomePrediction, setOutcomePrediction] = useState("");
+
+  const [labResults, setLabResults] = useState<any>({
+    cbc: {
+      wbc: "15.2",
+      hemoglobin: "11.8",
+      hematocrit: "35.50",
+      mch: "78",
+      mchc: "79",
+      neutrophils: "12.1",
+    },
+    sputumCulture: {
+      pathogen: "",
+      antibioticSensitivity: "",
+    },
+    chestXRay: {
+      findings: "",
+      description: "",
+      imagePreview: null,
+    },
+  });
+
+  const vitalAlerts: string[] = [];
+  const temp = parseFloat(vitalSigns.temperature);
+  const hr = parseInt(vitalSigns.hr, 10);
+  const rr = parseInt(vitalSigns.rr, 10);
+  const spO2 = parseInt(vitalSigns.spO2, 10);
+  const [systolic, diastolic] = vitalSigns.bp.split("/").map(Number);
+
+  if (!isNaN(temp) && (temp < 36.1 || temp > 37.2)) {
+    vitalAlerts.push(`Temperature ${temp}°C is outside normal range (36.1°C - 37.2°C)`);
+  }
+
+  if (!isNaN(hr) && (hr < 70 || hr > 110)) {
+    vitalAlerts.push(`Heart rate ${hr} bpm is outside normal range (70-110 bpm)`);
+  }
+
+  if (!isNaN(rr) && (rr < 18 || rr > 30)) {
+    vitalAlerts.push(`Respiratory rate ${rr} breaths/min is outside normal range (18-30 breaths/min)`);
+  }
+
+  if (!isNaN(spO2) && spO2 < 95) {
+    vitalAlerts.push(`Oxygen saturation ${spO2}% is below normal (95%-100%)`);
+  }
+
+  if (!isNaN(systolic) && !isNaN(diastolic)) {
+    if (systolic < 90 || systolic > 120 || diastolic < 60 || diastolic > 80) {
+      vitalAlerts.push(`Blood pressure ${vitalSigns.bp} mmHg is outside normal range (90/60 - 120/80 mmHg)`);
+    }
+  } else {
+    vitalAlerts.push(`Invalid blood pressure format`);
+  }
+
+  // Load all from localStorage once on mount
+  useEffect(() => {
+    const load = () => {
+      const get = (key: string) => localStorage.getItem(key);
+
+      const storedIntakeOutput = get("intakeOutputData");
+      if (storedIntakeOutput) setIntakeOutputData(JSON.parse(storedIntakeOutput));
+
+      const storedEntries2 = get("entries2");
+      if (storedEntries2) {
+        const parsed = JSON.parse(storedEntries2);
+        setEntries2(parsed.map((entry: Entry) => ({
+          ...entry,
+          total: entry.total || defaultTotal(),
+        })));
+      } else {
+        setEntries2([{
+          id: Date.now(),
+          date: "",
+          rows: [defaultRow("6-2"), defaultRow("2-10"), defaultRow("10-6")],
+          total: defaultTotal(),
+        }]);
+      }
+
+      const storedOverview = get("patientOverview");
+      if (storedOverview) setPatientOverview(JSON.parse(storedOverview));
+
+      const storedVitals = get("vitalSigns");
+      if (storedVitals) setVitalSigns(JSON.parse(storedVitals));
+
+      const storedTreatment = get("treatmentMedication");
+      if (storedTreatment) setTreatmentMedication(storedTreatment);
+
+      const storedProgress = get("progressTracking");
+      if (storedProgress) setProgressTracking(storedProgress);
+
+      const storedOutcome = get("outcomePrediction");
+      if (storedOutcome) setOutcomePrediction(storedOutcome);
+
+      const storedLab = get("labResults");
+      if (storedLab) setLabResults(JSON.parse(storedLab));
+
+      const storedVitalsData = get("vitalSignsData");
+      if (storedVitalsData) setVitalSignsData(JSON.parse(storedVitalsData));
+
+      const storedProgressData = get("progressTracking");
+      if (storedProgressData) setEntries(JSON.parse(storedProgressData));
+    };
+
+    if (typeof window !== "undefined") load();
+  }, []);
+
+  const handleTotalChange = (entryId: number, field: keyof Entry["total"], value: string) => {
     setEntries2((prev) =>
       prev.map((entry) =>
         entry.id === entryId
@@ -102,12 +195,6 @@ const Page = () => {
       )
     );
   };
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("entries2", JSON.stringify(entries2));
-    }
-  }, [entries2]);
 
   const handleCellChange = (
     entryId: number,
@@ -144,7 +231,7 @@ const Page = () => {
         id: Date.now(),
         date: "",
         rows: [defaultRow("6-2"), defaultRow("2-10"), defaultRow("10-6")],
-        total: defaultTotal(), // Add total here
+        total: defaultTotal(),
       },
     ]);
   };
@@ -152,125 +239,6 @@ const Page = () => {
   const deleteEntry = (entryId: number) => {
     setEntries2((prev) => prev.filter((entry) => entry.id !== entryId));
   };
-
-  const [patientOverview, setPatientOverview] = useState({
-    familyName: "A",
-    firstName: "J.S",
-    middleName: "",
-    mrNo: "12345",
-    age: "10",
-    gender: "Male",
-    civilStatus: "Single",
-    roomNo: "101",
-    attendingPhysician: "Dr. Smith",
-    admission: "",
-    diagnosis: "",
-    riskFactors: "",
-  });
-
-  const [vitalSigns, setVitalSigns] = useState({
-    temperature: "39.2",
-    hr: "119",
-    rr: "32",
-    spO2: "90",
-    bp: "120/70",
-  });
-
-  // Calculate vital alerts
-  const vitalAlerts = [];
-  const temp = parseFloat(vitalSigns.temperature);
-  const hr = parseInt(vitalSigns.hr, 10);
-  const rr = parseInt(vitalSigns.rr, 10);
-  const spO2 = parseInt(vitalSigns.spO2, 10);
-  const [systolic, diastolic] = vitalSigns.bp.split("/").map(Number);
-
-  // Check temperature
-  if (!isNaN(temp) && (temp < 36.1 || temp > 37.2)) {
-    vitalAlerts.push(
-      `Temperature ${temp}°C is outside normal range (36.1°C - 37.2°C)`
-    );
-  }
-
-  // Check heart rate
-  if (!isNaN(hr) && (hr < 70 || hr > 110)) {
-    vitalAlerts.push(
-      `Heart rate ${hr} bpm is outside normal range (70-110 bpm)`
-    );
-  }
-
-  // Check respiratory rate
-  if (!isNaN(rr) && (rr < 18 || rr > 30)) {
-    vitalAlerts.push(
-      `Respiratory rate ${rr} breaths/min is outside normal range (18-30 breaths/min)`
-    );
-  }
-
-  // Check SpO2
-  if (!isNaN(spO2) && spO2 < 95) {
-    vitalAlerts.push(`Oxygen saturation ${spO2}% is below normal (95%-100%)`);
-  }
-
-  // Check blood pressure
-  if (!isNaN(systolic) && !isNaN(diastolic)) {
-    if (systolic < 90 || systolic > 120 || diastolic < 60 || diastolic > 80) {
-      vitalAlerts.push(
-        `Blood pressure ${vitalSigns.bp} mmHg is outside normal range (90/60 - 120/80 mmHg)`
-      );
-    }
-  } else {
-    vitalAlerts.push(`Invalid blood pressure format`);
-  }
-
-  const [treatmentMedication, setTreatmentMedication] = useState("");
-  const [progressTracking, setProgressTracking] = useState("");
-  const [outcomePrediction, setOutcomePrediction] = useState("");
-
-  const [labResults, setLabResults] = useState({
-    cbc: {
-      wbc: "15.2",
-      hemoglobin: "11.8",
-      hematocrit: "35.50",
-      mch: "78",
-      mchc: "79",
-      neutrophils: "12.1",
-    },
-    sputumCulture: {
-      pathogen: "",
-      antibioticSensitivity: "",
-    },
-    chestXRay: {
-      findings: "",
-      description: "",
-      imagePreview: null,
-    },
-  });
-
-  // Load data from localStorage on component mount
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedIntakeOutput = localStorage.getItem("intakeOutputData");
-      if (savedIntakeOutput) setIntakeOutputData(JSON.parse(savedIntakeOutput));
-
-      const savedPatientOverview = localStorage.getItem("patientOverview");
-      if (savedPatientOverview)
-        setPatientOverview(JSON.parse(savedPatientOverview));
-
-      const savedVitalSigns = localStorage.getItem("vitalSigns");
-      if (savedVitalSigns) setVitalSigns(JSON.parse(savedVitalSigns));
-
-      const savedTreatment = localStorage.getItem("treatmentMedication");
-      if (savedTreatment) setTreatmentMedication(savedTreatment);
-
-      const savedProgress = localStorage.getItem("progressTracking");
-      if (savedProgress) setProgressTracking(savedProgress);
-
-      const savedOutcome = localStorage.getItem("outcomePrediction");
-      if (savedOutcome) setOutcomePrediction(savedOutcome);
-
-      const savedLabResults = localStorage.getItem("labResults");
-      if (savedLabResults) setLabResults(JSON.parse(savedLabResults));
-    }
-  }, []);
 
   const handleSave = () => {
     setIsEditing(false);
@@ -281,43 +249,25 @@ const Page = () => {
       localStorage.setItem("labResults", JSON.stringify(labResults));
       localStorage.setItem("vitalSignsData", JSON.stringify(vitalSignsData));
       localStorage.setItem("entries2", JSON.stringify(entries2));
-      localStorage.setItem(
-        "intakeOutputData",
-        JSON.stringify(intakeOutputData)
-      );
-      // Entries are automatically saved in their own useEffect
+      localStorage.setItem("intakeOutputData", JSON.stringify(intakeOutputData));
     }
   };
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedVitalSignsData = localStorage.getItem("vitalSignsData");
-      if (savedVitalSignsData)
-        setVitalSignsData(JSON.parse(savedVitalSignsData));
-      // Other initial loads...
-    }
-  }, []);
+  const handleInputChange = (id: number, field: string, value: string) => {
+    setIntakeOutputData((prev) =>
+      prev.map((row) => (row.id === id ? { ...row, [field]: value } : row))
+    );
+  };
 
-  const [entries, setEntries] = useState(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("progressTracking");
-      try {
-        const parsed = JSON.parse(stored || "[]");
-        return Array.isArray(parsed)
-          ? parsed
-          : [{ id: Date.now(), date: "", time: "", notes: "", signature: "" }];
-      } catch (error) {
-        return [
-          { id: Date.now(), date: "", time: "", notes: "", signature: "" },
-        ];
-      }
+  const handleDeleteRow = (id: number) => {
+    if (intakeOutputData.length > 1) {
+      setIntakeOutputData((prev) => prev.filter((row) => row.id !== id));
     }
-    return [{ id: Date.now(), date: "", time: "", notes: "", signature: "" }];
-  });
+  };
 
   const handleAddRow = () => {
-    setIntakeOutputData([
-      ...intakeOutputData,
+    setIntakeOutputData((prev) => [
+      ...prev,
       {
         id: Date.now(),
         date: "",
@@ -333,63 +283,9 @@ const Page = () => {
     ]);
   };
 
-  // Vital signs table state
-  const [vitalSignsData, setVitalSignsData] = useState([
-    {
-      id: Date.now(),
-      date: "",
-      shift: "",
-      time: "",
-      temp: "",
-      prCr: "",
-      rr: "",
-      bp: "",
-      o2Sat: "",
-      others: "",
-    },
-  ]);
-
-  // Handle vital signs input changes
-  const handleVitalInputChange = (id, field, value) => {
-    setVitalSignsData(
-      vitalSignsData.map((row) =>
-        row.id === id ? { ...row, [field]: value } : row
-      )
-    );
-  };
-  //
-
-  useEffect(() => {
-    localStorage.setItem("progressTracking", JSON.stringify(entries));
-  }, [entries]);
-
-  const handleProgressChange = (id: number, field: string, value: string) => {
-    setEntries((prev) =>
-      prev.map((entry) =>
-        entry.id === id ? { ...entry, [field]: value } : entry
-      )
-    );
-  };
-
-  const handleAddProgressEntry = () => {
-    const newEntry = {
-      id: Date.now(),
-      date: "",
-      time: "",
-      notes: "",
-      signature: "",
-    };
-    setEntries((prev) => [...prev, newEntry]);
-  };
-
-  const handleDeleteProgressEntry = (id: number) => {
-    setEntries((prev) => prev.filter((entry) => entry.id !== id));
-  };
-
-  // Add new vital signs row
   const handleAddVitalRow = () => {
-    setVitalSignsData([
-      ...vitalSignsData,
+    setVitalSignsData((prev) => [
+      ...prev,
       {
         id: Date.now(),
         date: "",
@@ -405,45 +301,39 @@ const Page = () => {
     ]);
   };
 
-  // Delete vital signs row
-  const handleDeleteVitalRow = (id) => {
-    if (vitalSignsData.length > 1) {
-      setVitalSignsData(vitalSignsData.filter((row) => row.id !== id));
-    }
+  const handleDeleteVitalRow = (id: number) => {
+    setVitalSignsData((prev) => prev.filter((row) => row.id !== id));
   };
 
-  // Load data from localStorage
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedVitalSigns = localStorage.getItem("vitalSignsData");
-      if (savedVitalSigns) setVitalSignsData(JSON.parse(savedVitalSigns));
-      // ... other loaders
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedEntries = localStorage.getItem("progressTracking");
-      if (savedEntries) setEntries(JSON.parse(savedEntries));
-    }
-  }, []);
-
-  const handleDeleteRow = (id) => {
-    if (intakeOutputData.length > 1) {
-      setIntakeOutputData(intakeOutputData.filter((row) => row.id !== id));
-    }
-  };
-
-  const handleInputChange = (id, field, value) => {
-    setIntakeOutputData(
-      intakeOutputData.map((row) =>
-        row.id === id ? { ...row, [field]: value } : row
-      )
+  const handleVitalInputChange = (id: number, field: string, value: string) => {
+    setVitalSignsData((prev) =>
+      prev.map((row) => (row.id === id ? { ...row, [field]: value } : row))
     );
   };
 
-  const handleLabResultsChange = (section, field, value) => {
-    setLabResults((prev) => ({
+  const handleProgressChange = (id: number, field: string, value: string) => {
+    setEntries((prev) =>
+      prev.map((entry) => (entry.id === id ? { ...entry, [field]: value } : entry))
+    );
+  };
+
+  const handleAddProgressEntry = () => {
+    setEntries((prev) => [
+      ...prev,
+      { id: Date.now(), date: "", time: "", notes: "", signature: "" },
+    ]);
+  };
+
+  const handleDeleteProgressEntry = (id: number) => {
+    setEntries((prev) => prev.filter((entry) => entry.id !== id));
+  };
+
+  const handleLabResultsChange = (
+    section: string,
+    field: string,
+    value: string
+  ) => {
+    setLabResults((prev: any) => ({
       ...prev,
       [section]: {
         ...prev[section],
@@ -451,72 +341,6 @@ const Page = () => {
       },
     }));
   };
-
-  const handleImageUpload = (e, section) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setLabResults((prev) => ({
-          ...prev,
-          [section]: {
-            ...prev[section],
-            imagePreview: reader.result,
-          },
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const rows = Array.from({ length: 7 }, (_, i) => (
-    <React.Fragment key={i}>
-      <tr className="border">
-        <td className="border px-2 py-1" rowSpan={3}></td> {/* Merged DATE */}
-        <td className="border px-2 py-1">6-2</td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-      </tr>
-      <tr className="border">
-        <td className="border px-2 py-1">2-10</td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-      </tr>
-      <tr className="border">
-        <td className="border px-2 py-1">10-6</td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-      </tr>
-      <tr className="border font-semibold">
-        <td className="border px-2 py-1 text-center" colSpan={1}>
-          TOTAL
-        </td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-        <td className="border px-2 py-1"></td>
-      </tr>
-    </React.Fragment>
-  ));
 
   return (
     <>
@@ -698,7 +522,7 @@ const Page = () => {
                       <span>Family Name: </span>
                       {isEditing ? (
                         <input
-                        title="family name"
+                          title="family name"
                           value={patientOverview.familyName}
                           onChange={(e) =>
                             setPatientOverview((p) => ({
@@ -876,6 +700,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          type="date"
                             value={row.date}
                             onChange={(e) =>
                               handleVitalInputChange(
@@ -1377,25 +1202,23 @@ const Page = () => {
                           />
                         </label>
                         {labResults.chestXRay.imagePreview && (
-                        <div className="mt-2 flex justify-center items-center h-64">
+                          <div className="mt-2 flex justify-center items-center h-64">
+                            <img
+                              src={labResults.chestXRay.imagePreview}
+                              alt="X-Ray Preview"
+                              className="max-w-full h-auto max-h-64"
+                            />
+                          </div>
+                        )}
+                      </>
+                    ) : labResults.chestXRay.imagePreview ? (
+                      <div className="mt-2 flex justify-center items-center h-64">
                         <img
                           src={labResults.chestXRay.imagePreview}
                           alt="X-Ray Preview"
                           className="max-w-full h-auto max-h-64"
                         />
                       </div>
-                      
-                        )}
-                      </>
-                    ) : labResults.chestXRay.imagePreview ? (
-                      <div className="mt-2 flex justify-center items-center h-64">
-                      <img
-                        src={labResults.chestXRay.imagePreview}
-                        alt="X-Ray Preview"
-                        className="max-w-full h-auto max-h-64"
-                      />
-                    </div>
-                    
                     ) : (
                       <p className="text-gray-500 text-center">
                         No image uploaded
@@ -1429,7 +1252,7 @@ const Page = () => {
           </div>
 
           {/* Intake-Output Chart */}
-          <div className="overflow-x-auto p-4">
+          <div className="overflow-x-auto p-4 bg-white rounded-lg mt-10 mb-10">
             <table className="table-auto border-collapse border w-full text-sm">
               <thead>
                 <tr className="bg-gray-100">
@@ -1617,82 +1440,124 @@ const Page = () => {
                         TOTAL
                       </td>
                       <td className="border px-2 py-1">
-        {isEditing ? (
-          <input
-            value={entry.total.oral}
-            onChange={(e) => handleTotalChange(entry.id, "oral", e.target.value)}
-            className="w-full px-1 py-0.5"
-          />
-        ) : (
-          entry.total.oral
-        )}
-      </td>
-      <td className="border px-2 py-1">
-        {isEditing ? (
-          <input
-            value={entry.total.parenteral}
-            onChange={(e) => handleTotalChange(entry.id, "parenteral", e.target.value)}
-            className="w-full px-1 py-0.5"
-          />
-        ) : (
-          entry.total.parenteral
-        )}
-      </td>
-      <td className="border px-2 py-1">
-        {isEditing ? (
-          <input
-            value={entry.total.intakeTotal}
-            onChange={(e) => handleTotalChange(entry.id, "intakeTotal", e.target.value)}
-            className="w-full px-1 py-0.5"
-          />
-        ) : (
-          entry.total.intakeTotal
-        )}
-      </td>
-      <td className="border px-2 py-1">
-        {isEditing ? (
-          <input
-            value={entry.total.urine}
-            onChange={(e) => handleTotalChange(entry.id, "urine", e.target.value)}
-            className="w-full px-1 py-0.5"
-          />
-        ) : (
-          entry.total.urine
-        )}
-      </td>
-      <td className="border px-2 py-1">
-        {isEditing ? (
-          <input
-            value={entry.total.drainage}
-            onChange={(e) => handleTotalChange(entry.id, "drainage", e.target.value)}
-            className="w-full px-1 py-0.5"
-          />
-        ) : (
-          entry.total.drainage
-        )}
-      </td>
-      <td className="border px-2 py-1">
-        {isEditing ? (
-          <input
-            value={entry.total.others}
-            onChange={(e) => handleTotalChange(entry.id, "others", e.target.value)}
-            className="w-full px-1 py-0.5"
-          />
-        ) : (
-          entry.total.others
-        )}
-      </td>
-      <td className="border px-2 py-1">
-        {isEditing ? (
-          <input
-            value={entry.total.outputTotal}
-            onChange={(e) => handleTotalChange(entry.id, "outputTotal", e.target.value)}
-            className="w-full px-1 py-0.5"
-          />
-        ) : (
-          entry.total.outputTotal
-        )}
-      </td>
+                        {isEditing ? (
+                          <input
+                            value={entry.total.oral}
+                            onChange={(e) =>
+                              handleTotalChange(
+                                entry.id,
+                                "oral",
+                                e.target.value
+                              )
+                            }
+                            className="w-full px-1 py-0.5"
+                          />
+                        ) : (
+                          entry.total.oral
+                        )}
+                      </td>
+                      <td className="border px-2 py-1">
+                        {isEditing ? (
+                          <input
+                            value={entry.total.parenteral}
+                            onChange={(e) =>
+                              handleTotalChange(
+                                entry.id,
+                                "parenteral",
+                                e.target.value
+                              )
+                            }
+                            className="w-full px-1 py-0.5"
+                          />
+                        ) : (
+                          entry.total.parenteral
+                        )}
+                      </td>
+                      <td className="border px-2 py-1">
+                        {isEditing ? (
+                          <input
+                            value={entry.total.intakeTotal}
+                            onChange={(e) =>
+                              handleTotalChange(
+                                entry.id,
+                                "intakeTotal",
+                                e.target.value
+                              )
+                            }
+                            className="w-full px-1 py-0.5"
+                          />
+                        ) : (
+                          entry.total.intakeTotal
+                        )}
+                      </td>
+                      <td className="border px-2 py-1">
+                        {isEditing ? (
+                          <input
+                            value={entry.total.urine}
+                            onChange={(e) =>
+                              handleTotalChange(
+                                entry.id,
+                                "urine",
+                                e.target.value
+                              )
+                            }
+                            className="w-full px-1 py-0.5"
+                          />
+                        ) : (
+                          entry.total.urine
+                        )}
+                      </td>
+                      <td className="border px-2 py-1">
+                        {isEditing ? (
+                          <input
+                            value={entry.total.drainage}
+                            onChange={(e) =>
+                              handleTotalChange(
+                                entry.id,
+                                "drainage",
+                                e.target.value
+                              )
+                            }
+                            className="w-full px-1 py-0.5"
+                          />
+                        ) : (
+                          entry.total.drainage
+                        )}
+                      </td>
+                      <td className="border px-2 py-1">
+                        {isEditing ? (
+                          <input
+                            value={entry.total.others}
+                            onChange={(e) =>
+                              handleTotalChange(
+                                entry.id,
+                                "others",
+                                e.target.value
+                              )
+                            }
+                            className="w-full px-1 py-0.5"
+                          />
+                        ) : (
+                          entry.total.others
+                        )}
+                      </td>
+                      <td className="border px-2 py-1">
+                        {isEditing ? (
+                          <input
+                            value={entry.total.outputTotal}
+                            onChange={(e) =>
+                              handleTotalChange(
+                                entry.id,
+                                "outputTotal",
+                                e.target.value
+                              )
+                            }
+                            className="w-full px-1 py-0.5"
+                          />
+                        ) : (
+                          entry.total.outputTotal
+                        )}
+                      </td>
                     </tr>
                   </React.Fragment>
                 ))}
