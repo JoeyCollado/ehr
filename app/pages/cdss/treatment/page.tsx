@@ -350,86 +350,123 @@ const PneumoniaFlowchart = () => {
             );
           
 
-      case "no_symptoms":
-        return (
-          <div>
-            <div className="text-center text-black">You have no symptoms</div>
+            case "no_symptoms":
+              return (
+                <StepContainer key="no_symptoms">
+                  <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg max-w-xl mx-auto text-center space-y-6">
+                    <div>
+                      <FiSmile className="w-12 h-12 text-green-500 mx-auto mb-2" />
+                      <h2 className="text-2xl font-semibold text-green-700">
+                        No Symptoms Detected
+                      </h2>
+                      <p className="text-gray-700 mt-2">
+                        Based on your response, the child currently shows no signs of chest pain, cough, or difficulty breathing.
+                      </p>
+                    </div>
             <div className="flex justify-center">
-              <PrimaryButton onClick={resetAssessment}>Go Back</PrimaryButton>
-            </div>
-          </div>
-        );
+                    <PrimaryButton onClick={resetAssessment}>
+                      <FiArrowLeft className="w-5 h-5" />
+                      Go Back
+                    </PrimaryButton>
+                    </div>
+                  </div>
+                </StepContainer>
+              );
+            
 
-      case "duration":
-        return (
-          <div className="space-y-4 text-black">
-            <h2 className="text-xl font-semibold text-center">
-              Symptom Duration
-            </h2>
-            <p className="text-center">How long has the child had symptoms?</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <PrimaryButton
-                onClick={() => {
-                  handleResponse("symptomDuration", "acute");
-                  setStep("less");
-                }}
-              >
-                Less than 2 weeks
-              </PrimaryButton>
-              <PrimaryButton
-                onClick={() => {
-                  handleResponse("symptomDuration", "chronic");
-                  setStep("more");
-                }}
-              >
-                More than 2 weeks
-              </PrimaryButton>
-            </div>
-          </div>
-        );
+              case "duration":
+                return (
+                  <StepContainer key="duration">
+                    <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg max-w-2xl mx-auto text-center space-y-6">
+                      <div>
+                        <FiClock className="w-10 h-10 text-indigo-600 mx-auto mb-2" />
+                        <h2 className="text-2xl font-semibold text-gray-800">
+                          Symptom Duration
+                        </h2>
+                        <p className="text-gray-600">
+                          How long has the child been experiencing symptoms?
+                        </p>
+                      </div>
+              
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <PrimaryButton
+                          onClick={() => {
+                            handleResponse("symptomDuration", "acute");
+                            setStep("less");
+                          }}
+                        >
+                          <FiCalendar className="w-5 h-5" />
+                          Less than 2 weeks
+                        </PrimaryButton>
+              
+                        <PrimaryButton
+                          onClick={() => {
+                            handleResponse("symptomDuration", "chronic");
+                            setStep("more");
+                          }}
+                        >
+                          <FiCalendar className="w-5 h-5" />
+                          More than 2 weeks
+                        </PrimaryButton>
+                      </div>
+                    </div>
+                  </StepContainer>
+                );
+              
 
-      case "less":
-        return (
-          <div className="text-black">
-            <p>
-              - Consider acute infection <br></br>- Request Chest X-ray to
-              assess for consolidation or other pulmonary findings <br></br>-
-              Consider bacterial or viral diagnostics
-            </p>
+                case "less":
+                  return (
+                    <StepContainer key="less">
+                      <div className="bg-white border border-blue-100 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-black space-y-6">
+                        <InfoCard icon={FiAlertOctagon} color="blue">
+                          <ul className="list-disc pl-5 space-y-2">
+                            <li>Consider acute infection</li>
+                            <li>Request Chest X-ray to assess for consolidation or other pulmonary findings</li>
+                            <li>Consider bacterial or viral diagnostics</li>
+                          </ul>
+                        </InfoCard>
+                
+                        <div className="flex justify-center">
+                          <PrimaryButton
+                            onClick={() => {
+                              handleResponse("symptomDuration", "acute");
+                              setStep("physical_assessment");
+                            }}
+                          >
+                            Continue
+                          </PrimaryButton>
+                        </div>
+                      </div>
+                    </StepContainer>
+                  );
+                
 
-            <div className="flex justify-center">
-              <PrimaryButton
-                onClick={() => {
-                  handleResponse("symptomDuration", "acute");
-                  setStep("physical_assessment");
-                }}
-              >
-                Continue
-              </PrimaryButton>
-            </div>
-          </div>
-        );
-
-      case "more":
-        return (
-          <div className="text-black">
-            <p className="text-center">
-              - Consider chronic or unresolved infection <br></br>- Request
-              Chest X-ray for further evaluation <br></br>- Consider fungal
-              diagnostics
-            </p>
-            <div className="flex justify-center">
-              <PrimaryButton
-                onClick={() => {
-                  handleResponse("symptomDuration", "acute");
-                  setStep("physical_assessment");
-                }}
-              >
-                Continue
-              </PrimaryButton>
-            </div>
-          </div>
-        );
+                  case "more":
+                    return (
+                      <StepContainer key="more">
+                        <div className="bg-white border border-purple-100 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-black space-y-6">
+                          <InfoCard icon={FiActivity} color="purple">
+                            <ul className="list-disc pl-5 space-y-2">
+                              <li>Consider chronic or unresolved infection</li>
+                              <li>Request Chest X-ray for further evaluation</li>
+                              <li>Consider fungal diagnostics</li>
+                            </ul>
+                          </InfoCard>
+                  
+                          <div className="flex justify-center">
+                            <PrimaryButton
+                              onClick={() => {
+                                handleResponse("symptomDuration", "acute");
+                                setStep("physical_assessment");
+                              }}
+                            >
+                              Continue
+                            </PrimaryButton>
+                          </div>
+                        </div>
+                      </StepContainer>
+                    );
+                  
 
       case "physical_assessment":
         return (
