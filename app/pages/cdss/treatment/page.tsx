@@ -218,6 +218,7 @@ const PneumoniaFlowchart = () => {
                     {key.replace(/([A-Z])/g, ' $1')}:
                   </label>
                   <input
+                  title='entries'
                     name={key}
                     value={value}
                     onChange={handleVitalsChange}
@@ -318,6 +319,7 @@ const PneumoniaFlowchart = () => {
                 ].map((question) => (
                   <div key={question} className="flex items-center gap-2">
                     <input 
+                    title='caregiver'
                       type="checkbox" 
                       onChange={() => handleCheckboxChange('caregiverAnswers', question)}
                       className="h-4 w-4"
@@ -340,6 +342,7 @@ const PneumoniaFlowchart = () => {
                 ].map((sign) => (
                   <div key={sign} className="flex items-center gap-2">
                     <input 
+                    title='physical'
                       type="checkbox" 
                       onChange={() => handleCheckboxChange('physicalFindings', sign)}
                       className="h-4 w-4"
@@ -410,6 +413,7 @@ const PneumoniaFlowchart = () => {
                 ].map(factor => (
                   <div key={factor} className="flex items-center gap-2">
                     <input
+                    title='mrsa'
                       type="checkbox"
                       onChange={(e) => handleRiskFactors('mrsa', e.target.checked)}
                       className="h-4 w-4"
@@ -429,6 +433,7 @@ const PneumoniaFlowchart = () => {
                 ].map(factor => (
                   <div key={factor} className="flex items-center gap-2">
                     <input
+                    title='pseudomonas'
                       type="checkbox"
                       onChange={(e) => handleRiskFactors('pseudomonas', e.target.checked)}
                       className="h-4 w-4"
@@ -532,6 +537,7 @@ const PneumoniaFlowchart = () => {
                 <div key={test.key} className="space-y-1">
                   <label className="block text-sm font-medium">{test.label}:</label>
                   <input
+                  title='test'
                     value={responses.labResults[test.key as keyof typeof responses.labResults]}
                     onChange={(e) => setResponses(prev => ({
                       ...prev,
@@ -601,6 +607,7 @@ const PneumoniaFlowchart = () => {
                 <div key={test.key} className="space-y-1">
                   <label className="block text-sm font-medium">{test.label}:</label>
                   <input
+                  title='results'
                     value={responses.labResults[test.key as keyof typeof responses.labResults]}
                     onChange={(e) => setResponses(prev => ({
                       ...prev,
@@ -678,6 +685,7 @@ const PneumoniaFlowchart = () => {
                 <div className="p-4 border rounded-md">
                   <label className="block text-sm font-medium mb-2">Respiratory Rate:</label>
                   <input
+                  title='respiratory'
                     type="number"
                     className="w-full p-2 border rounded-md"
                     value={vitals.respiratoryRate}
@@ -687,6 +695,7 @@ const PneumoniaFlowchart = () => {
                 <div className="p-4 border rounded-md">
                   <label className="block text-sm font-medium mb-2">Oxygen Saturation:</label>
                   <input
+                  title='oxygen'
                     type="number"
                     className="w-full p-2 border rounded-md"
                     value={vitals.oxygenSaturation}
