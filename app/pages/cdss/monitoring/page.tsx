@@ -48,15 +48,37 @@ const defaultRow = (time: string): Entry["rows"][0] => ({
   outputTotal: "",
 });
 
+interface IntakeOutputEntry {
+  id: number;
+  date: string;
+  time: string;
+  // ... other fields
+}
+
+interface VitalSignsEntry {
+  id: number;
+  date: string;
+  shift: string;
+  // ... other fields
+}
+
+interface Entry2 {
+  id: number;
+  date: string;
+  shift: string;
+  signature: string;
+  // ... other fields
+}
+
 const Page = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [intakeOutputData, setIntakeOutputData] = useState<any[]>([]);
-
+  const [intakeOutputData, setIntakeOutputData] = useState<IntakeOutputEntry[]>([]);
   const [entries2, setEntries2] = useState<Entry[]>([]);
-  const [entries, setEntries] = useState<any[]>([]);
-  const [vitalSignsData, setVitalSignsData] = useState<any[]>([]);
+  const [entries, setEntries] = useState<Entry2[]>([]);
+  const [vitalSignsData, setVitalSignsData] = useState<VitalSignsEntry[]>([]);
 
   const [patientOverview, setPatientOverview] = useState({
+    name: "",
     familyName: "A",
     firstName: "J.S",
     middleName: "",
@@ -82,6 +104,27 @@ const Page = () => {
   const [treatmentMedication, setTreatmentMedication] = useState("");
   const [progressTracking, setProgressTracking] = useState("");
   const [outcomePrediction, setOutcomePrediction] = useState("");
+
+
+  const handleImageUpload = (
+    e: React.ChangeEvent<HTMLInputElement>, 
+    section: string
+  ) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setLabResults((prev: any) => ({
+          ...prev,
+          [section]: {
+            ...prev[section],
+            imagePreview: reader.result
+          }
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const [labResults, setLabResults] = useState<any>({
     cbc: {
@@ -253,36 +296,6 @@ const Page = () => {
     }
   };
 
-  const handleInputChange = (id: number, field: string, value: string) => {
-    setIntakeOutputData((prev) =>
-      prev.map((row) => (row.id === id ? { ...row, [field]: value } : row))
-    );
-  };
-
-  const handleDeleteRow = (id: number) => {
-    if (intakeOutputData.length > 1) {
-      setIntakeOutputData((prev) => prev.filter((row) => row.id !== id));
-    }
-  };
-
-  const handleAddRow = () => {
-    setIntakeOutputData((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        date: "",
-        time: "",
-        shift: "",
-        intakeDescription: "",
-        intakeVolume: "",
-        intakeTotal: "",
-        outputDescription: "",
-        outputVolume: "",
-        outputTotal: "",
-      },
-    ]);
-  };
-
   const handleAddVitalRow = () => {
     setVitalSignsData((prev) => [
       ...prev,
@@ -320,7 +333,14 @@ const Page = () => {
   const handleAddProgressEntry = () => {
     setEntries((prev) => [
       ...prev,
-      { id: Date.now(), date: "", time: "", notes: "", signature: "" },
+      { 
+        id: Date.now(), 
+        date: "", 
+        time: "", 
+        notes: "", 
+        signature: "",
+        shift: "" // Add missing required property
+      },
     ]);
   };
 
@@ -540,6 +560,7 @@ const Page = () => {
                       <span>First Name: </span>
                       {isEditing ? (
                         <input
+                        title="firstname"
                           value={patientOverview.firstName}
                           onChange={(e) =>
                             setPatientOverview((p) => ({
@@ -557,6 +578,7 @@ const Page = () => {
                       <span>Middle Name: </span>
                       {isEditing ? (
                         <input
+                        title="middle name"
                           value={patientOverview.middleName}
                           onChange={(e) =>
                             setPatientOverview((p) => ({
@@ -593,6 +615,7 @@ const Page = () => {
                       <span>Age: </span>
                       {isEditing ? (
                         <input
+                        title="age"
                           value={patientOverview.age}
                           onChange={(e) =>
                             setPatientOverview((p) => ({
@@ -610,6 +633,7 @@ const Page = () => {
                       <span>Gender: </span>
                       {isEditing ? (
                         <input
+                        title="gender"
                           value={patientOverview.gender}
                           onChange={(e) =>
                             setPatientOverview((p) => ({
@@ -627,6 +651,7 @@ const Page = () => {
                       <span>Civil Status: </span>
                       {isEditing ? (
                         <input
+                        title="civil status"
                           value={patientOverview.civilStatus}
                           onChange={(e) =>
                             setPatientOverview((p) => ({
@@ -644,6 +669,7 @@ const Page = () => {
                       <span>Room no: </span>
                       {isEditing ? (
                         <input
+                        title="room no"
                           value={patientOverview.roomNo}
                           onChange={(e) =>
                             setPatientOverview((p) => ({
@@ -661,6 +687,7 @@ const Page = () => {
                       <span>Attending Physician: </span>
                       {isEditing ? (
                         <input
+                        title="physician"
                           value={patientOverview.attendingPhysician}
                           onChange={(e) =>
                             setPatientOverview((p) => ({
@@ -700,6 +727,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="date"
                           type="date"
                             value={row.date}
                             onChange={(e) =>
@@ -718,6 +746,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="shift"
                             value={row.shift}
                             onChange={(e) =>
                               handleVitalInputChange(
@@ -735,6 +764,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="time"
                             value={row.time}
                             onChange={(e) =>
                               handleVitalInputChange(
@@ -752,6 +782,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="temp"
                             value={row.temp}
                             onChange={(e) =>
                               handleVitalInputChange(
@@ -769,6 +800,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="prcr"
                             value={row.prCr}
                             onChange={(e) =>
                               handleVitalInputChange(
@@ -786,6 +818,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="rr"
                             value={row.rr}
                             onChange={(e) =>
                               handleVitalInputChange(
@@ -803,6 +836,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="bp"
                             value={row.bp}
                             onChange={(e) =>
                               handleVitalInputChange(
@@ -820,6 +854,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="date"
                             value={row.o2Sat}
                             onChange={(e) =>
                               handleVitalInputChange(
@@ -837,6 +872,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="others"
                             value={row.others}
                             onChange={(e) =>
                               handleVitalInputChange(
@@ -899,6 +935,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="date"
                             value={entry.date}
                             type="date"
                             onChange={(e) =>
@@ -917,6 +954,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="time"
                             value={entry.time}
                             onChange={(e) =>
                               handleProgressChange(
@@ -934,6 +972,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <textarea
+                          title="notes"
                             value={entry.notes}
                             onChange={(e) =>
                               handleProgressChange(
@@ -951,6 +990,7 @@ const Page = () => {
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <input
+                          title="signature"
                             value={entry.signature}
                             onChange={(e) =>
                               handleProgressChange(
@@ -1292,6 +1332,7 @@ const Page = () => {
                         {rowIndex === 0 && (
                           <td className="border px-2 py-1" rowSpan={4}>
                             <input
+                            title="entries"
                               type="text"
                               value={entry.date}
                               onChange={(e) =>
@@ -1305,6 +1346,7 @@ const Page = () => {
                         <td className="border px-2 py-1">
                           {isEditing ? (
                             <input
+                            title="time"
                               value={row.time}
                               onChange={(e) =>
                                 handleCellChange(
@@ -1322,6 +1364,7 @@ const Page = () => {
                         </td>
                         <td className="border px-2 py-1">
                           <input
+                          title="oral"
                             value={row.oral}
                             onChange={(e) =>
                               handleCellChange(
@@ -1336,6 +1379,7 @@ const Page = () => {
                         </td>
                         <td className="border px-2 py-1">
                           <input
+                          title="parenteral"
                             value={row.parenteral}
                             onChange={(e) =>
                               handleCellChange(
@@ -1350,6 +1394,7 @@ const Page = () => {
                         </td>
                         <td className="border px-2 py-1">
                           <input
+                          title="intaketotal"
                             value={row.intakeTotal}
                             onChange={(e) =>
                               handleCellChange(
@@ -1364,6 +1409,7 @@ const Page = () => {
                         </td>
                         <td className="border px-2 py-1">
                           <input
+                          title="urine"
                             value={row.urine}
                             onChange={(e) =>
                               handleCellChange(
@@ -1378,6 +1424,7 @@ const Page = () => {
                         </td>
                         <td className="border px-2 py-1">
                           <input
+                          title="drainage"
                             value={row.drainage}
                             onChange={(e) =>
                               handleCellChange(
@@ -1392,6 +1439,7 @@ const Page = () => {
                         </td>
                         <td className="border px-2 py-1">
                           <input
+                          title="others"
                             value={row.others}
                             onChange={(e) =>
                               handleCellChange(
@@ -1406,6 +1454,7 @@ const Page = () => {
                         </td>
                         <td className="border px-2 py-1">
                           <input
+                          title="outputtotal"
                             value={row.outputTotal}
                             onChange={(e) =>
                               handleCellChange(
@@ -1442,6 +1491,7 @@ const Page = () => {
                       <td className="border px-2 py-1">
                         {isEditing ? (
                           <input
+                          title="oral"
                             value={entry.total.oral}
                             onChange={(e) =>
                               handleTotalChange(
@@ -1459,6 +1509,7 @@ const Page = () => {
                       <td className="border px-2 py-1">
                         {isEditing ? (
                           <input
+                          title="parenteral"
                             value={entry.total.parenteral}
                             onChange={(e) =>
                               handleTotalChange(
@@ -1476,6 +1527,7 @@ const Page = () => {
                       <td className="border px-2 py-1">
                         {isEditing ? (
                           <input
+                          title="intaketotal"
                             value={entry.total.intakeTotal}
                             onChange={(e) =>
                               handleTotalChange(
@@ -1493,6 +1545,7 @@ const Page = () => {
                       <td className="border px-2 py-1">
                         {isEditing ? (
                           <input
+                          title="urine"
                             value={entry.total.urine}
                             onChange={(e) =>
                               handleTotalChange(
@@ -1510,6 +1563,7 @@ const Page = () => {
                       <td className="border px-2 py-1">
                         {isEditing ? (
                           <input
+                          title="drainage"
                             value={entry.total.drainage}
                             onChange={(e) =>
                               handleTotalChange(
@@ -1527,6 +1581,7 @@ const Page = () => {
                       <td className="border px-2 py-1">
                         {isEditing ? (
                           <input
+                          title="others"
                             value={entry.total.others}
                             onChange={(e) =>
                               handleTotalChange(
@@ -1544,6 +1599,7 @@ const Page = () => {
                       <td className="border px-2 py-1">
                         {isEditing ? (
                           <input
+                          title="outputtotal"
                             value={entry.total.outputTotal}
                             onChange={(e) =>
                               handleTotalChange(
