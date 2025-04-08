@@ -930,42 +930,50 @@ const PneumoniaFlowchart = () => {
           </div>
         );
 
-      case "scheduling":
-        return (
-          <div>
-            <h2 className="text-xl font-semibold text-center">
-              Scheduling follow-up:
-            </h2>
-
-            <div>
-              <p className="font-semibold">→ Educate caregiver:</p>
-              <ul>
-                <li>- Proper medication administration </li>
-                <li>- Hydration guidance</li>
-                <li>- When to return earlier (worsening signs)</li>
-                <li>- Expected timeline recovery</li>
-              </ul>
-              <p className="font-semibold">
-                → 📅 Schedule follow-up: every 2–3 days until full recovery
-              </p>
+        case "scheduling":
+          return (
+            <div className="space-y-6 text-black">
+              <h2 className="text-xl font-semibold text-center">
+                Scheduling Follow-Up
+              </h2>
+        
+              <div className="bg-white p-4 rounded shadow space-y-4 text-sm">
+                <div>
+                  <p className="font-semibold">→ Educate caregiver:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>Proper medication administration</li>
+                    <li>Hydration guidance</li>
+                    <li>When to return earlier (worsening signs)</li>
+                    <li>Expected timeline for recovery</li>
+                  </ul>
+                </div>
+        
+                <div>
+                  <p className="font-semibold">
+                    → 📅 Schedule follow-up: every 2–3 days until full recovery
+                  </p>
+                </div>
+              </div>
+        
+              <div className="flex justify-end">
+                <button
+                  onClick={() => {
+                    handleResponse("medications", [
+                      "Amoxicillin",
+                      "Azithromycin",
+                      "Fluconazole",
+                    ]);
+                    handleResponse("followUpPlan", "Follow-up in 2-3 days");
+                    setStep("completed");
+                  }}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+                >
+                  Continue
+                </button>
+              </div>
             </div>
-
-            <button
-              onClick={() => {
-                handleResponse("medications", [
-                  "Amoxicillin",
-                  "Azithromycin",
-                  "Fluconazole",
-                ]);
-                handleResponse("followUpPlan", "Follow-up in 2-3 days");
-                setStep("completed");
-              }}
-              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition "
-            >
-              Continue
-            </button>
-          </div>
-        );
+          );
+        
 
       case "completed":
         return (
