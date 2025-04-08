@@ -27,6 +27,7 @@ import {
   FiCheckSquare,
   FiSliders,
   FiBox,
+  FiHelpCircle,
 } from "react-icons/fi";
 
 const PneumoniaFlowchart = () => {
@@ -468,115 +469,134 @@ const PneumoniaFlowchart = () => {
                     );
                   
 
-      case "physical_assessment":
-        return (
-          <div className="space-y-6 text-black">
-            <h2 className="text-xl font-semibold text-center">
-              Physical Assessment
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-4">
-                <h3 className="font-medium">Caregiver Questions:</h3>
-                {[
-                  "Is the child eating/drinking normally?",
-                  "Is the child vomiting everything?",
-                  "Any history of weight loss/weakness?",
-                  "Was the child previously hospitalized?",
-                  "May lagnat pa po ba?",
-                  "Nahihirapan pa rin po bang huminga?",
-                ].map((question) => (
-                  <div key={question} className="flex items-center gap-2">
-                    <input
-                      title="caregiver"
-                      type="checkbox"
-                      onChange={() =>
-                        handleCheckboxChange("caregiverAnswers", question)
-                      }
-                      className="h-4 w-4"
-                    />
-                    <label className="text-sm">{question}</label>
-                  </div>
-                ))}
-              </div>
-            </div>
+                    case "physical_assessment":
+                      return (
+                        <StepContainer key="physical_assessment">
+                          <div className="bg-white border border-amber-100 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto text-black space-y-6">
+                            <h2 className="text-2xl font-bold text-center text-amber-800">
+                              Physical Assessment
+                            </h2>
+                    
+                            <InfoCard icon={FiHelpCircle} color="amber">
+                              <h3 className="font-medium text-lg mb-2">Caregiver Questions:</h3>
+                              <div className="space-y-3">
+                                {[
+                                  "Is the child eating/drinking normally?",
+                                  "Is the child vomiting everything?",
+                                  "Any history of weight loss/weakness?",
+                                  "Was the child previously hospitalized?",
+                                  "May lagnat pa po ba?",
+                                  "Nahihirapan pa rin po bang huminga?",
+                                ].map((question) => (
+                                  <div key={question} className="flex items-center gap-3">
+                                    <input
+                                      title="caregiver"
+                                      type="checkbox"
+                                      onChange={() =>
+                                        handleCheckboxChange("caregiverAnswers", question)
+                                      }
+                                      className="h-4 w-4 rounded border-gray-300"
+                                    />
+                                    <label className="text-sm">{question}</label>
+                                  </div>
+                                ))}
+                              </div>
+                            </InfoCard>
+                    
+                            <div className="flex justify-between pt-4">
+                              <DangerButton
+                                onClick={() => setStep("duration")}
+                               
+                              >
+                                Back
+                              </DangerButton>
+                              <PrimaryButton onClick={() => setStep("perform")}>
+                                Continue
+                              </PrimaryButton>
+                            </div>
+                          </div>
+                        </StepContainer>
+                      )                    
+                    
 
-            <div className="flex justify-between">
-              <DangerButton
-                onClick={() => setStep("duration")}
-                className="bg-gray-500 px-4 py-2 rounded-md"
-              >
-                Back
-              </DangerButton>
-              <PrimaryButton onClick={() => setStep("perform")}>
-                Continue
-              </PrimaryButton>
-            </div>
-          </div>
-        );
+                      case "perform":
+                        return (
+                          <StepContainer key="perform">
+                            <div className="bg-white border border-amber-100 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-black space-y-6">
+                              <h2 className="text-xl font-bold text-center text-amber-800">
+                                Perform Physical Assessments
+                              </h2>
+                      
+                              <InfoCard icon={FiActivity} color="amber">
+                                <div className="space-y-5">
+                                  {[
+                                    "Check O2 saturation (SpO₂ < 94% is critical)",
+                                    "Look for signs: chest indrawing, cyanosis, altered LOC",
+                                    "Respiratory rate above normal range for age?",
+                                  ].map((sign) => (
+                                    <div key={sign} className="flex items-center gap-3">
+                                  
+                                      <label className="text-sm">{sign}</label>
+                                    </div>
+                                  ))}
+                                </div>
+                              </InfoCard>
+                      
+                              <div className="flex justify-between pt-4">
+                                <DangerButton onClick={() => setStep("physical_assessment")}>
+                                  Back
+                                </DangerButton>
+                                <PrimaryButton onClick={() => setStep("severity_assessment")}>
+                                  Continue
+                                </PrimaryButton>
+                              </div>
+                            </div>
+                          </StepContainer>
+                        );
+                      
 
-      case "perform":
-        return (
-          <div className="space-y-4 text-black">
-            <h3 className="font-medium text-center">
-              Perform Physical Assessments:
-            </h3>
-            {[
-              "Check O2 saturation (SpO₂ < 94% is critical)",
-              "Look for signs: chest indrawing, cyanosis, altered LOC",
-              "Respiratory rate above normal range for age?",
-            ].map((sign) => (
-              <div key={sign} className="flex items-center gap-2">
-                <input
-                  title="physical"
-                  type="checkbox"
-                  onChange={() =>
-                    handleCheckboxChange("physicalFindings", sign)
-                  }
-                  className="h-4 w-4"
-                />
-                <label className="text-sm">{sign}</label>
-
-                <div className="flex justify-between"></div>
-              </div>
-            ))}
-            <div className="flex justify-between">
-              <DangerButton onClick={() => setStep("perform")}>
-                Back
-              </DangerButton>
-              <PrimaryButton onClick={() => setStep("severity_assessment")}>
-                Continue
-              </PrimaryButton>
-            </div>
-          </div>
-        );
-
-      case "severity_assessment":
-        return (
-          <div className="space-y-4 text-black">
-            <h2 className="text-xl font-semibold text-center">
-              Severity Assessment
-            </h2>
-            <p className="text-center">Does the patient show severe signs?</p>
-            <div className="flex gap-4 justify-center">
-              <DangerButton
-                onClick={() => {
-                  handleResponse("severeSigns", true);
-                  setStep("severe_management");
-                }}
-              >
-                Yes
-              </DangerButton>
-              <PrimaryButton
-                onClick={() => {
-                  handleResponse("severeSigns", false);
-                  setStep("mild_management");
-                }}
-              >
-                No
-              </PrimaryButton>
-            </div>
-          </div>
-        );
+                        case "severity_assessment":
+                          return (
+                            <StepContainer key="severity_assessment">
+                              <div className="bg-white border border-red-100 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto text-black space-y-6">
+                                <h2 className="text-xl font-bold text-center text-red-700">
+                                  Severity Assessment
+                                </h2>
+                        
+                                <InfoCard icon={FiAlertTriangle} color="red">
+                                  <p className="text-center">
+                                    Does the patient show any of the following severe signs?
+                                  </p>
+                                  <ul className="list-disc list-inside text-sm mt-2 text-gray-700">
+                                    <li>Unable to drink or breastfeed</li>
+                                    <li>Convulsions or lethargy</li>
+                                    <li>Severe chest indrawing or cyanosis</li>
+                                    <li>SpO₂ &lt; 90%</li>
+                                  </ul>
+                                </InfoCard>
+                        
+                                <div className="flex justify-center gap-4 pt-4">
+                                  <DangerButton
+                                    onClick={() => {
+                                      handleResponse("severeSigns", true);
+                                      setStep("severe_management");
+                                    }}
+                                  >
+                                    Yes
+                                  </DangerButton>
+                                  <PrimaryButton
+                                    onClick={() => {
+                                      handleResponse("severeSigns", false);
+                                      setStep("mild_management");
+                                    }}
+                                  >
+                                    No
+                                  </PrimaryButton>
+                                </div>
+                              </div>
+                            </StepContainer>
+                          );
+                        
 
       case "severe_management":
         return (
