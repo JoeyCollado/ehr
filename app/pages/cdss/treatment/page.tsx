@@ -762,100 +762,210 @@ const PneumoniaFlowchart = () => {
           /* final assessment follow up */
         }
 
-        case "followup":
-          return (
-            <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-center">
-                Final Questions (OPD follow-up):
-              </h2>
-        
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                {/* Question 1 */}
-                <div className="bg-white p-4 rounded shadow">
-                  <h3 className="font-semibold text-base mb-2">● “May lagnat pa po ba?”</h3>
-                  <ul className="space-y-2">
-                    <li>
-                      <strong>Mild fever:</strong> 100.4°F to 102.2°F (38°C to 39°C)<br />
-                      <p className="font-semibold">→ If the child has mild fever:</p>
-                      <span className="">-Monitoring<br></br>-Encourage rest<br></br>-Hydration<br></br>-Medication (Acetaminophen, Ibuprofen)<br></br></span>
-                    </li>
-                    <li>
-                      <strong>Moderate fever:</strong> 102.3°F to 104°F (39.1°C to 40°C)<br />
-                      <p className="font-semibold">→ If the child has moderate fever:</p>
-                      <span className="">-Hydration<br></br>-Lukewarm bath<br></br>-Dress comfortably<br></br>-Medication (Acetaminophen, Ibuprofen)</span>
-                    </li>
-                    <li>
-                      <strong>High fever:</strong> Above 104°F (40°C)<br />
-                      <p className="font-semibold">→ If the child has high fever:</p>
-                      <span className="">Cool compress<br></br>-Frequent checks<br></br>-Hydration<br></br>-Medication (Antipyretics), Monitor for worsening</span>
-                    </li>
-                  </ul>
-                </div>
-        
-                {/* Question 2 */}
-                <div className="bg-white p-4 rounded shadow">
-                  <h3 className="font-semibold text-base mb-2">● “Mas maayos na po ba ang hinga niya?”</h3>
-                  <ul className="space-y-2">
-                    <li>→ Normal RR: 18-30 bpm</li>
-                    <li>→ Check for easy breathing, accessory muscle use</li>
-                    <li>→ Auscultate: Clear, Equal bilateral lung sounds</li>
-                    <li>→ Check for coughing or wheezing (absence is ideal)</li>
-                    <li>→ Oxygen saturation monitoring</li>
-                    <li>→ Observe response to activity</li>
-                  </ul>
-                </div>
-        
-                {/* Question 3 */}
-                <div className="bg-white p-4 rounded shadow">
-                  <h3 className="font-semibold text-base mb-2">● “Naubos ba ang gamot? May side effect po ba?”</h3>
-                  <ul className="space-y-2">
-                    <li>
-                      → Ask: “Naubos po ba ang gamot ayon sa reseta (kumpleto at on time)?”
-                    </li>
-                    <li>→ Check for missed doses</li>
-                    <li>→ Ask about side effects:
-                      <ul className="ml-4 list-disc list-inside">
-                        <li>Rashes or itchiness</li>
-                        <li>Vomiting or nausea</li>
-                        <li>Abdominal pain</li>
-                        <li>Unusual sleepiness or dizziness</li>
-                        <li>Allergic reactions</li>
-                      </ul>
-                    </li>
-                    <li>
-                      → Expected: Completed medication, no side effects. If present, assess severity.
-                    </li>
-                  </ul>
-                </div>
-        
-                {/* Question 4 */}
-                <div className="bg-white p-4 rounded shadow">
-                  <h3 className="font-semibold text-base mb-2">● “Kumakain at umiinom na po ba siya ng ayos?”</h3>
-                  <ul className="space-y-2">
-                    <li>→ 3 full meals per day / normal appetite</li>
-                    <li>→ Fluid intake: 6-8 glasses/day</li>
-                    <li>→ Urine output: 4-6 times/day</li>
-                    <li>
-                      → Hydration signs: Moist lips, alert, active, no signs of dehydration
-                    </li>
-                  </ul>
-                </div>
-              </div>
-        
-              <button
-                onClick={() => {
-                  handleResponse("medications", ["Amoxicillin", "Azithromycin", "Fluconazole"]);
-                  handleResponse("followUpPlan", "Follow-up in 2-3 days");
-                  setStep("completed");
-                }}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
-              >
-                Continue
-              </button>
-            </div>
-          );
-        
+      case "followup":
+        return (
+          <div className="space-y-6">
+            <h2 className="text-xl font-semibold text-center">
+              Final Questions (OPD follow-up):
+            </h2>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              {/* Question 1 */}
+              <div className="bg-white p-4 rounded shadow">
+                <h3 className="font-semibold text-base mb-2">
+                  ● “May lagnat pa po ba?”
+                </h3>
+                <ul className="space-y-2">
+                  <li>
+                    <strong>Mild fever:</strong> 100.4°F to 102.2°F (38°C to
+                    39°C)
+                    <br />
+                    <p className="font-semibold">
+                      → If the child has mild fever:
+                    </p>
+                    <span className="">
+                      -Monitoring<br></br>-Encourage rest<br></br>-Hydration
+                      <br></br>-Medication (Acetaminophen, Ibuprofen)<br></br>
+                    </span>
+                  </li>
+                  <li>
+                    <strong>Moderate fever:</strong> 102.3°F to 104°F (39.1°C to
+                    40°C)
+                    <br />
+                    <p className="font-semibold">
+                      → If the child has moderate fever:
+                    </p>
+                    <span className="">
+                      -Hydration<br></br>-Lukewarm bath<br></br>-Dress
+                      comfortably<br></br>-Medication (Acetaminophen, Ibuprofen)
+                    </span>
+                  </li>
+                  <li>
+                    <strong>High fever:</strong> Above 104°F (40°C)
+                    <br />
+                    <p className="font-semibold">
+                      → If the child has high fever:
+                    </p>
+                    <span className="">
+                      Cool compress<br></br>-Frequent checks<br></br>-Hydration
+                      <br></br>-Medication (Antipyretics), Monitor for worsening
+                    </span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Question 2 */}
+              <div className="bg-white p-4 rounded shadow">
+                <h3 className="font-semibold text-base mb-2">
+                  ● “Mas maayos na po ba ang hinga niya?”
+                </h3>
+                <p className="font-semibold">Observe for respiratory rate</p>
+                <ul className="space-y-2">
+                  <li>→ Normal RR: 18-30 bpm</li>
+                  <li>→ Easy breathing? Presence of accessory muscles used?</li>
+                </ul>
+
+                <p className="font-semibold">Auscultate Lung Sounds</p>
+                <ul className="space-y-2">
+                  <li>→ Clear sounds</li>
+                  <li>→ Equal Bilateral Sounds</li>
+                </ul>
+
+                <p className="font-semibold">Assess for Coughing or Wheezing</p>
+                <ul className="space-y-2">
+                  <li>→ Absence of Symptoms</li>
+                  <li className="ml-4">1. Oxygen saturation monitoring</li>
+                  <li className="ml-4">2. Response to an Activity</li>
+                </ul>
+              </div>
+
+              {/* Question 3 */}
+              <div className="bg-white p-4 rounded shadow">
+                <h3 className="font-semibold text-base mb-2">
+                  ● “Naubos ba ang gamot? May side effect po ba?”
+                </h3>
+                <p className="font-semibold">→ Check medication adherence</p>
+                <ul className="space-y-2">
+                  <li>
+                    - Ask: “Naubos po ba ang gamot ayon sa reseta (kumpleto at
+                    on time)?”
+                  </li>
+                  <li>
+                    - Check if all doses were taken without missed intervals.
+                  </li>
+                </ul>
+                <p className="font-semibold">
+                  → Check for side effects experienced
+                </p>
+                <ul>
+                  <li>
+                    - Ask if the child had any of the following during
+                    treatment:
+                  </li>
+                  <li>
+                    ➢ Rashes or itchiness<br></br>➢ Vomiting or nausea<br></br>➢
+                    Abdominal pain<br></br>➢ Unusual sleepiness or dizziness
+                    <br></br>➢ Allergic reactions (e.g., swelling, difficulty
+                    breathing)
+                  </li>
+                </ul>
+                <p className="font-semibold">→ Expected to be normal: </p>
+                <ul>
+                  <li>
+                    - Medication completed within the prescribed number of days
+                    (e.g., 7 or 14 days)
+                  </li>
+                  <li>- No adverse effects reported</li>
+                  <li>
+                    - If side effects are present → evaluate if mild or if
+                    referral/change in medication is needed
+                  </li>
+                </ul>
+              </div>
+
+              {/* Question 4 */}
+              <div className="bg-white p-4 rounded shadow">
+                <h3 className="font-semibold text-base mb-2">
+                  ● “Kumakain at umiinom na po ba siya ng ayos?”
+                </h3>
+                <p className="font-semibold">Frequency of meals</p>
+                <ul className="space-y-2">
+                  <li>→ 3 full meals per day / normal appetite</li>
+                </ul>
+
+                <p className="font-semibold">Fluid Intake</p>
+                <ul className="space-y-2">
+                  <li>→ Normal value: 6-8 glasses per day</li>
+                </ul>
+
+                <p className="font-semibold">Urine Output</p>
+                <ul className="space-y-2">
+                  <li>→ 4-6 times/day</li>
+                </ul>
+
+                <p className="font-semibold">Signs of dehydration</p>
+                <ul className="space-y-2">
+                  <li>
+                    → Hydration status: Moist lips, alert, active, no signs of
+                    dehydration
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <button
+              onClick={() => {
+                handleResponse("medications", [
+                  "Amoxicillin",
+                  "Azithromycin",
+                  "Fluconazole",
+                ]);
+                handleResponse("followUpPlan", "Follow-up in 2-3 days");
+                setStep("scheduling");
+              }}
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+            >
+              Continue
+            </button>
+          </div>
+        );
+
+      case "scheduling":
+        return (
+          <div>
+            <h2 className="text-xl font-semibold text-center">
+              Scheduling follow-up:
+            </h2>
+
+            <div>
+              <p className="font-semibold">→ Educate caregiver:</p>
+              <ul>
+                <li>- Proper medication administration </li>
+                <li>- Hydration guidance</li>
+                <li>- When to return earlier (worsening signs)</li>
+                <li>- Expected timeline recovery</li>
+              </ul>
+              <p className="font-semibold">
+                → 📅 Schedule follow-up: every 2–3 days until full recovery
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                handleResponse("medications", [
+                  "Amoxicillin",
+                  "Azithromycin",
+                  "Fluconazole",
+                ]);
+                handleResponse("followUpPlan", "Follow-up in 2-3 days");
+                setStep("completed");
+              }}
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition "
+            >
+              Continue
+            </button>
+          </div>
+        );
 
       case "completed":
         return (
