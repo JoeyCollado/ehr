@@ -63,12 +63,12 @@ const Page = () => {
         {/* Quick Access Tiles */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-20 ">
           {[
-        { label: "History", icon: "📜" },
-        { label: "Complaints", icon: "⚕️" }, 
-        { label: "Assessments", icon: "🩺" },
-        { label: "Immunization", icon: "💉" }, 
-        { label: "Vital Signs", icon: "❤️" }, 
-        { label: "Personal Info", icon: "🆔" }, 
+        { label: "Our Doctors", icon: "👨‍⚕️" },       
+        { label: "Treatment", icon: "💊" },           
+        { label: "Diagnosis", icon: "🩺" },            
+        { label: "Monitoring", icon: "📈" },          
+        { label: "Diagnostic", icon: "🧪" },           
+        { label: "Supportive Care", icon: "🤝" }  
           ].map((item, index) => (
             <div
               key={index}
@@ -89,9 +89,9 @@ const Page = () => {
           <h2 className="text-2xl font-semibold mb-4">Recent Activity</h2>
           <div ref={activityRef} className="bg-gray-100 p-6 rounded-lg shadow-md space-y-5 text-start cursor-pointer">
             {[
-              { icon: "✅", text: "Lab result uploaded for John Doe", time: "2 hours ago" },
-              { icon: "📄", text: "New clinical note added", time: "Yesterday" },
-              { icon: "🔔", text: "Placeholder", time: "Placeholder" },
+              { icon: "✅", text: "New Lab result uploaded", time: "2 hours ago" },
+              { icon: "📄", text: "Radiology Updated", time: "Yesterday" },
+              { icon: "🔔", text: "New Clinical Notes", time: "Thursday" },
             ].map((activity, index) => (
               <div
                 key={index}

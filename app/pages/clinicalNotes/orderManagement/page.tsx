@@ -309,7 +309,7 @@ const Page = () => {
       </div>
 
       <div className="min-h-screen bg-[#faf6f6] flex items-center justify-center pb-4 mb-[5%] text-black">
-        <div className="w-full max-w-5xl p-6 bg-white rounded-lg shadow-md">
+        <div className="w-full max-w-6xl p-6 bg-white rounded-lg shadow-md">
           {/* MEDICATION ORDER */}
           <h2 className="text-xl font-bold mb-4 text-gray-800 text-center">
             MEDICATION ORDER

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
+
 type Entry = {
   id: number;
   date: string;
@@ -459,7 +460,7 @@ const Page = () => {
             </button>
           )}
         </div>
-      </motion.div>
+ 
       <div className="min-h-screen bg-[#faf6f6] flex items-center justify-center pb-4 mb-[5%]">
         <div className="w-full max-w-5xl bg-[#efefef] text-black shadow-lg rounded-lg p-6">
           <h1 className="text-center text-3xl font-bold mb-[3%]">Monitoring</h1>
@@ -1703,6 +1704,7 @@ const Page = () => {
           </div>
         </div>
       </div>
+      </motion.div>
     </>
   );
 };

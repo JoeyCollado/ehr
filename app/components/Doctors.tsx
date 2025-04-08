@@ -1,5 +1,6 @@
 import React from "react";
 
+
 interface DoctorProps {
   photo: string;
   firstName: string;
@@ -24,6 +25,8 @@ const Doctors = ({
   phoneNumber,
 }: DoctorProps) => {
   return (
+    <>
+     
     <div className="relative p-4 font-sans">
       {/* Main Content */}
       <div className="flex flex-col md:flex-row gap-8 pb-10">
@@ -58,6 +61,8 @@ const Doctors = ({
       {/* Green Divider at Bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-10 bg-[#00695C] rounded-md"></div>
     </div>
+ 
+    </>
   );
 };
 

@@ -2,6 +2,8 @@
 
 import React, { useState, useRef } from 'react';
 import jsPDF from 'jspdf';
+import { motion } from "framer-motion";
+
 
 const PneumoniaFlowchart = () => {
   const [step, setStep] = useState('start');
@@ -193,9 +195,11 @@ const PneumoniaFlowchart = () => {
   };
 
   const renderStep = () => {
+    
     switch (step) {
       case 'start':
         return (
+          
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-6">Pediatric Respiratory Evaluation</h2>
             <button 
@@ -734,6 +738,12 @@ const PneumoniaFlowchart = () => {
   };
 
   return (
+    <>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
     <div className="min-h-screen bg-gray-50 py-12 px-4" ref={formRef}>
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-6 text-black">
         <h1 className="text-3xl font-bold text-center mb-8">
@@ -742,6 +752,8 @@ const PneumoniaFlowchart = () => {
         {renderStep()}
       </div>
     </div>
+    </motion.div>
+   </>
   );
 };
 
