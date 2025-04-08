@@ -5,6 +5,7 @@ import jsPDF from "jspdf";
 import { motion } from "framer-motion";
 
 const PneumoniaFlowchart = () => {
+  const [improvementAnswer, setImprovementAnswer] = useState<string>(String);
   const [step, setStep] = useState("start");
   const formRef = useRef<HTMLDivElement>(null);
   const [responses, setResponses] = useState({
@@ -85,13 +86,6 @@ const PneumoniaFlowchart = () => {
     bloodPressure: "",
   });
 
-  const ageBasedRR = {
-    infant: "30-60",
-    toddler: "24-40",
-    child: "18-30",
-    adolescent: "12-16",
-  };
-
   const generatePDF = () => {
     const doc = new jsPDF();
     const date = new Date().toLocaleString();
@@ -164,18 +158,24 @@ const PneumoniaFlowchart = () => {
     setStep("completed");
   };
 
-  const handleVitalsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setVitals((prev) => ({ ...prev, [name]: value }));
+  const handleVitalsChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    handleResponse(e.target.name, e.target.value);
   };
 
-  const handleResponse = (key: string, value: any) => {
+  const handleResponse = (
+    key: string,
+    value: string | number | boolean | string[]
+  ) => {
     setResponses((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleCheckboxChange = (category: string, value: string) => {
     setResponses((prev) => {
-      const updated = [...prev[category as keyof typeof responses]] as string[];
+      const updated = [
+        ...(prev[category as keyof typeof responses] as string[]),
+      ];
       const index = updated.indexOf(value);
       if (index === -1) {
         updated.push(value);
@@ -184,13 +184,6 @@ const PneumoniaFlowchart = () => {
       }
       return { ...prev, [category]: updated };
     });
-  };
-
-  const handleRiskFactors = (factor: string, value: boolean) => {
-    setResponses((prev) => ({
-      ...prev,
-      riskFactors: { ...prev.riskFactors, [factor]: value },
-    }));
   };
 
   const renderStep = () => {
@@ -223,6 +216,7 @@ const PneumoniaFlowchart = () => {
                     {key.replace(/([A-Z])/g, " $1")}:
                   </label>
                   <select
+                    title="yes"
                     name={key}
                     value={value}
                     onChange={handleVitalsChange}
@@ -637,16 +631,21 @@ const PneumoniaFlowchart = () => {
       case "mild_management":
         return (
           <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Outpatient Management</h2>
+            <h2 className="text-xl font-semibold">
+              IF MILD TO MODERATE SYMPTOMS:
+            </h2>
             <div className="p-4 rounded-md bg-green-50">
-              <ul className="list-disc pl-5 space-y-2">
-                <li>Amoxicillin 1g PO TID</li>
-                <li>Azithromycin (if resistance &lt;25%)</li>
-                <li>Fluconazole 6-12 mg/kg/day</li>
-                <li>Chest X-ray and CBC</li>
-                <li>Sputum/BAL for fungal culture</li>
-                <li>Liver function tests</li>
-                <li>Follow-up in 48 hours</li>
+              <h3 className="text-center font-bold">Treat as Outpatient</h3>
+              <ul className="  pl-5 space-y-2">
+                <li>
+                  Order: <br></br>- CBC, CXR <br></br>- Sputum/BAL for fungal
+                  stain/culture <br></br>- LFTs (for antifungal safety){" "}
+                  <br></br>- Baseline liver function tests
+                </li>
+                <li>
+                  → Treat w/ Amoxicillin 1 g PO TID or Doxycycline 100 mg PO BID
+                </li>
+                <li>→ Azithromycin(if local resistance &lt; 25%)</li>
               </ul>
             </div>
             <button
@@ -657,7 +656,37 @@ const PneumoniaFlowchart = () => {
                   "Fluconazole",
                 ]);
                 handleResponse("followUpPlan", "Follow-up in 2-3 days");
-                setStep("lab_orders_mild");
+                setStep("antifungalTheraphy");
+              }}
+              className="bg-blue-600 px-4 py-2 rounded-md"
+            >
+              Start antifungal therapy:
+            </button>
+          </div>
+        );
+
+      case "antifungalTheraphy":
+        return (
+          <div>
+            <h2 className="text-xl font-semibold">Start antifungal therapy:</h2>
+
+            <div className="p-4 rounded-md bg-green-50">
+              <ul className="  pl-5 space-y-2">
+                <li>→ Fluconazole (dose per weight, usually 6–12 mg/kg/day)</li>
+                <li>
+                  → Educate caregiver on full adherence and signs of worsening
+                </li>
+              </ul>
+            </div>
+            <button
+              onClick={() => {
+                handleResponse("medications", [
+                  "Amoxicillin",
+                  "Azithromycin",
+                  "Fluconazole",
+                ]);
+                handleResponse("followUpPlan", "Follow-up in 2-3 days");
+                setStep("ask");
               }}
               className="bg-blue-600 px-4 py-2 rounded-md"
             >
@@ -666,56 +695,146 @@ const PneumoniaFlowchart = () => {
           </div>
         );
 
-      case "lab_orders_mild":
+      case "ask":
         return (
-          <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Lab Orders</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                { label: "Chest X-ray", key: "cxr" },
-                { label: "CBC", key: "cbc" },
-                { label: "Sputum Culture", key: "sputum" },
-                { label: "Liver Function", key: "liverFunction" },
-              ].map((test) => (
-                <div key={test.key} className="space-y-1">
-                  <label className="block text-sm font-medium">
-                    {test.label}:
+          <div>
+            <h2 className="text-xl font-semibold">
+              When did you notice the child improving (e.g., less fever, better
+              breathing)?
+            </h2>
+
+            <div>
+              <label>How many days?</label>
+              <input type="number" title="days" className="bg-gray-500"></input>
+            </div>
+            <button
+              onClick={() => {
+                handleResponse("medications", [
+                  "Amoxicillin",
+                  "Azithromycin",
+                  "Fluconazole",
+                ]);
+                handleResponse("followUpPlan", "Follow-up in 2-3 days");
+                setStep("monitor");
+              }}
+              className="bg-blue-600 px-4 py-2 rounded-md"
+            >
+              Continue
+            </button>
+          </div>
+        );
+
+      case "monitor":
+        return (
+          <div>
+            <h2 className="text-xl font-semibold">
+              After 3-5 days: Monitor for improvement
+            </h2>
+
+            <ul className="space-y-4 mt-4">
+              <li>
+                <p>- Mas maayos na po ba ang paghinga niya?</p>
+                <div className="flex space-x-4 mt-1">
+                  <label>
+                    <input type="radio" name="breathing" value="yes" /> Yes
                   </label>
-                  <input
-                    title="results"
-                    value={
-                      responses.labResults[
-                        test.key as keyof typeof responses.labResults
-                      ]
-                    }
-                    onChange={(e) =>
-                      setResponses((prev) => ({
-                        ...prev,
-                        labResults: {
-                          ...prev.labResults,
-                          [test.key]: e.target.value,
-                        },
-                      }))
-                    }
-                    className="w-full p-2 border rounded-md"
-                  />
+                  <label>
+                    <input type="radio" name="breathing" value="no" /> No
+                  </label>
                 </div>
-              ))}
-            </div>
-            <div className="flex justify-between">
+              </li>
+
+              <li>
+                <p>- May lagnat pa rin po ba?</p>
+                <div className="flex space-x-4 mt-1">
+                  <label>
+                    <input type="radio" name="fever" value="yes" /> Yes
+                  </label>
+                  <label>
+                    <input type="radio" name="fever" value="no" /> No
+                  </label>
+                </div>
+              </li>
+
+              <li>
+                <p>- Umiinom po ba ng gamot ng tama?</p>
+                <div className="flex space-x-4 mt-1">
+                  <label>
+                    <input type="radio" name="meds" value="yes" /> Yes
+                  </label>
+                  <label>
+                    <input type="radio" name="meds" value="no" /> No
+                  </label>
+                </div>
+              </li>
+            </ul>
+            <button
+              onClick={() => {
+                handleResponse("medications", [
+                  "Amoxicillin",
+                  "Azithromycin",
+                  "Fluconazole",
+                ]);
+                handleResponse("followUpPlan", "Follow-up in 2-3 days");
+                setStep("improvement");
+              }}
+              className="bg-blue-600 px-4 py-2 rounded-md"
+            >
+              Continue
+            </button>
+          </div>
+        );
+
+      case "improvement":
+        return (
+          <div>
+            <h2 className="text-xl font-semibold">Improvement?</h2>
+
+            <div className="flex space-x-4 my-4">
               <button
-                onClick={() => setStep("mild_management")}
-                className="bg-gray-500 px-4 py-2 rounded-md"
+                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                onClick={() => setImprovementAnswer("yes")}
               >
-                Back
+                Yes
               </button>
               <button
-                onClick={() => setStep("followup")}
-                className="bg-blue-600 px-4 py-2 rounded-md"
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                onClick={() => setImprovementAnswer("no")}
               >
-                Continue
+                No
               </button>
             </div>
+
+            {improvementAnswer === "yes" && (
+              <ul className=" pl-5">
+                <li>
+                  → YES: Continue full 10 to 14 day course of oral antifungal
+                </li>
+              </ul>
+            )}
+
+            {improvementAnswer === "no" && (
+              <ul className=" pl-5">
+                <li>
+                  → NO: If condition escalates, refer to pulmonologist or
+                  infectious disease specialist
+                </li>
+              </ul>
+            )}
+            <button
+              onClick={() => {
+                handleResponse("medications", [
+                  "Amoxicillin",
+                  "Azithromycin",
+                  "Fluconazole",
+                ]);
+                handleResponse("followUpPlan", "Follow-up in 2-3 days");
+                setStep("followup");
+              }}
+              className="bg-blue-600 px-4 py-2 rounded-md"
+            >
+              Continue
+            </button>
           </div>
         );
 
