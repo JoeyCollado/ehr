@@ -537,92 +537,12 @@ const PneumoniaFlowchart = () => {
                   "followUpPlan",
                   "Hospital or ICU admission, daily monitoring"
                 );
-                setStep("antifungal_check");
+                setStep("followup");
               }}
               className="bg-blue-600 px-4 py-2 rounded-md text-white"
             >
               Continue
             </button>
-          </div>
-        );
-
-      case "antifungal_check":
-        return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Antifungal Therapy</h2>
-            <p>Does the patient require systemic antifungal therapy?</p>
-            <div className="flex gap-4 justify-center">
-              <button
-                onClick={() => {
-                  handleResponse("antifungalTherapy", "Amphotericin B");
-                  setStep("lab_orders_severe");
-                }}
-                className="bg-green-600 px-6 py-2 rounded-md"
-              >
-                Yes
-              </button>
-              <button
-                onClick={() => setStep("lab_orders_severe")}
-                className="bg-gray-500 px-6 py-2 rounded-md"
-              >
-                No
-              </button>
-            </div>
-          </div>
-        );
-
-      case "lab_orders_severe":
-        return (
-          <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Lab Orders</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                { label: "Chest X-ray", key: "cxr" },
-                { label: "Sputum Culture", key: "sputum" },
-                { label: "Blood Culture", key: "cbc" },
-                { label: "Renal Function", key: "renalFunction" },
-                { label: "Liver Function", key: "liverFunction" },
-                { label: "BAL Analysis", key: "bal" },
-              ].map((test) => (
-                <div key={test.key} className="space-y-1">
-                  <label className="block text-sm font-medium">
-                    {test.label}:
-                  </label>
-                  <input
-                    title="test"
-                    value={
-                      responses.labResults[
-                        test.key as keyof typeof responses.labResults
-                      ]
-                    }
-                    onChange={(e) =>
-                      setResponses((prev) => ({
-                        ...prev,
-                        labResults: {
-                          ...prev.labResults,
-                          [test.key]: e.target.value,
-                        },
-                      }))
-                    }
-                    className="w-full p-2 border rounded-md"
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-between">
-              <button
-                onClick={() => setStep("severe_management")}
-                className="bg-gray-500 px-4 py-2 rounded-md"
-              >
-                Back
-              </button>
-              <button
-                onClick={() => setStep("followup")}
-                className="bg-blue-600 px-4 py-2 rounded-md"
-              >
-                Continue
-              </button>
-            </div>
           </div>
         );
 
@@ -842,100 +762,100 @@ const PneumoniaFlowchart = () => {
           /* final assessment follow up */
         }
 
-      case "followup":
-        return (
-          <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Follow-up Assessment</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                {
-                  question: "Improvement observed?",
-                  options: ["Yes", "No"],
-                  key: "improvement",
-                },
-                {
-                  question: "Fever level?",
-                  options: ["Mild", "Moderate", "High"],
-                  key: "feverLevel",
-                },
-                {
-                  question: "Medication adherence?",
-                  options: ["Full", "Partial", "None"],
-                  key: "medicationAdherence",
-                },
-                {
-                  question: "Hydration status?",
-                  options: ["Adequate", "Borderline", "Dehydrated"],
-                  key: "hydrationStatus",
-                },
-              ].map((section) => (
-                <div key={section.key} className="p-4 border rounded-md">
-                  <h3 className="font-medium mb-2">{section.question}</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {section.options.map((option) => (
-                      <button
-                        key={option}
-                        onClick={() =>
-                          handleResponse(section.key, option.toLowerCase())
-                        }
-                        className="px-3 py-1 text-sm bg-gray-100 rounded-md hover:bg-gray-200"
-                      >
-                        {option}
-                      </button>
-                    ))}
-                  </div>
+        case "followup":
+          return (
+            <div className="space-y-6">
+              <h2 className="text-xl font-semibold text-center">
+                Final Questions (OPD follow-up):
+              </h2>
+        
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                {/* Question 1 */}
+                <div className="bg-white p-4 rounded shadow">
+                  <h3 className="font-semibold text-base mb-2">● “May lagnat pa po ba?”</h3>
+                  <ul className="space-y-2">
+                    <li>
+                      <strong>Mild fever:</strong> 100.4°F to 102.2°F (38°C to 39°C)<br />
+                      <p className="font-semibold">→ If the child has mild fever:</p>
+                      <span className="">-Monitoring<br></br>-Encourage rest<br></br>-Hydration<br></br>-Medication (Acetaminophen, Ibuprofen)<br></br></span>
+                    </li>
+                    <li>
+                      <strong>Moderate fever:</strong> 102.3°F to 104°F (39.1°C to 40°C)<br />
+                      <p className="font-semibold">→ If the child has moderate fever:</p>
+                      <span className="">-Hydration<br></br>-Lukewarm bath<br></br>-Dress comfortably<br></br>-Medication (Acetaminophen, Ibuprofen)</span>
+                    </li>
+                    <li>
+                      <strong>High fever:</strong> Above 104°F (40°C)<br />
+                      <p className="font-semibold">→ If the child has high fever:</p>
+                      <span className="">Cool compress<br></br>-Frequent checks<br></br>-Hydration<br></br>-Medication (Antipyretics), Monitor for worsening</span>
+                    </li>
+                  </ul>
                 </div>
-              ))}
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="font-medium">Final Assessment</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-md">
-                  <label className="block text-sm font-medium mb-2">
-                    Respiratory Rate:
-                  </label>
-                  <input
-                    title="respiratory"
-                    type="number"
-                    className="w-full p-2 border rounded-md"
-                    value={vitals.respiratoryRate}
-                    onChange={(e) =>
-                      setVitals((prev) => ({
-                        ...prev,
-                        respiratoryRate: e.target.value,
-                      }))
-                    }
-                  />
+        
+                {/* Question 2 */}
+                <div className="bg-white p-4 rounded shadow">
+                  <h3 className="font-semibold text-base mb-2">● “Mas maayos na po ba ang hinga niya?”</h3>
+                  <ul className="space-y-2">
+                    <li>→ Normal RR: 18-30 bpm</li>
+                    <li>→ Check for easy breathing, accessory muscle use</li>
+                    <li>→ Auscultate: Clear, Equal bilateral lung sounds</li>
+                    <li>→ Check for coughing or wheezing (absence is ideal)</li>
+                    <li>→ Oxygen saturation monitoring</li>
+                    <li>→ Observe response to activity</li>
+                  </ul>
                 </div>
-                <div className="p-4 border rounded-md">
-                  <label className="block text-sm font-medium mb-2">
-                    Oxygen Saturation:
-                  </label>
-                  <input
-                    title="oxygen"
-                    type="number"
-                    className="w-full p-2 border rounded-md"
-                    value={vitals.oxygenSaturation}
-                    onChange={(e) =>
-                      setVitals((prev) => ({
-                        ...prev,
-                        oxygenSaturation: e.target.value,
-                      }))
-                    }
-                  />
+        
+                {/* Question 3 */}
+                <div className="bg-white p-4 rounded shadow">
+                  <h3 className="font-semibold text-base mb-2">● “Naubos ba ang gamot? May side effect po ba?”</h3>
+                  <ul className="space-y-2">
+                    <li>
+                      → Ask: “Naubos po ba ang gamot ayon sa reseta (kumpleto at on time)?”
+                    </li>
+                    <li>→ Check for missed doses</li>
+                    <li>→ Ask about side effects:
+                      <ul className="ml-4 list-disc list-inside">
+                        <li>Rashes or itchiness</li>
+                        <li>Vomiting or nausea</li>
+                        <li>Abdominal pain</li>
+                        <li>Unusual sleepiness or dizziness</li>
+                        <li>Allergic reactions</li>
+                      </ul>
+                    </li>
+                    <li>
+                      → Expected: Completed medication, no side effects. If present, assess severity.
+                    </li>
+                  </ul>
+                </div>
+        
+                {/* Question 4 */}
+                <div className="bg-white p-4 rounded shadow">
+                  <h3 className="font-semibold text-base mb-2">● “Kumakain at umiinom na po ba siya ng ayos?”</h3>
+                  <ul className="space-y-2">
+                    <li>→ 3 full meals per day / normal appetite</li>
+                    <li>→ Fluid intake: 6-8 glasses/day</li>
+                    <li>→ Urine output: 4-6 times/day</li>
+                    <li>
+                      → Hydration signs: Moist lips, alert, active, no signs of dehydration
+                    </li>
+                  </ul>
                 </div>
               </div>
+        
+              <button
+                onClick={() => {
+                  handleResponse("medications", ["Amoxicillin", "Azithromycin", "Fluconazole"]);
+                  handleResponse("followUpPlan", "Follow-up in 2-3 days");
+                  setStep("completed");
+                }}
+                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+              >
+                Continue
+              </button>
             </div>
+          );
+        
 
-            <button
-              onClick={generatePDF}
-              className="bg-green-600 px-4 py-2 rounded-md w-full"
-            >
-              Generate Final Report
-            </button>
-          </div>
-        );
 
       case "completed":
         return (
