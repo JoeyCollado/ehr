@@ -141,7 +141,7 @@ const Navbar = () => {
         {/* Menu Items */}
         <ul
           className={`${
-            !isOpen ? "space-y-5" : "space-y-5"
+            !isOpen ? "space-y-5" : "space-y-4"
           } w-full flex flex-col justify-center `}
         >
           <hr />

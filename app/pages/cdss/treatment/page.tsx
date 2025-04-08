@@ -1265,7 +1265,7 @@ const PneumoniaFlowchart = () => {
             <main className="relative">{renderStep()}</main>
 
             <footer className="mt-16 text-center text-gray-500 text-sm">
-              <p>Clinical Decision Support System v2.4</p>
+              <p>Clinical Decision Support System</p>
             </footer>
           </motion.div>
         </AnimatePresence>
