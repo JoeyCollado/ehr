@@ -698,6 +698,7 @@ const Page = () => {
                       <span>Family Name: </span>
                       {isEditing ? (
                         <input
+                        title="family name"
                           value={patientOverview.familyName}
                           onChange={(e) =>
                             setPatientOverview((p) => ({
@@ -1376,23 +1377,25 @@ const Page = () => {
                           />
                         </label>
                         {labResults.chestXRay.imagePreview && (
-                          <div className="mt-2">
-                            <img
-                              src={labResults.chestXRay.imagePreview}
-                              alt="X-Ray Preview"
-                              className="max-w-full h-auto max-h-64"
-                            />
-                          </div>
+                        <div className="mt-2 flex justify-center items-center h-64">
+                        <img
+                          src={labResults.chestXRay.imagePreview}
+                          alt="X-Ray Preview"
+                          className="max-w-full h-auto max-h-64"
+                        />
+                      </div>
+                      
                         )}
                       </>
                     ) : labResults.chestXRay.imagePreview ? (
-                      <div className="mt-2">
-                        <img
-                          src={labResults.chestXRay.imagePreview}
-                          alt="X-Ray"
-                          className="max-w-full h-auto max-h-48"
-                        />
-                      </div>
+                      <div className="mt-2 flex justify-center items-center h-64">
+                      <img
+                        src={labResults.chestXRay.imagePreview}
+                        alt="X-Ray Preview"
+                        className="max-w-full h-auto max-h-64"
+                      />
+                    </div>
+                    
                     ) : (
                       <p className="text-gray-500 text-center">
                         No image uploaded
