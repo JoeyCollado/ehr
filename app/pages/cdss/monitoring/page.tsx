@@ -55,10 +55,20 @@ interface IntakeOutputEntry {
   // ... other fields
 }
 
+
+
 interface VitalSignsEntry {
   id: number;
   date: string;
   shift: string;
+  time: string;
+  temp: string;
+  prCr: string;
+  rr: string;
+  bp: string;
+  others: string;
+  o2Sat: string;
+
   // ... other fields
 }
 
@@ -67,8 +77,34 @@ interface Entry2 {
   date: string;
   shift: string;
   signature: string;
+  time: number;
+  notes: string;
   // ... other fields
 }
+
+interface LabResults {
+  cbc: {
+    wbc: string;
+    hemoglobin: string;
+    hematocrit: string;
+    mch: string;
+    mchc: string;
+    neutrophils: string;
+  };
+  sputumCulture: {
+    pathogen: string;
+    antibioticSensitivity: string;
+  };
+  chestXRay: {
+    findings: string;
+    description: string;
+    imagePreview: string | null;
+  };
+  [key: string]: {
+    [key: string]: string | null;
+  };
+}
+
 
 const Page = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -76,6 +112,7 @@ const Page = () => {
   const [entries2, setEntries2] = useState<Entry[]>([]);
   const [entries, setEntries] = useState<Entry2[]>([]);
   const [vitalSignsData, setVitalSignsData] = useState<VitalSignsEntry[]>([]);
+
 
   const [patientOverview, setPatientOverview] = useState({
     name: "",
@@ -102,7 +139,6 @@ const Page = () => {
   });
 
   const [treatmentMedication, setTreatmentMedication] = useState("");
-  const [progressTracking, setProgressTracking] = useState("");
   const [outcomePrediction, setOutcomePrediction] = useState("");
 
 
@@ -114,11 +150,11 @@ const Page = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setLabResults((prev: any) => ({
+        setLabResults((prev: LabResults) => ({
           ...prev,
           [section]: {
             ...prev[section],
-            imagePreview: reader.result
+            imagePreview: typeof reader.result === "string" ? reader.result : null
           }
         }));
       };
@@ -126,7 +162,7 @@ const Page = () => {
     }
   };
 
-  const [labResults, setLabResults] = useState<any>({
+  const [labResults, setLabResults] = useState<LabResults>({
     cbc: {
       wbc: "15.2",
       hemoglobin: "11.8",
@@ -211,7 +247,7 @@ const Page = () => {
       if (storedTreatment) setTreatmentMedication(storedTreatment);
 
       const storedProgress = get("progressTracking");
-      if (storedProgress) setProgressTracking(storedProgress);
+      if (storedProgress) setEntries(JSON.parse(storedProgress));
 
       const storedOutcome = get("outcomePrediction");
       if (storedOutcome) setOutcomePrediction(storedOutcome);
@@ -222,8 +258,7 @@ const Page = () => {
       const storedVitalsData = get("vitalSignsData");
       if (storedVitalsData) setVitalSignsData(JSON.parse(storedVitalsData));
 
-      const storedProgressData = get("progressTracking");
-      if (storedProgressData) setEntries(JSON.parse(storedProgressData));
+     
     };
 
     if (typeof window !== "undefined") load();
@@ -293,6 +328,7 @@ const Page = () => {
       localStorage.setItem("vitalSignsData", JSON.stringify(vitalSignsData));
       localStorage.setItem("entries2", JSON.stringify(entries2));
       localStorage.setItem("intakeOutputData", JSON.stringify(intakeOutputData));
+      localStorage.setItem("progressTracking", JSON.stringify(entries)); // Corrected line
     }
   };
 
@@ -314,6 +350,16 @@ const Page = () => {
     ]);
   };
 
+  useEffect(() => {
+    const load = () => {
+      // Existing load logic...
+   
+   
+    };
+    if (typeof window !== "undefined") load();
+  }, []);
+
+
   const handleDeleteVitalRow = (id: number) => {
     setVitalSignsData((prev) => prev.filter((row) => row.id !== id));
   };
@@ -324,9 +370,15 @@ const Page = () => {
     );
   };
 
-  const handleProgressChange = (id: number, field: string, value: string) => {
+  const handleProgressChange = (id: number, field: keyof Entry2, value: string) => {
     setEntries((prev) =>
-      prev.map((entry) => (entry.id === id ? { ...entry, [field]: value } : entry))
+      prev.map((entry) => {
+        if (entry.id === id) {
+          const parsedValue = field === 'time' ? parseInt(value, 10) || 0 : value;
+          return { ...entry, [field]: parsedValue };
+        }
+        return entry;
+      })
     );
   };
 
@@ -336,10 +388,10 @@ const Page = () => {
       { 
         id: Date.now(), 
         date: "", 
-        time: "", 
+        time: 0, // Changed from "" to 0
         notes: "", 
         signature: "",
-        shift: "" // Add missing required property
+        shift: "",
       },
     ]);
   };
@@ -353,7 +405,7 @@ const Page = () => {
     field: string,
     value: string
   ) => {
-    setLabResults((prev: any) => ({
+    setLabResults((prev: LabResults) => ({
       ...prev,
       [section]: {
         ...prev[section],
@@ -952,23 +1004,24 @@ const Page = () => {
                         )}
                       </td>
                       <td className="p-2 border border-black">
-                        {isEditing ? (
-                          <input
-                          title="time"
-                            value={entry.time}
-                            onChange={(e) =>
-                              handleProgressChange(
-                                entry.id,
-                                "time",
-                                e.target.value
-                              )
-                            }
-                            className="w-full p-1 border rounded"
-                          />
-                        ) : (
-                          entry.time || "-"
-                        )}
-                      </td>
+  {isEditing ? (
+    <input
+      title="time"
+      type="number"
+      value={entry.time}
+      onChange={(e) =>
+        handleProgressChange(
+          entry.id,
+          "time",
+          e.target.value
+        )
+      }
+      className="w-full p-1 border rounded"
+    />
+  ) : (
+    entry.time || "-"
+  )}
+</td>
                       <td className="p-2 border border-black">
                         {isEditing ? (
                           <textarea
