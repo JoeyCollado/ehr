@@ -90,7 +90,7 @@ const Page = () => {
   <h2 className="text-2xl font-semibold mb-4">Recent Activity</h2>
   <div
     ref={activityRef}
-    className="bg-gray-100 p-6 rounded-lg shadow-md space-y-5 text-start"
+    className="bg-gray-100 p-6 rounded-lg shadow-md space-y-6 text-start"
   >
     {[
       {
@@ -111,27 +111,19 @@ const Page = () => {
         time: "Thursday",
         href: "/pages/clinicalNotes/progressNotes",
       },
-    ].map((activity, index) => {
-      const card = (
-        <div
-          key={index}
-          className="flex items-center bg-white p-4 rounded-md shadow-sm transition transform 
-            hover:scale-105 hover:shadow-md cursor-pointer"
-        >
-          <span className="text-2xl">{activity.icon}</span>
-          <div className="ml-4">
-            <p className="text-lg">{activity.text}</p>
-            <span className="text-sm text-gray-500">{activity.time}</span>
-          </div>
+    ].map((activity, index) => (
+      <div
+        key={index}
+        className="flex items-center bg-white p-4 rounded-md shadow-sm transition transform 
+          hover:scale-105 hover:shadow-md cursor-pointer"
+      >
+        <span className="text-2xl">{activity.icon}</span>
+        <div className="ml-4">
+          <p className="text-lg">{activity.text}</p>
+          <span className="text-sm text-gray-500">{activity.time}</span>
         </div>
-      );
-
-      return activity.href ? (
-        <Link key={index} href={activity.href}>{card}</Link>
-      ) : (
-        <div key={index}>{card}</div>
-      );
-    })}
+      </div>
+    ))}
   </div>
 </div>
       </div>
