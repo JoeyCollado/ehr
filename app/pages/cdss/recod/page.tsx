@@ -51,19 +51,19 @@ const Page = () => {
     setIsEditing(false);
   };
 
-  const handleContentChange = (sectionIndex, itemIndex, newValue) => {
+  const handleContentChange = (sectionIndex : number, itemIndex : number, newValue : string) => {
     const updatedContent = { ...content };
     updatedContent.sections[sectionIndex].items[itemIndex] = newValue;
     setContent(updatedContent);
   };
 
-  const addNewItem = (sectionIndex) => {
+  const addNewItem = (sectionIndex : number) => {
     const updatedContent = { ...content };
     updatedContent.sections[sectionIndex].items.push("");
     setContent(updatedContent);
   };
 
-  const deleteItem = (sectionIndex, itemIndex) => {
+  const deleteItem = (sectionIndex : number, itemIndex : number) => {
     const updatedContent = { ...content };
     updatedContent.sections[sectionIndex].items.splice(itemIndex, 1);
     setContent(updatedContent);
@@ -156,6 +156,11 @@ const Page = () => {
             <div className="space-y-12">
               {content.sections.map((section, sectionIndex) => (
                 <motion.section
+                  key={sectionIndex}
+                  variants={sectionVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
                   className="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
                 >
                   <h2 className="font-bold text-2xl mb-4 text-gray-700 border-l-4 border-blue-500 pl-4">

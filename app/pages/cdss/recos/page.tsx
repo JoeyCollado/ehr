@@ -59,19 +59,25 @@ const Page = () => {
     setIsEditing(false);
   };
 
-  const handleContentChange = (sectionIndex, itemIndex, newValue) => {
+  const handleContentChange = (
+    sectionIndex: number,
+    itemIndex: number,
+    newValue: string
+  ) => {
     const updatedContent = { ...content };
     updatedContent.sections[sectionIndex].items[itemIndex] = newValue;
     setContent(updatedContent);
   };
+  
 
-  const addNewItem = (sectionIndex) => {
+  const addNewItem = (sectionIndex: number) => {
     const updatedContent = { ...content };
     updatedContent.sections[sectionIndex].items.push("");
     setContent(updatedContent);
   };
+  
 
-  const deleteItem = (sectionIndex, itemIndex) => {
+  const deleteItem = (sectionIndex: number, itemIndex: number) => {
     const updatedContent = { ...content };
     updatedContent.sections[sectionIndex].items.splice(itemIndex, 1);
     setContent(updatedContent);
