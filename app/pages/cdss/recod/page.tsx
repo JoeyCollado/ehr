@@ -156,11 +156,6 @@ const Page = () => {
             <div className="space-y-12">
               {content.sections.map((section, sectionIndex) => (
                 <motion.section
-                  key={sectionIndex}
-                  variants={sectionVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
                   className="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
                 >
                   <h2 className="font-bold text-2xl mb-4 text-gray-700 border-l-4 border-blue-500 pl-4">
