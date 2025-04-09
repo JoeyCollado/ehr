@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Page = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -78,43 +78,91 @@ const Page = () => {
     setContent(updatedContent);
   };
 
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.4, ease: "easeOut" }
+    },
+    exit: { opacity: 0, y: -20 }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.3, ease: "easeOut" }
+    }
+  };
+
+  const buttonHover = {
+    scale: 1.05,
+    transition: { type: "spring", stiffness: 300 }
+  };
+
+  const buttonTap = {
+    scale: 0.95
+  };
+
   return (
     <>
-     <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-      <div className="flex justify-center mt-[5%]">
+        <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="min-h-screen"
+    >
+      <div className="flex justify-center mt-[5%] mb-10">
         {isEditing ? (
           <div className="flex gap-4">
-            <button
-              onClick={handleSave}
-              className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 cursor-pointer mb-4"
+             <motion.div className="flex gap-4">
+            <motion.button
+               whileHover={buttonHover}
+               whileTap={buttonTap}
+               onClick={handleSave}
+               className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 cursor-pointer shadow-md flex items-center gap-2"
             >
-              Save
-            </button>
-            <button
-              onClick={() => setIsEditing(false)}
-              className="bg-gray-500 text-white px-4 py-1 rounded hover:bg-gray-600 cursor-pointer mb-4"
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Save Changes
+              </motion.button>
+            <motion.button
+               whileHover={buttonHover}
+               whileTap={buttonTap}
+               onClick={handleSave}
+               className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 cursor-pointer shadow-md flex items-center gap-2"
             >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
               Cancel
-            </button>
+            </motion.button>
+            </motion.div>
           </div>
         ) : (
-          <button
+          <motion.button
             onClick={() => setIsEditing(true)}
-            className="bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform text-white px-4 py-1 rounded cursor-pointer mb-4"
+            whileHover={buttonHover}
+               whileTap={buttonTap}
+            className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 cursor-pointer shadow-md flex items-center gap-2"
           >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
             Edit
-          </button>
+          </motion.button>
         )}
       </div>
+
+
       <div className="min-h-screen bg-[#faf6f6] flex items-center justify-center pb-4 mb-[5%]">
         <div className="w-full max-w-5xl bg-[#efefef] text-black shadow-lg rounded-lg p-6">
-          <h1 className="font-bold text-4xl mb-10 bg-white rounded-md w-full py-2 text-center mt-5">
+          <motion.h1 className="font-bold text-4xl mb-10 bg-white rounded-md w-full py-2 text-center mt-5">
           Supportive Care Recommendations
-          </h1>
+          </motion.h1>
 
           <div className="space-y-10">
             {content.sections.map((section, sectionIndex) => (
