@@ -87,30 +87,53 @@ const Page = () => {
 
         {/* Recent Activity */}
         <div className="mt-32 w-full max-w-3xl">
-          <h2 className="text-2xl font-semibold mb-4">Recent Activity</h2>
-          <div
-            ref={activityRef}
-            className="bg-gray-100 p-6 rounded-lg shadow-md space-y-5 text-start cursor-pointer"
-          >
-            {[
-              { icon: "✅", text: "New Lab result uploaded", time: "2 hours ago" },
-              { icon: "📄", text: "Radiology Updated", time: "Yesterday" },
-              { icon: "🔔", text: "New Clinical Notes", time: "Thursday" },
-            ].map((activity, index) => (
-              <div
-                key={index}
-                className="flex items-center bg-white p-4 rounded-md shadow-sm transition transform 
-                  hover:scale-105 hover:shadow-md"
-              >
-                <span className="text-2xl">{activity.icon}</span>
-                <div className="ml-4">
-                  <p className="text-lg">{activity.text}</p>
-                  <span className="text-sm text-gray-500">{activity.time}</span>
-                </div>
-              </div>
-            ))}
+  <h2 className="text-2xl font-semibold mb-4">Recent Activity</h2>
+  <div
+    ref={activityRef}
+    className="bg-gray-100 p-6 rounded-lg shadow-md space-y-5 text-start"
+  >
+    {[
+      {
+        icon: "✅",
+        text: "New Lab result uploaded",
+        time: "2 hours ago",
+        href: "/pages/results/labValues",
+      },
+      {
+        icon: "📄",
+        text: "Radiology Updated",
+        time: "Yesterday",
+        href: "/pages/results/radiology",
+      },
+      {
+        icon: "🔔",
+        text: "New Clinical Notes",
+        time: "Thursday",
+        href: "/pages/clinicalNotes/progressNotes",
+      },
+    ].map((activity, index) => {
+      const card = (
+        <div
+          key={index}
+          className="flex items-center bg-white p-4 rounded-md shadow-sm transition transform 
+            hover:scale-105 hover:shadow-md cursor-pointer"
+        >
+          <span className="text-2xl">{activity.icon}</span>
+          <div className="ml-4">
+            <p className="text-lg">{activity.text}</p>
+            <span className="text-sm text-gray-500">{activity.time}</span>
           </div>
         </div>
+      );
+
+      return activity.href ? (
+        <Link key={index} href={activity.href}>{card}</Link>
+      ) : (
+        <div key={index}>{card}</div>
+      );
+    })}
+  </div>
+</div>
       </div>
 
       <div className="mt-[5%]">
