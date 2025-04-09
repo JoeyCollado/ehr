@@ -134,13 +134,13 @@ const PneumoniaFlowchart = () => {
   // UI Components
   const StepContainer = ({
     children,
-    key,
+    stepKey, // Changed from 'key' to 'stepKey'
   }: {
     children: React.ReactNode;
-    key?: string;
+    stepKey?: string; 
   }) => (
     <motion.div
-      key={key}
+      key={stepKey} 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
@@ -208,7 +208,7 @@ const PneumoniaFlowchart = () => {
     color = "blue",
   }: {
     children: React.ReactNode;
-    icon?: any;
+    icon?: React.ElementType;
     color?: string;
   }) => (
     <div
@@ -226,7 +226,7 @@ const PneumoniaFlowchart = () => {
     switch (step) {
       case "start":
         return (
-          <StepContainer key="start">
+          <StepContainer stepKey="start">
             <div className="text-center text-black bg-blue-50/30 p-10 rounded-2xl shadow-xl border border-blue-100 max-w-xl mx-auto">
               <div className="flex flex-col items-center gap-4">
                 <FiMonitor className="w-12 h-12 text-blue-600" />
@@ -249,7 +249,7 @@ const PneumoniaFlowchart = () => {
 
       case "vitals":
         return (
-          <StepContainer key="vitals">
+          <StepContainer stepKey="vitals">
             <div className="bg-white border border-blue-100 rounded-2xl p-8 shadow-xl max-w-3xl mx-auto text-black">
               <div className="text-center mb-8">
                 <FiActivity className="w-10 h-10 text-blue-600 mx-auto mb-2" />
@@ -506,7 +506,7 @@ const PneumoniaFlowchart = () => {
 
       case "perform":
         return (
-          <StepContainer key="perform">
+          <StepContainer stepKey="perform">
             <div className="bg-white border border-amber-100 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-black space-y-6">
               <h2 className="text-xl font-bold text-center text-amber-800">
                 Perform Physical Assessments
@@ -540,7 +540,7 @@ const PneumoniaFlowchart = () => {
 
       case "severity_assessment":
         return (
-          <StepContainer key="severity_assessment">
+          <StepContainer stepKey="severity_assessment">
             <div className="bg-white border border-red-100 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto text-black space-y-6">
               <h2 className="text-xl font-bold text-center text-red-700">
                 Severity Assessment
@@ -582,7 +582,7 @@ const PneumoniaFlowchart = () => {
 
       case "severe_management":
         return (
-          <StepContainer>
+          <StepContainer stepKey="severe_management">
             <div className="space-y-6 text-black">
               <h2 className="text-2xl font-bold text-center text-red-700">
                 🚨 IF SEVERE SIGNS ARE PRESENT:
@@ -695,7 +695,7 @@ const PneumoniaFlowchart = () => {
 
       case "mild_management":
         return (
-          <StepContainer>
+          <StepContainer stepKey="mild_management">
             <div className="space-y-6 text-black">
               <h2 className="text-2xl font-bold text-center text-green-700">
                 🌿 IF MILD TO MODERATE SYMPTOMS:
@@ -1163,7 +1163,7 @@ const PneumoniaFlowchart = () => {
 
       case "scheduling":
         return (
-          <StepContainer key="scheduling">
+          <StepContainer stepKey="scheduling">
             <div className="text-black">
               <h2 className="text-xl font-semibold text-center">
                 Scheduling follow-up:
@@ -1202,7 +1202,7 @@ const PneumoniaFlowchart = () => {
 
       case "completed":
         return (
-          <StepContainer key="completed">
+          <StepContainer stepKey="completed">
             <div className="text-center space-y-12">
               <motion.div
                 initial={{ scale: 0 }}
