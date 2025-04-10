@@ -33,13 +33,12 @@ type Responses = {
 
 
 import React, { useState } from "react";
-import jsPDF from "jspdf";
+
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FiAlertTriangle,
   FiCheckCircle,
   FiArrowLeft,
-  FiDownload,
   FiActivity,
   FiChevronRight,
   FiMonitor,
@@ -133,14 +132,6 @@ const PneumoniaFlowchart = () => {
       heartRate: "",
       bloodPressure: "",
     });
-  };
-
-  // PDF generation (preserved from original)
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    // ... (original PDF generation code)
-    doc.save("pneumonia-assessment.pdf");
-    setStep("completed");
   };
 
   // Handlers (preserved from original)
@@ -1264,10 +1255,6 @@ const PneumoniaFlowchart = () => {
                   <FiArrowLeft className="w-6 h-6" />
                   New Assessment
                 </SecondaryButton>
-                <PrimaryButton onClick={generatePDF}>
-                  <FiDownload className="w-6 h-6" />
-                  Download Full Report
-                </PrimaryButton>
               </div>
             </div>
           </StepContainer>
