@@ -1250,7 +1250,7 @@ const PneumoniaFlowchart = () => {
                 Comprehensive evaluation finished. Generate final report or
                 start new assessment.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mt-8">
                 <SecondaryButton onClick={resetAssessment}>
                   <FiArrowLeft className="w-6 h-6" />
                   New Assessment
