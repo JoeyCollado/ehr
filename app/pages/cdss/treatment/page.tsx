@@ -1,5 +1,37 @@
 "use client";
 
+
+type Responses = {
+  hasSymptoms: boolean | null;
+  symptomDuration: string | null;
+  severeSigns: boolean | null;
+  improvement: string | null;
+  feverLevel: string | null;
+  medicationAdherence: string | null;
+  physicalFindings: string[];
+  caregiverAnswers: string[];
+  labResults: {
+    cxr: string;
+    sputum: string;
+    lfts: string;
+    cbc: string;
+    bal: string;
+    renalFunction: string;
+    liverFunction: string;
+  };
+  medications: string[];
+  followUpPlan: string;
+  riskFactors: {
+    mrsa: boolean;
+    pseudomonas: boolean;
+    hospitalAdmission: boolean;
+  };
+  antibioticHistory: string;
+  antifungalTherapy: string;
+  vitalMonitoring: string[];
+};
+
+
 import React, { useState } from "react";
 import jsPDF from "jspdf";
 import { motion, AnimatePresence } from "framer-motion";
@@ -23,7 +55,7 @@ const PneumoniaFlowchart = () => {
   const [improvementAnswer, setImprovementAnswer] = useState<string>("");
   const [step, setStep] = useState("start");
 
-  const [responses, setResponses] = useState({
+  const [responses, setResponses] = useState<Responses>({
     hasSymptoms: null,
     symptomDuration: null,
     severeSigns: null,
@@ -41,7 +73,7 @@ const PneumoniaFlowchart = () => {
       renalFunction: "",
       liverFunction: "",
     },
-    medications: [] as string[],
+    medications: [],
     followUpPlan: "",
     riskFactors: {
       mrsa: false,
@@ -52,6 +84,7 @@ const PneumoniaFlowchart = () => {
     antifungalTherapy: "",
     vitalMonitoring: [],
   });
+  
 
   const [vitals, setVitals] = useState({
     temperature: "",
@@ -117,19 +150,27 @@ const PneumoniaFlowchart = () => {
     setVitals({ ...vitals, [e.target.name]: e.target.value });
   };
 
-  const handleResponse = (key: string, value: any) => {
+  const handleResponse = <K extends keyof Responses>(key: K, value: Responses[K]) => {
     setResponses((prev) => ({ ...prev, [key]: value }));
   };
+  
 
-  const handleCheckboxChange = (category: string, value: string) => {
+  const handleCheckboxChange = <K extends keyof Responses>(category: K, value: string) => {
     setResponses((prev) => {
-      const updated = [...prev[category]];
+      const current = prev[category];
+  
+      // Only proceed if current is an array
+      if (!Array.isArray(current)) return prev;
+  
+      const updated = [...current];
       const index = updated.indexOf(value);
       if (index === -1) updated.push(value);
       else updated.splice(index, 1);
-      return { ...prev, [category]: updated };
+  
+      return { ...prev, [category]: updated as Responses[K] };
     });
   };
+  
 
   // UI Components
   const StepContainer = ({

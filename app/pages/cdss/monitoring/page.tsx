@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 type Entry = {
   id: number;
@@ -669,6 +670,7 @@ const Page = () => {
                         <span>MR no: </span>
                         {isEditing ? (
                           <input
+                          title="mr no"
                             value={patientOverview.mrNo}
                             onChange={(e) =>
                               setPatientOverview((p) => ({
@@ -1334,7 +1336,7 @@ const Page = () => {
                           </label>
                           {labResults.chestXRay.imagePreview && (
                             <div className="mt-2 flex justify-center items-center h-64">
-                              <img
+                              <Image
                                 src={labResults.chestXRay.imagePreview}
                                 alt="X-Ray Preview"
                                 className="max-w-full h-auto max-h-64"
@@ -1344,7 +1346,7 @@ const Page = () => {
                         </>
                       ) : labResults.chestXRay.imagePreview ? (
                         <div className="mt-2 flex justify-center items-center h-64">
-                          <img
+                          <Image
                             src={labResults.chestXRay.imagePreview}
                             alt="X-Ray Preview"
                             className="max-w-full h-auto max-h-64"
