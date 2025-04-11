@@ -104,43 +104,25 @@ const Page = () => {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="min-h-screen"
     >
-      <div className="flex justify-center mt-8">
-        {isEditing ? (
-          <motion.div className="flex gap-4">
-            <motion.button
-              whileHover={buttonHover}
-              whileTap={buttonTap}
-              onClick={handleSave}
-              className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 cursor-pointer shadow-md flex items-center gap-2"
+       <div className="flex justify-center mt-[5%]">
+          {isEditing ? (
+            <div className="flex gap-4">
+              <button
+                onClick={handleSave}
+                className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 cursor-pointer mb-4"
+              >
+                Save
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsEditing(true)}
+              className="bg-[#007bff] hover:bg-blue-700 hover:scale-105 hover:shadow-lg transition-transform text-white px-4 py-1 rounded cursor-pointer mb-4"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              Save Changes
-            </motion.button>
-            <motion.button
-              whileHover={buttonHover}
-              whileTap={buttonTap}
-              onClick={() => setIsEditing(false)}
-              className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 cursor-pointer shadow-md"
-            >
-              Cancel
-            </motion.button>
-          </motion.div>
-        ) : (
-          <motion.button
-            whileHover={buttonHover}
-            whileTap={buttonTap}
-            onClick={() => setIsEditing(true)}
-            className="bg-blue-500 text-white px-8 py-3 rounded-lg hover:bg-blue-600 cursor-pointer shadow-lg font-medium text-lg flex items-center gap-2"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-            Edit Recommendations
-          </motion.button>
-        )}
-      </div>
+              Edit
+            </button>
+          )}
+        </div>
 
       <div className="min-h-screen bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] flex items-center justify-center py-12">
         <div className="w-full max-w-5xl bg-white text-gray-800 shadow-xl rounded-xl p-8 mx-4">
