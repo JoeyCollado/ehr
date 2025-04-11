@@ -767,7 +767,7 @@ const PneumoniaFlowchart = () => {
                 </ul>
               </div>
 
-              <div className="text-center">
+              <div className="text-center ">
                 <PrimaryButton
                   onClick={() => {
                     handleResponse("medications", [
@@ -813,7 +813,7 @@ const PneumoniaFlowchart = () => {
               </ul>
             </div>
 
-            <div className="text-center">
+            <div className="text-center flex justify-center">
               <PrimaryButton
                 onClick={() => {
                   handleResponse("medications", [
@@ -840,7 +840,7 @@ const PneumoniaFlowchart = () => {
             </h2>
 
             <div className="space-y-4">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-3xl font-bold text-center  text-gray-700">
                 How many days?
               </label>
               <input
@@ -851,7 +851,7 @@ const PneumoniaFlowchart = () => {
               />
             </div>
 
-            <div className="text-center">
+            <div className="text-center flex justify-center">
               <PrimaryButton
                 onClick={() => {
                   handleResponse("medications", [
@@ -876,12 +876,12 @@ const PneumoniaFlowchart = () => {
               After 3-5 days: Monitor for improvement
             </h2>
 
-            <ul className="space-y-6 mt-6">
+            <ul className="space-y-6 mt-6 text-center">
               <li>
-                <p className="text-lg font-medium">
+                <p className="text-lg font-medium ">
                   - Mas maayos na po ba ang paghinga niya?
                 </p>
-                <div className="flex space-x-6 mt-2">
+                <div className="flex space-x-6 mt-2 justify-center">
                   <label className="flex items-center">
                     <input
                       type="radio"
@@ -891,7 +891,7 @@ const PneumoniaFlowchart = () => {
                     />
                     <span className="ml-2 text-sm">Yes</span>
                   </label>
-                  <label className="flex items-center">
+                  <label className="flex items-center ">
                     <input
                       type="radio"
                       name="breathing"
@@ -907,7 +907,7 @@ const PneumoniaFlowchart = () => {
                 <p className="text-lg font-medium">
                   - May lagnat pa rin po ba?
                 </p>
-                <div className="flex space-x-6 mt-2">
+                <div className="flex space-x-6 mt-2 justify-center">
                   <label className="flex items-center">
                     <input
                       type="radio"
@@ -933,7 +933,7 @@ const PneumoniaFlowchart = () => {
                 <p className="text-lg font-medium">
                   - Umiinom po ba ng gamot ng tama?
                 </p>
-                <div className="flex space-x-6 mt-2">
+                <div className="flex space-x-6 mt-2 justify-center">
                   <label className="flex items-center">
                     <input
                       type="radio"
@@ -967,7 +967,7 @@ const PneumoniaFlowchart = () => {
                   handleResponse("followUpPlan", "Follow-up in 2-3 days");
                   setStep("improvement");
                 }}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-4 rounded-lg shadow-md transition duration-200"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-4 rounded-lg shadow-md transition duration-200 cursor-pointer"
               >
                 Continue
               </button>
@@ -984,13 +984,13 @@ const PneumoniaFlowchart = () => {
 
             <div className="flex justify-center space-x-6 my-6">
               <button
-                className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-200"
+                className="px-6 py-3 bg-green-600 cursor-pointer text-white font-semibold rounded-lg hover:bg-green-700 transition duration-200"
                 onClick={() => setImprovementAnswer("yes")}
               >
                 Yes
               </button>
               <button
-                className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-200"
+                className="px-6 py-3 bg-red-600 cursor-pointer text-white font-semibold rounded-lg hover:bg-red-700 transition duration-200"
                 onClick={() => setImprovementAnswer("no")}
               >
                 No
@@ -1030,7 +1030,7 @@ const PneumoniaFlowchart = () => {
                   handleResponse("followUpPlan", "Follow-up in 2-3 days");
                   setStep("followup");
                 }}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-4 rounded-lg shadow-md transition duration-200"
+                className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white font-medium px-8 py-4 rounded-lg shadow-md transition duration-200"
               >
                 Continue
               </button>
@@ -1180,7 +1180,7 @@ const PneumoniaFlowchart = () => {
                   handleResponse("followUpPlan", "Follow-up in 2-3 days");
                   setStep("scheduling");
                 }}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition "
+                className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition "
               >
                 Continue
               </button>
@@ -1209,6 +1209,7 @@ const PneumoniaFlowchart = () => {
                 </p>
               </div>
 
+<div className="flex justify-center">
               <button
                 onClick={() => {
                   handleResponse("medications", [
@@ -1223,6 +1224,7 @@ const PneumoniaFlowchart = () => {
               >
                 Continue
               </button>
+              </div>
             </div>
           </StepContainer>
         );
