@@ -767,7 +767,7 @@ const PneumoniaFlowchart = () => {
                 </ul>
               </div>
 
-              <div className="text-center ">
+              <div className="text-center flex justify-center">
                 <PrimaryButton
                   onClick={() => {
                     handleResponse("medications", [
