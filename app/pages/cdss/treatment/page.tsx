@@ -53,6 +53,8 @@ const PneumoniaFlowchart = () => {
   // State management (preserved from original with types)
   const [improvementAnswer, setImprovementAnswer] = useState<string>("");
   const [step, setStep] = useState("start");
+  const [caregiverAnswers, setCaregiverAnswers] = useState<string[]>([]);
+
 
   const [responses, setResponses] = useState<Responses>({
     hasSymptoms: null,
@@ -146,21 +148,14 @@ const PneumoniaFlowchart = () => {
   };
   
 
-  const handleCheckboxChange = <K extends keyof Responses>(category: K, value: string) => {
-    setResponses((prev) => {
-      const current = prev[category];
-  
-      // Only proceed if current is an array
-      if (!Array.isArray(current)) return prev;
-  
-      const updated = [...current];
-      const index = updated.indexOf(value);
-      if (index === -1) updated.push(value);
-      else updated.splice(index, 1);
-  
-      return { ...prev, [category]: updated as Responses[K] };
-    });
+  const handleCheckboxChange2 = (group: string, question: string) => {
+    setCaregiverAnswers((prev) =>
+      prev.includes(question)
+        ? prev.filter((q) => q !== question)
+        : [...prev, question]
+    );
   };
+  
   
 
   // UI Components
@@ -510,14 +505,14 @@ const PneumoniaFlowchart = () => {
                     "Nahihirapan pa rin po bang huminga?",
                   ].map((question) => (
                     <div key={question} className="flex items-center gap-3">
-                      <input
-                        title="caregiver"
-                        type="checkbox"
-                        onChange={() =>
-                          handleCheckboxChange("caregiverAnswers", question)
-                        }
-                        className="h-4 w-4 rounded border-gray-300"
-                      />
+                     <input
+  title="caregiver"
+  type="checkbox"
+  checked={caregiverAnswers.includes(question)}
+  onChange={() => handleCheckboxChange2("caregiverAnswers", question)}
+  className="h-4 w-4 rounded border-gray-300"
+/>
+
                       <label className="text-sm">{question}</label>
                     </div>
                   ))}
@@ -1185,7 +1180,7 @@ const PneumoniaFlowchart = () => {
                   handleResponse("followUpPlan", "Follow-up in 2-3 days");
                   setStep("scheduling");
                 }}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition "
               >
                 Continue
               </button>
@@ -1224,7 +1219,7 @@ const PneumoniaFlowchart = () => {
                   handleResponse("followUpPlan", "Follow-up in 2-3 days");
                   setStep("completed");
                 }}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition "
+                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition mt-5 flex cursor-pointer"
               >
                 Continue
               </button>

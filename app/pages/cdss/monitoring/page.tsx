@@ -1340,6 +1340,8 @@ const Page = () => {
                                 src={labResults.chestXRay.imagePreview}
                                 alt="X-Ray Preview"
                                 className="max-w-full h-auto max-h-64"
+                                width={800}
+                                height={256}
                               />
                             </div>
                           )}
@@ -1350,6 +1352,8 @@ const Page = () => {
                             src={labResults.chestXRay.imagePreview}
                             alt="X-Ray Preview"
                             className="max-w-full h-auto max-h-64"
+                            width={800}
+                            height={256}
                           />
                         </div>
                       ) : (
@@ -1358,8 +1362,8 @@ const Page = () => {
                         </p>
                       )}
                     </div>
-                    <div className="ml-4 space-y-1">
-                      <h3 className="font-bold  text-left mt-[10%]">
+                    <div className="flex flex-col justify-center space-y-1">
+                      <h3 className="font-bold  text-center mt-[10%] ">
                         Description
                       </h3>
                       {isEditing ? (
